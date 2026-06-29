@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Wealthy Arab Families · Stratigraph</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ── Светлая схема «Стратиграф» — токены из утверждённого пилота (дословно) ── */
+:root{
+  --bg:#f1ece2; --paper:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-soft:#b65038;
+  --seam:#d2c6b0; --rule:#e4dccb; --hair:#ece4d5;
+  --code-ink:#3a352d; --code-bg:#f0e9da;
+
+  /* ── СЖАТАЯ ШКАЛА КЕГЛЕЙ (превью правки: меньше скачков, легче читать) ──
+     якорь — тело 17px. Весь документ в полосе 12→34px, не 10→58px. */
+  --t-hero:clamp(28px,5vw,34px);   /* было ~58 */
+  --t-h2:clamp(21px,3.4vw,24px);   /* § */
+  --t-h3:19px;
+  --t-body:17px;                    /* ЯКОРЬ */
+  --t-small:15px;                   /* вторичный текст, подписи под заголовком */
+  --t-meta:12px;                    /* моно-метки, коды, номера (было 10) */
+  --t-table:14.5px;
+  --lh-body:1.66;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--paper); color:var(--ink-soft); font-family:'Spectral',Georgia,serif;
+  font-size:var(--t-body); line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:#fff; }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 34%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+/* note bar */
+.note-bar{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--paper); }
+.note-bar b{ color:var(--accent); }
+
+/* керн */
+.page{ padding:40px 22px 110px; }
+.sheet{ max-width:760px; margin:0 auto; position:relative; padding-left:84px; }
+.sheet::before{ content:""; position:absolute; left:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 6%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+.hero h1{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-hero); line-height:1.1; letter-spacing:-.005em; margin:0 0 14px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral',serif; font-style:italic; font-size:var(--t-small); line-height:1.5; color:var(--muted); margin:0 0 8px; }
+.hero .meta{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); margin:14px 0 0; line-height:1.7; }
+
+/* швы */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:40px 0 34px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+/* головы пластов — кегли сближены, контраст несёт цвет/начертание, не размер */
+h2.lh{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-h2); line-height:1.18;
+  margin:1.9em 0 .6em; color:var(--ink); position:relative; scroll-margin-top:60px; }
+h2.lh .code{ position:absolute; left:-78px; top:.1em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+h2.lh::before{ content:""; position:absolute; left:-64px; top:.6em; width:14px; height:1px; background:var(--accent); }
+
+h3.sub{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-h3); line-height:1.25; margin:1.7em 0 .5em; color:var(--ink); position:relative; padding-left:20px; }
+h3.sub::before{ content:""; position:absolute; left:0; top:.62em; width:12px; height:1px; background:var(--accent); }
+
+/* текст */
+p{ margin:0 0 1em; color:var(--ink-soft); }
+p strong{ color:var(--ink); font-weight:600; }
+p em{ font-style:italic; }
+.lead{ font-size:var(--t-body); color:var(--ink-soft); }
+
+/* лид-ин абзац: жирная метка В ТЕКСТЕ (без скачка кегля) — типичный приём этой статьи */
+p.runin > b:first-child, p.runin > strong:first-child{ color:var(--accent); font-weight:600; }
+
+/* строка-метадата (Level of claim / Shelf life) — мелкая моно, не заголовок */
+.geo{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:0;
+  text-transform:uppercase; color:var(--accent); font-weight:600; margin:1.6em 0 .5em; }
+.meta-line{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em;
+  color:var(--muted); margin:.2em 0 1.1em; }
+.meta-line b{ color:var(--ink); font-weight:600; }
+
+/* эмфаза-термин (эмик-лексикон, транслитерации) */
+.term{ font-style:italic; color:var(--ink); }
+
+/* списки */
+ul.beds{ list-style:none; margin:1.1em 0; padding:0; }
+ul.beds > li{ position:relative; padding-left:22px; margin:0 0 .55em; line-height:1.6; color:var(--ink-soft); }
+ul.beds > li::before{ content:""; position:absolute; left:0; top:.66em; width:11px; height:1px; background:var(--accent); }
+ul.beds > li strong{ color:var(--ink); font-weight:600; }
+ul.beds > li em{ font-style:italic; }
+
+/* таблица — спокойная, стратиграфическая */
+.tbl{ margin:1.4em 0; border:1px solid var(--rule); border-top:2px solid var(--seam); border-radius:2px; overflow:hidden; }
+.tbl table{ width:100%; border-collapse:collapse; font-size:var(--t-table); }
+.tbl caption{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); text-align:left; padding:11px 16px 0; }
+.tbl th{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:var(--t-meta); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent); text-align:left; padding:11px 16px; border-bottom:1px solid var(--rule); background:var(--panel-2); }
+.tbl td{ padding:10px 16px; border-bottom:1px solid var(--hair); color:var(--ink-soft); line-height:1.45; vertical-align:top; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl td:first-child{ color:var(--ink); font-weight:600; white-space:nowrap; }
+.tbl.wide td:first-child{ white-space:normal; }
+
+/* образец-вставка (для «важной заметки о жанре» — типичный блок статьи) */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.spec .stag{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); padding:11px 18px; border-bottom:1px solid var(--rule); }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:16px 20px; }
+.spec .in p{ margin:0; font-size:var(--t-small); line-height:1.6; color:var(--ink-soft); }
+.spec .in p em{ font-style:italic; }
+
+/* тихая заметка на полях */
+.note-quiet{ border-left:2px solid var(--seam); padding:2px 0 2px 18px; font-style:italic; color:var(--ink-soft);
+  font-size:var(--t-small); line-height:1.58; margin:1.3em 0; }
+
+/* ── МАТЕМАТИКА — аппарат, в той же сжатой шкале ── */
+/* display-формула: кегль прижат к телу (не выше H2), чтобы не ломать ритм */
+.eq{ margin:1.1em 0 1.2em; padding:14px 16px; background:var(--code-bg);
+  border:1px solid var(--rule); border-left:3px solid var(--seam); border-radius:0 2px 2px 0;
+  overflow-x:auto; overflow-y:hidden; }
+.eq .katex{ font-size:1.04em; }              /* ≈ тело·1.04 — формула не «прыгает» */
+.eq .katex-display{ margin:0; }
+.eq.tight{ text-align:center; }
+/* длинная однострочная формула-перечисление: ужать, чтобы влезла в колонку без скролла */
+.eq.long .katex{ font-size:.98em; }
+@media(max-width:720px){
+  .eq .katex{ font-size:.9em; }
+  .eq.long .katex{ font-size:.9em; }
+}
+/* инлайн-формула в тексте */
+.body-eq .katex{ font-size:1em; }
+/* нумерация-бирка над формулой (как у образца) */
+.eq-tag{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin:1.4em 0 .2em; }
+.eq-tag b{ color:var(--accent); font-weight:600; }
+
+/* условие-вывод после формулы (мелкая моно-строка) */
+.eq-note{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.02em; color:var(--muted);
+  margin:.1em 0 1.1em; line-height:1.6; }
+.eq-note b{ color:var(--ink); font-weight:600; }
+.eq-note .v{ color:var(--accent); }
+
+/* легенда переменных (бывшая таблица «Symbol | Meaning») — рулёная, не тяжёлая */
+.vars{ margin:1em 0 1.3em; border-top:1px solid var(--seam); }
+.vars .vr{ display:grid; grid-template-columns:96px 1fr; gap:16px; padding:9px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.vars .vs{ text-align:left; }
+.vars .vs .katex{ font-size:1em; }
+.vars .vd{ font-size:var(--t-small); line-height:1.5; color:var(--ink-soft); }
+.vars .vd em{ font-style:italic; }
+.vars .vd strong{ color:var(--ink); font-weight:600; }
+
+/* нумерованный алгоритм-залегание */
+ol.algo{ list-style:none; counter-reset:st; margin:1.1em 0; padding:0; }
+ol.algo > li{ position:relative; padding-left:30px; margin:0 0 .5em; line-height:1.55; color:var(--ink-soft); counter-increment:st; }
+ol.algo > li::before{ content:counter(st,decimal-leading-zero); position:absolute; left:0; top:.15em;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; color:var(--accent); }
+ol.algo > li em{ font-style:italic; }
+
+/* предельная формула — спокойный блок-цитата, не герой 40px */
+.maxim{ font-family:'Spectral',serif; font-style:italic; font-size:var(--t-body); line-height:1.55;
+  color:var(--ink); border-left:1px solid var(--accent); padding-left:20px; margin:1.2em 0; }
+.maxim.soft{ color:var(--ink-soft); }
+
+footer.foot{ margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:14px; letter-spacing:.04em; color:var(--muted); line-height:1.8; }
+
+@media(max-width:720px){
+  .page{ padding:26px 16px 80px; }
+  .sheet{ padding-left:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .tbl{ overflow-x:auto; }
+}
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(3px); }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="language">
+      <a href="../en/arab_wealth.html" class="on" aria-current="true">EN</a><a href="../ru/arab_wealth.html">RU</a><a href="../ar/arab_wealth.html">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">wealthleap2070.io · analytical document</p>
+    <h1>Wealthy Arab Families: A Spectrum of Archetypes, Their Protective Architecture, and a Formal Model of Decision-Making</h1>
+    <p class="sub">An analytical document drawing on exploratory work with English-language sources.</p>
+    <p class="sub">Translator's note: this is a working draft translated from the Russian original with the assistance of large language models. The author welcomes corrections from regional specialists and arabophone readers on naming conventions, transliterations, and culturally sensitive formulations.</p>
+    <p class="meta">27 May 2026 · Dima Polet · CC BY-NC 4.0</p>
+  </header>
+
+  <hr class="seam">
+
+  <!-- PREAMBLE -->
+  <h2 class="lh"><span class="code">§00 · PREAMBLE</span>Preamble</h2>
+  <p>This document describes the structural patterns of thinking, protective architecture, and decision-making in wealthy Arab families — primarily the upper strata of capital in the Gulf, the Levant, the Maghreb, Egypt, and the Arab diasporas.</p>
+  <p>The genre is structural analysis, not ethnography and not journalism. The sources are English-language academic literature, corporate filings, regional and global press, and journalistically vetted archival leaks (the Pandora Papers and related corpora). There was no direct contact with the subjects, and arabophone sources were not used in this work. This is a known and significant limitation of the lens.</p>
+  <p>The document is not a model of how wealthy Arab families <em>think</em>, in the ontological sense — the inner grammar of thought is in principle inaccessible to an external observer who lacks direct contact and does not work in the subject's own language. The document is a structural reconstruction of practices, observed behaviour, public self-description, and archival traces, with an attempt to discern the architectural contours that stand behind them.</p>
+  <p>The document does not target any family or individual; it issues no moral judgement on the origin of capital; it draws no conclusions of a sanctions or compliance character; it makes no predictions about the conduct of specific subjects.</p>
+
+  <h3 class="sub">Levels of Claim</h3>
+  <p>Seven statuses are distinguished for substantive claims in the text:</p>
+  <div class="tbl">
+    <table>
+      <caption>claim statuses</caption>
+      <thead><tr><th>Marker</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>observation</td><td>a fact attested in a specific source</td></tr>
+        <tr><td>pattern</td><td>recurrence across several sources</td></tr>
+        <tr><td>inference</td><td>reconstruction of a mechanism</td></tr>
+        <tr><td>generalization</td><td>a stable structural proposition</td></tr>
+        <tr><td>hypothesis</td><td>conjecture about adjacent cases</td></tr>
+        <tr><td>reconstruction</td><td>a putative voice of the subject themselves</td></tr>
+        <tr><td>speculation</td><td>a broad civilizational framing</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Most of the substantive claims in this document belong to the "pattern" and "generalization" levels. Hypotheses and reconstructions are marked explicitly where they appear.</p>
+
+  <h3 class="sub">Methodological Note</h3>
+  <p>The document was assembled through a composite method: a series of focused frontal searches across English-language sources, structural analysis of the assembled corpus for stable patterns, formalization as a mathematical model of decision-making, and cross-checking through several independent analytical lenses (two independent large-language-model analytical sessions). The technical details of the working protocol are not reproduced here; the substantive result is what is at issue.</p>
+
+  <hr class="seam">
+
+  <!-- §1 ARCHETYPES -->
+  <h2 class="lh"><span class="code">§01 · ARCHETYPES</span>§1 · Five Archetypes of Capital Holding</h2>
+  <p>The central analytical model is a spectrum of five structurally distinct configurations, not a single "Arab model" generalized into one. Within the spectrum there are smooth hybrids, not discrete categories. A given family is typically a point in the space of these five directions, not a cell in a five-box typology.</p>
+
+  <p class="runin"><strong>Archetype I · Family ≡ State.</strong> The ruling dynasties of the Gulf (the Al Sabah in Kuwait, the Al Thani in Qatar, the Al Maktoum in Dubai, the Al Saud in Saudi Arabia). The Alawite dynasty in Morocco operating through the Al Mada holding. The state is the shell of the family's existence. The boundary between state and personal assets is not drawn structurally. Capital protection is identical to the political stability of the dynasty.</p>
+
+  <p class="runin"><strong>Archetype II · Family ⊥ State within a global structure.</strong> Large trading dynasties without royal blood: the Olayan Group (parent company in Vaduz, operational centre in Riyadh), the Sawiris (Egypt, Copts), the Safra family (Beirut — São Paulo — Geneva). Multi-jurisdictional operation as an operating norm, low public visibility, defence through distance from any single national authority.</p>
+
+  <p class="runin"><strong>Archetype III · Family without Territory.</strong> The Palestinian diaspora: Al-Masri, Al-Khoury, Shoman (founders of the Arab Bank in Jerusalem in 1930), Hadid. Capital is managed without a political state as anchor. A web of relationships, professions, and marriage ties reproduces the structure across four to five generations. The Arab Bank functions as the diaspora's banking infrastructure. PADICO operates as a patriotic — deliberately non-profitable — investment in the Palestinian Territories, a rare regional case of conscious sacrifice of capital for the sake of a state project in which the family holds no legal property rights. This structural model — capital functioning without a state as host — reflects a painful historical and political reality, but it also discloses an extraordinary capacity to build a preserving architecture across four to five generations.</p>
+
+  <p class="runin"><strong>Archetype IV · A Parallel Non-Arab Trading Community within the Arab Region.</strong> The Iranian Bastakiya merchants of Dubai (the Farooq family), the Indian merchant communities (the Thattai community, the Bhatia family — by 2025 a hundred years in the UAE), the Omani–Zanzibari networks. A structural part of the Gulf economy, not an appendix to it. After the Iranian Revolution of 1979 the Tehran <em>bazaari</em> came to use Dubai as a sanctions-circumvention channel — a distinct but structurally embedded layer.</p>
+
+  <p class="runin"><strong>Archetype V · A Network Surviving across Regimes.</strong> The Syrian trading dynasties of Aleppo and Damascus (Shammas, Jabri). They survived 54 years of Assad rule in latent form. Their return to political circulation in 2025 is a hypothesis admitting of three possible readings (see §8).</p>
+
+  <p class="runin"><strong>Hybrids as the norm.</strong> Sabih Al-Masri simultaneously realizes elements of Archetypes II, III, and V: a Saudi citizen of Palestinian origin, with his operational centre in Jordan, who chaired the Arab Bank. This is not an exception — it is the normal mode. The discreteness of the five archetypes is a methodological instrument, not a self-description of the field.</p>
+
+  <hr class="seam">
+
+  <!-- §2 HISTORICAL DEPTH -->
+  <h2 class="lh"><span class="code">§02 · HISTORY</span>§2 · Historical Depth</h2>
+  <p>The contemporary behaviour of wealthy families in the region is the sixth layer of a six-layered historical arc; it is visible only when the prior five are visible.</p>
+
+  <p class="runin"><strong>Layer 1 · The maritime trade of the Gulf (4,000 years).</strong> From Dilmun (3000 BCE) through the Indian Ocean trade. Pearls, horses, and dates were the main commodities up to the collapse of the pearl market in the 1930s. The Gulf was part of an Indo-Oceanic trading system, not a separate Arab civilization.</p>
+
+  <p class="runin"><strong>Layer 2 · British protectorate administration (1763–1971).</strong> The Gulf was administratively part of British India. <strong>The Indian rupee was the official currency of the Gulf states until 1959, and then the Gulf Rupee of the Reserve Bank of India until 1961–1970.</strong> This was not a reserve asset analogous to the dollar; it was the everyday currency of account. Capital moved freely between Bombay, Karachi, Muscat, Dubai, and Zanzibar. Parts of the region's Indian and Iranian merchant communities are the structural inheritance of this period.</p>
+
+  <p class="runin"><strong>Layer 3 · The religious-juridical fabric (Islam, 1,400+ years).</strong> The institutions of <span class="term">waqf</span>, <span class="term">majlis</span>, patronage, and kinship networks. The contemporary protective architecture rests on these institutions; it does not invent them (see §3.3).</p>
+
+  <p class="runin"><strong>Layer 4 · The oil era (1960s — 2010s).</strong> Concentration of capital in the ruling dynasties, the formation of sovereign wealth funds, integration into the global financial system through the recycling of petrodollars. The era changed the scale of capital, not the basic architecture of its holding.</p>
+
+  <p class="runin"><strong>Layer 5 · The era of rewritten pacts (2017 — present).</strong> A sequence of structural events: the Ritz-Carlton in Riyadh in 2017, the Lebanese banking collapse of 2019, the arrests of billionaires in Algeria in 2019, the fall of Assad in Syria in December 2024. These are nodes of a common cycle in which the social pacts between families and states are rewritten (see §3.2).</p>
+
+  <p class="runin"><strong>Layer 6 · Today.</strong> The departure of the founder generation of the 1960s–1970s; the formalization of family governance (the UAE Family Companies Law of 2022); Saudi Arabia's reforms under Vision 2030; the rise of Dubai as the regional centre for family business; the digitization of assets; the return of Syria to regional circulation; the restructuring of Gulf–Iran relations.</p>
+
+  <hr class="seam">
+
+  <!-- §3 FINDINGS -->
+  <h2 class="lh"><span class="code">§03 · FINDINGS</span>§3 · Structural Findings</h2>
+  <p>Four stable propositions that generalize the observed patterns of capital holding in the region. Each has been tested for robustness against transposition into other domains (biological immunity, the economic cycles of social history, legal protection, the dramaturgy of social action).</p>
+
+  <h3 class="sub">§3.1 · Holding architecture is a function of vulnerability, not of preference</h3>
+  <p class="meta-line"><b>Level of claim:</b> generalization.</p>
+  <p>The choice of jurisdictions, banks, schools, real estate, and asset structures in a wealthy Arab family is explained, in the first instance, not by cultural preference but by the configuration of vulnerability in the environment in which the family operates. High regional structural instability — political upheavals, currency collapses, civil wars, the rewriting of state pacts, sanctions — makes multi-jurisdictional holding, distributed wealth structures, and protection through distance from any single national authority the rational minimum, not a cultural quirk.</p>
+  <p>This proposition is structurally isomorphic to the logic of a biological organism's immune system: input — the structure of environmental threats; operation — defensive assembly from available components; output — resistance. Not a choice but a functional response to the observed structure of risk.</p>
+  <p class="runin"><strong>Where the proposition does not hold.</strong> Families in a phase of stable rootedness (Kuwait between 1960 and 1990, before the Iraqi invasion) often choose architecture by cultural preference. Families with very short horizons — start-up capital among the next generation in Dubai — also do not fit.</p>
+  <p class="runin"><strong>Emic layer.</strong> In the Arab tradition vulnerability is not experienced as a neutral variable but as <span class="term">khawf al-jah</span> — the fear of losing standing and honour. This is affective content, not utilitarian.</p>
+  <p class="meta-line"><b>Shelf life:</b> structural, on the order of 30–50 years, provided the level of regional structural uncertainty is preserved.</p>
+
+  <h3 class="sub">§3.2 · The pact between family and state is cyclically rewritten; the stability of the pact is the illusion of a phase</h3>
+  <p class="meta-line"><b>Level of claim:</b> generalization.</p>
+  <p>The rupture points of pacts between business families and the states of the region (the Ritz-Carlton in 2017, the Lebanese collapse of 2019, the Algerian billionaire arrests of 2019, Damascus 2024) appear to be discrete events. Structurally they are nodes of a recurring cycle in which a new leadership of the state (or a new phase of the existing leadership) rewrites the terms of the pact with its economic elite through demonstrative confiscations, arrests, and asset reallocations.</p>
+  <p>If one widens the temporal window of observation: the dissolution of the Kuwaiti parliament in 1938 in confrontation with the old merchant families; the Iranian Revolution of 1979 and the restructuring of the bazaar; the Iraqi invasion of Kuwait in 1990; the Arab Spring of 2011 — these are not a sequence of accidents but the nodes of a periodic restructuring.</p>
+  <p>This is structurally isomorphic to Karl Polanyi's "double movement" from <em>The Great Transformation</em>: a cycle of liberalization and re-embedding in the relations between a society and its economic subsystem. The substrate differs (labour–capital in Polanyi, family–state here), but the structure of the cycle coincides.</p>
+  <p class="runin"><strong>Operational consequence.</strong> The old question "How do we sustain a stable pact between our family and the current regime?" becomes ill-posed. The right question is: "What phase of the cycle are we in now, and what does that demand of the holding architecture?"</p>
+  <p class="meta-line"><b>Shelf life:</b> cyclical, on the order of 15–25 years (the duration of one rewriting cycle).</p>
+
+  <h3 class="sub">§3.3 · A wealthy family's protective architecture is older than the family itself. It is activated, not invented</h3>
+  <p class="meta-line"><b>Level of claim:</b> generalization (with a generational fork).</p>
+  <p>Multi-jurisdictional holding, the <span class="term">waqf</span> (a religious endowment that bypasses the fragmentation of inheritance), the <span class="term">majlis</span> as a form of decision-making, patronage networks, diaspora channels, the splitting of operations across several cities — these are not inventions of the post-2017 years devised in response to new regional shocks. They are institutions a thousand years old.</p>
+  <p>Levantine trading families held capital between Beirut, Alexandria, Istanbul, and Marseille from the nineteenth century. Indian merchants in Dubai operated between Thatta, Bombay, and the Gulf from the 1920s. The <span class="term">waqf</span> as a means of bypassing fragmentation is an institution dating to the early centuries of Islam. As of 2025, Dubai has registered 251 family <span class="term">waqfs</span> with a total value of 4.8 billion dirhams.</p>
+  <p>This proposition should be read the way Jungian archetypes are read: a family does not build its protective architecture from scratch but activates inherited infrastructure when the corresponding conditions arise. After the Ritz-Carlton of 2017 the Saudi families did not invent multi-jurisdictionality — they intensified what they already had.</p>
+
+  <div class="spec">
+    <div class="stag"><b>NOTE</b> · the generational rupture as the key risk</div>
+    <div class="in"><p>A younger generation of heirs aged 30–40, holders of Wharton and INSEAD degrees in Dubai and Riyadh, may <strong>replace</strong> the inherited architecture with Western formats (ESG funds, tokenized assets, AI investments, family offices on the American model) rather than activate it. The resolution of this question lies in 2030–2035. Until then the proposition is stable; afterwards it may require substantial reassembly.</p></div>
+  </div>
+
+  <p class="runin"><strong>Emic equivalent.</strong> The Arabic formula <span class="term">illi khallafu ma mat</span> — "he who left descendants has not died" — captures the proposition more densely than any Western formulation.</p>
+  <p class="meta-line"><b>Shelf life:</b> generational, 5–10 years until the resolution.</p>
+
+  <h3 class="sub">§3.4 · Secrecy and spectacle are paired technologies of holding, not opposites</h3>
+  <p class="meta-line"><b>Level of claim:</b> generalization.</p>
+  <p>Conspicuous consumption (yachts, palaces, racehorses, public philanthropy) coexists with offshore invisibility (the Pandora Papers, according to ICIJ, attest this for the ruler of Dubai, the Emir of Qatar, Lebanese Prime Minister Najib Mikati, and King Abdullah II of Jordan) in one and the same subject. This is not a contradiction between two modes of behaviour but two faces of a single technology for the management of visibility.</p>
+  <p class="maxim soft">The name is shown where it reinforces access. The name is hidden where it generates risk.</p>
+  <p>The proposition is structurally isomorphic to Erving Goffman's dramaturgy: impression management as an operation, different layers of publicity for different audiences, the regulation of visibility as a core competence of the social actor.</p>
+  <p class="runin"><strong>Operational consequence.</strong> The binary question "Does this family hide or display?" is replaced by a topological one: "Which parts of the name are shown where, and which are hidden where?" In reality a family may be simultaneously legally opaque, fully visible to the state, partly closed within the kinship network, media-managed, and religiously demonstrative — that is, visibility operates not on one axis but across several layers.</p>
+  <p class="meta-line"><b>Shelf life:</b> structural, on the order of 20–40 years, until the qualitative abolition of banking secrecy or the full tokenization of assets with public verification.</p>
+
+  <hr class="seam">
+
+  <!-- §4 EMIC LEXICON -->
+  <h2 class="lh"><span class="code">§04 · LEXICON</span>§4 · The Emic Lexicon</h2>
+  <p>Seven key terms internal to the Arab and Islamic tradition. Without them, the model remains external and excessively functionalized. All seven cards are reconstructions, not direct quotations.</p>
+
+  <div class="spec">
+    <div class="stag"><b>NOTE</b> · on the genre of this section</div>
+    <div class="in"><p>What follows is an external attempt to approximate fundamental concepts of the Arab and Islamic tradition, not a definitive account of them from within the living tradition. A full juridical and spiritual treatment of each concept lies beyond the scope of this document; for that the reader is referred to the primary sources and to the <em>ahl al-'ilm</em>.</p></div>
+  </div>
+
+  <p class="runin"><strong><em>Baraka</em></strong> (<em>barakah</em>, blessedness, divine favour). Not "social capital." Not "luck." A capacity transmitted through the line of descent (<span class="term">barakat al-nasab</span>) or through proximity to the sacred to summon the auspicious outcome — the harvest, the child, the profit, peace. In the formalized model <em>baraka</em> operates as a multiplier of all future outcomes along the trajectory of action, not as a one-off bonus. <em>(This account is by necessity external; it does not cover the living metaphysical dimensions of the concept.)</em></p>
+
+  <p class="runin"><strong><em>Rizq</em></strong> (allotted sustenance, providence). Not "the distribution of resources." That which is written into the book of provisions before one's birth. Effort (<em>kasb</em>) matters, but the result is not linearly dependent on it — it is given (<em>yarzuq</em>). From this framing flows a distinctive attitude towards wealth: it is not so much "earned" as "given." Correspondingly, the attitude towards loss: <em>rizq</em> returns to the one who allots it.</p>
+
+  <p class="runin"><strong><em>Karam</em></strong> (generosity, nobility). Not "status generosity" alone, and not "a technology of the name" alone. Older than Islam, a pre-Islamic Arab virtue — <span class="term">karam al-arab</span>. Generosity without calculation of return, given before the need is even known. It may simultaneously be a sincere virtue, a technology of reputation, a fiscal architecture, a familial obligation, and an instrument of dependency. All these layers coexist; they do not contradict one another.</p>
+
+  <p class="runin"><strong><em>Sum'a / nasab / sharaf</em></strong> (name, lineage, honour). Not "brand." Three distinct registers that the Western reduction of "name as asset" collapses into one:</p>
+  <ul class="beds">
+    <li><strong><em>Sum'a</em></strong> — how one is heard in the speech of others (what is said).</li>
+    <li><strong><em>Nasab</em></strong> — lineage as objective kinship (what is).</li>
+    <li><strong><em>Sharaf</em></strong> — honour as a moral position (what counts).</li>
+  </ul>
+  <p>The distinction is critical: managed reputation, immutable lineage, and moral standing are three different axes leading to three different operations.</p>
+
+  <p class="runin"><strong><em>Halal</em> and <em>haram</em></strong> (the permitted and the forbidden). A structural frame for evaluating the source of capital. From it flow decisions that strike the Western observer as arbitrary: refusing a profitable deal, breaking with a profitable partner, transferring a portion of profit to charity not for image but as a moral imperative. See §5 — this is an independent axis of evaluation, not a sub-section of the religious attitude.</p>
+
+  <p class="runin"><strong><em>Majlis</em></strong> (assembly, council). Not "board of directors." A regular gathering of the men of the family and their guests in a room specifically designated within the home; a form of decision-making, dispute resolution, transfer of status, network maintenance, and education of the young. In Kuwait the <em>diwaniyya</em> is a more parliamentary form. A ritual and pedagogical function — a mode of presence, not only decisions. In the formalized model the <em>majlis</em> operates not as a voting procedure but as a composition of several operators: a ritual frame of discussion → weights of kinship and seniority → ranked speech (who speaks plainly, who insinuates, who is meaningfully silent) → a veto filter from the senior authority → the preservation of face for all branches. The decision that emerges from the <em>majlis</em> is not an average of preferences but an executable resolution that does not publicly humiliate any branch.</p>
+
+  <p class="runin"><strong><em>Waqf</em></strong> (religious endowment). Not merely "an evasion of fragmentation." A means of retaining property within the family through a formally pious construction: the income flows to the founder's descendants; the property reverts to charity only after the direct line is exhausted. An institution dating to the early centuries of Islam. Not only an economic instrument but a religious-juridical fabric for the preservation of property in a form that outlives any specific heir.</p>
+
+  <hr class="seam">
+
+  <!-- §5 HALAL / HARAM -->
+  <h2 class="lh"><span class="code">§05 · HALAL / HARAM</span>§5 · Halal/Haram as a Parallel Axis of Capital Evaluation</h2>
+  <p>The central unnamed variable in many external analytical descriptions of wealthy Arab families. Not a theological abstraction but an operational filter that shapes specific decisions.</p>
+
+  <div class="spec">
+    <div class="stag"><b>NOTE</b> · on the genre of this section</div>
+    <div class="in"><p>This is not a juridical (<em>fiqhī</em>) study, nor an interpretation of the Shariah, and it makes no claim to any normative religious authority. It is an analytical model that attempts to track the observable influence of the <em>halal</em>/<em>haram</em> distinction on the economic decisions of wealthy families as they appear in external sources. A full juridical treatment of <em>halal</em> and <em>haram</em> in the financial domain lies beyond the scope of this document.</p></div>
+  </div>
+
+  <h3 class="sub">What this means in practical terms</h3>
+  <ul class="beds">
+    <li>Refusal to participate in deals whose profit is tied to forbidden sources (alcohol, gambling, <em>riba</em> in the strict sense, certain unethical industries).</li>
+    <li>Structural preference for Shariah-compliant financial instruments in part of the portfolio, even when not in the whole.</li>
+    <li>Transferring a portion of profit into charitable giving not as a public-relations gesture but as the purification (<em>tazkiyah</em>) of capital.</li>
+    <li>Breaking with partners whose actions cast doubt on the <em>halal</em> legitimacy of the joint enterprise.</li>
+    <li>Choosing schools for the children that exclude particular programmes or environments.</li>
+  </ul>
+
+  <p class="runin"><strong>Why this is an independent axis.</strong> The <em>halal</em>/<em>haram</em> filter does not reduce to the function of vulnerability (§3.1), to the activation of an ancient architecture (§3.3), to the cycle of the pact with the state (§3.2), or to the pairing of secrecy and spectacle (§3.4). It is a fourth — or, by a different count, central — axis of decision-making, on which choice can be made simultaneously with the other four.</p>
+  <p class="runin"><strong>The degree of observance varies widely.</strong> From strictly practising families, where <em>halal</em> legitimacy is the main filter and may outweigh substantial profit, to secular families, for whom <em>halal</em>/<em>haram</em> is external etiquette without real operational consequence. Within a single family, different branches may stand at different points along this spectrum.</p>
+  <p class="runin"><strong>Why this filter is typically invisible from the outside.</strong> Decisions taken within the <em>halal</em>/<em>haram</em> framing systematically appear "irrational" to the Western observer: refusing a profitable deal, breaking with a profitable partner, purifying capital through charity. This is the zone in which the archive of visible ruptures (see §7) shows the result but not the cause.</p>
+  <p>In the formalized model (§10), the <em>halal</em> filter operates not as a penalty coefficient but as a <strong>hard constraint</strong>: an action that does not pass the filter is removed from the choice set; it does not receive a "penalty to value."</p>
+
+  <hr class="seam">
+
+  <!-- §6 AGENCY MAP -->
+  <h2 class="lh"><span class="code">§06 · AGENCY</span>§6 · A Map of Agency within the Family</h2>
+  <p>The familiar shorthand — "the family decided," "the dynasty thinks," "the house holds" — proves analytically dangerous. The family, in observed reality, is a field of agencies with diverging interests, regimes of visibility, and degrees of power. The dominant agency is usually the patriarch or a council of senior men, but other nodes can act in parallel by their own logic.</p>
+
+  <h3 class="sub">Visible nodes (typically present in the sources)</h3>
+  <ul class="beds">
+    <li>The patriarch or founder — the official face of the family.</li>
+    <li>The eldest son as heir — publicly designated.</li>
+    <li>The family office as operational infrastructure.</li>
+    <li>External advisers: lawyers, bankers, Shariah experts.</li>
+  </ul>
+
+  <h3 class="sub">Invisible or barely visible nodes</h3>
+  <ul class="beds">
+    <li><strong>The matriarch or senior wife.</strong> She may in fact direct decisions through the institution of <span class="term">beit al-umm</span> — the line of maternal kinship within the extended family. In observed cases this line is often structurally stronger than it appears from the outside.</li>
+    <li><strong>The sisters of the principal heir.</strong> Formally outside the line of succession, they may yet have a decisive influence on the marriages of the next generation, which determines the inheritance geometry thirty to forty years out.</li>
+    <li><strong>Second-degree cousins.</strong> Often the real operational centres in different jurisdictions, not public figures.</li>
+    <li><strong>The household's religious adviser</strong> (sheikh, imam, mufti). A <span class="term">halal</span>/<span class="term">haram</span> filter administered through a personal relationship, not through a formal Shariah board.</li>
+    <li><strong>Daughters married into other major families.</strong> Nodes of the inter-family network, through which real flows of information and capital pass.</li>
+    <li><strong>Exiled branches.</strong> Often still informed and capable of returning after one or two generations with a reactivation of assets.</li>
+  </ul>
+
+  <p class="runin"><strong>What this contributes to the reading of the structural propositions in §3.</strong> All four propositions (§3.1–§3.4), in their usual formulation, describe the dominant agency in the family — the patriarch or senior men's council. Invisible nodes may operate in the same family along a different logic in parallel. This does not negate the propositions, but it bounds their range of application and explains those cases in which a family's observed behaviour appears internally contradictory.</p>
+
+  <hr class="seam">
+
+  <!-- §7 ARCHIVE -->
+  <h2 class="lh"><span class="code">§07 · ARCHIVE</span>§7 · The Archive of Visible Ruptures</h2>
+  <p>A methodological feature essential to this topic: the corpus of data on which any external analysis of wealthy Arab families rests is not a neutral sample of their life or thought. It is <strong>an archive of visibility</strong>, produced by particular kinds of events.</p>
+
+  <h3 class="sub">What makes a wealthy family visible to the external archive</h3>
+  <ul class="beds">
+    <li><strong>Scandal.</strong> Divorce, inheritance dispute, bankruptcy, allegations of corruption, court proceedings.</li>
+    <li><strong>Display.</strong> Palaces, yachts, racehorses, public philanthropy, weddings, sports clubs, museum donations.</li>
+    <li><strong>Compelled disclosure.</strong> Archival leaks (Pandora Papers, Panama Papers, FinCEN Files, Suisse Secrets, Paradise Papers), sanctions inquiries, tax audits.</li>
+    <li><strong>Political punishment.</strong> The Ritz-Carlton in 2017, the arrests in Algeria in 2019, the confiscations of Assad-linked property after December 2024.</li>
+    <li><strong>Journalistic exposure.</strong> OCCRP, ICIJ, regional and global press.</li>
+    <li><strong>Government rhetoric and PR.</strong> State narratives, diplomatic records, family communiqués.</li>
+  </ul>
+  <p>Each of these regimes shows different content. Scandal shows what slipped out of control. Display shows what the subject wants to be visible. Compelled disclosure shows what the subject was hiding. PR shows how the subject wishes to be understood.</p>
+
+  <p class="note-quiet"><strong>The principal analytical hazard:</strong> obtaining a very clever map not of wealthy Arab families as such, but of how those families look at the moment they become visible to the external archive. These are two different objects.</p>
+
+  <p>A systematic archival bias by archetype. The five archetypes of §1 leave different traces:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>systematic archival bias by archetype</caption>
+      <thead><tr><th>Archetype</th><th>Principal archive of traces</th></tr></thead>
+      <tbody>
+        <tr><td>Family ≡ State</td><td>State narratives, diplomatic records, official PR</td></tr>
+        <tr><td>Family ⊥ State</td><td>Forbes, corporate registries, business press</td></tr>
+        <tr><td>Family without Territory</td><td>Banking leaks, philanthropic registries, diaspora press</td></tr>
+        <tr><td>Parallel non-Arab trading community</td><td>Oral history, local chronicles</td></tr>
+        <tr><td>Network surviving across regimes</td><td>Almost invisible in the active phase; appears retrospectively after a regime change</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>From this table follows a structurally important conclusion: the preferential use of English-language journalistic and academic sources systematically overestimates Archetypes II and III and underestimates Archetypes IV and V. This is a directed sampling bias, not a general gap in the archive.</p>
+  <p>The practical consequence for any specific case (the Olayans, the Al Thani, the Al-Masri, the Bhatias): one must mark explicitly which archive has made this case visible, and what that means for the possible representativeness of conclusions drawn about other families of the same type.</p>
+
+  <hr class="seam">
+
+  <!-- §8 CORRECTIONS -->
+  <h2 class="lh"><span class="code">§08 · CORRECTIONS</span>§8 · Known Factual Corrections</h2>
+  <p>In the course of the work three places have been identified at which figures or formulations commonly circulating in public sources require substantive correction.</p>
+
+  <h3 class="sub">§8.1 · Lebanon 2019, capital flight</h3>
+  <p>The widely repeated formulation that "more than US$100 billion was taken out of Lebanon in the first weeks of the crisis" is <strong>not borne out</strong>. The actual picture, drawn from the aggregate of sources (Reuters, L'Orient Today, Carnegie, Arab News, Al Arabiya, the IIF), is as follows:</p>
+  <ul class="beds">
+    <li>About US$800 million left between 15 October and 7 November 2019 (Carnegie report).</li>
+    <li>About US$3 billion in capital flight over the first nine months of 2019 (Institute of International Finance).</li>
+    <li>About US$11 billion of "bank money ended up overseas" by the end of 2019 (the estimate of MP Hassan Fadlallah).</li>
+    <li>About US$5.5–6 billion was "smuggled out by bankers" (the estimate of Bifani, a former senior official in the banking supervision authority, in his <em>Financial Times</em> interview).</li>
+    <li>In parallel, more than US$100 billion of deposits were <strong>trapped</strong> or impaired inside the banking system — a distinct quantity with a distinct meaning.</li>
+  </ul>
+  <p>The correct formulation: after October 2019, significant sums (variously estimated at US$5.5–15 billion) were transferred abroad by politically connected actors before the channels closed entirely, while more than US$100 billion in deposits became frozen or impaired inside the system. The Pandora Papers, as reported by ICIJ, document offshore structures held by the Lebanese political and banking elite, including Prime Minister Najib Mikati and former Banque du Liban Governor Riad Salameh, among others.</p>
+  <p>The structural argument — "the families outran the state and took their assets out through the very banks they own" — remains valid, with the magnitudes corrected.</p>
+
+  <h3 class="sub">§8.2 · The Ritz-Carlton 2017 recovery figure</h3>
+  <p>The frequently cited figure for asset recovery in Saudi Arabia's November 2017 "anti-corruption campaign" — US$107 billion — is <strong>the result officially announced by the Saudi authorities</strong>, not an independently verified sum. <em>Guardian</em> sources estimate the actual recovery at closer to US$28 billion. The 107 figure should be marked as the officially announced one, not as independently corroborated.</p>
+  <p>The structural meaning of the episode — a demonstrative confiscation as the rewriting of a pact with the economic elite — is preserved at any of these magnitudes.</p>
+
+  <h3 class="sub">§8.3 · Syria 2024–2025, the return of trading dynasties</h3>
+  <p>The narrative now spreading in post-Assad Syria about the return of the old Aleppine and Damascene trading dynasties (Shammas, Jabri), following the fall of the regime on 8 December 2024 and the statement issued at the gates of the Damascus Chamber of Commerce on 2 July 2025 ("Syrian merchants are a red line"), admits of three possible readings:</p>
+  <ol class="algo">
+    <li>An early signal of a real restoration of old merchant networks that had survived the Assad regime in latent form.</li>
+    <li>A legitimization narrative of the new regime — using the image of returning merchants to strengthen the economic legitimacy of the transitional authority.</li>
+    <li>A staged performance backed by external sponsors — Gulf or Western capital using the restoration narrative for its own purposes.</li>
+  </ol>
+  <p>As of May 2026, external sources cannot distinguish among these readings. The claim must be held at the level of a hypothesis, not an observation, with revisitation after 12–24 months.</p>
+  <p class="note-quiet">These three readings are not a critique of any party; they are an analytical caution in a phase of high instability.</p>
+
+  <hr class="seam">
+
+  <!-- §9 SHELF LIFE -->
+  <h2 class="lh"><span class="code">§09 · SHELF LIFE</span>§9 · Shelf Life of the Findings and Triggers for Revision</h2>
+  <p>Different structural propositions in this document have different horizons of stability. <strong>Revision triggers matter more than the temporal estimates themselves</strong>: when a trigger occurs, the corresponding claim requires revision regardless of how much time has passed.</p>
+  <div class="tbl wide">
+    <table>
+      <caption>differential ageing of the findings</caption>
+      <thead><tr><th>Claim</th><th>Horizon</th><th>Principal revision triggers</th></tr></thead>
+      <tbody>
+        <tr><td>The five archetypes of holding (§1)</td><td>20–30 years</td><td>The emergence of a sixth structurally irreducible archetype; full digitization of capital</td></tr>
+        <tr><td>Holding architecture as a function of vulnerability (§3.1)</td><td>30–50 years</td><td>Regional stabilization for 20+ years; comprehensive jurisdictional liberalization</td></tr>
+        <tr><td>Cyclical rewriting of pacts (§3.2)</td><td>15–25 years</td><td>A qualitative transition to post-monarchical forms; international sanctions against confiscations</td></tr>
+        <tr><td>Activation of ancient architecture (§3.3)</td><td>5–10 years</td><td>Generational turnover across the bulk of major families; resolution in 2030–2035</td></tr>
+        <tr><td>Secrecy and spectacle (§3.4)</td><td>20–40 years</td><td>The abolition of banking secrecy in major financial centres; tokenization with public verification</td></tr>
+        <tr><td><em>Halal</em>/<em>haram</em> as an axis (§5)</td><td>50+ years</td><td>A qualitative secularization of the financial thinking of the elite (not currently observed)</td></tr>
+        <tr><td>The Syrian narrative (§8.3)</td><td>12–24 months</td><td>Any change of regime, front line, or sanctions status in Syria</td></tr>
+        <tr><td>The Lebanon 2019 section as corrected (§8.1)</td><td>5–10 years</td><td>Restructuring of the banking sector; the lifting of capital controls</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The differing rates at which the propositions age reflect their nature: structural propositions (§3.1, §3.4) and parallel axes (§5) are more durable; propositions of generational order (§3.3) and cyclical order (§3.2) have shorter lives.</p>
+
+  <hr class="seam">
+
+  <!-- §10 FORMAL MODEL -->
+  <h2 class="lh"><span class="code">§10 · FORMAL MODEL</span>§10 · Mathematical Formalization of the Model</h2>
+  <p>The structural patterns of §3 and the emic layer of §4 admit of a mathematical formalization as a model of decision-making by a distributed agent. The formalization is an attempt to write the observations down as a dynamic architecture of decision, without any pretension to ontological completeness.</p>
+  <p class="note-quiet">This section is technical and may be skipped on a first reading without loss of the substance of the document. The substance is condensed in §10.13 and §10.14.</p>
+
+  <h3 class="sub">§10.1 · A note on genre</h3>
+  <p>This is not a model of what is in the subjects' minds. It is a formalization of the <strong>architectural traces of decisions</strong> — of the observable dynamics through practices, self-description, reputation, and archival traces.</p>
+
+  <h3 class="sub">§10.2 · The kernel of the model</h3>
+  <p>A wealthy Arab family makes decisions not as an individual investor but as a distributed house solving the problem of preserving the line across cycles of vulnerability. The state of the family <em>F</em> at time <em>t</em> is described through ten variables:</p>
+  <div class="eq tight">\[ \textbf{Mind}_{F,t} = \mathcal{G}\left(A_t, U_t, H_t, N_t, P_t, \Psi_t, W_t, M_t, G_t, D_t\right) \]</div>
+  <div class="vars">
+    <div class="vr"><div class="vs">\(A_t\)</div><div class="vd">Archetype of capital holding (a point in the simplex of the five archetypes of §1)</div></div>
+    <div class="vr"><div class="vs">\(U_t\)</div><div class="vd">Field of vulnerability (confiscation, war, regime, reputation, succession rupture)</div></div>
+    <div class="vr"><div class="vs">\(H_t\)</div><div class="vd"><em>Halal</em>/<em>haram</em> legitimacy of the source and movement of capital</div></div>
+    <div class="vr"><div class="vs">\(N_t\)</div><div class="vd">The name in three registers (<em>sum'a</em> / <em>nasab</em> / <em>sharaf</em>)</div></div>
+    <div class="vr"><div class="vs">\(P_t\)</div><div class="vd">The family's pact with the state</div></div>
+    <div class="vr"><div class="vs">\(\Psi_t\)</div><div class="vd">Regime of visibility (secrecy ↔ spectacle)</div></div>
+    <div class="vr"><div class="vs">\(W_t\)</div><div class="vd">Inherited protective architecture (<em>waqf</em>, <em>majlis</em>, patronage, jurisdictions)</div></div>
+    <div class="vr"><div class="vs">\(M_t\)</div><div class="vd">The internal family mechanism of agreement</div></div>
+    <div class="vr"><div class="vs">\(G_t\)</div><div class="vd">Generational vector (elders / heirs / Western-educated next generation)</div></div>
+    <div class="vr"><div class="vs">\(D_t\)</div><div class="vd">Data regime — what is externally visible to us at all</div></div>
+  </div>
+  <p class="maxim soft">The principal reduction of the model: thought ≈ the grammar of preserving the line under vulnerability, within the constraints of halal/haram legitimacy.</p>
+
+  <h3 class="sub">§10.3 · The family as a distributed agent</h3>
+  <p>The family, as a decision-making agent, is composed of nodes with differing interests and weights:</p>
+  <div class="eq tight">\[ F = \{p,\ h,\ fo,\ adv,\ m,\ sis,\ cous,\ dau,\ ex\} \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>agent nodes</caption>
+      <thead><tr><th>Node</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>p</td><td>Patriarch or founder</td></tr>
+        <tr><td>h</td><td>Heir</td></tr>
+        <tr><td>fo</td><td>Family office</td></tr>
+        <tr><td>adv</td><td>Lawyers, bankers, Shariah advisers</td></tr>
+        <tr><td>m</td><td>Matriarch or senior wife</td></tr>
+        <tr><td>sis</td><td>Sisters of the heir</td></tr>
+        <tr><td>cous</td><td>Cousins — operators in different jurisdictions</td></tr>
+        <tr><td>dau</td><td>Daughters married into other families</td></tr>
+        <tr><td>ex</td><td>Exiled branches</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Decision-making in the family is a lexicographic maximum over a hierarchy of criteria in which profit is <strong>not first</strong>:</p>
+  <div class="eq tight">\[ a_t^* = \operatorname{LexMax}_{a \in \Omega}\left[H(a),\ C(a),\ N(a),\ U^{-1}(a),\ P(a),\ \Psi(a),\ \Pi(a)\right] \]</div>
+  <p>A lexicographic order means that profit cannot "buy off" a violation of honour; it is optimized only within the set of options in which the first criteria have already been satisfied. The hierarchy: <em>halal</em>/<em>haram</em> permissibility, then preservation of the line, the name, reduction of vulnerability, the state pact, regime of visibility, and only last — profit.</p>
+
+  <h3 class="sub">§10.4 · The archetype as a simplex</h3>
+  <p>The archetype of a specific family is not one of five boxes but a vector of admixture in a five-dimensional simplex:</p>
+  <div class="eq tight">\[ A_t \in \Delta^5, \quad A_t = (a_1, a_2, a_3, a_4, a_5), \quad \sum_{i=1}^{5} a_i = 1 \]</div>
+  <p>A real family realizes all five archetypes simultaneously, with varying weights; hybridity is the norm.</p>
+
+  <h3 class="sub">§10.5 · The objective function</h3>
+  <p>A wealthy Arab house does not maximize profit. It jointly maximizes seven characteristics in lexicographic priority:</p>
+  <div class="eq tight">\[ \max\Big(L,\ N,\ S,\ R,\ \text{Access},\ B,\ \Pi\Big) \]</div>
+  <div class="vars">
+    <div class="vr"><div class="vs">\(L\)</div><div class="vd">Continuity of the line (Lineage)</div></div>
+    <div class="vr"><div class="vs">\(N\)</div><div class="vd">Name / honour / how the line is heard</div></div>
+    <div class="vr"><div class="vs">\(S\)</div><div class="vd">Security of the holding architecture</div></div>
+    <div class="vr"><div class="vs">\(R\)</div><div class="vd">Religious and ethical legitimacy</div></div>
+    <div class="vr"><div class="vs">Access</div><div class="vd">Access to state, court, markets, schools, banks</div></div>
+    <div class="vr"><div class="vs">\(B\)</div><div class="vd"><em>Baraka</em> — the auspiciousness of the trajectory</div></div>
+    <div class="vr"><div class="vs">\(\Pi\)</div><div class="vd">Profit</div></div>
+  </div>
+  <p class="maxim soft">Profit is admissible only insofar as it does not break the line, the name, the legitimacy, or the protective architecture.</p>
+
+  <h3 class="sub">§10.6 · The vulnerability operator</h3>
+  <p>The holding architecture evolves over time under the pressure of vulnerability and shocks:</p>
+  <div class="eq tight">\[ \text{Arch}_{t+1} = \text{Arch}_t + \alpha U_t + \beta\, \text{Shock}_t - \gamma\, \text{Stability}_t + \epsilon\, \text{Culture}_t \]</div>
+  <p class="eq-note">When the threshold <b>\(U_t > \theta_U\)</b> is crossed, defensive mechanisms switch on: multi-jurisdictional holding, offshore structures, the family office, education of children abroad, an increase in the <em>waqf</em> share, a reduction in public visibility.</p>
+
+  <h3 class="sub">§10.7 · The halal/haram operator</h3>
+  <p>The <em>halal</em> filter operates not as a penalty coefficient but as a <strong>hard constraint</strong> on the admissible set:</p>
+  <div class="eq tight">\[ H(a) = \begin{cases} 1, & \text{the action is permissible} \\ 0, & \text{the action is impermissible} \\ [0,1], & \text{a grey case} \end{cases} \]</div>
+  <p class="eq-note">For strictly observant branches: <b>\(H(a)=0 \Rightarrow a \notin \Omega\)</b> <span class="v">(the action is removed from the choice set).</span><br>For secular branches: <b>Score(a) = Score(a) − λ<sub>H</sub>(1 − H(a))</b> (penalty, not exclusion).</p>
+
+  <h3 class="sub">§10.8 · The operator of the name and the pairing of visibility</h3>
+  <p>The name is a function of three registers, and the decision is taken with regard to its effect on the name:</p>
+  <div class="eq tight">\[ N_t = f(\text{sum'a},\ \text{nasab},\ \text{sharaf}) \qquad \Delta N(a) < -\theta_N \Rightarrow a \text{ hidden or prohibited} \]</div>
+  <p>The regime of visibility is governed by the pairing of secrecy and spectacle:</p>
+  <div class="eq tight">\[ \Psi(a) = \begin{cases} \text{show}, & \Delta\text{Access}(a) + \Delta N(a) > \text{Risk}(a) \\ \text{hide}, & \text{Risk}(a) > \Delta\text{Access}(a) + \Delta N(a) \end{cases} \]</div>
+
+  <h3 class="sub">§10.9 · The operator of activation of the ancient architecture</h3>
+  <p>When a shock exceeds a threshold value, the response is not a gradual adaptation but the activation of inherited forms:</p>
+  <div class="eq tight">\[ W_{t+1} = \text{Activate}(W_{\text{ancestral}},\ \text{Shock}_t,\ U_t,\ G_t) \]</div>
+  <p class="eq-note">The forms activated: <em>waqf</em>, <em>majlis</em>, patronage, kinship networks, diaspora channels, marriages, jurisdictional fragmentation.</p>
+  <p class="runin"><strong>The generational fork.</strong> When \(G_{\text{MBA}}\) is high (the dominance of Western-educated heirs), the transition Activate → Replace becomes possible — the displacement of the ancient architecture by contemporary formats. This is the central zone of risk for the stability of the model.</p>
+
+  <h3 class="sub">§10.10 · The operator of the pact with the state</h3>
+  <p>The pact between family and state is rewritten cyclically:</p>
+  <div class="eq tight">\[ P_{t+1} = \text{Cycle}(P_t,\ \text{Regime}_t,\ \text{Shock}_t,\ \text{Confiscation}_t,\ \text{Loyalty}_t) \]</div>
+  <p class="eq-note">When the threshold <b>\(\text{RewriteRisk}_t > \theta_P\)</b> is crossed, the family chooses a mixture of strategies: loyalty, exit, reduction of local exposure, transfer of assets, inter-family marriages, public support, silence.</p>
+
+  <h3 class="sub">§10.11 · The emic semantic operators</h3>
+  <p><em>Baraka</em>, <em>rizq</em>, <em>karam</em>, <em>amanah</em>, <em>sharaf</em>, <em>sum'a</em> are not utility variables but <strong>semantic modifiers of decision</strong>. They do not replace calculation; they change its meaning:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>emic semantic operators</caption>
+      <thead><tr><th>Operator</th><th>How it acts in the model</th></tr></thead>
+      <tbody>
+        <tr><td><em>baraka</em></td><td>Raises the value of the blessed, "right" trajectory as a multiplier of future outcomes</td></tr>
+        <tr><td><em>rizq</em></td><td>Weakens the linear belief "effort → income"; wealth is perceived as an allotted portion</td></tr>
+        <tr><td><em>karam</em></td><td>Converts surplus into generosity, name, dependency, and nobility</td></tr>
+        <tr><td><em>amanah</em></td><td>Renders capital a trust held, not bare ownership</td></tr>
+        <tr><td><em>sharaf</em></td><td>Imposes a prohibition on actions that diminish honour</td></tr>
+        <tr><td><em>sum'a</em></td><td>Governs the audibility of the name in the field of others</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">§10.12 · The decision algorithm</h3>
+  <p>For any consequential action — an investment, a marriage, a real-estate purchase, a withdrawal of capital, a donation, a public gesture, an alliance with a regime, the choice of a school for the heir:</p>
+  <ol class="algo">
+    <li>Check <em>halal</em>/<em>haram</em> permissibility.</li>
+    <li>Check the threat to the line.</li>
+    <li>Check the effect on the name in its three registers.</li>
+    <li>Check vulnerability (confiscation, regime, war, succession rupture).</li>
+    <li>Check the state of the pact with the state.</li>
+    <li>Check family consensus through the <em>majlis</em> procedure.</li>
+    <li>Choose the regime of visibility — show / hide / split.</li>
+    <li>Activate the inherited architecture or replace it with a new one.</li>
+    <li>Only then optimize profit.</li>
+  </ol>
+
+  <h3 class="sub">§10.13 · The condensed formula</h3>
+  <p>In nine drops:</p>
+  <div class="eq tight long">\[ \langle \text{Lineage},\ \text{Name},\ \text{Vulnerability},\ \text{Legitimacy},\ \text{Pact},\ \text{Visibility},\ \text{Waqf},\ \text{Majlis},\ \text{Diaspora} \rangle \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>the nine drops</caption>
+      <thead><tr><th>Drop</th><th>Content</th></tr></thead>
+      <tbody>
+        <tr><td>Lineage</td><td>The line is longer than the individual</td></tr>
+        <tr><td>Name</td><td>The name is worth more than a portion of the profit</td></tr>
+        <tr><td>Vulnerability</td><td>The architecture is built from the threats</td></tr>
+        <tr><td>Legitimacy</td><td>Capital must be permissible or purifiable</td></tr>
+        <tr><td>Pact</td><td>The state is not a background but a variable counterparty</td></tr>
+        <tr><td>Visibility</td><td>To show and to hide is one technology</td></tr>
+        <tr><td>Waqf</td><td>Property is held through a form that outlives its heirs</td></tr>
+        <tr><td>Majlis</td><td>The decision is an assembly, a standing, and a pedagogy, not only a calculation</td></tr>
+        <tr><td>Diaspora</td><td>Territory is desirable, but a network may replace it</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">§10.14 · The principal formula</h3>
+  <p class="maxim">A wealthy Arab family does not optimize "how to earn more"; it optimizes "how to preserve the line, the name, the legitimacy, and the access across changes of regime."</p>
+  <p>In a compressed English version:</p>
+  <p class="maxim soft">Profit after lineage. Visibility after risk. Action after legitimacy.</p>
+  <p>Or, more fully:</p>
+  <p class="maxim soft">Lineage, name, and permissibility first; access, security, and profit only after.</p>
+
+  <hr class="seam">
+
+  <!-- §11 REFINEMENTS -->
+  <h2 class="lh"><span class="code">§11 · REFINEMENTS</span>§11 · Refinements of the Formalization</h2>
+  <p>The base model in §10 provides a lexicographic kernel. Five structural refinements complete it into an operationally fuller architecture.</p>
+
+  <h3 class="sub">§11.1 · The majlis as a composition of operators, not a vote</h3>
+  <p>Step 6 of the decision algorithm ("check family consensus") in a formal record by way of a weighted sum of preferences still smells of a board of directors. The <em>majlis</em> is configured differently — more precisely formalized as a composition of five operators:</p>
+  <div class="eq tight long">\[ \text{Resolve}_{\text{Majlis}} = \text{FaceSaving} \circ \text{VetoFilter} \circ \text{RankedSpeech} \circ \text{KinshipWeight} \circ \text{RitualFrame} \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>majlis as a composition of operators</caption>
+      <thead><tr><th>Operator</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td>RitualFrame</td><td>Sets the permissible mode of discussion</td></tr>
+        <tr><td>KinshipWeight</td><td>Distributes informal weights according to kinship, age, assets, marriages, religious legitimacy</td></tr>
+        <tr><td>RankedSpeech</td><td>Determines who speaks plainly, who insinuates, who is meaningfully silent</td></tr>
+        <tr><td>VetoFilter</td><td>Filters out decisions unacceptable to the senior agency (the patriarch's veto is typically absolute)</td></tr>
+        <tr><td>FaceSaving</td><td>Transforms conflict into a decision without public humiliation of any branch</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The decision that emerges from the <em>majlis</em> is not an average of preferences but an executable resolution that does not break the face of the house. This is an essential operational difference from the logic of corporate governance.</p>
+
+  <h3 class="sub">§11.2 · The emic layer as operators of horizon-redefinition, not utility multipliers</h3>
+  <p>A formulation of the type <em>Value(a) = Material(a) + Meaning(a) − Dishonor(a)</em> is additive and does not convey the actual semantics. <em>Baraka</em> and <em>rizq</em> operate not as multipliers of the value of a given decision but as operators that change the <strong>horizon of causality</strong>:</p>
+  <ul class="beds">
+    <li>What counts as an outcome?</li>
+    <li>On what temporal horizon is the outcome assessed?</li>
+    <li>Is the success regarded as "earned," "given," "blessed," or "tainted"?</li>
+    <li>Does the effect carry over to descendants?</li>
+  </ul>
+  <p>The emic operator changes the entire framing of evaluation; it does not simply multiply or add a number. In a strict notation it changes the right-hand side of the evaluation function to a different object:</p>
+  <div class="eq tight">\[ E_{\text{emic}}: \text{Eval}(a, \tau) \mapsto \text{Eval}'(a, \tau_{\text{long}}) \]</div>
+  <p>Emic terms are not summands and not multipliers; they are <strong>operators of redefinition of meaning</strong>.</p>
+
+  <h3 class="sub">§11.3 · Time as a multi-layered variable</h3>
+  <p>A family takes decisions not in one time but simultaneously in several non-synchronous temporal layers:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>non-synchronous temporal layers</caption>
+      <thead><tr><th>Layer</th><th>Duration</th><th>Main process</th></tr></thead>
+      <tbody>
+        <tr><td>\(\tau_{\text{majlis}}\)</td><td>Hours to days</td><td>Tactical decisions</td></tr>
+        <tr><td>\(\tau_{\text{fo}}\)</td><td>Quarter to year</td><td>Family-office portfolio management</td></tr>
+        <tr><td>\(\tau_{\text{inherit}}\)</td><td>Generation (~25 years)</td><td>Transfer of assets and authority</td></tr>
+        <tr><td>\(\tau_{\text{pact}}\)</td><td>15–25 years</td><td>Cycle of rewriting the state pact</td></tr>
+        <tr><td>\(\tau_{\text{arch}}\)</td><td>Centuries</td><td>Activation of ancient protective architecture</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A decision taken in \(\tau_{\text{majlis}}\) has consequences across all five layers. A good choice on one horizon may be a bad choice on another — this is a normal state, not an anomaly. In a strict notation each criterion of the lexicographic hierarchy has its own characteristic layer:</p>
+  <div class="eq tight long">\[ a_t^* = \operatorname{LexMax}\left[H(a),\ C(a)|_{\tau_{\text{inherit}}},\ N(a)|_{\tau_{\text{pact}}},\ U^{-1}(a)|_{\tau_{\text{majlis}}},\ P(a)|_{\tau_{\text{pact}}},\ \Psi(a),\ \Pi(a)|_{\tau_{\text{fo}}}\right] \]</div>
+  <p>The cost of de-synchronization across times can be introduced as an explicit penalty:</p>
+  <div class="eq tight">\[ \text{Desync}(a) = \sum_{i,j} \left|\text{Eval}_i(a|\tau_i) - \text{Eval}_j(a|\tau_j)\right| \]</div>
+  <p>That is, the decision is the more costly the more deeply it splits the assessments across temporal horizons.</p>
+
+  <h3 class="sub">§11.4 · Vulnerability as a tensor of coupled threats, not a scalar</h3>
+  <p>The scalar notation \(U_t > \theta_U\) simplifies reality. In fact, the vulnerability of a wealthy Arab family is multi-dimensional:</p>
+  <div class="eq tight long">\[ U = (U_{\text{conf}},\ U_{\text{rep}},\ U_{\text{fitna}},\ U_{\text{exile}},\ U_{\text{rel}},\ U_{\text{market}},\ U_{\text{succession}}) \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>coupled components of vulnerability</caption>
+      <thead><tr><th>Component</th><th>What threatens</th></tr></thead>
+      <tbody>
+        <tr><td>\(U_{\text{conf}}\)</td><td>State confiscation of assets</td></tr>
+        <tr><td>\(U_{\text{rep}}\)</td><td>A public reputational catastrophe</td></tr>
+        <tr><td>\(U_{\text{fitna}}\)</td><td>Intra-family rupture</td></tr>
+        <tr><td>\(U_{\text{exile}}\)</td><td>Loss of territory or citizenship</td></tr>
+        <tr><td>\(U_{\text{rel}}\)</td><td>A religious-legal scandal (the <em>haram</em> becomes manifest)</td></tr>
+        <tr><td>\(U_{\text{market}}\)</td><td>Market catastrophes (banking collapse, currency collapse)</td></tr>
+        <tr><td>\(U_{\text{succession}}\)</td><td>Chaos of inheritance</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Defensive responses differ by component: against \(U_{\text{conf}}\) — jurisdictional distribution; against \(U_{\text{rep}}\) — spectacle; against \(U_{\text{fitna}}\) — the <em>waqf</em>, the <em>majlis</em>, the maternal line as mediator; against \(U_{\text{exile}}\) — dual citizenships; against \(U_{\text{rel}}\) — purification through giving; against \(U_{\text{market}}\) — diversification across asset classes; against \(U_{\text{succession}}\) — formal family constitutions.</p>
+  <p>Moreover, the components of risk are coupled: protection against one threat can strengthen another. Public charity reduces \(U_{\text{rep}}\) but may raise \(U_{\text{conf}}\) through excessive visibility of capital. A rigid <em>waqf</em> reduces \(U_{\text{succession}}\) but raises \(U_{\text{fitna}}\) if the branches deem the distribution unfair. Loyalty to a regime reduces \(U_{\text{conf}}\) now but raises \(U_{\text{exile}}\) after a regime change.</p>
+  <p>Minimizing vulnerability therefore requires not a sum of independent components but the balancing of a coupled field:</p>
+  <div class="eq tight">\[ \min_{\Omega}\left[U^T C U + \lambda_F \text{Fragmentation} + \lambda_N \text{NameLoss}\right] \]</div>
+  <p class="eq-note">where <b>\(C\)</b> is the matrix of cross-amplification of risks.</p>
+  <p class="maxim soft">Vulnerability is not a scale of fear but a coupled field of threats, in which protection against one threat may engender another.</p>
+
+  <h3 class="sub">§11.5 · The link between archetype and data regime — a built-in systematic bias of observation</h3>
+  <p>The archetype <em>A</em> in the model and the data regime <em>D</em> are coupled: different archetypes leave different traces. <strong>This is not a caveat about sources; it is part of the model itself:</strong></p>
+  <div class="eq tight long">\[ A_{\text{real}} \rightarrow D(A,\ \Psi,\ \text{SourceRegime}) \rightarrow A_{\text{observed}} \]</div>
+  <p>A family's visibility to the external observer is a function of its archetype. This means that the inverse problem — recovering the distribution of archetypes in reality from the archive of visible cases — is systematically biased in favour of the archetypes with the "louder" trace regimes.</p>
+  <p>The practical consequence, described in §7: the preferential use of English-language sources overestimates Archetypes II and III and underestimates Archetypes IV and V. For any specific case one must mark which archive made that family visible.</p>
+
+  <hr class="seam">
+
+  <!-- §12 BLINDNESS -->
+  <h2 class="lh"><span class="code">§12 · BLINDNESS</span>§12 · Zones of Blindness and Possible Next Steps</h2>
+
+  <h3 class="sub">What remains uncovered in this document</h3>
+  <p class="runin"><strong>Arabic-language sources have not been deployed.</strong> Local press (<em>Al-Eqtisadiah</em>, <em>Asharq Business</em>, <em>Al-Arabiya</em> in Arabic, <em>Al-Quds Al-Arabi</em>), Arabic-language academic work (AUS, KAUST, AUB, NYUAD), oral history through Arabic media — all this can yield a substantively different picture, particularly on family dynamics, gender distribution, and the religious gradient within a single family.</p>
+  <p class="runin"><strong>The ethnography of family structure has not been carried out.</strong> The anthropological work of Anh Nga Longva on Kuwait, of Anna Polak-Lesser on the Gulf, of Susan Fayed on the Emirates exists, but does not enter the standard corpus of management and finance literature. Without it, the internal politics of families — the role of mothers and elder sisters, the regimes of the <em>majlis</em> in different regions, the actual procedure of decision-making — remains an external reconstruction.</p>
+  <p class="runin"><strong>The halal/haram axis requires a different mode of observation.</strong> It is not possible to verify its full extent through Western analytical work; what is needed is either an Arabic source or direct contact with the observant branches.</p>
+  <p class="runin"><strong>The contemporary structural shift is moving faster than the literature.</strong> The departure of the founders of the 1960s and 1970s; the return of Syria to regional economic circulation; the restructuring of Gulf–Iran–Iraq relations after the 2023 agreement; the migration of part of Arab capital into crypto and tokenized structures; the reframing of ESG investment through the prism of Vision 2030. All these processes generate a new configuration that the existing literature does not keep up with.</p>
+
+  <h3 class="sub">Possible next steps in working on this topic</h3>
+  <p class="runin"><strong>Testing the structural propositions in non-Arab domains.</strong> The structural findings of §3, particularly §3.1 (architecture as a function of vulnerability) and §3.2 (cyclical rewriting of the pact), can be tested for robustness by transposition into adjacent domains: the Japanese trading dynasties (Mitsui from 1673, Sumitomo from 1615, the structure of <em>ie</em> / <em>honke</em> / <em>bunke</em>, the cycle of Meiji — Showa — postwar Allied reforms — <em>keiretsu</em>); the Korean <em>chaebol</em> (Samsung, Hyundai, LG with their close interweaving with the state and cyclical scandals); the Indian merchant dynasties of the Marwari, Parsi, and Khoja communities (Tata, Birla, Ambani, with their long diaspora memory).</p>
+  <p>If the structural propositions are vindicated in at least one of these domains, they acquire the status of civilizational-level findings rather than Arab-specific ones. If they break, Arab specificity manifests itself through the contrast.</p>
+  <p class="runin"><strong>Engaging an arabophone analytical lens.</strong> Triangulation through a native-speaking arabist or direct work with Arabic corpora will open up the <em>halal</em>/<em>haram</em> filter, the emic lexicon in living use, and the actual map of agency across several anchor cases.</p>
+  <p class="runin"><strong>Direct contact with one or two families.</strong> Ethnographic work in one of the region's major trading dynasties is the only means of substantively narrowing the gap between the map and the subject.</p>
+
+  <hr class="seam">
+
+  <!-- CONCLUSION -->
+  <h2 class="lh"><span class="code">CONCLUSION</span>Conclusion</h2>
+  <p>This document has described a spectrum of five archetypes of capital holding, four stable structural propositions, an emic lexicon in seven terms, <em>halal</em>/<em>haram</em> as a parallel axis of evaluation, a map of agency within the family, the peculiarities of the archive of visibility, three known factual corrections, the differential rate of ageing of the findings, a mathematical formalization of decision-making, and five refinements of that formalization.</p>
+  <p class="runin"><strong>The principal methodological avowal of the document deserves to be stated plainly:</strong> an external document about thought is not the thought itself. Any structural model of a wealthy Arab family built on external sources remains a reconstruction of architectural traces, not a model of inner grammar. This is not an apology but a condition of honesty toward the reader: the document creates the conditions for the reader's possible encounter with its object, provided the reader knows the difference between the map and what it tries to render.</p>
+  <p>The condensed formula:</p>
+  <p class="maxim">A wealthy Arab family optimizes not "how to earn more" but "how to preserve the line, the name, the legitimacy, and the access across changes of regime." The decision of the house is the passage of a permissible action through honour, line, majlis, times, threats, and the regime of visibility.</p>
+
+  <hr class="seam">
+
+  <!-- APPENDIX -->
+  <h2 class="lh"><span class="code">APPENDIX</span>Appendix · A Regional Survey: Key Cases and Nodes</h2>
+  <p>A substantive concentrate of anchor observations by region. The cases are selected as illustrations of the archetypes of §1 and the structural propositions of §3, not as an exhaustive catalogue.</p>
+
+  <h3 class="sub">A · The Gulf</h3>
+
+  <p class="geo">Saudi Arabia</p>
+  <p class="runin"><strong>The Olayan Group</strong> (Archetype II in pure form) — the largest private trading dynasty in the region. The parent company (Olayan Investments Company Establishment) in Vaduz, Liechtenstein; the operational centre in Riyadh; subsidiary structures around the world. Low public visibility, a minimum of family PR, succession through formalized family constitutions. The founder Suleiman Olayan (1918–2002) began as a translator at Aramco; the dynasty passed through the oil boom, the liberalizations of the 1990s, Vision 2030, and the Ritz-Carlton of 2017 without a structural rupture.</p>
+  <p class="runin"><strong>The Al Saud</strong> (Archetype I) — the ruling dynasty, roughly 15,000 princes, with internal segmentation into branches of varying proximity to the throne. The Ritz-Carlton episode of November 2017: about 400 persons detained; the official volume of recovered assets US$107 billion (the Saudi figure); the independent <em>Guardian</em> estimate around US$28 billion. The structural meaning of the episode is the rewriting of the pact between the new leadership (Crown Prince Mohammed bin Salman) and the old business elite in a single night. The trigger for the subsequent behaviour of Saudi families: an accelerated shift into offshore structures in Dubai, London, and Switzerland.</p>
+
+  <p class="geo">Qatar</p>
+  <p class="runin"><strong>The Al Thani</strong> (Archetype I) — the state and the family are not structurally separated. Q-Investments as the personal investment vehicle of the Emir, with assets around the world (London, Paris, Berlin). After the regional blockade of 2017–2021 the orientation towards multi-jurisdictional holding intensified.</p>
+
+  <p class="geo">Kuwait</p>
+  <p class="runin"><strong>The Al Sabah</strong> (Archetype I) — a ruling dynasty with a Gulf-unique history of early parliamentarism. The dissolution of the Kuwaiti parliament in 1938 in confrontation with the old merchant families (Al-Gharrafi and others) is an early precedent of pact-rewriting in the region.</p>
+  <p class="runin"><strong>The old merchant families of Kuwait</strong> (Archetype II with an admixture of I) — the Al-Ghunaim, the Bu Khalid, the Al-Khatib, and others. Before the discovery of oil, the Kuwaiti merchants were wealthier than the dynasty itself; the <em>diwaniyya</em> as a form of decision-making persists as a living practice.</p>
+
+  <p class="geo">The Emirates</p>
+  <p class="runin"><strong>The Al Maktoum</strong> (Archetype I, Dubai) — the transformation of a state family into a global investment actor through Dubai Holding and Dubai World. The Pandora Papers, as reported by ICIJ, document offshore structures held personally by Sheikh Mohammed bin Rashid.</p>
+  <p class="runin"><strong>The Al Nahyan</strong> (Archetype I, Abu Dhabi) — ADIA as one of the world's largest sovereign wealth funds; the individual assets of dynasty members interwoven with state assets.</p>
+  <p>Dubai as an operational centre: by 2025 some 6,000 family offices in the DIFC, the new UAE Family Companies Law of 2022, a dedicated regulator of family capital. The Gulf's centre for family capital, for the first time in the region's history.</p>
+
+  <h3 class="sub">B · The Levant</h3>
+
+  <p class="geo">Lebanon</p>
+  <p class="runin"><strong>The Safra family</strong> (Archetype II with a passage into III) — a family of Syrian-Lebanese Jewish origin, having passed through Beirut, São Paulo, and Geneva. Edmond Safra as the founder of the Republic National Bank of New York. An archetype of the migration of major capital from an unstable region into stable jurisdictions while preserving the family structure.</p>
+  <p class="runin"><strong>The Hariri family</strong> (Archetype I with an admixture of II) — Rafik Hariri (Prime Minister, assassinated in 2005) built his fortune in Saudi Arabia and reinvested it in Lebanon; his son Saad Hariri inherited both the political and the economic structure.</p>
+  <p class="runin"><strong>Najib Mikati</strong> (Archetype I/II) — Prime Minister in several governments, a fortune of about US$2 billion, the M1 Group as the operating structure. The Pandora Papers, as reported by ICIJ, disclosed offshore structures in Panama and the British Virgin Islands, and real estate in Monaco.</p>
+  <p class="runin"><strong>The October 2019 crisis:</strong> the capital flight of the connected elite at US$5.5–15 billion (see §8.1); more than US$100 billion in deposits frozen inside the banking system; banks, many of them owned by political families, effectively confiscated the savings of ordinary depositors. The structural meaning: the families outran the state and took the assets out through the very banks they own.</p>
+
+  <p class="geo">Jordan</p>
+  <p class="runin"><strong>King Abdullah II</strong> (Archetype I): the Pandora Papers, as reported by ICIJ, document 14 properties in the United States and the United Kingdom worth in excess of US$100 million, acquired through offshore companies in the British Virgin Islands over the period 2003–2017. These include three Malibu villas at US$50 million, an Ascot estate, multi-million pound apartments in central London, and three apartments in Washington.</p>
+  <p class="runin"><strong>The Palestinian-Jordanian elite</strong> (Archetypes II and III). Sabih Al-Masri — a Saudi citizen of Palestinian origin, with his operational centre in Jordan, chairman of the Arab Bank, founder of the Saudi Astra Group. In December 2017, a month after the Ritz-Carlton, he was detained in Riyadh on his way to the airport after a board meeting; he was released several days later without official charges. The episode was read as Saudi pressure on King Abdullah II.</p>
+
+  <p class="geo">The Palestinian Diaspora</p>
+  <p class="runin"><strong>The Munib Al-Masri family</strong> (a geologist, a billionaire, from Nablus). The founder of <strong>PADICO</strong> — the Palestinian Development and Investment Company, established in 1993 with declared capital of US$1 billion after the Oslo Accord. The declaration was "patriotism, not profit." The InterContinental Hotel in Bethlehem opened on the eve of the Second Intifada and stood empty for years; half the factories in Gaza closed — economically unprofitable investments sustained for the sake of a state project in which the family holds no legal property.</p>
+  <p class="runin"><strong>The Arab Bank</strong> — founded by Abdul Hameed Shoman in Jerusalem in 1930. It operates in eleven countries. The banking infrastructure of the Palestinian diaspora.</p>
+  <p class="runin"><strong>Consolidated Contractors Company</strong> — founded in 1963 by Palestinian entrepreneurs; it has built oil pipelines and terminals across the Gulf.</p>
+
+  <h3 class="sub">C · The Maghreb</h3>
+
+  <p class="geo">Morocco</p>
+  <p class="runin"><strong>King Mohammed VI</strong> (Archetype I in a specific form): through the <strong>Al Mada</strong> holding (formerly the Société Nationale d'Investissement), the royal family's share is around 60 per cent today, against roughly 13 per cent at the death of Hassan II in 1999. Control of the country's largest bank Attijariwafa (46–47 per cent), the largest insurer Wafa Assurance, telecommunications, mining, and energy. Personal wealth is estimated at US$6–8 billion.</p>
+  <p class="runin"><strong>The Makhzen</strong> as an operating power structure — a system of counsellors, officials, provincial governors, and tribal leaders around the king. It runs parallel to the constitutional institutions and often holds greater influence than they do.</p>
+  <p>The wealthy Moroccan elite outside the royal family (Othman Benjelloun with the BMCE Bank of Africa group, Aziz Akhannouch with oil interests and the office of Prime Minister) stand structurally below the king and depend on the favour of the <em>Makhzen</em>.</p>
+
+  <p class="geo">Algeria</p>
+  <p class="runin"><strong>Issad Rebrab</strong> (Archetype II) — of Kabyle origin, the founder of <strong>Cevital</strong>, the largest private company in Algeria. Before his arrest in 2019 his wealth was estimated at US$3.4–4.8 billion. Self-made: he began as an accountant and built a business through the "black decade" of the civil war in the 1990s; one of his plants was blown up by militants and rebuilt from scratch.</p>
+  <p class="runin"><strong>Algeria's own Ritz-Carlton in 2019:</strong> after Bouteflika's departure in April 2019, those arrested included Rebrab, the four Kouninef brothers, Ali Haddad (who attempted to flee with two passports across the Tunisian border), former Prime Minister Ouyahia, and the then sitting Minister of Finance Loukal. Structurally, this paralleled the Saudi 2017 episode: a new leadership rewriting the pact with the business elite through demonstrative confiscations.</p>
+
+  <p class="geo">Tunisia</p>
+  <p class="runin"><strong>Family conglomerates without billionaires</strong> (the Tunisian economy is too small). The Mabrouk Group (agribusiness, banks, retail — Monoprix, Géant Casino, Mercedes distribution), Ben Yedder (Amen Bank), Tamarziste (Meninx Holding). A precedent of capital's vulnerability: the Trabelsi family (relatives of Ben Ali's wife) lost a portion of its assets after the revolution of 2011; ever since, Tunisian business families have held a significant share of their assets outside the country.</p>
+
+  <h3 class="sub">D · Egypt</h3>
+  <p class="runin"><strong>The Sawiris</strong> (Archetype II, Copts) — Naguib, Samih, and Nassef Sawiris as three billionaire brothers with stakes in Orascom Telecom, Orascom Construction, and Orascom Hotels. A multi-jurisdictional structure with assets in Egypt, Italy, Algeria, North Korea (historically), and the Caribbean. Low personal public visibility.</p>
+
+  <h3 class="sub">E · The Parallel Trading Communities of the Gulf (Archetype IV)</h3>
+
+  <p class="geo">The Iranian Diaspora</p>
+  <p class="runin"><strong>The Bastakiya in Dubai</strong> — a historic quarter, founded in the early twentieth century by Sunni Iranian merchants from the town of Bastak in the province of Hormozgan, who had fled Tehran's tax policies. They brought with them the wind-tower architecture, trading networks, and capital.</p>
+  <p class="runin"><strong>The Farooq family</strong> — traces its origins from Saudi Arabia through Bastak to Dubai. Trade in diamonds, pearls, and precious stones. Advisers to the rulers of the Gulf in the twentieth century.</p>
+  <p>After the Iranian Revolution of 1979 the link between the Tehran bazaar and the Gulf intensified. By the 2000s, the old bazaari elite of Iran had been displaced by "transnational, polyglot, secretive" new trading networks, with Dubai as their centre. This is neither an "Arab" business nor a "Persian" business — it is a hybrid Gulf–Iranian layer, operating through free zones, currency exchanges, and gold markets.</p>
+
+  <p class="geo">The Indian Trading Communities</p>
+  <p class="runin"><strong>The Thattai</strong> — a Hindu trading community from the town of Thatta (now in Pakistan), which began settling in the Gulf in the 1920s, when the Indian rupee was the official currency of the region.</p>
+  <p class="runin"><strong>The Bhatia family.</strong> The founder Uttamchand Tulsidas Bhatia arrived in Dubai in 1925 as an eleven-year-old orphan. By 2025 the family is marking a century of presence in the UAE — four generations of continuous mercantile presence, longer than that of many Emirati families outside the ruling dynasties. The family controls a substantial share of wholesale trade, the trade in jewellery, and textiles.</p>
+
+  <h3 class="sub">F · Syria after December 2024</h3>
+  <p>The fall of the Assad regime on 8 December 2024. Twenty-six tonnes of gold were discovered in the central bank (about US$2.2 billion). According to a 2022 US State Department estimate, the assets and companies linked to the Assad family were valued at US$12 billion; some US$250 million in cash had been transferred to Moscow in 2018–2019.</p>
+  <p>A reconfiguration of the merchant-entrepreneurial elite is under way. On 2 July 2025 an unprecedented public statement was issued at the gates of the Damascus Chamber of Commerce: "Syrian merchants are a red line." The return of the old Aleppine and Damascene trading dynasties (Shammas, Jabri) is at the level of a hypothesis, not an observation; the three possible readings are set out in §8.3.</p>
+  <p>The European Union lifted nearly all of its economic sanctions on 28 May 2025, unfreezing 24 banks and state companies. The United States announced the lifting of the sanctions of the Caesar Act on 14 May 2025. Gulf investors (Saudi and Qatari) have begun to finance the reconstruction.</p>
+  <p class="runin"><strong>The structural plot of Archetype V:</strong> over 54 years of Assad rule (Hafez from 1970, Bashar from 2000), the old trading dynasties were displaced by the Makhlouf family and the circle of the close. An inversion is now under way. Which configuration will settle is unknown. This is the zone in which Archetype V — "a network surviving across regimes" — manifests itself in real time.</p>
+
+  <hr class="seam">
+
+  <p class="note-quiet">The document describes the structural patterns of thinking and decision-making in wealthy Arab families through a spectrum of five archetypes, four stable propositions, an emic lexicon, the halal/haram axis, a map of agency, and a formalized model of decision-making with five refinements. The genre is structural analysis on external sources, not ethnography. The known limitations of the lens are described in the preamble and in §12.</p>
+
+  <footer class="foot">
+    27 May 2026<br>
+    Dima Polet<br>
+    CC BY-NC 4.0<br>
+    <br>
+    Note: this is a working English edition. The author welcomes corrections from regional specialists and arabophone readers.
+  </footer>
+
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">→</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+<script>
+(function(){
+  function render(){
+    if(window.renderMathInElement){
+      try{
+        window.renderMathInElement(document.body,{
+          delimiters:[
+            {left:'\\[',right:'\\]',display:true},
+            {left:'\\(',right:'\\)',display:false}
+          ],
+          throwOnError:false
+        });
+      }catch(e){}
+    } else { setTimeout(render,90); }
+  }
+  if(document.readyState!=='loading') render();
+  else document.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+</body>
+</html>

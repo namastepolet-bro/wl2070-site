@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>العائلات العربية الثرية · وثيقة تحليلية · ستراتيغراف</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ── Светлая схема «Стратиграф» — 14 токенов из утверждённого пилота (дословно) ── */
+:root{
+  --bg:#f1ece2; --paper:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-soft:#b65038;
+  --seam:#d2c6b0; --rule:#e4dccb; --hair:#ece4d5;
+  --code-ink:#3a352d; --code-bg:#f0e9da;
+
+  /* СЖАТАЯ ШКАЛА КЕГЛЕЙ — якорь тело 17px, полоса 12→34px */
+  --t-hero:clamp(28px,5vw,34px);
+  --t-h2:clamp(21px,3.4vw,24px);
+  --t-h3:19px;
+  --t-body:17px;
+  --t-small:15px;
+  --t-meta:14px;
+  --t-table:14.5px;
+  --lh-body:1.66;            /* латиница; для арабского тела ниже задан больший интерлиньяж */
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+/* арабское тело: латиница → Spectral, арабская вязь → Amiri (в Spectral нет арабских глифов → fallback) */
+body{ background:var(--paper); color:var(--ink-soft);
+  font-family:'Spectral','Amiri',Georgia,serif;
+  font-size:var(--t-body); line-height:1.9;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:#fff; }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 34%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+/* керн — рельс зеркально справа */
+.page{ padding:40px 22px 110px; }
+.sheet{ max-width:760px; margin:0 auto; position:relative; padding-right:84px; }
+.sheet::before{ content:""; position:absolute; right:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 6%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+.hero h1{ font-family:'Cormorant','Amiri',serif; font-weight:700; font-size:var(--t-hero); line-height:1.35; letter-spacing:0; margin:0 0 16px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral','Amiri',serif; font-style:normal; font-size:var(--t-small); line-height:1.75; color:var(--muted); margin:0 0 8px; }
+.hero .meta{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; color:var(--muted); margin:16px 0 0; line-height:1.9; }
+
+/* швы */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:42px 0 36px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+/* головы пластов — вертикальный код зеркально в правый жёлоб (поворот, чтобы вязь не ломалась) */
+h2.lh{ font-family:'Cormorant','Amiri',serif; font-weight:700; font-size:var(--t-h2); line-height:1.4;
+  margin:2em 0 .65em; color:var(--ink); position:relative; scroll-margin-top:60px; }
+h2.lh .code{ position:absolute; right:-16px; top:0;
+  transform:rotate(-90deg); transform-origin:right top;
+  font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); font-weight:600;
+  letter-spacing:0; color:var(--muted); white-space:nowrap; line-height:1; }
+h2.lh::before{ content:""; position:absolute; right:-64px; top:.7em; width:14px; height:1px; background:var(--accent); }
+
+h3.sub{ font-family:'Cormorant','Amiri',serif; font-weight:700; font-size:var(--t-h3); line-height:1.45; margin:1.8em 0 .55em; color:var(--ink); position:relative; padding-right:20px; }
+h3.sub::before{ content:""; position:absolute; right:0; top:.68em; width:12px; height:1px; background:var(--accent); }
+
+/* мини-категория (страна в приложении) */
+.geo{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0;
+  text-transform:uppercase; color:var(--accent); font-weight:600; margin:1.6em 0 .5em; }
+
+/* текст */
+p{ margin:0 0 1.05em; color:var(--ink-soft); }
+p strong{ color:var(--ink); font-weight:700; }
+p em{ font-style:italic; }
+.lead{ font-size:var(--t-body); color:var(--ink-soft); }
+
+/* лид-ин абзац: жирная метка В ТЕКСТЕ */
+p.runin > b:first-child, p.runin > strong:first-child{ color:var(--accent); font-weight:700; }
+
+/* строка-метадата */
+.meta-line{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0;
+  color:var(--muted); margin:.2em 0 1.15em; line-height:1.7; }
+.meta-line b{ color:var(--ink); font-weight:600; }
+
+/* эмик-термин — без курсива, акцент весом/цветом */
+.term{ font-style:normal; color:var(--ink); font-weight:700; }
+
+/* списки */
+ul.beds{ list-style:none; margin:1.15em 0; padding:0; }
+ul.beds > li{ position:relative; padding-right:22px; margin:0 0 .6em; line-height:1.9; color:var(--ink-soft); }
+ul.beds > li::before{ content:""; position:absolute; right:0; top:.8em; width:11px; height:1px; background:var(--accent); }
+ul.beds > li strong{ color:var(--ink); font-weight:700; }
+ul.beds > li em{ font-style:italic; }
+
+/* таблица — зеркально */
+.tbl{ margin:1.5em 0; border:1px solid var(--rule); border-top:2px solid var(--seam); border-radius:2px; overflow:hidden; }
+.tbl table{ width:100%; border-collapse:collapse; font-size:var(--t-table); }
+.tbl caption{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; text-transform:uppercase;
+  color:var(--muted); text-align:right; padding:11px 16px 0; }
+.tbl th{ font-family:'IBM Plex Mono','Amiri',monospace; font-weight:600; font-size:var(--t-meta); letter-spacing:0; text-transform:uppercase;
+  color:var(--accent); text-align:right; padding:11px 16px; border-bottom:1px solid var(--rule); background:var(--panel-2); }
+.tbl td{ padding:11px 16px; border-bottom:1px solid var(--hair); color:var(--ink-soft); line-height:1.75; vertical-align:top; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl td:first-child{ color:var(--ink); font-weight:700; white-space:nowrap; }
+.tbl.wide td:first-child{ white-space:normal; }
+
+/* образец-вставка */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.spec .stag{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; text-transform:uppercase;
+  color:var(--muted); padding:11px 18px; border-bottom:1px solid var(--rule); }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:16px 20px; }
+.spec .in p{ margin:0; font-size:var(--t-small); line-height:1.85; color:var(--ink-soft); }
+.spec .in p em{ font-style:italic; }
+
+/* тихая заметка на полях — зеркально */
+.note-quiet{ border-right:2px solid var(--seam); padding:2px 18px 2px 0; font-style:normal; color:var(--ink-soft);
+  font-size:var(--t-small); line-height:1.85; margin:1.35em 0; }
+
+/* ── МАТЕМАТИКА — аппарат, остаётся LTR ── */
+.eq{ margin:1.15em 0 1.25em; padding:14px 16px; background:var(--code-bg);
+  border:1px solid var(--rule); border-right:3px solid var(--seam); border-radius:2px 0 0 2px;
+  direction:ltr; overflow-x:auto; overflow-y:hidden; }
+.eq .katex{ font-size:1.04em; }
+.eq .katex-display{ margin:0; }
+.eq.tight{ text-align:center; }
+.eq.long .katex{ font-size:.98em; }
+.katex,.katex-display{ direction:ltr; unicode-bidi:isolate; }
+@media(max-width:720px){
+  .eq .katex{ font-size:.9em; }
+  .eq.long .katex{ font-size:.9em; }
+}
+.body-eq .katex{ font-size:1em; }
+.eq-tag{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; text-transform:uppercase;
+  color:var(--muted); margin:1.4em 0 .2em; }
+.eq-tag b{ color:var(--accent); font-weight:600; }
+
+/* условие-вывод после формулы */
+.eq-note{ font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; color:var(--muted);
+  margin:.1em 0 1.15em; line-height:1.75; }
+.eq-note b{ color:var(--ink); font-weight:600; }
+.eq-note .v{ color:var(--accent); }
+
+/* короткая легенда значений под формулой (арабица в Amiri, значения моно-акцент) */
+.eq-leg{ font-size:var(--t-small); color:var(--ink-soft); margin:-.35em 0 1.2em; line-height:1.85; }
+.eq-leg b{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-weight:700; }
+
+/* легенда переменных — зеркально (символ справа, описание слева) */
+.vars{ margin:1em 0 1.35em; border-top:1px solid var(--seam); }
+.vars .vr{ display:grid; grid-template-columns:96px 1fr; gap:16px; padding:9px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.vars .vs{ text-align:right; }
+.vars .vs .katex{ font-size:1em; }
+.vars .vd{ font-size:var(--t-small); line-height:1.75; color:var(--ink-soft); }
+.vars .vd em{ font-style:italic; }
+.vars .vd strong{ color:var(--ink); font-weight:700; }
+
+/* нумерованный алгоритм-залегание — зеркально */
+ol.algo{ list-style:none; counter-reset:st; margin:1.15em 0; padding:0; }
+ol.algo > li{ position:relative; padding-right:30px; margin:0 0 .55em; line-height:1.85; color:var(--ink-soft); counter-increment:st; }
+ol.algo > li::before{ content:counter(st,decimal-leading-zero); position:absolute; right:0; top:.1em;
+  font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); font-weight:600; color:var(--accent); }
+ol.algo > li em{ font-style:italic; }
+
+/* предельная формула — зеркально */
+.maxim{ font-family:'Spectral','Amiri',serif; font-style:normal; font-size:var(--t-body); line-height:1.8;
+  color:var(--ink); border-right:1px solid var(--accent); padding-right:20px; margin:1.25em 0; }
+.maxim.soft{ color:var(--ink-soft); }
+.maxim.lat{ direction:ltr; text-align:left; border-right:none; border-left:1px solid var(--accent); padding-right:0; padding-left:20px; }
+
+footer.foot{ margin-top:10px; font-family:'IBM Plex Mono','Amiri',monospace; font-size:var(--t-meta); letter-spacing:0; color:var(--muted); line-height:2; }
+
+@media(max-width:720px){
+  .page{ padding:26px 16px 80px; }
+  .sheet{ padding-right:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }          /* на мобиле код прятать, не выводить инлайн */
+  .tbl{ overflow-x:auto; }
+}
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(-3px); }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="اللغة">
+      <a href="../en/arab_wealth.html">EN</a><a href="../ru/arab_wealth.html">RU</a><a href="../ar/arab_wealth.html" class="on" aria-current="true">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">wealthleap2070.io · وثيقة تحليلية</p>
+    <h1>العائلات العربية الثرية: طيف النماذج الأصلية، البنية الواقية، ونموذج رسمي لاتخاذ القرار</h1>
+    <p class="sub">وثيقة تحليلية مبنية على عمل استكشافي اعتمد على مصادر باللغة الإنجليزية.</p>
+    <p class="sub">ملاحظة الترجمة: هذه نسخة عمل مترجمة من الروسية إلى العربية بالاعتماد على أدوات الذكاء الاصطناعي اللغوية. يرحّب المؤلف بتصويبات المتخصصين والقرّاء الناطقين بالعربية في المصطلحات، ونقل الأسماء، والصياغات الحسّاسة ثقافيًّا.</p>
+    <p class="meta">27 مايو 2026 · ديما بوليه (Dima Polet) · CC BY-NC 4.0</p>
+  </header>
+
+  <hr class="seam">
+
+  <!-- §00 التمهيد -->
+  <h2 class="lh"><span class="code">§00 · التمهيد</span>التمهيد</h2>
+  <p>تصف هذه الوثيقة الأنماط البنيوية للتفكير والبنية الواقية وصُنع القرار في العائلات العربية الثرية — أساساً الشرائح العليا من رأس المال في منطقة الخليج وبلاد الشام والمغرب الكبير ومصر، إضافةً إلى الجاليات العربية في المهجر.</p>
+  <p>الجنس الأدبي للوثيقة تحليل بنيوي، لا إثنوغرافيا ولا صحافة. المصادر هي الأكاديميا الإنجليزية، التقارير المؤسسية، الصحافة الإقليمية والعالمية، التسريبات الأرشيفية الموثَّقة صحفياً (وثائق باندورا وما يماثلها). لم يحدث اتصال مباشر مع المعنيين؛ ولم تُستخدم مصادر باللغة العربية في إعداد هذا العمل. هذا قيد معروف وجوهري في زاوية النظر.</p>
+  <p>هذه الوثيقة ليست نموذجاً لتفكير العائلات العربية الثرية بالمعنى الوجودي — فالنحو الداخلي للتفكير غير متاح بطبيعته للمراقب الخارجي دون اتصال مباشر وعمل بلغة المعنيّ. الوثيقة هي إعادة بناء بنيوية للممارسات والسلوك المُلاحَظ والوصف الذاتي العلني والآثار الأرشيفية، مع محاولة استشفاف الخطوط المعمارية القائمة وراءها.</p>
+  <p>لا تستهدف الوثيقة عائلات أو أفراداً بعينهم؛ لا تصدر أحكاماً أخلاقية على مصادر رأس المال؛ لا تقدّم استنتاجات تتعلق بالعقوبات أو الامتثال؛ لا تتنبأ بسلوك معنيّين بعينهم.</p>
+
+  <h3 class="sub">مستويات التأكيد</h3>
+  <p>تميِّز الوثيقة بين سبع درجات للتأكيدات الواردة في النص:</p>
+  <div class="tbl">
+    <table>
+      <caption>درجات التأكيد</caption>
+      <thead><tr><th>الدرجة</th><th>المعنى</th></tr></thead>
+      <tbody>
+        <tr><td>ملاحظة</td><td>واقعة من مصدر بعينه</td></tr>
+        <tr><td>نمط</td><td>تكرار في عدة مصادر</td></tr>
+        <tr><td>استنتاج</td><td>إعادة بناء لآلية</td></tr>
+        <tr><td>تعميم</td><td>صيغة بنيوية مستقرة</td></tr>
+        <tr><td>فرضية</td><td>تخمين عن حالات مجاورة</td></tr>
+        <tr><td>إعادة بناء افتراضية</td><td>صوت مفترض للمعنيّ نفسه</td></tr>
+        <tr><td>تأمّل تخميني</td><td>إطار حضاري واسع</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>أكثر التأكيدات الجوهرية في الوثيقة تقع في درجتي «نمط» و«تعميم». الفرضيات وإعادات البناء الافتراضية موسومة صراحةً عند ورودها.</p>
+
+  <h3 class="sub">ملاحظة منهجية</h3>
+  <p>أُعِدَّت هذه الوثيقة بمنهج مركّب: سلسلة من عمليات البحث المباشر في مصادر باللغة الإنجليزية، تحليل بنيوي للمادة المجمَّعة بحثاً عن أنماط مستقرة، تحويلها إلى نموذج رياضي لاتخاذ القرار، ثم اختبارها من خلال عدة زوايا تحليلية مستقلة (جلستان تحليليتان مستقلتان عبر نماذج لغوية كبيرة). تفاصيل البروتوكول التقني للعمل غير مدرَجة في هذه الوثيقة؛ المهمّ هنا هو النتيجة المعرفية.</p>
+
+  <hr class="seam">
+
+  <!-- §1 النماذج -->
+  <h2 class="lh"><span class="code">§01 · النماذج</span>§1 · النماذج الخمسة لحيازة رأس المال</h2>
+  <p>النموذج التحليلي المركزي — طيف من خمسة تشكيلات بنيوية متمايزة، لا «نموذج عربي» موحَّد واحد. داخل الطيف توجد توليفات هجينة سلسة، لا فئات منفصلة. والعائلة الواقعية عادةً نقطة في فضاء هذه الاتجاهات الخمسة، لا خانة من خمس خانات.</p>
+
+  <p class="runin"><strong>النموذج الأول · العائلة ≡ الدولة.</strong> السلالات الحاكمة في الخليج (آل صباح في الكويت، آل ثاني في قطر، آل مكتوم في دبي، آل سعود في المملكة العربية السعودية). والسلالة العلوية في المغرب عبر القابضة «المدى» (Al Mada). الدولة هي غلاف وجود العائلة. الحد بين الأصول الحكومية والشخصية لا يُرسَم بنيوياً. حماية رأس المال متطابقة مع الاستقرار السياسي للسلالة.</p>
+
+  <p class="runin"><strong>النموذج الثاني · العائلة ⊥ الدولة في بنية عالمية.</strong> السلالات التجارية الكبرى دون دم ملكي: مجموعة العليان (الشركة الأم في فادوتس / ليختنشتاين، مركز التشغيل في الرياض)، عائلة ساويرس (مصر، أقباط)، عائلة صفرا (بيروت — ساو باولو — جنيف). تعدّد النطاقات القضائية كقاعدة تشغيلية، حدّ أدنى من العلنية، حماية عبر المسافة من أي سلطة وطنية وحيدة.</p>
+
+  <p class="runin"><strong>النموذج الثالث · العائلة بلا أرض.</strong> الشتات الفلسطيني: عائلة المصري، عائلة الخوري، عائلة شومان (مؤسِّسو البنك العربي في القدس عام 1930)، عائلة الحديد. يُدار رأس المال دون دولة سياسية كمرسى. شبكة العلاقات والمهن وروابط الزواج تعيد إنتاج البنية على مدى أربعة إلى خمسة أجيال. البنك العربي بوصفه بنية تحتية مصرفية للشتات. شركة فلسطين للتنمية والاستثمار (PADICO) بوصفها استثماراً وطنياً (غير ربحي عمداً) في الأراضي الفلسطينية — حالة نادرة في المنطقة من التضحية الواعية برأس المال من أجل مشروع دولة لا تملك العائلة فيها ملكية قانونية. هذا النموذج البنيوي — رأس مال يعمل دون دولة حاضنة — يعكس واقعاً تاريخياً وسياسياً مؤلماً، لكنه يكشف أيضاً قدرة استثنائية على بناء بنية حافظة عبر أربعة إلى خمسة أجيال.</p>
+
+  <p class="runin"><strong>النموذج الرابع · جماعة تجارية موازية غير عربية داخل المنطقة العربية.</strong> التجّار الإيرانيون من البستكية في دبي (عائلة فاروق)، الجاليات التجارية الهندية (جماعة ثَتّا، عائلة بهاتيا — مئة عام في الإمارات حتى 2025)، الشبكات العمانية-الزنجبارية. جزء بنيوي من الاقتصاد الخليجي، لا ملحَق به. بعد الثورة الإيرانية عام 1979 يستخدم البازار الإيراني دبي قناةً لتجاوز العقوبات — طبقة منفصلة ولكنها مدمَجة بنيوياً.</p>
+
+  <p class="runin"><strong>النموذج الخامس · شبكة محافظة على نفسها عبر تعاقُب الأنظمة.</strong> السلالات التجارية السورية في حلب ودمشق (آل الشمّاس، آل الجابري). نجت من 54 سنة من حكم آل الأسد في وضع كامن. عودتها إلى التداول السياسي عام 2025 — فرضية تحتمل ثلاث قراءات (انظر §8).</p>
+
+  <p class="runin"><strong>التهجين كقاعدة.</strong> صبيح المصري يحقّق في آنٍ واحد عناصر النماذج الثاني والثالث والخامس: مواطن سعودي من أصل فلسطيني، مركز عملياته في الأردن، رئيس مجلس إدارة البنك العربي. هذا ليس استثناءً — بل هو الوضع الطبيعي. تمايز النماذج الخمسة أداة منهجية لا وصف ذاتي للحقل.</p>
+
+  <hr class="seam">
+
+  <!-- §2 العمق التاريخي -->
+  <h2 class="lh"><span class="code">§02 · العمق</span>§2 · العمق التاريخي</h2>
+  <p>سلوك العائلات الثرية في المنطقة اليوم هو الطبقة السادسة في قوس تاريخي من ست طبقات، لا تُرى إلا إذا رُئيت الطبقات الخمس السابقة.</p>
+
+  <p class="runin"><strong>الطبقة الأولى · التجارة البحرية في الخليج (4000 سنة).</strong> من دلمون (3000 قبل الميلاد) عبر تجارة المحيط الهندي. اللؤلؤ والخيول والتمر كسلع رئيسية حتى انهيار سوق اللؤلؤ في ثلاثينيات القرن العشرين. كان الخليج جزءاً من نظام تجاري عابر للمحيط الهندي، لا حضارةً عربيةً منفصلة.</p>
+
+  <p class="runin"><strong>الطبقة الثانية · الحماية البريطانية (1763–1971).</strong> كان الخليج إدارياً جزءاً من الهند البريطانية. <strong>كانت الروبية الهندية العملة الرسمية لدول الخليج حتى عام 1959، ثم روبية الخليج التي أصدرها مصرف الاحتياط الهندي حتى الفترة 1961–1970.</strong> هذه ليست أصلاً احتياطياً مماثلاً للدولار؛ كانت عملة الحساب اليومية. تحرَّك رأس المال بين بومباي وكراتشي ومسقط ودبي وزنجبار بحرية. جزء من الجاليات التجارية الهندية والإيرانية في المنطقة هو إرث بنيوي لهذه الحقبة.</p>
+
+  <p class="runin"><strong>الطبقة الثالثة · النسيج الديني-القانوني (الإسلام، أكثر من 1400 سنة).</strong> مؤسسات الوقف والمجلس والمحسوبية وشبكات القرابة. البنية الواقية الحديثة تستند إلى هذه المؤسسات، ولا تخترعها (انظر §3.3).</p>
+
+  <p class="runin"><strong>الطبقة الرابعة · حقبة النفط (الستينيات حتى العقد الثاني من الألفية الثالثة).</strong> تركّز رأس المال في السلالات الحاكمة، تشكُّل الصناديق السيادية، الارتباط بالنظام المالي العالمي عبر إعادة تدوير دولارات النفط. غيّرت الحقبة حجم رأس المال، لا بنية الحيازة الأساسية.</p>
+
+  <p class="runin"><strong>الطبقة الخامسة · حقبة إعادة كتابة المواثيق (2017 — الآن).</strong> سلسلة من الأحداث البنيوية: ريتز كارلتون في الرياض عام 2017، الانهيار المصرفي اللبناني عام 2019، اعتقال أصحاب المليارات في الجزائر عام 2019، سقوط نظام الأسد في سوريا في ديسمبر 2024. هذه عُقد في دورة عامة لإعادة كتابة المواثيق الاجتماعية بين العائلات والدول (انظر §3.2).</p>
+
+  <p class="runin"><strong>الطبقة السادسة · اليوم.</strong> رحيل جيل المؤسِّسين من الستينيات والسبعينيات؛ مأسسة إدارة العائلة (قانون شركات العائلة الإماراتي 2022)؛ إصلاحات السعودية في إطار رؤية 2030؛ مركز أعمال العائلة في دبي؛ رقمنة الأصول؛ عودة سوريا إلى التداول الإقليمي؛ إعادة تشكيل العلاقات بين الخليج وإيران.</p>
+
+  <hr class="seam">
+
+  <!-- §3 الاكتشافات -->
+  <h2 class="lh"><span class="code">§03 · الاكتشافات</span>§3 · الاكتشافات البنيوية</h2>
+  <p>أربع صياغات مستقرة تُلخّص الأنماط الملاحَظة لحيازة رأس المال في المنطقة. كل منها اجتاز اختبار الثبات عند نقله إلى مجالات أخرى (المناعة الحيوية، الدورات الاقتصادية في التاريخ الاجتماعي، الحماية القانونية، دراما الفعل الاجتماعي).</p>
+
+  <h3 class="sub">§3.1 · بنية الحيازة دالّة على الهشاشة، لا على التفضيل</h3>
+  <p class="meta-line"><b>مستوى التأكيد:</b> تعميم.</p>
+  <p>اختيار النطاقات القضائية والمصارف والمدارس والعقارات ونوع هيكل الأصول في العائلة العربية الثرية يُفسَّر في المقام الأول لا بتفضيل ثقافي، بل بتشكيلة الهشاشة في البيئة التي تعمل فيها العائلة. عدم الاستقرار الإقليمي العالي (الانقلابات السياسية، الانهيارات النقدية، الحروب الأهلية، إعادة كتابة المواثيق مع الدولة، العقوبات) يجعل تعدّد النطاقات القضائية والحيازة الموزّعة والحماية بالمسافة من أي سلطة وطنية وحيدة الحدَّ الأدنى العقلاني، لا خصوصية ثقافية.</p>
+  <p>هذه الصيغة متماثلة الشكل مع منطق الجهاز المناعي للكائن الحي: المدخل — بنية تهديدات البيئة، العملية — تجميع دفاعي من مكوّنات متوفرة، المخرج — مقاومة. ليس اختياراً، بل استجابة وظيفية لبنية الخطر المُلاحَظة.</p>
+  <p class="runin"><strong>أين لا تصلح الصيغة.</strong> العائلات في طور التجذُّر المستقر (الكويت بين 1960 و1990 قبل الغزو العراقي) كثيراً ما تختار البنية بتفضيل ثقافي. والعائلات ذات الأفق القصير جداً (رأس مال الجيل الجديد للشركات الناشئة في دبي) لا تنطبق عليها الصيغة أيضاً.</p>
+  <p class="runin"><strong>الطبقة الإمِيكية.</strong> في التقليد العربي تُعاش الهشاشة لا بوصفها متغيِّراً محايداً، بل بوصفها <span class="term">خَوْف الجَاه</span> — الخوف من فقدان المكانة والشرف. هذا مضمون عاطفي، لا نفعي.</p>
+  <p class="meta-line"><b>أمد ثبات الصيغة:</b> بنيوي، نحو 30–50 سنة، شرط استمرار مستوى عدم اليقين البنيوي الإقليمي.</p>
+
+  <h3 class="sub">§3.2 · الميثاق بين العائلة والدولة يُعاد كتابته دورياً. استقرار الميثاق وهمُ مرحلة</h3>
+  <p class="meta-line"><b>مستوى التأكيد:</b> تعميم.</p>
+  <p>نقاط انفصام المواثيق بين العائلات التجارية والدول في المنطقة (ريتز كارلتون 2017، الانهيار اللبناني 2019، اعتقالات أصحاب المليارات في الجزائر 2019، دمشق 2024) تبدو أحداثاً نقطية. بنيوياً هي عُقد لدورة متكرّرة تقوم فيها قيادة جديدة للدولة (أو طور جديد للقيادة القائمة) بإعادة كتابة شروط الميثاق مع نخبتها الاقتصادية عبر مصادرات استعراضية واعتقالات وإعادة توزيع للأصول.</p>
+  <p>إذا وسّعنا نافذة المراقبة الزمنية: حلّ البرلمان الكويتي عام 1938 في صدام مع التجّار القدامى؛ الثورة الإيرانية 1979 وإعادة هيكلة البازار؛ الغزو العراقي للكويت 1990؛ الربيع العربي 2011 — هذه ليست سلسلة مصادفات، بل عُقد لإعادة هيكلة دورية.</p>
+  <p>تتطابق هذه الصيغة بنيوياً مع «الحركة المزدوجة» لكارل بولانيي في كتاب «التحوّل الكبير»: دورة من التحرير والضبط في العلاقات بين المجتمع ونظامه الاقتصادي الفرعي. الركيزة الواقعية تختلف (العمل ورأس المال عند بولانيي مقابل العائلة والدولة هنا)، لكن بنية الدورة تتطابق.</p>
+  <p class="runin"><strong>الاستنتاج العملي.</strong> السؤال القديم «كيف نُبقي ميثاقاً مستقراً بين عائلتنا والنظام الحالي؟» يصبح سؤالاً غير مُحكَم. السؤال الصحيح: «في أي طور من الدورة نحن الآن، وماذا يتطلّب ذلك من بنية الحيازة؟».</p>
+  <p class="meta-line"><b>أمد ثبات الصيغة:</b> دوري، نحو 15–25 سنة (طول دورة واحدة من إعادة الكتابة).</p>
+
+  <h3 class="sub">§3.3 · البنية الواقية للعائلة الثرية أقدم من العائلة نفسها. تُنَشَّط ولا تُبتَدَع</h3>
+  <p class="meta-line"><b>مستوى التأكيد:</b> تعميم (مع تشعّب على المحور الجيلي — انظر أدناه).</p>
+  <p>تعدّد النطاقات القضائية، و<span class="term">الوقف</span> بوصفه أوقافاً عائلية ذرّيّة تتفادى تشظّي الإرث، و<span class="term">المجلس</span> بوصفه شكلاً لاتخاذ القرار، وشبكات المحسوبية، والقنوات في الشتات، وتوزيع العمليات على عدة مدن — هذه ليست اختراعات ما بعد 2017 رداً على صدمات إقليمية جديدة. هذه مؤسسات عمرها ألفية.</p>
+  <p>العائلات التجارية الشامية احتفظت برأس المال بين بيروت والإسكندرية وإسطنبول ومرسيليا منذ القرن التاسع عشر. التجار الهنود في دبي عملوا بين ثَتّا وبومباي والخليج منذ عشرينيات القرن العشرين. الوقف بوصفه التفافاً على التشظّي مؤسسة تعود إلى القرون الإسلامية الأولى. في عام 2025 يوجد في دبي 251 وقفاً عائلياً مسجَّلاً بإجمالي 4.8 مليار درهم.</p>
+  <p>ينبغي فهم هذه الصيغة بنفس الطريقة التي تُفهَم بها النماذج الأصلية اليونغية: لا تبني العائلة بنيتها الواقية من الصفر، بل تنشّط البنية التحتية الموروثة عند ظهور الشروط الملائمة. بعد ريتز كارلتون 2017 لم تخترع العائلات السعودية تعدّد النطاقات — بل كثَّفت ما كان لديها بالفعل.</p>
+
+  <div class="spec">
+    <div class="stag"><b>ملاحظة</b> · القطيعة الجيلية كخطر مفتاحي</div>
+    <div class="in"><p>الجيل الشاب من الورثة في عمر 30–40 سنة، الحاملون لشهادات وارتون وإنسياد في دبي والرياض، قد <strong>يستبدلون</strong> البنية الموروثة بنُسَخ غربية (صناديق ESG، الأصول المرمَّزة، استثمارات الذكاء الاصطناعي، مكاتب عائلية على الطراز الأمريكي)، بدلاً من تنشيطها. حسم هذا السؤال في عامَي 2030–2035. حتى ذلك الحين الصيغة مستقرة؛ بعده قد تحتاج إلى إعادة تركيب جوهرية.</p></div>
+  </div>
+
+  <p class="runin"><strong>المُعادِل الإمِيكي.</strong> الصيغة العربية <span class="term">«اللي خلّف ما مات»</span> تنقل جوهر الصيغة بصورة أكثر كثافة من أي صياغة غربية.</p>
+  <p class="meta-line"><b>أمد ثبات الصيغة:</b> جيلي، 5–10 سنوات حتى الحسم.</p>
+
+  <h3 class="sub">§3.4 · السرّية والاستعراض تقنيتان متوازيتان للحيازة، لا متناقضتان</h3>
+  <p class="meta-line"><b>مستوى التأكيد:</b> تعميم.</p>
+  <p>الاستهلاك التفاخري (اليخوت، القصور، خيول السباق، العمل الخيري العلني) يتعايش مع غموض الأصول الخارجية (وثائق باندورا تؤكّد ذلك بشأن شيخ دبي وأمير قطر ورئيس الوزراء اللبناني نجيب ميقاتي والملك عبد الله الثاني، وفقاً لما نشره الكونسورتيوم الدولي للصحفيين الاستقصائيين ICIJ) لدى المعنيّ ذاته. هذا ليس تناقضاً بين نمطَي سلوك مختلفَين، بل وجهان لتقنية واحدة لإدارة الظهور.</p>
+  <p class="maxim soft">الاسم يُبرَز حيث يعزِّز الوصول. والاسم يُخفى حيث يُنتج المخاطرة.</p>
+  <p>هذه الصيغة متماثلة الشكل مع دراماتورجيا إرفينغ غوفمان: إدارة الانطباع كعملية، طبقات مختلفة من العلنية لجماهير مختلفة، تنظيم الظهور بوصفه كفاءة جوهرية للفاعل الاجتماعي.</p>
+  <p class="runin"><strong>الاستنتاج العملي.</strong> السؤال الثنائي «هل تختفي هذه العائلة أم تستعرض؟» يُستبدَل بسؤال طوبولوجي: «أي أجزاء من الاسم تُبرَز أين، وأي أجزاء تُخفى أين؟». في الواقع قد تكون العائلة في الوقت ذاته معتمَة قانونياً، شفّافة كلياً تجاه الدولة، شبه مغلقة عشائرياً، مُدارة إعلامياً، استعراضية دينياً — أي أن الظهور يعمل لا على محور واحد، بل على عدة طبقات.</p>
+  <p class="meta-line"><b>أمد ثبات الصيغة:</b> بنيوي، نحو 20–40 سنة، حتى الإلغاء النوعي للسرّية المصرفية أو الترميز الكامل للأصول مع تحقّق علني.</p>
+
+  <hr class="seam">
+
+  <!-- §4 المعجم الإمِيكي -->
+  <h2 class="lh"><span class="code">§04 · المعجم</span>§4 · المعجم الإمِيكي</h2>
+  <p>سبعة مصطلحات مفتاحية من التقاليد العربية والإسلامية الداخلية، يبقى النموذج بدونها خارجياً ووظيفياً مفرطاً. كل البطاقات السبع — إعادة بناء، لا اقتباسات مباشرة.</p>
+
+  <div class="spec">
+    <div class="stag"><b>ملاحظة</b> · حول هذا القسم</div>
+    <div class="in"><p>الأوصاف التالية محاولة من الخارج لتقريب المفاهيم الأساسية في التراث العربي والإسلامي، لا تعريفاً نهائياً لها من داخل التراث الحيّ. الوصف الفقهي والروحاني الكامل لكل مفهوم خارج حدود هذه الوثيقة، ويُحال إلى المصادر الأصلية وإلى أهل العلم.</p></div>
+  </div>
+
+  <p class="runin"><strong>البَرَكَة</strong> <em>(barakah)</em>. ليست «رأس مال اجتماعي». وليست «حظاً». قدرة مُنتقَلة عبر خط النسب (<span class="term">بَرَكَة النَّسَب</span>) أو عبر القرب من المُقدَّس على استدعاء النتيجة الميمونة — المحصول، الولد، الربح، السلام. في النموذج المُصاغ تعمل البَرَكَة كمُضاعِف لجميع النتائج المستقبلية على مسار الفعل، لا كمكافأة لمرة واحدة. <em>(هذا التعريف خارجي بالضرورة، ولا يغطّي الأبعاد الميتافيزيقية الحيّة في التراث.)</em></p>
+  <p class="runin"><strong>الرِّزْق</strong> <em>(rizq)</em>. ليس «توزيع موارد». هو ما كُتب من العطاء قبل الميلاد. الكَسْب <em>(kasb)</em> مهمّ، لكن النتيجة لا تعتمد عليه خطّياً — إنها تُعطى <span class="term">(يَرْزُق)</span>. من هذا الإطار ينبثق موقف خاص من الثروة: لم تُكسَب فحسب، بل أُعطيت. وبالمثل الموقف من الخسارة: يرجع الرزق إلى من يَرزق.</p>
+  <p class="runin"><strong>الكَرَم</strong> <em>(karam)</em>. ليس «كرمًا لإظهار المكانة» ولا «تقنية اسم» منفردةً. أقدم من الإسلام، فضيلة عربية ما قبل إسلامية — <span class="term">كَرَم العَرَب</span>. كرم دون احتساب للمقابل، قبل أن تُعلَن الحاجة. قد يكون في آنٍ معاً فضيلةً صادقة، وتقنيةً للسمعة، وبنيةً مالية، والتزاماً عائلياً، وأداةَ تبعية. كل هذه الطبقات متعايشة، لا متناقضة.</p>
+
+  <p class="runin"><strong>السُّمْعَة / النَّسَب / الشَّرَف</strong> <em>(sum'a / nasab / sharaf)</em>. ليست «علامة تجارية». ثلاثة سجلات مختلفة تَدمجها الاختزالات الغربية في «الاسم كأصل»:</p>
+  <ul class="beds">
+    <li><span class="term">السُّمْعَة</span> — ما يُسمَع عنك في كلام الناس (ما يُقال).</li>
+    <li><span class="term">النَّسَب</span> — السلسلة العائلية بوصفها قرابة موضوعية (ما هو).</li>
+    <li><span class="term">الشَّرَف</span> — الشرف بوصفه موقفاً أخلاقياً (ما يعني).</li>
+  </ul>
+  <p>التمييز حاسم: السمعة القابلة للإدارة، والنسب الثابت، والموقف الأخلاقي — ثلاثة محاور مختلفة تقود إلى عمليات مختلفة.</p>
+
+  <p class="runin"><strong>الحَلَال / الحَرَام</strong> <em>(halal / haram)</em>. إطار بنيوي لتقييم مصدر رأس المال. منه تتفرّع قرارات تبدو للمراقب الخارجي اعتباطية: رفض صفقة مربحة، فضّ شراكة، تحويل جزء من الربح إلى الصدقة لا لأغراض السمعة. انظر §5 — هذا محور تقييم مستقل، لا فرع من «الموقف الديني».</p>
+  <p class="runin"><strong>المَجْلِس</strong> <em>(majlis)</em>. ليس «مجلس إدارة». اجتماع منتظم لرجال العائلة والضيوف في غرفة مخصَّصة في البيت؛ شكلٌ لاتخاذ القرار، وفضّ النزاع، ونقل المكانة، وصيانة الشبكة، وتعليم الصغار. في الكويت <span class="term">الدِّيوَانِيَّة</span> بوصفها شكلاً أكثر برلمانية. وظيفة طقوسية وتربوية، وشكلٌ للحضور، لا اتخاذ قرارات فحسب. في النموذج المُصاغ يعمل المجلس لا كإجراء تصويتي، بل كتركيب من عدة مؤثِّرات: إطار طقوسي للنقاش ← أوزان القرابة والأقدمية ← كلام مرتَّب (من يتكلم مباشرةً، من يُلمِح، من يصمت بمعنى) ← مرشِّح اعتراض من السلطة الأعلى ← حفظ الوجه لجميع الفروع. القرار الذي يخرج من المجلس ليس متوسط الأفضليات، بل قرار قابل للتنفيذ دون إذلال علني لأي فرع.</p>
+  <p class="runin"><strong>الوَقْف</strong> <em>(waqf)</em>. ليس مجرد «التفاف على التشظّي». طريقة لحفظ الملكية داخل العائلة عبر صيغة ذات طابع ديني: الإيراد يذهب إلى الذرية، وإلى البِرّ ينتقل بعد انقطاع الخط المباشر. مؤسسة تعود إلى القرون الإسلامية الأولى. ليست أداةً اقتصادية فقط — بل نسيجٌ ديني-قانوني لحفظ الملكية عبر شكل يبقى أطول من ورثة بعينهم.</p>
+
+  <hr class="seam">
+
+  <!-- §5 الحلال والحرام -->
+  <h2 class="lh"><span class="code">§05 · المحور الموازي</span>§5 · الحلال والحرام كمحور موازٍ لتقييم رأس المال</h2>
+  <p>المتغيِّر المركزي غير المُسمَّى في كثير من الأوصاف التحليلية الخارجية للعائلات العربية الثرية. ليس تجريداً لاهوتياً، بل <strong>معيار</strong> عملي يؤثّر في قرارات محدَّدة.</p>
+
+  <div class="spec">
+    <div class="stag"><b>ملاحظة</b> · حول جنس هذا التحليل</div>
+    <div class="in"><p>هذا القسم ليس بحثاً فقهياً ولا تفسيراً للشريعة، ولا يدّعي أي وضع شرعي. هو نموذج تحليلي يحاول رصد التأثير المُلاحَظ لتمييز الحلال والحرام على القرارات الاقتصادية في الأسر الثرية كما تظهر في المصادر الخارجية. الوصف الفقهي الكامل للحلال والحرام في النظام المالي خارج حدود هذه الوثيقة.</p></div>
+  </div>
+
+  <h3 class="sub">ما هذا بالمعنى العملي</h3>
+  <ul class="beds">
+    <li>رفض المشاركة في صفقات يرتبط ربحها بمصادر محرَّمة (الكحول، القمار، الربا بالمعنى الصارم، عدد من الصناعات غير الأخلاقية).</li>
+    <li>تفضيل بنيوي للأدوات المالية المتوافقة مع الشريعة في جزء من المحفظة (حتى لو لم يكن في كلها).</li>
+    <li>تحويل جزء من الربح إلى الصدقة لا كإيماءة علاقات عامة، بل كتزكية لرأس المال.</li>
+    <li>فضّ شراكات مع أطراف تُلقي أفعالهم بظلال الشك على حِلِّيَّة النشاط المشترك.</li>
+    <li>اختيار مدارس للأبناء يستثني برامج وبيئات معيَّنة.</li>
+  </ul>
+
+  <p class="runin"><strong>لماذا هذا محور مستقل.</strong> معيار الحلال والحرام لا يُختزَل في «دالّة الهشاشة» (§3.1)، ولا في «تنشيط البنية القديمة» (§3.3)، ولا في «دورة الميثاق مع الدولة» (§3.2)، ولا في «تقابل السرية والاستعراض» (§3.4). هذا محورٌ رابع (أو، في عدّ آخر، محور مركزي) من محاور اتخاذ القرار، يُجرى عليه الاختيار في آنٍ واحد مع المحاور الأربعة الأخرى.</p>
+  <p class="runin"><strong>درجة الالتزام تتفاوت كثيراً.</strong> من أُسَر تلتزم التزاماً صارماً، حيث الحِلِّيَّة معيارٌ رئيسي قد يفوق فائدةً مالية كبيرة، إلى أُسَر علمانية حيث الحلال والحرام آدابٌ خارجية بلا أثر تشغيلي حقيقي. داخل العائلة الواحدة قد تكون فروع مختلفة في مواقع مختلفة.</p>
+  <p class="runin"><strong>لماذا لا يُرى هذا المعيار من الخارج عادةً.</strong> القرارات المتَّخذة وفق إطار الحلال والحرام تبدو للمراقب الخارجي «غير عقلانية» بصورة منهجية: رفض صفقة مربحة، فضّ شراكة مع شريك مُربح، تزكية رأس المال عبر الصدقة. هذه هي المنطقة التي يُظهر فيها أرشيف التصدّعات المرئية (انظر §7) النتيجةَ لا السبب.</p>
+  <p>في النموذج المُصاغ (§10) يعمل معيار الحلال لا كمعامل عقوبة، بل <strong>كشرط صارم</strong>: الفعل الذي لا يجتاز المعيار يُستبعَد من مجموعة الخيارات المدروسة، ولا يحصل على «خصم في القيمة».</p>
+
+  <hr class="seam">
+
+  <!-- §6 الفاعلية -->
+  <h2 class="lh"><span class="code">§06 · الفاعلية</span>§6 · خارطة الفاعلية داخل العائلة</h2>
+  <p>اختصار شائع — «قرَّرت العائلة» / «تُفكِّر السلالة» / «يُمسك البيت» — يَتَبيَّن أنه خَطِر تحليلياً. العائلة في الواقع المُلاحَظ ميدانُ فاعليَّات بمصالح مختلفة وأنظمة ظهور وسلطات متمايزة. الفاعلية المُسيطِرة عادةً هي الأب الأكبر (البطريرك) أو لجنة من كبار الرجال، لكن قد تعمل في موازاة ذلك عُقد أخرى بمنطقها الخاص.</p>
+
+  <h3 class="sub">العُقد المرئية (الموجودة عادةً في المصادر)</h3>
+  <ul class="beds">
+    <li>البطريرك أو المؤسِّس — الوجه الرسمي للعائلة.</li>
+    <li>الابن الأكبر بوصفه الوارث — المُعلَن عنه علناً.</li>
+    <li>مكتب العائلة (family office) بوصفه البنية التحتية التشغيلية.</li>
+    <li>المستشارون الخارجيون: المحامون والمصرفيون والخبراء الشرعيون.</li>
+  </ul>
+
+  <h3 class="sub">العُقد غير المرئية أو القليلة الظهور (تتطلّب مصدراً داخلياً أو عملاً إثنوغرافياً)</h3>
+  <ul class="beds">
+    <li><strong>الأم البطريركية أو الزوجة الكبرى.</strong> قد توجِّه القرارات فعلياً عبر مؤسسة <span class="term">بَيْت الأُمّ</span> — خط النسب الأمومي داخل العائلة الكبيرة. في الحالات المُلاحَظة كثيراً ما يكون هذا الخط أقوى بنيوياً مما يبدو من الخارج.</li>
+    <li><strong>أخوات الوارث الرئيسي.</strong> خارج الخط رسمياً، لكنهنّ قد يمتلكن أثراً حاسماً في اختيار زيجات الجيل التالي، وهو ما يحدِّد الهندسة الموروثة بعد 30–40 سنة.</li>
+    <li><strong>أبناء العم من الدرجة الثانية.</strong> كثيراً ما يكونون مراكز عمليات حقيقية في نطاقات قضائية مختلفة، لا واجهات علنية.</li>
+    <li><strong>المستشار الديني للبيت</strong> (الشيخ، الإمام، المفتي). معيار <span class="term">للحلال/الحرام</span> يُمارَس عبر علاقة شخصية، لا عبر مجلس شرعي رسمي.</li>
+    <li><strong>البنات المُزَوَّجات في عائلات كبرى أخرى.</strong> عُقد في الشبكة بين العائلات، تَجري عبرها تدفقاتٌ حقيقية للمعلومات ورأس المال.</li>
+    <li><strong>الفروع المُبعَدة.</strong> كثيراً ما تبقى على اطّلاع وقد تعود بعد جيل أو جيلين بتفعيل أصول.</li>
+  </ul>
+
+  <p class="runin"><strong>ما يقدّمه هذا لقراءة الصيغ البنيوية في §3.</strong> الصيغ الأربع كلها (§3.1–§3.4) في صياغتها المعتادة تصف الفاعلية المُسيطِرة في العائلة — البطريرك أو لجنة كبار الرجال. وقد تعمل العُقد غير المرئية في العائلة نفسها بمنطق آخر بالتوازي. هذا لا يُلغي الصيغ، بل يحدِّد نطاق تطبيقها، ويُفسِّر الحالات التي يبدو فيها سلوك العائلة المُلاحَظ متناقضاً مع ذاته داخلياً.</p>
+
+  <hr class="seam">
+
+  <!-- §7 الأرشيف -->
+  <h2 class="lh"><span class="code">§07 · الأرشيف</span>§7 · أرشيف التصدّعات المرئية: مشكلة تمثيلية المصادر</h2>
+  <p>ميزة منهجية جوهرية لهذا الموضوع: متن البيانات الذي يقوم عليه أي تحليل خارجي للعائلات العربية الثرية ليس عيِّنة محايدة من حياتهم وتفكيرهم. هو <strong>أرشيف ظهور</strong>، أَنتجته أحداث خاصة.</p>
+
+  <h3 class="sub">ما الذي يجعل العائلة الثرية مرئية لأرشيف خارجي</h3>
+  <ul class="beds">
+    <li><strong>الفضيحة.</strong> طلاق، نزاع على الميراث، إفلاس، اتهامات بالفساد، نزاعات قضائية.</li>
+    <li><strong>الاستعراض.</strong> قصور، يخوت، خيول سباق، عمل خيري علني، أعراس، أندية رياضية، تبرعات للمتاحف.</li>
+    <li><strong>الكشف القسري.</strong> تسريبات أرشيفية (وثائق باندورا، وثائق بنما، ملفات فينسن، أسرار سويسرا، وثائق الجنّة الضريبية)، تحقيقات العقوبات، عمليات التدقيق الضريبي.</li>
+    <li><strong>العقاب السياسي.</strong> ريتز كارلتون 2017، اعتقالات الجزائر 2019، مصادرة الممتلكات المرتبطة بنظام الأسد بعد ديسمبر 2024.</li>
+    <li><strong>الكشف الصحفي.</strong> مشروع OCCRP، الكونسورتيوم الدولي للصحفيين الاستقصائيين ICIJ، الصحافة الإقليمية والعالمية.</li>
+    <li><strong>الخطاب الحكومي والعلاقات العامة.</strong> الروايات الحكومية، السجلات الدبلوماسية، البيانات الصحفية للعائلات.</li>
+  </ul>
+
+  <p>كل واحد من هذه الأنظمة يُظهر مضموناً مختلفاً. الفضيحة — ما خرج عن السيطرة. الاستعراض — ما يريد المعنيّ أن يكون مرئياً. الكشف القسري — ما كان المعنيّ يُخفيه. العلاقات العامة — كيف يريد المعنيّ أن يُفهَم.</p>
+
+  <p class="note-quiet">الخطر التحليلي الرئيسي: الحصول على خارطة ذكية جداً لا للعائلات العربية الثرية ككل، بل لمظهر هذه العائلات في اللحظة التي تصبح فيها مرئية للأرشيف الخارجي. هذان كائنان مختلفان.</p>
+
+  <p>انحياز منهجي للأرشيف بحسب النموذج. النماذج الخمسة من §1 تترك آثاراً مختلفة:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>انحياز منهجي للأرشيف بحسب النموذج</caption>
+      <thead><tr><th>النموذج</th><th>الأرشيف الرئيسي للآثار</th></tr></thead>
+      <tbody>
+        <tr><td>العائلة ≡ الدولة</td><td>الروايات الحكومية، السجلات الدبلوماسية، العلاقات العامة الرسمية</td></tr>
+        <tr><td>العائلة ⊥ الدولة</td><td>فوربس، السجلات المؤسسية، الصحافة الاقتصادية</td></tr>
+        <tr><td>العائلة بلا أرض</td><td>التسريبات المصرفية، سجلات العمل الخيري، صحافة الشتات</td></tr>
+        <tr><td>جماعة تجارية موازية غير عربية</td><td>التاريخ الشفهي، المدوَّنات المحلية</td></tr>
+        <tr><td>شبكة محافظة على نفسها عبر الأنظمة</td><td>شبه غير مرئية في الطور النشط، تظهر بأثر رجعي بعد تغيير النظام</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>من هذا الجدول يتفرّع استنتاج بنيوي مهمّ: الاستخدام السائد للمصادر الصحفية والأكاديمية الإنجليزية يُبالغ منهجياً في تقدير النموذجَين الثاني والثالث، ويُقلِّل من النموذجَين الرابع والخامس. هذا انحياز اختياري موجَّه، لا نقصٌ عام في الأرشيف.</p>
+  <p>الاستنتاج العملي لأي حالة بعينها (مجموعة العليان، آل ثاني، آل المصري، عائلة بهاتيا): يجب أن نُبيِّن صراحةً أيُّ أرشيف جعل هذه الحالة مرئية، وما الذي يعنيه ذلك بشأن تمثيلية الاستنتاجات الممكنة عن عائلات أخرى من النوع نفسه.</p>
+
+  <hr class="seam">
+
+  <!-- §8 تصويبات -->
+  <h2 class="lh"><span class="code">§08 · تصويبات</span>§8 · تصويبات معروفة للوقائع</h2>
+  <p>أثناء العمل تبيَّنت ثلاثة مواضع تتطلَّب فيها أرقامٌ أو صياغاتٌ شائعة في المصادر العامة تصويباً جوهرياً.</p>
+
+  <h3 class="sub">§8.1 · لبنان 2019، هروب رؤوس الأموال</h3>
+  <p>الصياغة الشائعة «خرج أكثر من 100 مليار دولار من لبنان في الأسابيع الأولى للأزمة» <strong>غير مؤكَّدة</strong>. الصورة الواقعية بحسب مجموع المصادر (رويترز، L'Orient Today، كارنيغي، عرب نيوز، العربية، معهد التمويل الدولي IIF):</p>
+  <ul class="beds">
+    <li>نحو 800 مليون دولار خرجت في الفترة من 15 أكتوبر إلى 7 نوفمبر 2019 (تقرير كارنيغي).</li>
+    <li>نحو 3 مليارات دولار هروب لرأس المال في الأشهر التسعة الأولى من 2019 (معهد التمويل الدولي IIF).</li>
+    <li>نحو 11 مليار دولار «أموال مصرفية انتهت في الخارج» بنهاية 2019 (تقدير النائب حسن فضل الله).</li>
+    <li>نحو 5.5–6 مليار دولار «هرَّبها مصرفيون إلى الخارج» (تقدير بيفاني، الموظف السابق في الرقابة المصرفية، مقابلة Financial Times).</li>
+    <li>بالتوازي، أكثر من 100 مليار دولار من الودائع كانت <strong>محتجَزة</strong> أو فقدت قيمتها داخل النظام المصرفي — وهذه قيمة أخرى بمعنى آخر.</li>
+  </ul>
+  <p class="runin"><strong>الصياغة الصحيحة.</strong> بعد أكتوبر 2019 حُوِّلت مبالغ كبيرة (5.5–15 مليار دولار وفق تقديرات مختلفة) إلى الخارج من قِبل أطراف مرتبطة وقريبة سياسياً قبل الإغلاق التام للقنوات، في حين أكثر من 100 مليار دولار من الودائع باتت محتجَزة أو فقدت قيمتها داخل النظام. وثائق باندورا الصادرة عن ICIJ تذكر هياكل خارجية للنخبة السياسية والمصرفية اللبنانية، منها رئيس الوزراء نجيب ميقاتي والحاكم السابق لمصرف لبنان رياض سلامة وآخرون.</p>
+  <p>الحجة البنيوية — «العائلات سبقت الدولة وأخرجت الأصول عبر المصارف ذاتها التي يمتلكونها» — تبقى قائمة مع تصحيح الأحجام.</p>
+
+  <h3 class="sub">§8.2 · ريتز كارلتون 2017، رقم استرداد الأصول</h3>
+  <p>الرقم الذي يُتداول كثيراً للأصول المُسترَدَّة جراء «حملة مكافحة الفساد» السعودية في نوفمبر 2017 — 107 مليار دولار — هو <strong>النتيجة المُعلَنة رسمياً من قِبل السلطات السعودية</strong>، لا قيمةً مُتحقَّقاً منها باستقلال. مصادر صحيفة الغارديان تُقدِّر الاستردادَ الفعليّ بنحو 28 مليار دولار. ينبغي وسم الرقم 107 بوصفه «الرقم المُعلَن رسمياً»، لا رقماً مُتحقَّقاً منه باستقلال.</p>
+  <p>المعنى البنيوي للحدث (المصادرة الاستعراضية كإعادة كتابة لميثاق مع النخبة الاقتصادية) يبقى قائماً مهما كان الرقم الفعلي.</p>
+
+  <h3 class="sub">§8.3 · سوريا 2024–2025، عودة السلالات التجارية</h3>
+  <p>السردية المُنتشِرة في سوريا ما بعد الأسد عن عودة السلالات التجارية القديمة في حلب ودمشق (آل الشمّاس، آل الجابري) بعد سقوط النظام في 8 ديسمبر 2024، والبيان الذي صدر عند بوابة غرفة تجارة دمشق في 2 يوليو 2025 «التُّجَّار السوريون خط أحمر» — تحتمل ثلاث قراءات ممكنة:</p>
+  <ol class="algo">
+    <li>إشارة مبكرة لاستعادة فعلية لشبكات تجارية قديمة نجت من حكم آل الأسد في وضع كامن.</li>
+    <li>سردية تشريع لنظام جديد — توظيف صورة التجّار العائدين لتعزيز الشرعية الاقتصادية للسلطة الانتقالية.</li>
+    <li>استعراض مُنظَّم عبر داعمين خارجيين — استثمارات خليجية أو غربية تستخدم سردية الاستعادة لأغراضها الخاصة.</li>
+  </ol>
+  <p>في مايو 2026 لا يمكن التمييز بين هذه القراءات بالاعتماد على المصادر الخارجية. ينبغي إبقاء التأكيد على مستوى الفرضية، لا الملاحظة، مع مراجعة بعد 12–24 شهراً.</p>
+  <p class="note-quiet">هذه القراءات الثلاث ليست نقداً لأي طرف، بل احتياط تحليلي في طور عدم استقرار شديد.</p>
+
+  <hr class="seam">
+
+  <!-- §9 مدّة الصلاحية -->
+  <h2 class="lh"><span class="code">§09 · الصلاحية</span>§9 · مدّة صلاحية الاستنتاجات ومُحرِّكات المراجعة</h2>
+  <p>الصيغ البنيوية المختلفة في الوثيقة لها آفاق ثبات مختلفة. <strong>مُحرِّكات المراجعة أهمّ من التقديرات الزمنية نفسها</strong>: عند تَحقُّق أي مُحرِّك، يجب مراجعة التأكيد بصرف النظر عن الوقت المنقضي.</p>
+  <div class="tbl wide">
+    <table>
+      <caption>آفاق الثبات ومُحرِّكات المراجعة</caption>
+      <thead><tr><th>التأكيد</th><th>الأفق</th><th>أهمّ مُحرِّكات المراجعة</th></tr></thead>
+      <tbody>
+        <tr><td>النماذج الخمسة للحيازة (§1)</td><td>20–30 سنة</td><td>ظهور نموذج سادس مستقل بنيوياً؛ الرقمنة الكاملة لرأس المال</td></tr>
+        <tr><td>بنية الحيازة دالّة على الهشاشة (§3.1)</td><td>30–50 سنة</td><td>استقرار المنطقة لمدة 20 سنة أو أكثر؛ تحرير كامل للنطاقات القضائية</td></tr>
+        <tr><td>إعادة الكتابة الدورية للمواثيق (§3.2)</td><td>15–25 سنة</td><td>انتقال نوعي إلى أشكال ما بعد الملكية؛ عقوبات دولية للمصادرات</td></tr>
+        <tr><td>تنشيط البنية القديمة (§3.3)</td><td>5–10 سنوات</td><td>التحوّل الجيلي في معظم الأسر الكبرى؛ حسم 2030–2035</td></tr>
+        <tr><td>السرّية والاستعراض (§3.4)</td><td>20–40 سنة</td><td>إلغاء السرّية المصرفية في المراكز المالية الرئيسية؛ الترميز مع تحقّق علني</td></tr>
+        <tr><td>الحلال والحرام كمحور (§5)</td><td>أكثر من 50 سنة</td><td>علمنة نوعية للتفكير المالي عند النخبة (غير مُلاحَظة)</td></tr>
+        <tr><td>السردية السورية (§8.3)</td><td>12–24 شهراً</td><td>أي تغيير في النظام أو الجبهة أو وضع العقوبات في سوريا</td></tr>
+        <tr><td>فقرة لبنان 2019 مع التصويب (§8.1)</td><td>5–10 سنوات</td><td>إعادة هيكلة القطاع المصرفي؛ رفع قيود رأس المال</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>سرعة شيخوخة الصيغ المختلفة تعكس طبيعتها: الصيغ البنيوية (§3.1، §3.4) والمحاور الموازية (§5) أكثر ثباتاً؛ الصيغ ذات الترتيب الجيلي (§3.3) والدوري (§3.2) تعيش أقصر.</p>
+
+  <hr class="seam">
+
+  <!-- §10 النمذجة الرياضية -->
+  <h2 class="lh"><span class="code">§10 · الرياضيات</span>§10 · النمذجة الرياضية للنموذج</h2>
+  <p>تقبل الأنماط البنيوية الواردة في §3 والطبقة الإمِيكية في §4 صياغةً رياضية على هيئة نموذج لاتخاذ القرار من قِبل فاعل موزَّع. هذه الصياغة محاولة لتدوين الملاحظات على شكل بنية ديناميكية للقرار، دون ادعاء اكتمال وجودي.</p>
+  <p class="note-quiet">هذا القسم تقني وقد يُتجاوَز عند القراءة الأولى دون فقدان جوهر الوثيقة. الجوهر مُلخَّص في §10.13 و§10.14.</p>
+
+  <h3 class="sub">§10.1 · تحفّظ على الجنس</h3>
+  <p>هذا ليس نموذجاً لما في أذهان المعنيّين. هو صياغة <strong>للآثار البنيوية للقرارات</strong> — للديناميكا المُلاحَظة عبر الممارسات والوصف الذاتي والسمعة والآثار الأرشيفية.</p>
+
+  <h3 class="sub">§10.2 · نواة النموذج</h3>
+  <p>العائلة العربية الثرية تتّخذ القرار لا بوصفها مستثمراً فردياً، بل بوصفها بيتاً موزَّعاً يحلّ مهمة الحفاظ على الخط عبر دورات الهشاشة. حالة العائلة <em>F</em> في اللحظة <em>t</em> تُوصَف عبر عشرة متغيِّرات:</p>
+  <div class="eq tight">\[ \textbf{Mind}_{F,t} = \mathcal{G}\left(A_t, U_t, H_t, N_t, P_t, \Psi_t, W_t, M_t, G_t, D_t\right) \]</div>
+  <div class="vars">
+    <div class="vr"><div class="vs">\(A_t\)</div><div class="vd">النموذج البنيوي للحيازة (نقطة في مُجسَّم النماذج الخمسة من §1)</div></div>
+    <div class="vr"><div class="vs">\(U_t\)</div><div class="vd">حقل الهشاشة (مصادرة، حرب، نظام، سمعة، تشظّي الورثة)</div></div>
+    <div class="vr"><div class="vs">\(H_t\)</div><div class="vd">حِلِّيَّة مصدر رأس المال وحركته بمعيار الحلال/الحرام</div></div>
+    <div class="vr"><div class="vs">\(N_t\)</div><div class="vd">الاسم في ثلاثة سجلات (السمعة / النسب / الشرف)</div></div>
+    <div class="vr"><div class="vs">\(P_t\)</div><div class="vd">ميثاق العائلة مع الدولة</div></div>
+    <div class="vr"><div class="vs">\(\Psi_t\)</div><div class="vd">نظام الظهور (السرّية ↔ الاستعراض)</div></div>
+    <div class="vr"><div class="vs">\(W_t\)</div><div class="vd">البنية الواقية الموروثة (الوقف، المجلس، المحسوبية، النطاقات القضائية)</div></div>
+    <div class="vr"><div class="vs">\(M_t\)</div><div class="vd">آلية التوافق العائلي الداخلي</div></div>
+    <div class="vr"><div class="vs">\(G_t\)</div><div class="vd">المتجه الجيلي (الكبار / الورثة / الجيل الأحدث المُتعلِّم في الغرب)</div></div>
+    <div class="vr"><div class="vs">\(D_t\)</div><div class="vd">نظام البيانات — ما يصبح مرئياً لنا من الخارج</div></div>
+  </div>
+  <p class="maxim soft">الاختزال الرئيسي للنموذج: التفكير ≈ نحو الحفاظ على خطّ العائلة تحت ضغط الهشاشة، في حدود مشروعية الحلال/الحرام.</p>
+
+  <h3 class="sub">§10.3 · العائلة كفاعل موزَّع</h3>
+  <p>العائلة بوصفها فاعلاً متَّخِذاً للقرار تتكوّن من عُقد ذات مصالح وأوزان مختلفة:</p>
+  <div class="eq tight">\[ F = \{p,\ h,\ fo,\ adv,\ m,\ sis,\ cous,\ dau,\ ex\} \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>عُقد الفاعل</caption>
+      <thead><tr><th>العُقدة</th><th>الدور</th></tr></thead>
+      <tbody>
+        <tr><td>p</td><td>البطريرك أو المؤسِّس</td></tr>
+        <tr><td>h</td><td>الوارث</td></tr>
+        <tr><td>fo</td><td>مكتب العائلة</td></tr>
+        <tr><td>adv</td><td>المحامون، المصرفيون، المستشارون الشرعيون</td></tr>
+        <tr><td>m</td><td>الأم البطريركية أو الزوجة الكبرى</td></tr>
+        <tr><td>sis</td><td>أخوات الوارث</td></tr>
+        <tr><td>cous</td><td>أبناء العم — المُشغِّلون في نطاقات قضائية مختلفة</td></tr>
+        <tr><td>dau</td><td>البنات المُزَوَّجات في عائلات أخرى</td></tr>
+        <tr><td>ex</td><td>الفروع المُبعَدة</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>اتخاذ القرار في العائلة هو حدّ أقصى معجمي في تسلسل هرمي من المعايير، حيث الربح <strong>ليس</strong> أولاً:</p>
+  <div class="eq tight">\[ a_t^* = \operatorname{LexMax}_{a \in \Omega}\left[H(a),\ C(a),\ N(a),\ U^{-1}(a),\ P(a),\ \Psi(a),\ \Pi(a)\right] \]</div>
+  <p>الترتيب المعجمي يعني أن الربح لا يستطيع «شراء» انتهاك الشرف؛ يُحسَّن فقط داخل مجموعة الخيارات المستوفية للمعايير الأولى. التسلسل: الجواز بمعيار الحلال/الحرام، ثم الحفاظ على الخط، فالاسم، فتخفيض الهشاشة، فميثاق الدولة، فنظام الظهور، وأخيراً فقط — الربح.</p>
+
+  <h3 class="sub">§10.4 · النموذج كمُجسَّم بسيط</h3>
+  <p>النموذج البنيوي لعائلة بعينها — ليس واحداً من خمس خانات، بل متجه مزج في مُجسَّم بسيط خماسي الأبعاد:</p>
+  <div class="eq tight">\[ A_t \in \Delta^5, \quad A_t = (a_1, a_2, a_3, a_4, a_5), \quad \sum_{i=1}^{5} a_i = 1 \]</div>
+  <p>العائلة الواقعية تُحقِّق النماذج الخمسة في آنٍ واحد بأوزان مختلفة؛ التهجين قاعدة، لا استثناء.</p>
+
+  <h3 class="sub">§10.5 · الدالّة الهدفية</h3>
+  <p>البيت العربي الثري لا يُعظِّم الربح. هو يُعظِّم بصورة مشتركة سبع خصائص بأولوية معجمية:</p>
+  <div class="eq tight">\[ \max\Big(L,\ N,\ S,\ R,\ \text{Access},\ B,\ \Pi\Big) \]</div>
+  <div class="vars">
+    <div class="vr"><div class="vs">\(L\)</div><div class="vd">استمرار الخط (Lineage)</div></div>
+    <div class="vr"><div class="vs">\(N\)</div><div class="vd">الاسم / الشرف / سماع خطّ العائلة</div></div>
+    <div class="vr"><div class="vs">\(S\)</div><div class="vd">أمان بنية الحيازة</div></div>
+    <div class="vr"><div class="vs">\(R\)</div><div class="vd">المشروعية الدينية-الأخلاقية</div></div>
+    <div class="vr"><div class="vs">Access</div><div class="vd">الوصول إلى الدولة، البلاط، الأسواق، المدارس، المصارف</div></div>
+    <div class="vr"><div class="vs">\(B\)</div><div class="vd"><span class="term">البَرَكَة</span> — يُمن المسار</div></div>
+    <div class="vr"><div class="vs">\(\Pi\)</div><div class="vd">الربح</div></div>
+  </div>
+  <p class="maxim soft">الربح جائز فقط إذا لم يمسّ خطّ العائلة والاسم والمشروعية والبنية الواقية.</p>
+
+  <h3 class="sub">§10.6 · مؤثِّر الهشاشة</h3>
+  <p>تتطوّر بنية الحيازة عبر الزمن تحت ضغط الهشاشة والصدمات:</p>
+  <div class="eq tight">\[ \text{Arch}_{t+1} = \text{Arch}_t + \alpha U_t + \beta\, \text{Shock}_t - \gamma\, \text{Stability}_t + \epsilon\, \text{Culture}_t \]</div>
+  <p class="eq-note">عند تجاوز العتبة <b>\(U_t > \theta_U\)</b> تُفعَّل آليات الحماية: تعدّد النطاقات القضائية، الهياكل الخارجية، مكتب العائلة، تعليم الأبناء في الخارج، زيادة حصة الوقف، خفض العلنية.</p>
+
+  <h3 class="sub">§10.7 · مؤثِّر الحلال/الحرام</h3>
+  <p>معيار الحلال لا يعمل كمعامل عقوبة، بل <strong>كقيد صارم</strong> على مجموعة الخيارات المقبولة. تأخذ دالّة الجواز \(H(a)\) ثلاث قيم:</p>
+  <div class="eq tight">\[ H(a)=\begin{cases}1\\0\\\left[0,1\right]\end{cases} \]</div>
+  <p class="eq-leg"><b>1</b> — فعل جائز؛ <b>0</b> — فعل غير جائز؛ <b>[0,1]</b> — منطقة رمادية.</p>
+  <p class="eq-note">للفروع الملتزمة التزاماً صارماً: <b>\(H(a)=0 \Rightarrow a \notin \Omega\)</b> <span class="v">(الفعل يُستبعَد من النظر).</span><br>للفروع العلمانية: <b>Score(a) = Score(a) − λ<sub>H</sub>(1 − H(a))</b> (المعيار يعمل كعقوبة، لا كاستبعاد).</p>
+
+  <h3 class="sub">§10.8 · مؤثِّر الاسم وتقابل الظهور</h3>
+  <p>الاسم دالّة في ثلاثة سجلات، ويُتَّخذ القرار مع مراعاة أثره على الاسم:</p>
+  <div class="eq tight">\[ N_t = f(\text{sum'a},\ \text{nasab},\ \text{sharaf}) \]</div>
+  <p>إذا تجاوز الضررُ بالاسم العتبةَ، \(\Delta N(a) < -\theta_N\)، يُحظَر الفعل أو يَنتقل إلى الوضع الخفيّ.</p>
+  <p>نظام الظهور تَحكمه ثنائيةُ السرّية والاستعراض:</p>
+  <div class="eq tight">\[ \Psi(a)=\begin{cases}\text{show} & \Delta\,\text{Access}(a)+\Delta N(a) > \text{Risk}(a)\\[2pt] \text{hide} & \text{Risk}(a) > \Delta\,\text{Access}(a)+\Delta N(a)\end{cases} \]</div>
+  <p class="eq-leg"><b>show</b> = إظهار · <b>hide</b> = إخفاء.</p>
+
+  <h3 class="sub">§10.9 · مؤثِّر تنشيط البنية القديمة</h3>
+  <p>عند صدمة تتجاوز قيمةً عَتَبيَّة لا يحدث تكيُّف تدريجي، بل تنشيط للأشكال الموروثة:</p>
+  <div class="eq tight">\[ W_{t+1} = \text{Activate}(W_{\text{ancestral}},\ \text{Shock}_t,\ U_t,\ G_t) \]</div>
+  <p>الأشكال المُنَشَّطة: الوقف، المجلس، المحسوبية، شبكات القرابة، قنوات الشتات، الزيجات، التشظّي عبر النطاقات القضائية.</p>
+  <p class="runin"><strong>التشعّب الجيلي.</strong> عند قيمة عالية لـ \(G_{\text{MBA}}\) (هيمنة الورثة المُتعلِّمين في الغرب) قد يحدث انتقال من Activate إلى Replace — أي إحلال أشكال حديثة محلّ البنية القديمة. هذه منطقة الخطر المركزية على ثبات النموذج.</p>
+
+  <h3 class="sub">§10.10 · مؤثِّر الميثاق مع الدولة</h3>
+  <p>يُعاد كتابة الميثاق بين العائلة والدولة دورياً:</p>
+  <div class="eq tight">\[ P_{t+1} = \text{Cycle}(P_t,\ \text{Regime}_t,\ \text{Shock}_t,\ \text{Confiscation}_t,\ \text{Loyalty}_t) \]</div>
+  <p class="eq-note">عند تجاوز العتبة <b>\(\text{RewriteRisk}_t > \theta_P\)</b> تَختار العائلة مزيجاً من الاستراتيجيات: الولاء، الخروج، خفض التعرّض المحلي، نقل الأصول، الزيجات بين العائلات، الدعم العلني، الصمت.</p>
+
+  <h3 class="sub">§10.11 · المؤثِّرات الإمِيكية الدلالية</h3>
+  <p>البَرَكَة، الرِّزْق، الكَرَم، الأَمَانَة، الشَّرَف، السُّمْعَة — ليست متغيِّرات نفعية، بل <strong>مُعدِّلات دلالية للقرار</strong>. لا تُحلّ محلّ الحساب، بل تُغيِّر معناه:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>المؤثِّرات الإمِيكية في النموذج</caption>
+      <thead><tr><th>المؤثِّر</th><th>كيف يعمل في النموذج</th></tr></thead>
+      <tbody>
+        <tr><td>البَرَكَة</td><td>تَرفع قيمة المسار المُبارَك «الصحيح» كمُضاعِف للنتائج المستقبلية</td></tr>
+        <tr><td>الرِّزْق</td><td>يُضعف الإيمان الخطّي «الجهد ← الدخل»؛ الثروة تُتصوَّر كنصيب مُقدَّر</td></tr>
+        <tr><td>الكَرَم</td><td>يُحوِّل الفائض إلى عطاء واسم وتبعية ونُبل</td></tr>
+        <tr><td>الأَمَانَة</td><td>تجعل رأس المال أمانةً، لا ملكاً مجرَّداً</td></tr>
+        <tr><td>الشَّرَف</td><td>يُدخل حظراً على أفعال تمسّ المروءة</td></tr>
+        <tr><td>السُّمْعَة</td><td>تُدير سماع الاسم في حقل الناس الآخرين</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">§10.12 · خوارزمية القرار</h3>
+  <p>لأي فعل ذي شأن — استثمار، زواج، شراء عقار، إخراج رأس مال، تبرّع، إيماءة علنية، تحالف مع نظام، اختيار مدرسة للوارث:</p>
+  <ol class="algo">
+    <li>التحقّق من الجواز بمعيار الحلال/الحرام.</li>
+    <li>التحقّق من تهديد خطّ العائلة.</li>
+    <li>التحقّق من الأثر على الاسم في السجلات الثلاثة.</li>
+    <li>التحقّق من الهشاشة (مصادرة، نظام، حرب، تشظّي الإرث).</li>
+    <li>التحقّق من حالة الميثاق مع الدولة.</li>
+    <li>التحقّق من التوافق العائلي عبر إجراء المجلس.</li>
+    <li>اختيار نظام الظهور — إظهار / إخفاء / تجزئة.</li>
+    <li>تنشيط البنية الموروثة أو إحلالها بأخرى جديدة.</li>
+    <li>وفقط بعد ذلك تحسين الربح.</li>
+  </ol>
+
+  <h3 class="sub">§10.13 · الصيغة المُكثَّفة</h3>
+  <p>في تسع قطرات:</p>
+  <div class="eq tight long">\[ \langle \text{Lineage},\ \text{Name},\ \text{Vulnerability},\ \text{Legitimacy},\ \text{Pact},\ \text{Visibility},\ \text{Waqf},\ \text{Majlis},\ \text{Diaspora} \rangle \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>القطرات التسع</caption>
+      <thead><tr><th>القطرة</th><th>المضمون</th></tr></thead>
+      <tbody>
+        <tr><td>خطّ العائلة (Lineage)</td><td>الخط أطول من الفرد</td></tr>
+        <tr><td>الاسم (Name)</td><td>الاسم أثمن من جزء من الربح</td></tr>
+        <tr><td>الهشاشة (Vulnerability)</td><td>البنية تُبنى من التهديدات</td></tr>
+        <tr><td>المشروعية (Legitimacy)</td><td>رأس المال يجب أن يكون جائزاً أو قابلاً للتزكية</td></tr>
+        <tr><td>الميثاق (Pact)</td><td>الدولة ليست خلفية، بل طرف متغيِّر</td></tr>
+        <tr><td>الظهور (Visibility)</td><td>الإظهار والإخفاء تقنية واحدة</td></tr>
+        <tr><td>الوقف (Waqf)</td><td>الملك يُمسَك عبر شكل يبقى أطول من الورثة</td></tr>
+        <tr><td>المجلس (Majlis)</td><td>القرار اجتماع ومكانة وتربية، لا حسابٌ فحسب</td></tr>
+        <tr><td>الشتات (Diaspora)</td><td>الأرض مرغوبة، لكن الشبكة قد تحلّ محلَّها</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">§10.14 · الصيغة الكبرى</h3>
+  <p class="maxim">العائلة العربية الثرية تُحسِّن لا «كيف نَجني أكثر»، بل «كيف نَحفظ خطّ العائلة والاسم والمشروعية والوصول عبر تَعاقُب الأنظمة».</p>
+  <p>بصياغة موجزة بالإنجليزية:</p>
+  <p class="maxim soft lat">Profit after lineage. Visibility after risk. Action after legitimacy.</p>
+  <p>وبالعربية:</p>
+  <p class="maxim soft">خطّ العائلة أولاً، ثم الاسم والجواز؛ بعدها الوصول والأمان والربح.</p>
+
+  <hr class="seam">
+
+  <!-- §11 تحسينات الصياغة -->
+  <h2 class="lh"><span class="code">§11 · التحسينات</span>§11 · تحسينات الصياغة</h2>
+  <p>النموذج الأساسي في §10 يُقدِّم نواةً معجميّة. خمسة تحسينات بنيوية تكمِّله إلى بنية أكثر اكتمالاً تشغيلياً.</p>
+
+  <h3 class="sub">§11.1 · المجلس تركيب من مؤثِّرات، لا تصويت</h3>
+  <p>الخطوة السادسة في خوارزمية القرار («التحقّق من التوافق العائلي») عبر مجموع مرجَّح للأفضليات لا تزال تَفوح برائحة مجلس إدارة. المجلس مبنيٌّ بطريقة مختلفة، ويُصاغ بدقة أكبر كتركيب من خمسة مؤثِّرات:</p>
+  <div class="eq tight long">\[ \text{Resolve}_{\text{Majlis}} = \text{FaceSaving} \circ \text{VetoFilter} \circ \text{RankedSpeech} \circ \text{KinshipWeight} \circ \text{RitualFrame} \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>مؤثِّرات المجلس</caption>
+      <thead><tr><th>المؤثِّر</th><th>ما يفعل</th></tr></thead>
+      <tbody>
+        <tr><td>RitualFrame (الإطار الطقوسي)</td><td>يحدِّد الطريقة المسموح بها للنقاش</td></tr>
+        <tr><td>KinshipWeight (وزن القرابة)</td><td>يوزِّع الأوزان غير الرسمية بحسب القرابة، العمر، الأصول، الزيجات، المشروعية الدينية</td></tr>
+        <tr><td>RankedSpeech (الكلام المرتَّب)</td><td>يحدِّد من يتكلم مباشرةً، من يُلمِّح، من يصمت بمعنى</td></tr>
+        <tr><td>VetoFilter (مرشِّح الاعتراض)</td><td>يستبعد القرارات غير المقبولة لدى الفاعلية العليا (حق الاعتراض لدى البطريرك مطلق عادةً)</td></tr>
+        <tr><td>FaceSaving (حفظ الوجه)</td><td>يُحوِّل النزاع إلى قرار دون إذلال علني لأي فرع</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>المجلس لا يُنتج «متوسط أفضليات»، بل قراراً قابلاً للتنفيذ دون هدر ماء وجه أي فرع من فروع البيت. هذا فرقٌ تشغيلي جوهري عن منطق إدارة الشركات.</p>
+
+  <h3 class="sub">§11.2 · الطبقة الإمِيكية كمؤثِّرات لإعادة تحديد الأفق، لا كمُضاعِفات نفعية</h3>
+  <p>كتابة من نوع <em dir="ltr">Value(a) = Material(a) + Meaning(a) − Dishonor(a)</em> إضافية ولا تنقل الدلالة الحقيقية. البَرَكَة والرِّزْق لا يعملان كمُضاعِفات لقيمة قرار بعينه، بل كمؤثِّرات تُغيِّر <strong>أفق العلّية</strong>:</p>
+  <ul class="beds">
+    <li>ما الذي يُعتبَر نتيجةً؟</li>
+    <li>على أي أفق زمني تُقَيَّم النتيجة؟</li>
+    <li>هل يُعَدّ النجاح «مكسوباً» أم «مُعطىً» أم «مُبارَكاً» أم «مُسمَّماً»؟</li>
+    <li>هل ينتقل الأثر إلى خطّ العائلة؟</li>
+  </ul>
+  <p>المؤثِّر الإمِيكي يُغيِّر إطار التقييم بأكمله، لا أنه يَضرب أو يُضيف رقماً. في الكتابة الصارمة يُغيِّر الجانب الأيمن من دالّة التقييم إلى موضوع آخر:</p>
+  <div class="eq tight">\[ E_{\text{emic}}:\ \text{Eval}(a, \tau) \mapsto \text{Eval}'(a, \tau_{\text{long}}) \]</div>
+  <p>المصطلحات الإمِيكية ليست حدوداً، ولا مُضاعِفات، بل <strong>مؤثِّرات لإعادة تحديد المعنى</strong>.</p>
+
+  <h3 class="sub">§11.3 · الزمن متغيِّر متعدّد الطبقات</h3>
+  <p>العائلة تتّخذ القرار لا في زمن واحد، بل في عدة طبقات زمنية غير متزامنة في آنٍ معاً:</p>
+  <div class="tbl wide">
+    <table>
+      <caption>الطبقات الزمنية للقرار</caption>
+      <thead><tr><th>الطبقة</th><th>المدة</th><th>العملية الرئيسية</th></tr></thead>
+      <tbody>
+        <tr><td>τ_majlis</td><td>ساعات إلى أيام</td><td>اتخاذ القرارات التكتيكية</td></tr>
+        <tr><td>τ_fo</td><td>فصل إلى سنة</td><td>إدارة محفظة مكتب العائلة</td></tr>
+        <tr><td>τ_inherit</td><td>جيل (نحو 25 سنة)</td><td>نقل الأصول والسلطة</td></tr>
+        <tr><td>τ_pact</td><td>15–25 سنة</td><td>دورة إعادة كتابة الميثاق مع الدولة</td></tr>
+        <tr><td>τ_arch</td><td>قرون</td><td>تنشيط البنية الواقية القديمة</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>القرار المُتَّخَذ في τ_majlis تترتّب عليه تَبِعات في الطبقات الخمس كلها. الاختيار الجيد على أفق واحد قد يكون سيئاً على أفق آخر — هذا وضع طبيعي، لا شذوذ. في الكتابة الصارمة كل معيار في التسلسل المعجمي له طبقته «المُمَيِّزة»:</p>
+  <div class="eq tight long">\[ a_t^* = \operatorname{LexMax}\left[H(a),\ C(a)|_{\tau_{\text{inherit}}},\ N(a)|_{\tau_{\text{pact}}},\ U^{-1}(a)|_{\tau_{\text{majlis}}},\ P(a)|_{\tau_{\text{pact}}},\ \Psi(a),\ \Pi(a)|_{\tau_{\text{fo}}}\right] \]</div>
+  <p>يمكن إدخال تكلفة عدم التزامن بين الأزمنة في النموذج كعقوبة صريحة:</p>
+  <div class="eq tight">\[ \text{Desync}(a) = \sum_{i,j} \left|\text{Eval}_i(a|\tau_i) - \text{Eval}_j(a|\tau_j)\right| \]</div>
+  <p>أي أن القرار يكون أغلى كلما زاد قطعه بين تقييمات الآفاق الزمنية المختلفة.</p>
+
+  <h3 class="sub">§11.4 · الهشاشة موتر من تهديدات مترابطة، لا كمية قياسية</h3>
+  <p>الكتابة السُّلَّميَّة \(U_t > \theta_U\) تُبسِّط الواقع. في الحقيقة هشاشة العائلة العربية الثرية متعدِّدة الأبعاد:</p>
+  <div class="eq tight long">\[ U = (U_{\text{conf}},\ U_{\text{rep}},\ U_{\text{fitna}},\ U_{\text{exile}},\ U_{\text{rel}},\ U_{\text{market}},\ U_{\text{succession}}) \]</div>
+  <div class="tbl wide">
+    <table>
+      <caption>مُكوِّنات الهشاشة</caption>
+      <thead><tr><th>المُكوِّن</th><th>ما يُهدِّد</th></tr></thead>
+      <tbody>
+        <tr><td>U_conf</td><td>مصادرة الأصول من الدولة</td></tr>
+        <tr><td>U_rep</td><td>كارثة سمعة علنية</td></tr>
+        <tr><td>U_fitna</td><td>فتنة داخل العائلة</td></tr>
+        <tr><td>U_exile</td><td>فقد الأرض أو الجنسية</td></tr>
+        <tr><td>U_rel</td><td>فضيحة دينية-شرعية (يصبح الحرام ظاهراً)</td></tr>
+        <tr><td>U_market</td><td>كوارث الأسواق (انهيار مصرفي، انهيار عملة)</td></tr>
+        <tr><td>U_succession</td><td>فوضى الميراث</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>الردود الواقية تختلف بحسب المُكوِّن: على U_conf — التوزيع عبر النطاقات القضائية؛ على U_rep — الاستعراض؛ على U_fitna — الوقف، المجلس، خط الأم كوسيط؛ على U_exile — الجنسيات المزدوجة؛ على U_rel — التزكية عبر العطاء؛ على U_market — تنويع فئات الأصول؛ على U_succession — الدساتير العائلية الرسمية.</p>
+  <p>علاوة على ذلك، مُكوِّنات الخطر مترابطة بينها: حماية من تهديد قد تُقوِّي تهديداً آخر. العمل الخيري العلني يُقلِّل U_rep، لكنه قد يَرفع U_conf عبر إظهار رأس المال. الوقف الصارم يُقلِّل U_succession، لكنه يَرفع U_fitna إذا رأت الفروع أن التوزيع غير عادل. الولاء للنظام يُقلِّل U_conf الآن، لكنه يَرفع U_exile بعد تغيير النظام.</p>
+  <p>تقليل الهشاشة يتطلّب إذن لا مجموعَ مُكوِّنات مستقلة، بل مُوازنة حقل مترابط:</p>
+  <div class="eq tight">\[ \min_{\Omega}\left[U^T C U + \lambda_F\, \text{Fragmentation} + \lambda_N\, \text{NameLoss}\right] \]</div>
+  <p class="eq-note">حيث \(C\) — مصفوفة التعزيز المتبادل للمخاطر.</p>
+  <p class="maxim soft">الهشاشة ليست سُلَّماً للخوف، بل حقلاً مترابطاً من التهديدات، حيث الحماية من تهديد قد تُولِّد تهديداً آخر.</p>
+
+  <h3 class="sub">§11.5 · الصلة بين النموذج البنيوي ونظام البيانات — انحياز ملاحظة منهجي مُدمَج</h3>
+  <p>النموذج البنيوي \(A\) في النموذج ونظام البيانات \(D\) مترابطان: نماذج بنيوية مختلفة تترك آثاراً مختلفة. <strong>هذا ليس تَحفُّظاً عن المصادر، بل جزء من النموذج نفسه</strong>:</p>
+  <div class="eq tight">\[ A_{\text{real}} \rightarrow D(A,\ \Psi,\ \text{SourceRegime}) \rightarrow A_{\text{observed}} \]</div>
+  <p>ظهور العائلة للمراقب الخارجي دالّة في نموذجها البنيوي. هذا يعني أن المسألة العكسية (استرداد توزيع النماذج البنيوية في الواقع من أرشيف الحالات المرئية) منحازة منهجياً لصالح النماذج ذات الآثار «الأعلى صوتاً».</p>
+  <p>الاستنتاج العملي، الموصوف في §7: الاستخدام السائد للمصادر الإنجليزية يُبالغ في تقدير النموذجَين الثاني والثالث، ويُقلِّل من النموذجَين الرابع والخامس. في كل حالة محدَّدة يجب أن نُبيِّن صراحةً أيُّ أرشيف جعل العائلة مرئية.</p>
+
+  <hr class="seam">
+
+  <!-- §12 النقاط العمياء -->
+  <h2 class="lh"><span class="code">§12 · النقاط العمياء</span>§12 · مناطق النقاط العمياء والخطوات المحتملة التالية</h2>
+
+  <h3 class="sub">ما يبقى غير مُغطًّى في هذه الوثيقة</h3>
+  <p class="runin"><strong>لم تُوظَّف المصادر العربية.</strong> الصحافة المحلية (الاقتصادية، الشرق للأعمال، العربية بالعربية، القدس العربي)، الأعمال الأكاديمية بالعربية (الجامعة الأمريكية في الشارقة، جامعة الملك عبد الله للعلوم والتقنية، الجامعة الأمريكية في بيروت، جامعة نيويورك أبوظبي)، التاريخ الشفهي عبر الإعلام العربي — كل هذا قد يُقدِّم صورة مختلفة جوهرياً، خاصةً في ديناميات العائلة، والتوزيع بحسب النوع، والتدرّج الديني داخل العائلة الواحدة.</p>
+  <p class="runin"><strong>لم تُجرَ إثنوغرافيا لبنية العائلة.</strong> الأعمال الأنثروبولوجية لآنه نغا لونغفا عن الكويت، أنّا بولاك-ليسر عن الخليج، سوزان فايد عن الإمارات قائمة، لكنها لا تَدخل في المتن المعياري للأدبيات الإدارية والمالية. بدونها تَبقى السياسة الداخلية للعائلات (دور الأم والأخوات الكبيرات، أنظمة المجلس في أقاليم مختلفة، الإجراء الفعلي لاتخاذ القرار) إعادةَ بناءٍ من الخارج.</p>
+  <p class="runin"><strong>معيار الحلال/الحرام يتطلّب نمط ملاحظة آخر.</strong> عبر العمل التحليلي الغربي لا يمكن التحقّق من اكتماله — يلزم إما مصدر عربي، أو اتصال مباشر مع الفروع الملتزمة.</p>
+  <p class="runin"><strong>التحوّل البنيوي اليوم يَجري أسرع من الأدبيات.</strong> رحيل جيل المؤسِّسين؛ عودة سوريا إلى التداول الاقتصادي الإقليمي؛ إعادة تشكيل العلاقات بين الخليج وإيران والعراق بعد اتفاق 2023؛ تحويل جزء من رأس المال العربي إلى أصول مُرَمَّزة وعملات مشفَّرة؛ إعادة تشكيل الموقف من استثمارات ESG عبر رؤية 2030. كل هذه العمليات تُنتج تشكيلة جديدة لا تَلحق بها الأدبيات الموجودة.</p>
+
+  <h3 class="sub">الخطوات المحتملة التالية في العمل مع هذا الموضوع</h3>
+  <p class="runin"><strong>اختبار الصيغ البنيوية في مجالات غير عربية.</strong> الاكتشافات البنيوية في §3، خاصةً §3.1 (البنية كدالّة على الهشاشة) و§3.2 (إعادة الكتابة الدورية للميثاق)، يمكن اختبارها للثبات عبر نقلها إلى مجالات مجاورة: السلالات التجارية اليابانية (ميتسوي منذ 1673، سوميتومو منذ 1615، بنية <em>ie / honke / bunke</em>، دورة إصلاحات ميجي — شووا — ما بعد الحرب — keiretsu)؛ التكتلات الكورية <em>chaebol</em> (سامسونغ، هيونداي، LG بعلاقات متشابكة وثيقة مع الدولة وفضائح دورية)؛ السلالات التجارية الهندية مارواري، فارسي، خوجة (تاتا، بيرلا، أمباني بذاكرة شتات طويلة).</p>
+  <p>إذا اجتازت الصيغ البنيوية الاختبار في واحد على الأقل من هذه المجالات — حصلت على مكانة مستوى حضاري، لا خصوصية عربية. إذا تعطّلت — تَتجلَّى الخصوصية العربية عبر التباين.</p>
+  <p class="runin"><strong>ربط زاوية تحليلية باللغة العربية.</strong> التثليث عبر باحث عربي متخصص أو مستعرب متمكّن، أو العمل المباشر مع مدوَّنات عربية يكشف معيار الحلال/الحرام، والمعجم الإمِيكي في استخدامه الحيّ، والخارطة الفعلية للفاعلية في عدد من الحالات الأساسية.</p>
+  <p class="runin"><strong>اتصال مباشر مع عائلة واحدة أو اثنتين.</strong> العمل الإثنوغرافي في إحدى السلالات التجارية الكبرى في المنطقة هو الطريقة الوحيدة لتقليص الفجوة بين الخارطة والمعنيّ تقليصاً جوهرياً.</p>
+
+  <hr class="seam">
+
+  <!-- الخلاصة -->
+  <h2 class="lh"><span class="code">الخلاصة</span>الخلاصة</h2>
+  <p>تَصِف الوثيقة طيف النماذج الخمسة لحيازة رأس المال، أربع صيغ بنيوية مستقرة، معجماً إمِيكياً في سبعة مصطلحات، الحلال والحرام كمحور موازٍ للتقييم، خارطة للفاعلية داخل العائلة، خصائص أرشيف الظهور، تصويبات معروفة للوقائع، اختلاف سرعة شيخوخة الاستنتاجات، صياغة رياضية لاتخاذ القرار وخمس تحسينات لها.</p>
+  <p class="runin"><strong>الاعتراف المنهجي الرئيسي للوثيقة يستحقّ صياغة مباشرة.</strong> الوثيقة الخارجية عن التفكير ليست التفكير نفسه. أي نموذج بنيوي للعائلة العربية الثرية، مبنيٍّ على مصادر خارجية، يَبقى إعادةَ بناءٍ للآثار البنيوية، لا نموذجاً للنحو الداخلي. هذا ليس اعتذاراً، بل شرطُ صدقٍ تجاه القارئ: تُهيِّئ الوثيقة شروطَ لقاءٍ ممكنٍ بين القارئ ومعنيِّه، شريطة أن يَعرف القارئ الفرقَ بين الخارطة وما تَحاول تمثيله.</p>
+    <p>الصيغة المُكثَّفة:</p>
+  <p class="maxim">العائلة العربية الثرية تُحسِّن لا «كيف نَجني أكثر»، بل «كيف نَحفظ خطّ العائلة والاسم والمشروعية والوصول عبر تَعاقُب الأنظمة». قرار البيت هو مرور الفعل الجائز عبر الشرف وخطّ العائلة والمجلس والأزمنة والتهديدات ونظام الظهور.</p>
+
+  <hr class="seam">
+
+  <!-- ملحق · الجرد الإقليمي -->
+  <h2 class="lh"><span class="code">ملحق · الجرد</span>ملحق · الجرد الإقليمي: حالات وعُقد مفتاحية</h2>
+  <p>تَركيز للملاحظات المرجعية بحسب المنطقة. الحالات اختيرت كتوضيحات للنماذج في §1 وللصيغ البنيوية في §3، لا كفهرس شامل.</p>
+
+  <h3 class="sub">أ · الخليج</h3>
+  <p class="geo">المملكة العربية السعودية</p>
+  <p class="runin"><strong>مجموعة العليان</strong> (النموذج الثاني في صورته الصافية) — أكبر سلالة تجارية خاصة في المنطقة. الشركة الأم (Olayan Investments Company Establishment) في فادوتس / ليختنشتاين؛ مركز التشغيل في الرياض؛ شركات تابعة حول العالم. علنية منخفضة، حدّ أدنى من العلاقات العامة العائلية، انتقال عبر دساتير عائلية مُمَأسَسة. المؤسِّس سليمان العليان (1918–2002) بدأ مترجماً في أرامكو؛ السلالة عَبَرت طفرة النفط، وتحرير التسعينيات، ورؤية 2030، وريتز كارلتون 2017 دون قطيعة بنيوية.</p>
+  <p class="runin"><strong>آل سعود</strong> (النموذج الأول) — سلالة حاكمة، نحو 15 ألف أمير، مع تجزئة داخلية لفروع بقُربٍ مختلف من العرش. حدث ريتز كارلتون نوفمبر 2017: احتُجز نحو 400 شخص، الحجم الرسمي للأصول المُستردَّة 107 مليار دولار (التقدير السعودي)، تقدير الغارديان المستقل نحو 28 مليار. المعنى البنيوي للحدث — إعادة كتابة للميثاق بين القيادة الجديدة (ولي العهد الأمير محمد بن سلمان) والنخبة الاقتصادية القديمة في ليلة واحدة. مُحَفِّز السلوك اللاحق للعائلات السعودية: تَسارُع الانتقال إلى الأصول الخارجية في دبي ولندن وسويسرا.</p>
+
+  <p class="geo">قطر</p>
+  <p class="runin"><strong>آل ثاني</strong> (النموذج الأول) — الدولة والعائلة لا تَنفصلان بنيوياً. Q-Investments كأداة استثمارية شخصية للأمير بأصول حول العالم (لندن، باريس، برلين). بعد الحصار الإقليمي 2017–2021 تكثّف التوجّه نحو تعدّد النطاقات القضائية.</p>
+
+  <p class="geo">الكويت</p>
+  <p class="runin"><strong>آل صباح</strong> (النموذج الأول) — سلالة حاكمة بتاريخ فريد في الخليج من البرلمانية المبكِّرة. حلّ البرلمان الكويتي 1938 في صدام مع العائلات التجارية القديمة (آل الغرّافي وآخرون) — سابقة مبكِّرة لإعادة كتابة الميثاق في المنطقة.</p>
+  <p class="runin"><strong>العائلات التجارية الكويتية القديمة</strong> (النموذج الثاني مع شائبة من الأول) — آل الغانم، بو خالد، آل الخطيب وآخرون. قبل اكتشاف النفط كان التجّار الكويتيون أغنى من السلالة الحاكمة؛ مؤسسة <span class="term">الدِّيوَانِيَّة</span> بوصفها شكلاً لاتخاذ القرار باقية كممارسة حيّة.</p>
+
+  <p class="geo">الإمارات</p>
+  <p class="runin"><strong>آل مكتوم</strong> (النموذج الأول، دبي) — تحوّل الأسرة الحاكمة إلى لاعب استثماري عالمي عبر Dubai Holding و Dubai World. وثائق باندورا الصادرة عن ICIJ تذكر هياكل خارجية شخصية للشيخ محمد بن راشد.</p>
+  <p class="runin"><strong>آل نهيان</strong> (النموذج الأول، أبوظبي) — جهاز أبوظبي للاستثمار (ADIA) كأحد أكبر الصناديق السيادية في العالم؛ الأصول الفردية لأعضاء الأسرة متشابكة مع أصول الدولة.</p>
+  <p class="runin"><strong>دبي كمركز تشغيلي.</strong> بحلول 2025 نحو 6000 مكتب عائلي في DIFC، قانون شركات العائلة الإماراتي 2022 الجديد، جهة تنظيمية خاصة لرأس المال العائلي. مركز الخليج لرأس المال العائلي لأول مرة في تاريخ المنطقة.</p>
+
+  <h3 class="sub">ب · بلاد الشام</h3>
+  <p class="geo">لبنان</p>
+  <p class="runin"><strong>عائلة صفرا</strong> (النموذج الثاني بانتقال إلى الثالث) — عائلة من أصل يهودي سوري-لبناني، مرَّت عبر بيروت وساو باولو وجنيف. إدموند صفرا كمؤسِّس Republic National Bank of New York. نموذج هجرة رأس المال الكبير من منطقة غير مستقرة إلى نطاقات قضائية مستقرة مع الحفاظ على البنية العائلية.</p>
+  <p class="runin"><strong>عائلة الحريري</strong> (النموذج الأول مع شائبة من الثاني) — رفيق الحريري (رئيس الوزراء، اغتيل في 2005) بنى ثروته في المملكة العربية السعودية، أعاد استثمارها في لبنان، ابنه سعد الحريري ورث البنية السياسية والاقتصادية معاً.</p>
+  <p class="runin"><strong>نجيب ميقاتي</strong> (النموذج الأول/الثاني) — رئيس وزراء في عدة حكومات، ثروة بنحو 2 مليار دولار، مجموعة M1 كبنية تشغيلية. وفقاً لما نشرته ICIJ في وثائق باندورا، توجد هياكل خارجية في بنما وجزر العذراء البريطانية وعقارات في موناكو.</p>
+  <p class="runin"><strong>أزمة أكتوبر 2019.</strong> هروب رأس مال النخبة المرتبطة 5.5–15 مليار دولار (انظر §8.1)؛ أكثر من 100 مليار دولار من الودائع محتجَزة داخل النظام المصرفي؛ المصارف، الكثير منها مملوكة لعائلات سياسية، صادرت فعلياً ودائع المودِعين العاديين. المعنى البنيوي: العائلات سَبَقت الدولة وأخرجت الأصول عبر المصارف ذاتها التي يَمتلكونها.</p>
+
+  <p class="geo">الأردن</p>
+  <p class="runin"><strong>الملك عبد الله الثاني</strong> (النموذج الأول) — وفقاً لما نشرته ICIJ في وثائق باندورا، 14 عقاراً في الولايات المتحدة والمملكة المتحدة بقيمة تتجاوز 100 مليون دولار، اقتُنيت عبر شركات خارجية في جزر العذراء البريطانية في الفترة 2003–2017. تشمل ثلاث فيلات في ماليبو بقيمة 50 مليون دولار، قصراً في أسكوت، شققاً متعددة الملايين في وسط لندن، ثلاث شقق في واشنطن.</p>
+  <p class="runin"><strong>النخبة الفلسطينية-الأردنية</strong> (النموذجان الثاني والثالث) — صبيح المصري: مواطن سعودي من أصل فلسطيني، مركز عملياته في الأردن، رئيس مجلس إدارة البنك العربي، مؤسِّس مجموعة أسترا السعودية. في ديسمبر 2017، بعد شهر من ريتز كارلتون، احتُجز في الرياض في طريقه إلى المطار بعد اجتماع مجالس الإدارة؛ أُفرج عنه بعد عدة أيام دون اتهامات رسمية. حدث استُقبل كضغط من السعودية على الملك عبد الله الثاني.</p>
+
+  <p class="geo">الشتات الفلسطيني (النموذج الثالث)</p>
+  <p class="runin"><strong>عائلة منيب المصري</strong> (جيولوجي، ملياردير، من نابلس) — مؤسِّس <span class="term">بادكو</span> (PADICO) شركة فلسطين للتنمية والاستثمار، تأسست عام 1993 برأس مال معلَن قدره 1 مليار دولار بعد اتفاق أوسلو. الإعلان: «وطنية، لا ربح». فندق إنتركونتيننتال في بيت لحم افتُتح عشية الانتفاضة الثانية وبقي فارغاً لسنوات؛ نصف المصانع في غزة أُغلق — استثمارات غير مربحة اقتصادياً، مدعومة من أجل مشروع دولة لا تَملك العائلة فيها ملكية قانونية.</p>
+  <p class="runin"><strong>البنك العربي</strong> — تأسس على يد عبد الحميد شومان في القدس عام 1930. يعمل في إحدى عشرة دولة. البنية التحتية المصرفية للشتات الفلسطيني.</p>
+  <p class="runin"><strong>شركة كونسوليديتد كونتراكتورز</strong> — تأسست عام 1963 على يد رواد فلسطينيين؛ بنت أنابيب نفط ومحطات في كافة أنحاء الخليج.</p>
+
+  <h3 class="sub">ج · المغرب العربي</h3>
+  <p class="geo">المغرب</p>
+  <p class="runin"><strong>الملك محمد السادس</strong> (النموذج الأول في صورة محدَّدة) — عبر القابضة <span class="term">المدى</span> (Al Mada، سابقاً الشركة الوطنية للاستثمار)، حصة الأسرة الملكية نحو 60% اليوم مقابل 13% عند وفاة الحسن الثاني في 1999. السيطرة على أكبر بنك في البلاد التجاري وفا (46–47%)، أكبر شركة تأمين وفا للتأمين، الاتصالات، التعدين، الطاقة. الثروة الشخصية تُقدَّر بـ 6–8 مليار دولار.</p>
+  <p class="runin"><strong>المخزن</strong> كبنية تشغيلية للسلطة — منظومة المستشارين، المسؤولين، الولاة، رؤساء القبائل حول الملك. موازية للمؤسسات الدستورية وكثيراً ما تكون أكثر تأثيراً منها.</p>
+  <p class="runin"><strong>النخبة المغربية الثرية خارج الأسرة الملكية</strong> (عثمان بنجلون مع مجموعة BMCE Bank of Africa، عزيز أخنوش بمصالح نفطية ومنصب رئيس الحكومة) أدنى بنيوياً من الملك وتعتمد على رضا المخزن.</p>
+
+  <p class="geo">الجزائر</p>
+  <p class="runin"><strong>يسعد ربراب</strong> (النموذج الثاني) — من أصل قبائلي، مؤسِّس <span class="term">سيفيتال</span> أكبر شركة خاصة في الجزائر. قبل اعتقال 2019 قُدِّرت ثروته بـ 3.4–4.8 مليار دولار. عصامي: بدأ محاسباً، أَنشأ نشاطاً خلال «العشرية السوداء» للحرب الأهلية في التسعينيات. فُجِّر مصنعه على يد مسلحين؛ أعاد بناءه من الصفر.</p>
+  <p class="runin"><strong>ريتز كارلتون الجزائري في 2019.</strong> بعد رحيل بوتفليقة في أبريل 2019 اعتُقل ربراب، الإخوة كنينف (أربعة)، علي حداد (حاول الفرار بجوازَي سفر عبر الحدود التونسية)، رئيس الوزراء السابق أويحيى، وزير المالية الحالي لوكال. بنيوياً — مقابل لما حدث في السعودية 2017: قيادة جديدة تُعيد كتابة الميثاق مع النخبة الاقتصادية عبر مصادرات استعراضية.</p>
+
+  <p class="geo">تونس</p>
+  <p class="runin"><strong>تكتلات عائلية بلا أصحاب مليارات</strong> (الاقتصاد التونسي صغير) — مجموعة المبروك (الأعمال الزراعية، المصارف، التجزئة — Monoprix، Géant Casino، توزيع مرسيدس)، بن يدّر (Amen Bank)، تامارزيست (Meninx Holding). سابقة لهشاشة رأس المال: عائلة الطرابلسي (أقارب زوجة بن علي) فُقدت بعض أصولها بعد ثورة 2011؛ منذ ذلك الحين تَحتفظ العائلات التجارية التونسية بحصة كبيرة من الأصول خارج البلاد.</p>
+
+  <h3 class="sub">د · مصر</h3>
+  <p class="runin"><strong>عائلة ساويرس</strong> (النموذج الثاني، أقباط) — نجيب وسميح ونصيف ساويرس كثلاثة إخوة من أصحاب المليارات بحصص في أوراسكوم تيليكوم، أوراسكوم للإنشاءات، أوراسكوم للفنادق. بنية متعدِّدة النطاقات القضائية: أصول في مصر، إيطاليا، الجزائر، كوريا الشمالية (تاريخياً)، الكاريبي. علنية شخصية منخفضة.</p>
+
+  <h3 class="sub">هـ · الجاليات التجارية الموازية في الخليج (النموذج الرابع)</h3>
+  <p class="geo">الشتات الإيراني</p>
+  <p class="runin"><strong>البستكية في دبي</strong> — حيّ تاريخي، تأسس في بداية القرن العشرين على يد تجّار إيرانيين سُنّة من مدينة بستك في محافظة هرمزغان، فرّوا من السياسة الضريبية لطهران. أحضروا معهم العمارة بأبراج الرياح، شبكات التجارة، رأس المال.</p>
+  <p class="runin"><strong>عائلة فاروق</strong> — تتعقَّب أصلها من المملكة العربية السعودية عبر بستك إلى دبي. تجارة الألماس، اللؤلؤ، الأحجار الكريمة. مستشارون لحكّام الخليج في القرن العشرين.</p>
+  <p>بعد الثورة الإيرانية 1979 تكثّفت الصلة بين بازار طهران والخليج. بحلول الألفية الجديدة حلّت محلّ النخبة البازارية الإيرانية القديمة شبكات تجارية جديدة «عابرة للحدود، متعدِّدة اللغات، خفيّة»، مركزها دبي. هذه ليست أعمالاً «عربية» ولا «فارسية» — بل طبقة خليجية-إيرانية مختلطة، تعمل عبر المناطق الحرة وصرّافات العملة وأسواق الذهب.</p>
+
+  <p class="geo">الجاليات التجارية الهندية</p>
+  <p class="runin"><strong>جماعة ثَتّا</strong> — جماعة تجارية هندوسية من مدينة ثَتّا (باكستان حالياً)، بدأت الاستقرار في الخليج منذ عشرينيات القرن العشرين، عندما كانت الروبية الهندية العملة الرسمية للمنطقة.</p>
+  <p class="runin"><strong>عائلة بهاتيا.</strong> المؤسِّس أوتامتشاند تولسيداس بهاتيا وَصَل إلى دبي عام 1925 يتيماً في الحادية عشرة من عمره. بحلول 2025 تُحتفل العائلة بمئوية وجودها في الإمارات — أربعة أجيال من الحضور التجاري المتواصل، أطول من كثير من الأسر الإماراتية من غير السلالات الحاكمة. السيطرة على جزء كبير من تجارة الجملة، تجارة المجوهرات، النسيج.</p>
+
+  <h3 class="sub">و · سوريا بعد ديسمبر 2024</h3>
+  <p>سقوط نظام الأسد في 8 ديسمبر 2024. عُثر على 26 طناً من الذهب في المصرف المركزي (نحو 2.2 مليار دولار). وفق تقديرات وزارة الخارجية الأمريكية لعام 2022، قُدِّرت الأصول والشركات المرتبطة بعائلة الأسد بـ 12 مليار دولار؛ نحو 250 مليون نقداً حُوِّلت إلى موسكو في 2018–2019.</p>
+  <p>إعادة تشكيل النخبة التجارية-الريادية في طور. في 2 يوليو 2025 صدر عند بوابة غرفة تجارة دمشق بيان علني غير مسبوق: «التُّجَّار السوريون خط أحمر». عودة السلالات التجارية القديمة في حلب ودمشق (آل الشمّاس، آل الجابري) — على مستوى فرضية، لا ملاحظة؛ القراءات الثلاث المحتملة موضَّحة في §8.3.</p>
+  <p>الاتحاد الأوروبي رفع تقريباً جميع العقوبات الاقتصادية في 28 مايو 2025، رافعاً التجميد عن 24 مصرفاً وشركة حكومية. الولايات المتحدة أَعلنت رفع عقوبات قانون قيصر في 14 مايو 2025. مستثمرون خليجيون (سعوديون وقطريون) بدأوا تمويل إعادة الإعمار.</p>
+  <p class="runin"><strong>الحبكة البنيوية للنموذج الخامس.</strong> على مدى 54 سنة من حكم آل الأسد (حافظ منذ 1970، بشار منذ 2000) أُزيحت السلالات التجارية القديمة لصالح عائلة مخلوف ودائرة المقرَّبين. الآن يَجري انعكاس. أي تشكيلة ستستقرّ — غير معلوم. هذه هي المنطقة التي يَتجلَّى فيها النموذج الخامس («شبكة محافظة على نفسها عبر الأنظمة») في الزمن الحقيقي.</p>
+
+  <hr class="seam">
+
+  <p class="note-quiet">تَصِف الوثيقة الأنماط البنيوية للتفكير وصُنع القرار في العائلات العربية الثرية عبر طيف النماذج الخمسة، أربع صيغ مستقرة، معجم إمِيكي، محور الحلال والحرام، خارطة الفاعلية ونموذج مُصاغ للقرار مع خمس تحسينات. الجنس — تحليل بنيوي من مصادر خارجية، لا إثنوغرافيا. القيود المعروفة في زاوية النظر موصوفة في التمهيد وفي §12.</p>
+
+  <footer class="foot">
+    27 مايو 2026<br>
+    ديما بوليه (Dima Polet)<br>
+    CC BY-NC 4.0<br>
+    <br>
+    ملاحظة: هذه نسخة عمل عربية. يرحّب المؤلف بتصويبات المتخصصين الإقليميين والقرّاء الناطقين بالعربية في المصطلحات، ونقل الأسماء، والصياغات الحسّاسة ثقافيًّا.
+  </footer>
+
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">←</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  function fixArabicInMath(){
+    document.querySelectorAll('.katex span').forEach(function(el){
+      if(el.children.length===0 && /[\u0600-\u06FF]/.test(el.textContent)){
+        el.style.fontFamily="'Amiri', serif";
+        el.style.direction="rtl";
+        el.style.unicodeBidi="isolate";
+      }
+    });
+  }
+  function render(){
+    if(window.renderMathInElement){
+      try{
+        window.renderMathInElement(document.body,{
+          delimiters:[
+            {left:'\\[',right:'\\]',display:true},
+            {left:'\\(',right:'\\)',display:false}
+          ],
+          throwOnError:false,
+          strict:false
+        });
+        fixArabicInMath();
+      }catch(e){}
+    } else { setTimeout(render,90); }
+  }
+  if(document.readyState!=='loading') render();
+  else document.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+</body>
+</html>

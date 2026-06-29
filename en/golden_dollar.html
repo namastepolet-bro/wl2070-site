@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Golden Dollar 2045 · Stratigraph</title>
+<style>
+/* ── Light scheme "Stratigraph" — tokens from the approved pilot (verbatim) ── */
+:root{
+  --bg:#f1ece2; --paper:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-soft:#b65038;
+  --seam:#d2c6b0; --rule:#e4dccb; --hair:#ece4d5;
+  --code-ink:#3a352d; --code-bg:#f0e9da;
+
+  /* ── COMPRESSED TYPE SCALE (preview edit: fewer jumps, easier to read) ──
+     anchor — body 17px. Whole document in the 12→34px band, not 10→58px. */
+  --t-hero:clamp(28px,5vw,34px);   /* was ~58 */
+  --t-h2:clamp(21px,3.4vw,24px);   /* § */
+  --t-h3:19px;
+  --t-body:17px;                    /* ANCHOR */
+  --t-small:15px;                   /* secondary text, captions under heading */
+  --t-meta:12px;                    /* mono labels, codes, numbers (was 10) */
+  --t-table:14.5px;
+  --lh-body:1.66;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--paper); color:var(--ink-soft); font-family:'Spectral',Georgia,serif;
+  font-size:var(--t-body); line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:#fff; }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 34%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+/* note bar */
+.note-bar{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--paper); }
+.note-bar b{ color:var(--accent); }
+
+/* core */
+.page{ padding:40px 22px 110px; }
+.sheet{ max-width:760px; margin:0 auto; position:relative; padding-left:84px; }
+.sheet::before{ content:""; position:absolute; left:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 6%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+.hero h1{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(34px,6vw,41px); line-height:1.1; letter-spacing:-.005em; margin:0 0 14px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral',serif; font-style:italic; font-size:18px; line-height:1.5; color:var(--muted); margin:0 0 8px; }
+.hero .meta{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); margin:14px 0 0; line-height:1.7; }
+
+/* seams */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:40px 0 34px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+/* bed heads — type sizes brought close, contrast carried by color/weight, not size */
+h2.lh{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-h2); line-height:1.18;
+  margin:1.9em 0 .6em; color:var(--ink); position:relative; scroll-margin-top:60px; }
+h2.lh .code{ position:absolute; left:-78px; top:.1em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+h2.lh::before{ content:""; position:absolute; left:-64px; top:.6em; width:14px; height:1px; background:var(--accent); }
+
+h3.sub{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-h3); line-height:1.25; margin:1.7em 0 .5em; color:var(--ink); position:relative; padding-left:20px; }
+h3.sub::before{ content:""; position:absolute; left:0; top:.62em; width:12px; height:1px; background:var(--accent); }
+
+/* text */
+p{ margin:0 0 1em; color:var(--ink-soft); }
+p strong{ color:var(--ink); font-weight:600; }
+p em{ font-style:italic; }
+.lead{ font-size:var(--t-body); color:var(--ink-soft); }
+
+/* lead-in paragraph: bold label IN-LINE (no type-size jump) — typical device of this article */
+p.runin > b:first-child, p.runin > strong:first-child{ color:var(--accent); font-weight:600; }
+
+/* metadata line (Level of claim / Shelf life) — small mono, not a heading */
+.geo{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:0;
+  text-transform:uppercase; color:var(--accent); font-weight:600; margin:1.6em 0 .5em; }
+.meta-line{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em;
+  color:var(--muted); margin:.2em 0 1.1em; }
+.meta-line b{ color:var(--ink); font-weight:600; }
+
+/* term emphasis (emic lexicon, transliterations) */
+.term{ font-style:italic; color:var(--ink); }
+
+/* lists */
+ul.beds{ list-style:none; margin:1.1em 0; padding:0; }
+ul.beds > li{ position:relative; padding-left:22px; margin:0 0 .55em; line-height:1.6; color:var(--ink-soft); }
+ul.beds > li::before{ content:""; position:absolute; left:0; top:.66em; width:11px; height:1px; background:var(--accent); }
+ul.beds > li strong{ color:var(--ink); font-weight:600; }
+ul.beds > li em{ font-style:italic; }
+
+/* table — calm, stratigraphic */
+.tbl{ margin:1.4em 0; border:1px solid var(--rule); border-top:2px solid var(--seam); border-radius:2px; overflow:hidden; }
+.tbl table{ width:100%; border-collapse:collapse; font-size:var(--t-table); }
+.tbl caption{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); text-align:left; padding:11px 16px 0; }
+.tbl th{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:var(--t-meta); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent); text-align:left; padding:11px 16px; border-bottom:1px solid var(--rule); background:var(--panel-2); }
+.tbl td{ padding:10px 16px; border-bottom:1px solid var(--hair); color:var(--ink-soft); line-height:1.45; vertical-align:top; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl td:first-child{ color:var(--ink); font-weight:600; white-space:nowrap; }
+.tbl.wide td:first-child{ white-space:normal; }
+
+/* spec insert (for "important note on genre" — a typical block of the article) */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.spec .stag{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); padding:11px 18px; border-bottom:1px solid var(--rule); }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:16px 20px; }
+.spec .in p{ margin:0; font-size:var(--t-small); line-height:1.6; color:var(--ink-soft); }
+.spec .in p em{ font-style:italic; }
+
+/* quiet marginal note */
+.note-quiet{ border-left:2px solid var(--seam); padding:2px 0 2px 18px; font-style:italic; color:var(--ink-soft);
+  font-size:var(--t-small); line-height:1.58; margin:1.3em 0; }
+
+/* ── MATHEMATICS — apparatus, in the same compressed scale ── */
+/* display formula: type pinned to body (not above H2), so it doesn't break the rhythm */
+.eq{ margin:1.1em 0 1.2em; padding:14px 16px; background:var(--code-bg);
+  border:1px solid var(--rule); border-left:3px solid var(--seam); border-radius:0 2px 2px 0;
+  overflow-x:auto; overflow-y:hidden; }
+.eq .katex{ font-size:1.04em; }              /* ≈ body·1.04 — formula doesn't "jump" */
+.eq .katex-display{ margin:0; }
+.eq.tight{ text-align:center; }
+/* long single-line formula list: shrink so it fits the column without scroll */
+.eq.long .katex{ font-size:.92em; }
+@media(max-width:720px){
+  .eq .katex{ font-size:.9em; }
+  .eq.long .katex{ font-size:.78em; }
+}
+/* inline formula in text */
+.body-eq .katex{ font-size:1em; }
+/* numbering tag above the formula (as in the sample) */
+.eq-tag{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin:1.4em 0 .2em; }
+.eq-tag b{ color:var(--accent); font-weight:600; }
+
+/* condition-conclusion after formula (small mono line) */
+.eq-note{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.02em; color:var(--muted);
+  margin:.1em 0 1.1em; line-height:1.6; }
+.eq-note b{ color:var(--ink); font-weight:600; }
+.eq-note .v{ color:var(--accent); }
+
+/* variable legend (former "Symbol | Meaning" table) — ruled, not heavy */
+.vars{ margin:1em 0 1.3em; border-top:1px solid var(--seam); }
+.vars .vr{ display:grid; grid-template-columns:96px 1fr; gap:16px; padding:9px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.vars .vs{ text-align:left; }
+.vars .vs .katex{ font-size:1em; }
+.vars .vd{ font-size:var(--t-small); line-height:1.5; color:var(--ink-soft); }
+.vars .vd em{ font-style:italic; }
+.vars .vd strong{ color:var(--ink); font-weight:600; }
+
+/* numbered algorithm-strata */
+ol.algo{ list-style:none; counter-reset:st; margin:1.1em 0; padding:0; }
+ol.algo > li{ position:relative; padding-left:30px; margin:0 0 .5em; line-height:1.55; color:var(--ink-soft); counter-increment:st; }
+ol.algo > li::before{ content:counter(st,decimal-leading-zero); position:absolute; left:0; top:.15em;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; color:var(--accent); }
+ol.algo > li em{ font-style:italic; }
+
+/* limit formula — calm blockquote, not a 40px hero */
+.maxim{ font-family:'Spectral',serif; font-style:italic; font-size:var(--t-body); line-height:1.55;
+  color:var(--ink); border-left:1px solid var(--accent); padding-left:20px; margin:1.2em 0; }
+.maxim.soft{ color:var(--ink-soft); }
+
+footer.foot{ margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); line-height:1.8; }
+
+@media(max-width:720px){
+  .page{ padding:26px 16px 80px; }
+  .sheet{ padding-left:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .tbl{ overflow-x:auto; }
+}
+
+/* ── harness: progress + toolbar (from WL2070, in compressed scale) ── */
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:60; transition:width .08s linear; }
+.toolbar{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:14px; padding:10px 22px;
+  backdrop-filter:blur(8px); background:color-mix(in srgb,var(--paper) 86%,transparent); border-bottom:1px solid var(--hair); }
+.toolbar .brand{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.14em; text-transform:uppercase; color:var(--ink); font-weight:600; }
+.toolbar .ver{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.toolbar .sp{ margin-left:auto; }
+.tbtn{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+  background:transparent; border:1px solid var(--rule); border-radius:999px; padding:6px 13px; cursor:pointer; }
+.tbtn:hover{ border-color:var(--accent); color:var(--accent); }
+
+/* hero tags (basket facets) */
+.tags{ display:flex; flex-wrap:wrap; gap:7px 9px; margin:14px 0 0; }
+.tags .t{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); border:1px solid var(--rule); border-radius:999px; padding:4px 11px; cursor:pointer; transition:border-color .12s, color .12s; }
+.tags .t:hover{ border-color:var(--accent); color:var(--accent); }
+.tags .t b{ color:var(--accent); font-weight:600; }
+
+/* accent fragment in bed head */
+h2.lh .n{ color:var(--accent); font-weight:600; }
+h3.sub .n{ color:var(--accent); font-weight:600; }
+
+/* head of a stabilizer-facet (④⑤⑥ of the crystal, broken out into subsections) —
+   a level between h2 and h3: larger than body and cards, but always below the §-bed */
+h3.bed{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(20px,3vw,22px); line-height:1.18;
+  margin:2em 0 .6em; color:var(--ink); display:flex; align-items:baseline; gap:.42em; scroll-margin-top:60px; }
+h3.bed .gn{ font-family:'Cormorant',serif; font-weight:700; font-size:.96em; color:var(--accent); flex:none; }
+/* lens-addendum (2-4): same size as the archetype-facet, but a carnelian word prefix instead of a circle */
+h3.bed.lens{ display:block; }
+h3.bed .n{ color:var(--accent); font-weight:600; }
+/* circled facet number in the §-section (spines ①②③) */
+h2.lh .gn{ font-family:'Cormorant',serif; font-weight:700; font-size:.94em; color:var(--accent); margin-right:.06em; }
+
+/* facets of the monetary stratigraph — numbered sample cards */
+.facet{ display:grid; grid-template-columns:46px 1fr; gap:0; background:var(--panel); border:1px solid var(--rule);
+  border-left:2px solid var(--accent); border-radius:2px; margin:0 0 12px; overflow:hidden; }
+.facet .num{ display:flex; align-items:flex-start; justify-content:center; padding:16px 0 0; background:var(--panel-2);
+  font-family:'Cormorant',serif; font-weight:700; font-size:26px; line-height:1; color:var(--accent); border-right:1px solid var(--rule); }
+.facet .bd{ padding:14px 18px; }
+.facet .bd .h{ font-family:'Cormorant',serif; font-weight:600; font-size:var(--t-h3); line-height:1.2; color:var(--ink); margin:0 0 5px; }
+.facet .bd .g{ font-size:var(--t-small); line-height:1.6; color:var(--ink-soft); margin:0; }
+.facet .bd .g strong{ color:var(--ink); font-weight:600; }
+
+/* sample-slab: mono terminal inside .spec */
+.spec .pre{ font-family:'IBM Plex Mono',monospace; white-space:pre-wrap; font-size:var(--t-small); line-height:1.7;
+  color:var(--code-ink); padding:15px 18px; margin:0; overflow-x:auto; }
+
+/* conclusion — key takeaway of the lens */
+.insight{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.insight .itag{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; padding:11px 18px; border-bottom:1px solid var(--rule); }
+.insight .in{ padding:15px 20px; }
+.insight .in p{ margin:0 0 .7em; font-size:var(--t-small); line-height:1.62; color:var(--ink-soft); }
+.insight .in p:last-child{ margin:0; }
+.insight .in p strong{ color:var(--ink); font-weight:600; }
+
+/* footnote */
+.footnote{ font-size:var(--t-small); line-height:1.6; color:var(--muted); margin:1.3em 0; border-left:1px solid var(--seam); padding-left:18px; }
+.footnote sup{ color:var(--accent); }
+sup{ font-size:.7em; color:var(--accent); }
+
+/* glossary */
+dl.kv{ display:grid; grid-template-columns:max-content 1fr; gap:11px 20px; margin:1.2em 0; font-size:var(--t-small); line-height:1.55; color:var(--ink-soft); }
+dl.kv dt{ font-family:'IBM Plex Mono',monospace; font-style:normal; font-weight:600; white-space:nowrap; color:var(--accent); }
+dl.kv dd{ margin:0; }
+@media(max-width:720px){ dl.kv{ grid-template-columns:1fr; gap:3px 0; } dl.kv dt{ margin-top:.6em; } }
+
+/* facet pulses registry — light ruled block (not a plate): facet code | what to track */
+.pulse{ margin:24px 0 26px; border-top:2px solid var(--seam); }
+.pulse .plab{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; padding:11px 0 4px; display:flex; gap:10px; flex-wrap:wrap; }
+.pulse .plab .freq{ color:var(--muted); font-weight:400; letter-spacing:.1em; }
+.pulse .r{ display:grid; grid-template-columns:158px 1fr; gap:8px 18px; padding:11px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.pulse .c{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-small); font-weight:600; color:var(--accent); white-space:nowrap; }
+.pulse .m{ font-size:var(--t-small); line-height:1.5; color:var(--ink-soft); }
+.pulse .foot{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); padding:11px 0 0; }
+@media(max-width:720px){ .pulse .r{ grid-template-columns:1fr; gap:2px; } }
+
+/* centered soft divider (lighter than a seam): two seam lines + carnelian diamond */
+.dotdiv{ display:flex; align-items:center; justify-content:center; gap:15px; margin:34px 0; }
+.dotdiv::before, .dotdiv::after{ content:""; width:56px; height:1px; background:var(--seam); }
+.dotdiv i{ width:5px; height:5px; background:var(--accent); transform:rotate(45deg); border-radius:1px; display:block; }
+
+/* final contact block */
+footer.foot a{ color:var(--accent); }
+footer.foot .arr{ color:var(--accent); }
+
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(3px); }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+/* SUMMARY внутри .scrollx — ведёт себя как THE SETUP: своя ширина + гориз. прокрутка */
+.spec .scrollx .sumgrid{ grid-template-columns:max-content max-content max-content; width:max-content; }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="language">
+      <a href="../en/golden_dollar.html" class="on" aria-current="true">EN</a><a href="../ru/golden_dollar.html">RU</a><a href="../ar/golden_dollar.html">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">contour map</p>
+    <h1>Golden Dollar 2045</h1>
+    <p class="sub">A contour map of the future of money. Two competing spines (US and&nbsp;CN) + a rising third (ORBITAL) + three stabilizers (EU, TH, GULF). Horizon: 2026–2045.</p>
+    <p class="meta">field map · v1.2 · assembled: June 12, 2026</p>
+    <div class="tags"><span class="t" data-target="g-us"><b>①</b> US</span><span class="t" data-target="g-cn"><b>②</b> CN</span><span class="t" data-target="g-orbital"><b>③</b> ORBITAL</span><span class="t" data-target="g-eu"><b>④</b> EU</span><span class="t" data-target="g-th"><b>⑤</b> TH</span><span class="t" data-target="g-gulf"><b>⑥</b> GULF</span></div>
+  </header>
+
+  <hr class="seam">
+
+  <p><strong style="font-weight:700; color:#17140f;">What's inside.</strong> Four lenses through which the familiar landscape of money looks different. Six facets of the 2045 monetary stratigraph — from the token-dollar to the orbital asset. This map is built not for memorizing facts but for optics: after reading, you place any new country, currency, or headline onto it yourself — because you received axes of thinking, not a scatter of disconnected points.</p>
+  <p>In Nikolai Gorkavyi's novel «Astrovityanka» — the Russian science-fiction trilogy published in English as the AstroNikki series — the money of the 23rd century is called «golden dollars»<sup style="font-size:.7em; color:var(--accent);">1</sup>. Neither gold nor the dollar, as a measure of value, exists in any familiar form by that time — but the name outlived both carriers. Gorkavyi wrote science fiction; reality is moving in the opposite direction. The components of that mosaic — stablecoins, gold corridors, orbital assets — have already appeared separately, but have not yet assembled into a whole.</p>
+  <p>This text is an attempt to take the white light of the «golden dollar» and pass it through a prism. A prism splits light by wavelength. The lenses of this map split money by range — the distance over which each carrier can transfer energy through time.</p>
+  <div class="spec"><div class="stag"><b>THE SETUP</b></div><div class="scrollx"><pre class="pre">TASK:     Transposition of Gorkavyi's «golden dollars»
+          into the real monetary architecture of 2026–2045
+CONTEXT:  Gorkavyi wrote in a unipolar era —
+          one currency, one world. Reality is
+          fragmenting. The horizon is decades.
+QUESTION: What crystal of a currency basket emerges
+          if each facet has its own function?</pre></div></div>
+  <p class="footnote"><sup style="color:var(--accent);">1</sup> Nikolai Gorkavyi — astrophysicist and author of Astrovityanka, published in English as the AstroNikki series. «Golden dollars» are the unit of account in his 23rd-century economic world, where value derives from energy rather than issuance.</p>
+  <hr class="seam">
+  <p class="geo">Four lenses · the beginning</p>
+  <h2 class="lh"><span class="code">§01 · LENS I</span><span class="n">Lens One ·</span> Money as Range</h2>
+  <p>Every carrier has its own wavelength. A bill of exchange delivers energy across months. A bank deposit — across years. A stablecoin pegged to Treasury bills inherits the horizon of those same bills — quarters to maturity. Gold carries across generations: an ingot cast under the Medici holds today, no conversion needed. A precious stone — a ruby untouched for three hundred million years — works on geological scales. An orbital asset — computing power deployed beyond the atmosphere — takes range beyond the planet for the first time.</p>
+  <p>No single carrier covers the entire spectrum. This is not a defect — it is the design. The world has always used several carriers simultaneously, and the single reserve currency of the 20th century is an anomaly, not the norm. The biosphere knows no monocultures that live long.</p>
+  <p>From this lens grows the architecture of the entire map. Short-wave carriers — those that operate at the range of quarters and sanction cycles — form one floor. Call them spines: today these are the dollar and the yuan (and the ecosystems around them), two competing routes for fast energy. Long-wave carriers — generations, centuries, geology — form another floor. These are archetypes: gold, place, neutrality, inertia, mathematics. Spines compete with each other for hegemony. Archetypes compete with no one — neither with spines nor with each other. They live in a different time.</p>
+  <p>Mixing the two floors is the error committed by nearly every analytical text on the future of money. The question «will the dollar or gold win» is posed incorrectly: they operate on different wavelengths and solve different problems. The right question is how your reserves are distributed across the spectrum, and which wavelengths are missing from it.</p>
+  <p class="geo">Upper floor · spine attractors</p>
+  <div class="facet"><div class="num">①</div><div class="bd"><div class="h">USA · Token-Dollar</div><div class="g">Tokenization of over $100 trillion of Earth's assets into dollar-pegged stablecoins. <strong>Strategy:</strong> dissolve sovereign debt in new money, become the haven for the planet's crypto-assets. <strong>Anchor:</strong> industrial capacity + financial infrastructure.</div></div></div>
+  <div class="facet"><div class="num">②</div><div class="bd"><div class="h">China · Golden Yuan</div><div class="g">Shanghai Gold Exchange (SGE). Mass accumulation of gold, linking the sovereign gold reserves of member countries into a single financial pool. <strong>Strategy:</strong> physical anchor, alternative reserve system. <strong>Anchor:</strong> industrial capacity + gold reserves.</div></div></div>
+  <div class="facet"><div class="num">③</div><div class="bd"><div class="h">«Outer Continent» · Orbital Money</div><div class="g">Elon Musk and the competing groups of the tech elite around him. Computing power. Millions of tons in orbit. <strong>Strategy:</strong> technological money anchored to infrastructure beyond Earth. <strong>Anchor:</strong> compute + orbital mass.</div></div></div>
+  <p class="geo">Lower floor · archetype stabilizers</p>
+  <div class="facet"><div class="num">④</div><div class="bd"><div class="h">Euro · Cultural Heritage</div><div class="g">Firmly anchored to a cultural asset. But Europe is not a player. Not building the future. <strong>Function:</strong> inertial anchor.</div></div></div>
+  <div class="facet"><div class="num">⑤</div><div class="bd"><div class="h">Thailand · Natural Money</div><div class="g">Remarkably resilient economy. <strong>Anchor:</strong> nature + tourism + service. No other places like this on the planet, at this quality and with this service. <strong>Function:</strong> an inexhaustible resource that does not devalue.</div></div></div>
+  <div class="facet"><div class="num">⑥</div><div class="bd"><div class="h">The Gulf · Stone Money</div><div class="g">Arab monarchies. Money stabilized by assets unchanged for millions of years: precious stones. Tokenization of colored gemstones = a new collateral class. <strong>Function:</strong> the eternal anchor.</div></div></div>
+  <p>Spines compete. Archetypes do not. Facet ⑥ is unique: the only position on the fault line between the two spines that remains compatible with both — and earns precisely because both systems exist.</p>
+  <hr class="seam">
+  <h2 id="g-us" class="lh"><span class="code">§02 · MOVE · US</span><span class="gn">①</span> <span class="n">US Move ·</span> The Dollar Machine</h2>
+  <p>The United States is building an instrument with no direct analog in history: a global network of private issuers minting tokens pegged to the dollar and backed by Treasury bills. The name «stablecoin» is more modest than the substance: this is a mechanism that converts sovereign debt into a global reserve and distributes the inflationary burden onto every token holder — from Lagos to Manila.</p>
+  <p>The mechanics are simple. Tether or Circle buy short-term T-bills, issue USDT or USDC against them, and the tokens spread across the planet's smartphones. Every stablecoin is a digital receipt tied to a bond. Demand for the bonds rises, the cost of servicing the debt falls, and the inflationary erosion of the dollar lands on everyone who holds the token — not only American citizens. A quiet worldwide tax that nobody voted for.</p>
+  <p>But inflation export is the secondary effect. The primary move is bigger. The United States was the hardest market on the planet for tokenization — a regulatory labyrinth, hostile SEC precedents, undefined status. The GENIUS Act flips the position: now the play is to become the simplest and most open market of all. At stake is not the stablecoin market, but hundreds of trillions of dollars in real-world assets that today sit uncapitalized.</p>
+  <p>An apartment overlooking Central Park is worth twelve million USD — yet try getting a loan against it in under two months. With tokenization you split the title into shares, pledge a third instantly, sell a tenth to an investor in Singapore — all of it in dollar-denominated stablecoins. And it is not only real estate that gets tokenized: intellectual property, infrastructure rights, commercial contracts. If even a meaningful share of these assets ends up denominated in dollar stablecoins, the dollar gains something stronger than exported inflation: the status of the world's haven for assets. The classic American play: don't ban the new — become the platform through which the new arrives.</p>
+  <div class="spec"><div class="stag"><b>snapshot</b> · data · april 2026</div><div class="in"><p>As of April 2026, total stablecoin capitalization is $318.6 billion; of this, ~$184 billion is USDT, ~$79 billion is USDC. Tether holds about 63% of reserves in T-bills, Circle about 32%. US Treasury forecast: $3.7 trillion by decade's end. The GENIUS Act, signed in July 2025, codifies this architecture: regulated dollar-pegged stablecoins may be issued by banks, trust companies, and select licensed non-bank firms. This is a «golden parachute» through mid-century for an aging dollar hegemony.</p></div></div>
+  <p>A pause is needed here, because the machine is not without vulnerabilities, and the reader is better served knowing them than skipping past. Stablecoin holders earn no yield — the pull toward tokenized bank deposits and money market funds exists and is growing. Reserve concentration in two issuers creates risk: if either loses its dollar peg, the shock hits the short end of the yield curve. And finally, the whole construction inherits the central paradox: it works exactly as long as the dollar remains the world's reserve. If the hegemony weakens, this facet collapses first.</p>
+  <p>You know all this. But the frame in which stablecoins are not «new crypto» but a mechanism of inflation export and global asset tokenization changes the question. The question is not the price of a stablecoin. The question is what share of the inflation tax you pay by holding the token — and whether you are aware of it.</p>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Synergy:</strong> with ORBITAL (AI payments via stablecoins — Ant Group has already launched Anvita for AI agents).</li><li><strong>Competition:</strong> direct with CN (over reserve positions) and EU (the digital euro targets the same niche).</li><li><strong>Hierarchy:</strong> suppresses small emerging-market fiat currencies — deposit flight into stablecoins.</li></ul>
+  <hr class="seam">
+  <h2 id="g-cn" class="lh"><span class="code">§03 · MOVE · CN</span><span class="gn">②</span> <span class="n">China Move ·</span> The Gold Corridor</h2>
+  <p>The demand for an alternative to the American spine was created not by Beijing but by Washington. Three times in the last ninety years the United States broke promises made to holders of dollar assets — and each time the circle of those affected widened.</p>
+  <ul class="beds"><li><strong>1933:</strong> confiscation of gold from its own citizens, a ban on gold clauses in contracts, a one-step 40% devaluation. Addressee — domestic.</li><li><strong>1971:</strong> Nixon closes the gold window. The dollar is no longer exchangeable for gold at a fixed rate. Addressee — external holders, allies.</li><li><strong>2022:</strong> the freezing of roughly $300 billion of Russia's sovereign reserves. Addressee — central banks worldwide.</li></ul>
+  <p>The rhythm is roughly forty years. But more important than the rhythm is the threshold: the third instance in a pattern changes the character of the response. After the first breach, the reaction is linear — the affected adapt. After the second, systemic caution appears. After the third, the reaction turns phase-like: a coordinated answer, parallel infrastructure, a public pivot. The signs of phase transition are in plain view: BRICS+, the gold corridor, central banks of two dozen countries simultaneously building gold reserves at record pace.</p>
+  <div class="maxim">China in this construction is not the initiator of demand for an alternative — it is the supplier of the solution. The difference matters: the demand is defensive and worldwide; the solution is engineered, and Chinese.</div>
+  <p>The construction did not emerge at once. Beijing's first proposals were blunt: join the yuan system, and your gold will be stored with us. The skepticism was predictable — countries that had just watched $300 billion frozen by a single decision in Washington were in no hurry to hand their gold to another superpower. The logic of «we've seen how that ends» needed no translation. That skepticism pushed China toward the parallel rollout of a distributed architecture: countries mine or buy gold, store it on their own territory, but every bar is registered in a single network through the Shanghai Gold Exchange — assay, serial number, owner. Custody is distributed; the ledger is unified. An analog blockchain: instead of blocks verified by miners — vaults verified by states. The trust problem is solved the same way cryptography solves it: not «trust us,» but «verify for yourself.»</p>
+  <div class="insight"><div class="itag">conclusion</div><div class="in"><p>If gold reaches HQLA status — <strong>countries no longer need dollars for financing</strong>. Facet ② stops being an «alternative spine» and becomes <strong>parallel financial infrastructure</strong>.</p></div></div>
+  <div class="spec"><div class="stag"><b>snapshot</b> · data · april 2026</div><div class="in"><p>The SGE is the world's largest physical gold marketplace. Its first offshore vault opened in Hong Kong on June 26, 2025 (Bank of China HK; two physically delivered contracts cleared on day one). Nodes in Singapore, Malaysia, Dubai. The Saudi vault is under construction. One of the settlement-price stabilization models under discussion is anchoring not to the morning spot fix but to a 200-trading-day moving average: this would block manipulation and make gold predictable at a level comparable to Treasuries.</p></div></div>
+  <p>The next step is granting gold HQLA status (high-quality liquid asset). The situation as of April 2026 is telling: since July 2025, gold counts on bank balance sheets at 100% of market value (previously 50%), and de facto the market already treats gold as a high-quality liquid collateral asset. De jure, the HQLA designation has not been granted — the LBMA and the World Gold Council are lobbying; the regulator has not confirmed. The gap between practice and regulation is itself a signal: when the market outruns the regulator, the regulator usually catches up. If that barrier is cleared, the picture changes radically: gold becomes eligible for repo — the short-term lending on which the world's entire financial infrastructure rests. Countries no longer need dollars for financing — gold is enough.</p>
+  <div class="dotdiv"><i></i></div>
+  <p>Here the contour of an entire development system comes into view. Africa is the world's largest producer of natural gold — a quarter to a third of global output. Under the Chinese construction this resource settles in as collateral: a country deposits gold with the SGE, receives yuan loans through the BRICS Bank against gold backing, and builds infrastructure — no IMF intermediation, no dollar circuit. A functional analog of Bretton Woods for postwar Europe, but addressed to the Global South.</p>
+  <div class="spec"><div class="stag"><b>snapshot</b> · data · april 2026</div><div class="in"><p>The world's central banks bought 1,237 tonnes of gold in 2025. The PBOC officially reports ~2,850 tonnes (March 2026), but Bloomberg Economics and JP Morgan estimates run 3,500–5,000 tonnes including state banks and sovereign funds. Gold above $5,100 per ounce (January 2026). BRICS+ share of global gold reserves: 17.4%.</p></div></div>
+  <p>For clarity: this map does not claim the gold corridor will inevitably win. The law of self-weakening, to which we return below, cuts both ways — China, by tightening control over the SGE, risks triggering the very mechanism that is dismantling the dollar monopoly. But the corridor's engineering is a fact, not a forecast. It exists and it works.</p>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Synergy:</strong> with GULF (Saudi Arabia in BRICS+ since 2024; the Hong Kong vault). Partially with TH (the baht is used as a gold proxy).</li><li><strong>Competition:</strong> with US (direct, over reserve positions).</li><li><strong>Coupling:</strong> works only as long as the BRICS platform holds. If it splits — reversion to a regional currency.</li></ul>
+  <hr class="seam">
+  <h2 id="g-orbital" class="lh"><span class="code">§04 · MOVE · ORBITAL</span><span class="gn">③</span> <span class="n">Musk Move ·</span> The Outer Continent</h2>
+  <p>Beyond both spines, a third route is forming — one that does not yet have a name. It is easiest to describe by formula: energy → computation → value, deployed beyond the atmosphere (the closest thing to the golden-dollar concept from the world of Gorkavyi's «Astrovityanka»).</p>
+  <p>Satellite internet, orbital data centers, launch infrastructure, logistics corridors and communications at the scale of near space and the Solar System — all of this creates an asset class bound to no jurisdiction and backed by no sovereign promise. The backing is physical: the Sun's energy, computing power, channel bandwidth, the boundless expanse and resource storerooms of space. No sanction can freeze an orbital asset; no landing force can seize it.</p>
+  <div class="spec"><div class="stag"><b>snapshot</b> · data · april 2026</div><div class="in"><p>SpaceX filed its S-1 in April 2026 at a target valuation of $1.75–2 trillion. By the time you read this, the market's answer is probably known. But what matters is not one company's valuation — it is the class: Starlink generates revenue tied to orbit, not territory; SpaceX's AI division (formerly xAI) is building terawatt-scale computing infrastructure whose collateral is energy, thrust, and compute — not sovereign credit. Tesla's gigafactories plan production runs of android robots comparable to the populations of large countries. All of this is reality arriving fast.</p></div></div>
+  <p>The «outer continent» differs from Bitcoin structurally. BTC is a mathematical protocol, orthogonal to both spines, natively global and neutral. The orbital asset is physical infrastructure that could be absorbed into the American system via IPO and regulation. The fork is around 2035: merger with the US spine, or the formation of an independent standard. Our bet is on the second. The third-route hypothesis is a bet, not a statement of fact. But the very possibility of collateral that belongs to no state and fits in no vault and no office on Earth is the most interesting open question of this map.</p>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Synergy:</strong> with US (dollar liquidity + compute = stablecoins for AI agents).</li><li><strong>Competition:</strong> potentially — with US over spine type. If compute becomes more important than fiat, the Musk orbit takes the center of the map.</li><li><strong>Transformation:</strong> may temporarily become part of the US financial spine if the SpaceX IPO turns the orbital economy into a component of the dollar system. Or break into autonomy.</li></ul>
+  <div class="insight"><div class="itag">conclusion</div><div class="in"><p>The value of a trust system is inversely proportional to attempts to control it. Spines (the dollar, the yuan, a future «orbital currency») are subject to self-harming hegemony and fall once every 200–500 years. Archetypes outside the spine (Switzerland, the waqf, GEMS, BTC) stay stable for millennia precisely because they do not try to be spines.</p><p>Gorkavyi's «golden dollars» in the reality of 2045 are not one currency, but a basket of six facets with a two-level structure: two or three spines plus three or four archetypes along different ontological axes.</p><p>Archetypes outside the spine — a typology of five axes: <strong>place, time, neutrality, inertia, mathematics</strong>. And this is not a financial forecast — it is a law of the geometry of a multipolar system.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§05 · BED · LOWER</span><span class="n">Lower Floor ·</span> Archetype Stabilizers</h2>
+  <p>The lower floor runs on a different time. There is no contest for hegemony here — only the taking of a position that the landscape makes available. Each stabilizer stands on its own axes, and describing them at the upper floor's tempo is a mistake. Let us slow down.</p>
+  <h3 id="g-eu" class="bed"><span class="gn">④</span>Europe: The Museum of Money</h3>
+  <p class="note-quiet">Cultural heritage + institutional memory + banking infrastructure. The ECB is preparing a new banknote series celebrating Europe's shared culture and natural heritage — the symbolic anchor is deliberately emphasized.</p>
+  <p>The euro is crystallized institutional memory — a currency whose strength lies not in economic growth but in the depth of its roots. Oxford was founded in 1096, Sotheby's in 1744, La Scala in 1778. Latin is a former world reserve gone into inertia: no one trades in it, yet every other scientific term is Latin. The euro inherits this function: not the fastest currency, but the one most likely to still exist a hundred years from now. For a portfolio with a generational horizon this is not a weakness — it is a structural property. The digital euro is slated for 2029. The Pontes pilot — for Q3 2026. Bulgaria became the twenty-first eurozone member. 134 countries representing 98% of world GDP are studying their own CBDCs. But for the lower floor something else matters more: the euro is not a race against the dollar but a parallel archetype whose strength is in inertia, not speed.</p>
+  <p class="geo">Function</p>
+  <p><strong>Inertia.</strong> Not building the future — preserving the past. Three elements:</p>
+  <ul class="beds"><li><strong>Civilizational bastion.</strong> The euro rests on trust in European institutions (the ECB, courts, museums, universities).</li><li><strong>The digital euro as a defensive measure.</strong> Not for growth, but against the dominance of non-European payment systems. 134 countries representing 98% of world GDP are studying CBDCs.</li><li><strong>Defensive DLT stack.</strong> Pontes (Q3 2026) + Appia — the answer to financial fragmentation.</li></ul>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Synergy:</strong> minimal with the active spines. Works as an anchor for global financial inertia — the thing nobody wants to change abruptly.</li><li><strong>Competition:</strong> with US stablecoins on the European market. Tether faces MiCA compliance problems, leading to USDT delistings on some European exchanges.</li><li><strong>Role:</strong> «the museum of money.» European cultural heritage = the last unchanging value on the continent.</li></ul>
+  <h3 id="g-th" class="bed"><span class="gn">⑤</span>Thailand: Natural Money</h3>
+  <p class="note-quiet">An irreproducible resource of place: nature + service quality + cultural uniqueness. The baht rose nearly 9% against the dollar in 2025, extending a multi-year strengthening, while the rupee, the dong, and the peso lost ground.</p>
+  <p>The baht is an unexpected example of a gold-proxy currency. Over 2025 the baht strengthened 9% against the dollar while inflation went negative (−0.5% at the measurement point). Reserves: $281.9 billion; tourism forecast: 35–39 million visitors in 2026. The strength of the position is geographic: Thailand occupies the PLACE axis, and that is irreproducible. You cannot build a second Thailand.</p>
+  <p>But natural money has a shadow side, and it matters more to you than the showcase. Energy dependence: 86% imported. The largest external factor: Chinese tourist flows and their political volatility. Demographic aging: structural. The baht as a gold proxy works while geography works; on the long waves the question is: for how much longer.</p>
+  <p>Horizon: 20–50 years at current political stability. The natural anchor is centuries; its monetary expression depends on institutional integrity.</p>
+  <p class="geo">Function</p>
+  <p><strong>Local stabilizer.</strong> An example of how a small economy can have a currency more stable than its larger neighbors'. Four elements:</p>
+  <ul class="beds"><li><strong>Tourism as a service export.</strong> The TAT targets 3 trillion baht in tourism revenue for 2026, shifting focus from volume to value.</li><li><strong>The service economy.</strong> Soft skills as an asset — average stay of 14–21 days, average spend of 65–80 thousand baht.</li><li><strong>Medical tourism + wellness</strong> as a growing niche.</li><li><strong>The baht as a gold proxy.</strong> Some investors use the baht as a gold proxy — an unexpected monetary function.</li></ul>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Synergy:</strong> with GULF (high-spending visitors from the Gulf). With CN indirectly (a baht–yuan link via tourism and trade).</li><li><strong>Competition:</strong> with Vietnam and Indonesia on volume tourism. With Japan and Singapore on luxury.</li><li><strong>Role:</strong> a model of how a local currency can anchor itself through the incomparability of place. Not global, but stable.</li></ul>
+  <h3 id="g-gulf" class="bed"><span class="gn">⑥</span>The Gulf: Stone Money and the Eternal Anchor</h3>
+  <p class="note-quiet">This is the most non-trivial position on the map, and it deserves more than one paragraph.</p>
+  <p>The waqf is an institution of property dedication more than 1,100 years old. In the 19th-century Ottoman Empire, waqfs controlled up to a third of all arable land. For the MENA+ reader this is not exotica — it is a native institutional language, the archetype of eternal money, operating longer than any central bank.</p>
+  <p>Today the Gulf occupies a position better described as an arbitraging junction than as a bridge. It does not connect the two spines — it is compatible with both and profits from the fact that both exist. The petrodollar link — with the American spine. Participation in the gold corridor — with the Chinese one. The Saudi vault is already embedded in the SGE's infrastructure while the petrodollar chain is alive. This is not a contradiction — it is arbitrage.</p>
+  <div class="spec"><div class="stag"><b>snapshot</b> · data · april 2026</div><div class="in"><p>Mubadala (Abu Dhabi): $29 billion invested, 52 deals in 2024. The Unit — a pilot BRICS settlement unit (launched 31.10.2025, 40% backed by physical assets). Gemstones: a $38.4 billion market (2026), and here the Gulf holds potentially the strongest archetypal position: a colored gemstone, via tokenization, jurisdiction and provenance, can occupy up to four axes at once. This topic is covered in depth in a separate article (see: GEMEX Thesis).</p></div></div>
+  <p class="geo">Function</p>
+  <p><strong>The eternal anchor.</strong> Storing value beyond financial cycles. Four elements:</p>
+  <ul class="beds"><li><strong>SWFs as a buffer.</strong> The Saudi PIF ($2 trillion target by 2030), ADIA, Mubadala, ADQ, QIA — diversification away from oil.</li><li><strong>Gold vaults.</strong> Saudi Arabia, the UAE, Qatar — part of the BRICS+ gold corridor.</li><li><strong>Colored stones as a new class.</strong> Wealthy buyers are turning to jewelry as investment, especially colored gemstones. Paraíba, rubies, emeralds — up to 10× valuation growth at Christie's.</li><li><strong>Cultural continuity.</strong> The waqf, family inheritance — money passed down through generations.</li></ul>
+  <p class="geo">Synergy / Competition</p>
+  <ul class="beds"><li><strong>Powerful synergy:</strong> with <strong>CN</strong> (the BRICS+ gold corridor, the vault in Saudi Arabia); with <strong>US</strong> (the historic petrodollar link); with <strong>TH</strong> (tourist flows from the Gulf).</li><li><strong>Unique position:</strong> the only facet that can work with the US spine and the CN spine simultaneously — the «bridge» between competing systems.</li></ul>
+  <h3 class="bed">Belt of Satellites</h3>
+  <p>Around the three stabilizers gravitates a set of positions that are not separate facets but clarify the class of phenomenon.</p>
+  <ul class="beds"><li><strong>Switzerland</strong> — the benchmark stabilizer: three axes at once (PLACE + NEUTRALITY + INERTIA), a safe haven since 1815, first place in the 2026 jurisdiction ranking (93.73 points).</li><li><strong>Singapore</strong> — the younger twin: two axes, third place (92.60), the «Switzerland of Asia.»</li><li><strong>The Vatican and the Catholic Church</strong> — 2,000+ years of institutional continuity: an inertia that outlives any currency.</li></ul>
+  <p>Stabilizers compete neither with the spines nor with each other. Different axes, different times, different functions. This is not a camp — it is a class.</p>
+  <hr class="seam">
+  <p class="geo">Four lenses · continued</p>
+  <h3 class="bed lens"><span class="n">Lens Two ·</span> Two Times</h3>
+  <p>Spines live in fast time: quarters, listings, sanction rounds. Archetypes live in slow time: generations, centuries, geology. This is not a metaphor — these are different coordinate systems, irreducible to each other. A hegemon cannot win on the long times: its instruments (emission, sanctions, regulation) act in the fast. An archetype cannot win on the short: gold has no quarterly report. That is why they do not compete — they coexist, like different frequencies in one spectrum.</p>
+  <p>The practical consequence: when an analyst says «gold will beat the dollar» or «the dollar will outlive gold,» he is mixing two times. The correct formulation: on the short waves one spine wins; on the long waves, one archetype. A portfolio built in only one time is blind to one side of the spectrum.</p>
+  <h3 class="bed lens"><span class="n">Lens Three ·</span> Five Axes, and the Landscape Chooses the Player</h3>
+  <p>In a multipolar system, stability outside the spine arises through taking a position on one of five axes:</p>
+  <ul class="beds"><li><strong>Place</strong> — irreproducible geography (Venice in the 13th–15th centuries, Singapore, Hong Kong).</li><li><strong>Time</strong> — a horizon measured in geology (the waqf, 1,100+ years; the Catholic Church, 2,000+).</li><li><strong>Neutrality</strong> — usefulness to both sides of a conflict (Switzerland since 1815, Sweden, Singapore).</li><li><strong>Inertia</strong> — that which does not change (Latin, Oxford, Sotheby's, systems of measurement).</li><li><strong>Mathematics</strong> — trust through code rather than promise (Linux, GPG, Tor, BTC).</li></ul>
+  <p>The strength of a position = the number of axes occupied simultaneously. Switzerland — three. The Gulf — two. Bitcoin — one (a mono-archetype; more vulnerable than multi-axis positions). The map's most important property: the player does not choose the axis — the landscape makes it available. You cannot become Switzerland without its landscape. You can only recognize your own axes and occupy them fully.</p>
+  <p>This removes voluntarism and puts a ruler in your hands. Count the axes — you get the stability.</p>
+  <p>The ruler shows where a position stands. The fourth lens shows what happens to it when someone tries to hold it by force.</p>
+  <h3 class="bed lens"><span class="n">Lens Four ·</span> V ∝ 1/C — Self-Harming Hegemony</h3>
+  <p>V ∝ 1/C reads simply: V is the value of a trust system, C is the degree of control over it. The harder the monopoly squeezes its fist, the faster what it tries to hold drains away. Value is inversely proportional to control. This is not a currency law — it is the law of value-through-trust as such. The empirics: three breaches (1933 · 1971 · 2022), each of which amplified demand for an alternative through the very act of defending the monopoly. The defense against falling is itself the way of falling.</p>
+  <p>But — and here the map presents counter-examples without which the thesis would be fatalism. The British pound held hegemony for 95 years (1819–1914) without weaponization. Bretton Woods (1944–1971) worked while discipline worked. Switzerland — two hundred years. The reversal: self-weakening is not fate but choice. Aggressive defense destroys what peaceful hegemony preserves. A monopoly that does not try to control can live long. One that does, starts the timer.</p>
+  <p>The law has a lineage beyond monetary theory. The security dilemma (Herz, Jervis, Booth &amp; Wheeler), the Streisand effect (Masnick; formalized by Jansen &amp; Martin), imperial overstretch (Kennedy), hubris. The nearest class — the endo-exogenous crisis a system provokes by its own activity (Nazaretyan, Sedov). An exact term for monetary self-weakening does not exist in the literature — the niche is unclaimed.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§06 · SUMMARY</span>Map at a Glance</h2>
+  <div class="spec"><div class="stag"><b>SUMMARY · 6 FACETS</b></div><div class="scrollx"><div class="sumgrid"><div class="cap">SUMMARY CARD OF THE SIX FACETS</div><div class="c1"><span class="ix">①</span>US</div><div class="c2">debt+compute</div><div class="c3">liquidity spine</div><div class="c1"><span class="ix">②</span>CN</div><div class="c2">gold+BRICS</div><div class="c3">alternative spine</div><div class="c1"><span class="ix">③</span>ORBIT</div><div class="c2">network+compute</div><div class="c3">spine of the future</div><div class="c1"><span class="ix">④</span>EU</div><div class="c2">culture+institution</div><div class="c3">inertia</div><div class="c1"><span class="ix">⑤</span>TH</div><div class="c2">place+service</div><div class="c3">local stabilizer</div><div class="c1"><span class="ix">⑥</span>GULF</div><div class="c2">real estate+stones</div><div class="c3">eternal anchor</div></div></div></div>
+  <p><strong>Key observation:</strong> GULF is the only facet simultaneously compatible with all the others. Not merely a stabilizer, but a potential <strong>point of alignment</strong>.</p>
+  <p><strong>Second finding:</strong> ORBITAL and US do not compete yet, but by 2035 they may either merge (SpaceX integrates compute into the dollar system) or diverge (Orbital breaks out onto its own standard).</p>
+  <p><strong>Third finding:</strong> EU plays the role of the «anchor of inertia» — <strong>that which does not change</strong> becomes valuable precisely because everything else does.</p>
+  <div class="pulse">
+    <div class="plab">facet pulses<span class="freq">frequency: quarterly</span></div>
+    <div class="r"><div class="c">① US-STABLECOIN</div><div class="m">stablecoin capitalization, share in Treasuries, rates</div></div>
+    <div class="r"><div class="c">② CN-GOLD</div><div class="m">PBOC reserves, SGE withdrawals, gold HQLA status</div></div>
+    <div class="r"><div class="c">③ ORBITAL</div><div class="m">SpaceX IPO, orbital compute, AI cashflow, AGI timeline</div></div>
+    <div class="r"><div class="c">④ EU-DIGITAL</div><div class="m">digital euro status, Pontes/Appia rollout</div></div>
+    <div class="r"><div class="c">⑤ TH-BAHT</div><div class="m">exchange rate, tourism revenue, reserves, dynastic stability</div></div>
+    <div class="r"><div class="c">⑥ GULF-GEMS</div><div class="m">SWF AUM, gemstone prices, vault flows</div></div>
+    <div class="foot">on major events — immediately</div>
+  </div>
+  <div class="insight"><div class="itag">conclusion</div><div class="in"><p>If gold reaches HQLA — <strong>countries no longer need dollars for financing</strong>. Facet ② stops being an «alternative spine» and becomes <strong>parallel financial infrastructure</strong>.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§07 · OPTICS</span>What Is Predictable · Traceable · Controllable</h2>
+  <p>The map is not a forecast. It separates three categories, and confusing them is expensive.</p>
+  <p><strong>Predictable</strong> — structural patterns that have repeated often enough to be trusted. The ~40-year rhythm of broken hegemon promises. The law of self-weakening: tighter control → more alternatives. The phase threshold after the third instance. Mono-currency as anomaly, not norm — biological analogies fit here: monocultures fall first.</p>
+  <p><strong>Traceable</strong> — the concrete pulses of each facet. Gold's HQLA status — one regulatory decision that changes the architecture. The SpaceX listing — the market's verdict on orbital-asset valuation. The digital euro and its actual launch. The share of BTC controlled by the five largest pools. Each pulse is a trigger whose firing rearranges the facets on the map.</p>
+  <p><strong>Controllable</strong> — only your own position. No reader of this map influences Basel's HQLA decision or controls the yuan's exchange rate. The only controllable variable is the distribution of your reserves across the spectrum. Five questions of axis literacy:</p>
+  <ol class="algo"><li>On which axes do your reserves stand?</li><li>Which wavelengths are missing from your spectrum?</li><li>Which of the two spines carries your short energy?</li><li>Do your long carriers depend on the same spine?</li><li>Where is your junction between the two floors?</li></ol>
+  <p>This is not a recommendation. It is an instrument, and it works only in your hands.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§08 · CRYPTO</span>Crypto, Honestly</h2>
+  <p>Three layers, and they do not mix.</p>
+  <p><strong>Layer one: stablecoins — the dollar spine in new skin.</strong> Described above, in the US move. A stablecoin is not «crypto»; it is a tokenized Treasury bill with zero yield for the holder and full yield for the issuer. An instrument of facet ① — not a separate phenomenon.</p>
+  <p><strong>Layer two: Bitcoin — a separate axis of trust through mathematics.</strong> A mono-archetype: one axis (MATHEMATICS), which makes it more vulnerable than multi-axis positions. Precedents on the same axis — Linux, GPG, Tor: trust through code, not promise. Failure modes: mining-pool concentration, the quantum threat (theoretical), regulatory capture via KYC. The corpus's open question — separate facet, or hidden layer of the American spine — is presented here as it stands: open.</p>
+  <p><strong>Layer three: altcoins and DeFi — infrastructure, not money.</strong> Ethereum is a computational environment, not a store of value. DeFi is a settlement layer, not a currency. In this map's lacunae — the nature of non-dollar stablecoins (EUR, GBP, JPY, TRY): they may prove more interesting than they look, but for now they remain an open front.</p>
+  <div class="insight"><div class="itag">conclusion</div><div class="in"><p>The author's position, stated plainly in one sentence: in crypto by itself (without real-world assets) I do not feel the real force I feel in gold, place, or inertia. This may be a blind spot. I mark it so you can make your own correction.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§09 · FRONTS</span>Open Fronts</h2>
+  <p>The map is incomplete — deliberately. What follows is what's absent and what could change the picture.</p>
+  <ul class="beds"><li><strong>India</strong> — too large for a satellite's role, too complex for a single facet. Its position on the map is a separate study, not a line.</li><li><strong>Africa</strong> — in this text it appears as the field of the Chinese system. But Africa as a facet in its own right (natural gold + demography + resource sovereignty) remains an open question.</li><li><strong>Japan</strong> — deserves a deepening that exceeds this map's bounds.</li><li><strong>Non-dollar stablecoins</strong> — EUR-, GBP-, JPY-, TRY-denominated — may prove more important than their current capitalization suggests.</li><li><strong>BTC</strong> — separate facet or hidden layer of the US spine — a question this map deliberately leaves open.</li></ul>
+  <p>The map is a living instrument. Its value lies not in being closed, but in letting you place new points onto it. The next map is yours.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§10 · SUMMING UP</span>Summing Up</h2>
+  <ol class="algo"><li>Gorkavyi was not wrong — he wrote in a pre-fragmentation reality (2008). «Golden dollars» as a single currency is a formal placeholder. In the reality of 2045 it is a <strong>basket</strong> with flexible architecture.</li><li>Spines are by nature subject to self-harming hegemony. Their fall is structurally inevitable. The question is when, and exactly how.</li><li>Archetypes outside the spine are more stable than spines on long horizons. Switzerland outlived every world currency of the 19th–20th centuries.</li><li>GULF is unique — the only significant facet structurally compatible with the US spine (petrodollar) and the CN spine (gold corridor) at once.</li><li>ORBITAL sits at the 2035 fork: either merger with the US (via the SpaceX IPO) or its own standard (compute-backed).</li></ol>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§11 · GLOSSARY</span>Glossary</h2>
+  <dl class="kv"><dt>Stablecoin</dt>
+<dd style="margin:0; color:#3a352d;">a digital token pegged to the price of a fiat currency (most often the dollar) and backed by reserves, typically Treasury bills. USDT (Tether) and USDC (Circle) are the two largest.</dd>
+<dt>SGE</dt>
+<dd style="margin:0; color:#3a352d;">Shanghai Gold Exchange, the world's largest physical gold trading venue.</dd>
+<dt>T-bills</dt>
+<dd style="margin:0; color:#3a352d;">short-term US Treasury bills, the primary collateral asset of the global financial system.</dd>
+<dt>HQLA</dt>
+<dd style="margin:0; color:#3a352d;">High-Quality Liquid Assets — the class of assets a regulator recognizes as eligible collateral in repo and financing operations. As of April 2026, gold is not in this class.</dd>
+<dt>Basel III</dt>
+<dd style="margin:0; color:#3a352d;">the international banking regulation standard. Since July 2025, gold is a tier 1 asset (100% balance-sheet recognition).</dd>
+<dt>Waqf</dt>
+<dd style="margin:0; color:#3a352d;">an institution of property dedication in Islamic law: assets are withdrawn from circulation permanently, with income directed to a designated purpose. The oldest waqfs have operated for more than 1,100 years.</dd>
+<dt>GENIUS Act</dt>
+<dd style="margin:0; color:#3a352d;">a US law (signed July 2025, effective January 2027) regulating the issuance of stablecoins backed by dollar assets.</dd>
+<dt>Repo</dt>
+<dd style="margin:0; color:#3a352d;">short-term lending against securities collateral; the infrastructural foundation of the global financial market.</dd></dl>
+  <p><strong>Who this map is in conversation with.</strong> Triffin (the structural contradiction of a reserve currency), Eichengreen (exorbitant privilege), Kindleberger (hegemonic stability), Pozsar (Bretton Woods III), Kennedy (imperial overstretch), Taleb (antifragility and tail risks), Nazaretyan and Sedov (the endo-exogenous crisis and the law of hierarchical compensations; the Russian evolutionary school), Herz and Jervis (the security dilemma), Masnick (the Streisand effect), Gorkavyi (the golden dollars of the 23rd century), Pan Gongsheng (PBOC), Lagarde (ECB), Çizakça (the Ottoman waqf). None of them bears responsibility for this map's conclusions.</p>
+  <p><strong>Data snapshot date:</strong> April 2026. Structural claims (the law of self-weakening, the five axes, the two times) are not tied to a date and are verifiable on any horizon.</p>
+  <hr class="seam">
+  <p>This map is the first version of a navigational cross-section.</p>
+  <footer class="foot">Collaboration: <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a><br/>Author-compiler: Dima Polet</footer>
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">→</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){ var h=document.documentElement; var m=(h.scrollHeight-h.clientHeight)||1; bar.style.width=(Math.min(1,h.scrollTop/m)*100)+'%'; }
+  window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll();
+})();
+</script>
+<script>
+(function(){
+  window.navTo=function(id){ try{ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }catch(e){} };
+  document.querySelectorAll('.tags .t[data-target]').forEach(function(t){
+    t.addEventListener('click',function(){ navTo(t.getAttribute('data-target')); });
+  });
+})();
+</script>
+</body>
+</html>

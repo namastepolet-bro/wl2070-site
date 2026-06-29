@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Wealth Foresight in the Age of AGI · WL2070</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ===== СТРАТИГРАФ · тёмная (текущая версия) ===== */
+:root{
+  --bg:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-dim:#b65038; --seam:#d2c6b0;
+  --rule:#e4dccb; --hair:#ece4d5; --code-ink:#3a352d;
+  --inline-bg:rgba(143,50,33,.10); --inline-ink:#8f3221;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--bg); color:var(--ink); font-family:'Spectral',Georgia,serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:var(--bg); }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 38%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:50; transition:width .08s linear; }
+.toolbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px; padding:11px 22px;
+  backdrop-filter:blur(8px); background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--hair); }
+.toolbar .brand{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.toolbar .brand b{ color:var(--accent); font-weight:600; }
+.toolbar .sp{ margin-left:auto; }
+.tbtn{ font-family:'Golos Text',sans-serif; font-size:12.5px; color:var(--ink-soft); background:transparent;
+  border:1px solid var(--rule); border-radius:999px; padding:6px 14px; cursor:pointer; }
+.tbtn:hover{ border-color:var(--accent); color:var(--accent); }
+
+.page{ padding:34px 22px 120px; }
+.sheet{ max-width:852px; margin:0 auto; position:relative; padding-left:88px; }
+.sheet::before{ content:""; position:absolute; left:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 7%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin:0 0 18px; }
+.hero h1{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(42px,7vw,60px); line-height:1.0; letter-spacing:-.01em; margin:0 0 16px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(19px,3.4vw,22px); line-height:1.4; color:var(--muted); margin:0 0 26px; }
+.tags{ display:flex; flex-wrap:wrap; gap:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.tags .t{ display:inline-flex; align-items:center; gap:7px; }
+.tags .t::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--rule); }
+.tags .t.on{ color:var(--accent); } .tags .t.on::before{ background:var(--accent); }
+
+/* dividers */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:48px 0 38px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:34px 0; }
+.hr-double{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:54px 0 42px; }
+.hr-double::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.divider-narrow{ border:none; border-top:1px solid var(--rule); width:240px; margin:30px auto; }
+
+/* accordion */
+details.acc{ margin:0 0 24px; }
+details.acc > summary{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:11px; }
+details.acc > summary::-webkit-details-marker{ display:none; }
+.sum-lab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.14em; font-size:12px; font-weight:600; color:var(--accent); }
+.sum-hint{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); }
+details.acc[open] .sum-hint::after{ content:" ▾"; } details.acc:not([open]) .sum-hint::after{ content:" ▸"; }
+.acc-body{ margin-top:16px; }
+
+/* text */
+p.lead{ font-weight:300; font-size:19.5px; line-height:1.72; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body{ font-size:18.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body strong, p.lead strong, li strong{ color:var(--ink); font-weight:600; }
+p.kicker{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.13em; font-size:12px; font-weight:600; color:var(--accent); margin:1.7em 0 .55em; }
+p.kicker.ink{ color:var(--ink); }
+.center{ text-align:center; }
+
+h3.sub{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; line-height:1.2; margin:1.7em 0 .55em; color:var(--ink); position:relative; padding-left:22px; }
+h3.sub::before{ content:""; position:absolute; left:0; top:.62em; width:13px; height:1px; background:var(--accent); }
+
+/* section heads + rail code */
+h2.lh{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5vw,35px); line-height:1.12; margin:1.9em 0 .7em; color:var(--ink); position:relative; scroll-margin-top:24px; }
+h2.lh .n{ color:var(--accent); font-weight:500; }
+h2.lh::before{ content:""; position:absolute; left:-66px; top:.62em; width:16px; height:1px; background:var(--accent); }
+h2.lh .code{ position:absolute; left:-82px; top:.12em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+/* epigraph + vignette */
+.epigraph{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(20px,3.6vw,23px); line-height:1.5; color:var(--ink-soft); border-left:1px solid var(--accent); padding-left:24px; margin:0 0 30px; }
+figure.vignette{ margin:0 0 1.5em; padding:16px 0 16px 24px; border-left:1px solid var(--seam); }
+figure.vignette p{ font-family:'Spectral',serif; font-style:italic; font-size:18px; line-height:1.62; color:var(--ink-soft); margin:0 0 1em; }
+figure.vignette p:last-child{ margin:0; }
+
+/* lists */
+ul.list{ margin:0 0 1.3em; padding-left:1.5em; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; }
+ul.list > li{ margin:0 0 .6em; position:relative; }
+ul.list > li::before{ content:""; position:absolute; left:-1.1em; top:.7em; width:9px; height:1px; background:var(--accent); }
+ol.list{ margin:0 0 1.4em; padding-left:0; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; counter-reset:li; }
+ol.list > li{ counter-increment:li; padding-left:2.4em; position:relative; margin:0 0 .6em; }
+ol.list > li::before{ content:counter(li,decimal-leading-zero); position:absolute; left:0; top:.12em; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--accent); }
+
+/* deflist */
+dl.kv{ display:grid; grid-template-columns:max-content 1fr; gap:13px 20px; margin:0 0 1.2em; font-size:17.5px; line-height:1.55; color:var(--ink-soft); }
+dl.kv dt{ font-family:'IBM Plex Mono',monospace; font-weight:600; white-space:nowrap; color:var(--accent); }
+dl.kv dd{ margin:0; }
+
+/* TOC */
+ol.toc{ list-style:none; margin:0 0 34px; padding:0; font-size:19px; line-height:1.9; }
+ol.toc a{ display:flex; gap:12px; color:var(--ink-soft); border-bottom:none; }
+ol.toc a:hover{ color:var(--ink); }
+ol.toc .num{ font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--accent); min-width:18px; }
+ol.toc .dot{ color:var(--muted); }
+ol.toc strong{ font-weight:600; }
+
+/* залегание (run-in) */
+.lay{ margin:1.5em 0 1.1em; padding-left:28px; position:relative; }
+.lay::before{ content:""; position:absolute; left:0; top:.74em; width:14px; height:1px; background:var(--accent); }
+.lay .h{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; color:var(--accent); margin:0 0 .2em; }
+.lay p{ margin:0; font-size:18px; line-height:1.66; color:var(--ink-soft); }
+.lay p.runin{ font-size:19px; color:var(--ink); margin:0 0 .35em; }
+.lay p.runin b{ color:var(--accent); font-weight:600; }
+.qlist{ list-style:none; margin:.2em 0 1.3em; padding:0; border-top:1px solid var(--seam); }
+.qlist li{ font-size:17.5px; line-height:1.6; color:var(--ink-soft); padding:13px 0; border-bottom:1px solid var(--hair); }
+.qlist li strong{ color:var(--accent); font-weight:600; }
+.cond{ border-left:2px solid var(--accent); padding:4px 0 4px 22px; margin:1.5em 0; font-size:18px; line-height:1.7; color:var(--ink-soft); }
+
+/* quartet — ruled */
+.quartet{ margin:24px 0; border-top:1px solid var(--seam); }
+.quartet .cap{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); padding:11px 0 0; }
+.quartet .row{ display:grid; grid-template-columns:150px 1fr; gap:22px; padding:14px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.quartet .w{ font-family:'Cormorant',serif; font-weight:600; font-size:20px; color:var(--accent); }
+.quartet .g{ font-size:16.5px; line-height:1.55; color:var(--ink-soft); }
+
+/* quartet — glyph grane */
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:18px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:32px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:10px 0 5px; }
+.glyphs .gl{ font-size:13px; color:var(--muted); line-height:1.4; }
+
+/* specimen */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:28px 0; }
+.spec .stag{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:12px 20px; border-bottom:1px solid var(--rule); display:flex; gap:10px; }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:18px 22px; }
+.spec .in p{ margin:0 0 .8em; font-size:18px; line-height:1.62; color:var(--ink-soft); }
+.spec .in p:last-child{ margin:0; }
+.spec .in p strong{ color:var(--ink); font-weight:600; }
+.spec .pre{ font-family:'IBM Plex Mono',monospace; white-space:pre-wrap; font-size:14px; line-height:1.8; color:var(--code-ink); padding:18px 22px; margin:0; }
+.spec .core{ text-align:center; padding:26px 18px; }
+.spec .core .f{ font-family:'Cormorant',serif; font-weight:700; font-size:clamp(22px,4.4vw,27px); color:var(--ink); margin:0 0 .3em; letter-spacing:.01em; }
+.spec .core .f .op{ color:var(--accent); }
+.spec .core .glo{ font-size:14.5px; color:var(--muted); } .spec .core .glo b{ color:var(--accent); font-weight:600; }
+.spec.result .core .f{ font-size:clamp(22px,4.6vw,28px); }
+
+/* code / chip */
+pre.code{ font-family:'IBM Plex Mono',monospace; background:var(--panel); border:1px solid var(--rule); border-radius:5px; padding:14px 17px; margin:15px 0; font-size:13.5px; line-height:1.75; white-space:pre; overflow-x:auto; -webkit-overflow-scrolling:touch; color:var(--code-ink); }
+pre.code::-webkit-scrollbar{ height:6px; }
+pre.code::-webkit-scrollbar-track{ background:transparent; }
+pre.code::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+code.inl{ font-family:'IBM Plex Mono',monospace; background:var(--inline-bg); color:var(--inline-ink); padding:1px 6px; border-radius:4px; font-size:.86em; white-space:nowrap; }
+.chip{ text-align:center; margin:16px 0; }
+.chip code{ display:inline-block; font-family:'IBM Plex Mono',monospace; background:var(--inline-bg);
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:6px; padding:9px 17px; font-size:15px; font-weight:600; color:var(--inline-ink); }
+
+/* notes */
+.note-quiet{ border-left:2px solid var(--seam); padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft); font-size:17.5px; line-height:1.6; margin:1.4em 0; }
+.footnote{ font-size:14.5px; line-height:1.6; color:var(--muted); margin:1.4em 0; }
+.footnote .star{ color:var(--accent); }
+.note-mono{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--accent-dim);
+  background:var(--inline-bg); border:1px dashed color-mix(in srgb,var(--accent) 45%,transparent); border-radius:3px; padding:7px 12px; margin:1.6em 0 .5em; display:inline-block; }
+sup.fn{ font-size:.66em; color:var(--accent); }
+
+/* ledger / litany / statement */
+.ledger{ margin:1.5em 0; }
+.ledger .r{ display:grid; grid-template-columns:max-content 1fr max-content; align-items:baseline; gap:12px; padding:11px 0; border-bottom:1px solid var(--hair); }
+.ledger .r .t{ font-family:'Spectral',serif; font-size:18px; color:var(--ink-soft); }
+.ledger .r .ldr{ border-bottom:1px dotted var(--seam); transform:translateY(-5px); }
+.ledger .r .z{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.litany{ font-family:'Spectral',serif; font-size:19px; line-height:1.85; margin:0 0 1.3em; color:var(--ink-soft); }
+.statement{ text-align:center; font-family:'Spectral',serif; font-size:19.5px; line-height:1.5; color:var(--ink); margin:18px auto; max-width:620px; }
+.statement.line{ padding:16px 0; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); }
+.pull{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(27px,5.4vw,35px); line-height:1.18; letter-spacing:.01em; margin:1.1em 0 1.2em; color:var(--accent); }
+.pull.ink{ color:var(--ink); }
+.result-hero{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5.6vw,38px); color:var(--accent); line-height:1.15; margin:1.3em 0; }
+
+/* stratigraph table */
+.strat{ display:grid; grid-template-columns:max-content max-content 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:0 0 1.5em; }
+.strat > div{ background:var(--panel); padding:12px 16px; font-size:16.5px; line-height:1.4; }
+.strat .k{ font-weight:600; color:var(--ink); white-space:nowrap; }
+.strat .t{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent); white-space:nowrap; }
+.strat .v{ color:var(--ink-soft); }
+
+/* step plate */
+h3.step{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.3; margin:1.8em 0 1em; padding:12px 18px; border-left:4px solid var(--accent); background:var(--panel-2); color:var(--ink); border-radius:0 2px 2px 0; }
+h3.step span{ font-size:.8em; font-weight:600; color:var(--muted); }
+
+/* three-formula summary */
+.summary{ border:1px solid var(--rule); border-radius:5px; background:var(--panel); margin:18px 0; }
+.summary .row{ display:flex; gap:18px; align-items:baseline; padding:18px 24px; border-bottom:1px solid var(--rule); }
+.summary .row:last-child{ border-bottom:none; }
+.summary .ix{ font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; color:var(--accent); flex:none; }
+.summary .frm{ font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink); line-height:1.4; }
+.summary .gl{ font-size:14.5px; line-height:1.45; color:var(--muted); margin-top:7px; }
+
+/* math apparatus */
+.eqn{ display:grid; grid-template-columns:1fr max-content; align-items:center; gap:18px; margin:14px 0; }
+.eqn .b{ text-align:center; font-size:17px; color:var(--ink); }
+.eqn .no{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); }
+.eqn.solo{ grid-template-columns:1fr; }
+.legend{ margin:14px 0 20px; border-left:1px solid var(--seam); padding-left:18px; }
+.legend .lr{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:baseline; padding:5px 0; }
+.legend .lr .s{ text-align:center; color:var(--ink); }
+.legend .lr .d{ font-size:16px; line-height:1.5; color:var(--ink-soft); }
+
+/* team register */
+.team-tag{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:12px; font-weight:600; color:var(--accent); margin:0 0 3px; }
+h2.team{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(26px,5vw,31px); line-height:1.15; margin:0 0 .3em; color:var(--ink); scroll-margin-top:24px; }
+.team-char{ font-family:'Spectral',serif; font-style:italic; font-size:16.5px; color:var(--muted); margin:0 0 1.4em; }
+h3.mh{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; margin:1.7em 0 .55em; color:var(--ink); }
+h4.mh4{ font-family:'Cormorant',serif; font-weight:600; font-size:19px; margin:1.5em 0 .5em; color:var(--ink); }
+.label-c{ text-align:center; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--muted); margin:34px 0 16px; letter-spacing:.04em; }
+.links-team{ display:grid; gap:14px; font-size:19px; margin:0 0 1.2em; }
+.links-team p{ margin:0; }
+.links-team a{ color:var(--ink-soft); border-bottom:none; }
+.links-team a:hover{ color:var(--ink); }
+.links-team b{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; letter-spacing:.04em; color:var(--accent); }
+
+/* catalog (registry) */
+.catalog{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; padding:24px 26px; margin:16px 0 0; }
+.catalog .rlab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:10.5px; font-weight:600; color:var(--accent); margin:0 0 6px; }
+.catalog h4{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.15; margin:0 0 6px; color:var(--ink); }
+.catalog .rsub{ font-size:14px; line-height:1.5; color:var(--muted); margin:0 0 20px; }
+.cat-cols{ column-count:2; column-gap:36px; }
+.cat-g{ break-inside:avoid; margin:0 0 17px; }
+.cat-g .h{ font-weight:600; font-size:14px; line-height:1.32; color:var(--ink); margin:0 0 5px; }
+.cat-g .h .L{ font-family:'IBM Plex Mono',monospace; color:var(--accent); }
+.cat-g .h .reg{ font-weight:400; color:var(--muted); }
+.cat-g .it{ font-size:14px; line-height:1.55; color:var(--ink-soft); }
+.cat-g .it div{ margin:2.5px 0; }
+.cat-g .it strong{ color:var(--ink); font-weight:600; }
+.cat-g .it .gh2{ font-weight:600; color:var(--ink); margin:6px 0 3px; }
+.rfoot{ font-size:14px; line-height:1.55; font-style:italic; color:var(--muted); margin:8px 0 0; padding-top:16px; border-top:1px solid var(--rule); }
+
+/* disclaimer + foot */
+.disclaimer{ background:var(--panel); border:1px solid var(--rule); border-radius:3px; padding:20px 24px; margin:0 0 22px; font-size:15.5px; line-height:1.6; color:var(--ink-soft); }
+.disclaimer strong{ color:var(--ink); font-weight:600; }
+.foot{ font-size:16px; line-height:1.5; color:var(--muted); }
+.foot .fm{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-dim); }
+
+/* responsive */
+@media(max-width:760px){
+  .page{ padding:24px 18px 90px; }
+  .sheet{ padding-left:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .quartet .row{ grid-template-columns:1fr; gap:4px; }
+  .glyphs{ grid-template-columns:repeat(2,1fr); }
+  .cat-cols{ column-count:1; }
+  .strat{ grid-template-columns:max-content max-content max-content; width:max-content; min-width:100%; }
+  .summary .row{ flex-direction:column; gap:6px; }
+  .eqn{ grid-template-columns:1fr; gap:4px; } .eqn .no{ justify-self:end; }
+  .toolbar{ padding:10px 16px; }
+}
+
+/* print */
+@media print{
+  :root{ --bg:#fff; --ink:#1a1a1a; --ink-soft:#222; --muted:#666; --accent:#7a5a12;
+    --panel:#fff; --panel-2:#fff; --rule:#ccc; --hair:#ddd; --seam:#bbb; --code-ink:#222;
+    --inline-bg:#f3eedf; --inline-ink:#7a5a12; }
+  .toolbar,.progress{ display:none !important; }
+  body{ background:#fff; }
+  .page{ padding:0; } .sheet{ max-width:none; padding-left:0; }
+  .sheet::before,h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .spec,.summary,.catalog,pre,figure,.strat,.glyphs{ break-inside:avoid; }
+  h2,h3{ break-after:avoid; }
+}
+.note-bar{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--bg); }
+.note-bar b{ color:var(--accent); }
+.forwhom{ margin:0 0 24px; }
+/* === ФРАГМЕНТ s5→конец · гармонизация === */
+/* заголовки модели должны оптически выходить над текстом (body 18.5px, Cormorant мелкий x-height) */
+h3.mh{ font-size:24px; }
+h4.mh4{ font-size:21px; }
+/* ОБРАЗЕЦ: квартет τ/ξ/θ/π как глиф-грань (перенесён из stratigraph_light_pilot) */
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:16px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:30px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:9px 0 5px; }
+.glyphs .gl{ font-size:12px; color:var(--muted); line-height:1.4; }
+@media (max-width:640px){ .glyphs{ grid-template-columns:repeat(2,1fr); } }
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(3px); }
+/* гориз. скролл для таблиц вне .spec (стратиграф) */
+.scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.scrollx::-webkit-scrollbar{ height:6px; }
+.scrollx::-webkit-scrollbar-track{ background:transparent; }
+.scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+
+/* П.5 · только chip-код (длинная строка) — гориз. скролл на узком экране.
+   .eqn / .spec .core НЕ скроллим (давало артефакт-полоску слева) */
+.chip{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.chip code{ white-space:nowrap; }
+.chip::-webkit-scrollbar{ height:6px; }
+.chip::-webkit-scrollbar-track{ background:transparent; }
+.chip::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="language">
+      <a href="../en/foresight.html" class="on" aria-current="true">EN</a><a href="../ru/foresight.html">RU</a><a href="../ar/foresight.html">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">wealthleap2070.io</p>
+    <h1>Wealth Foresight 2070</h1>
+    <p class="sub">Mapping transit through the singularity portal</p>
+    <div class="tags"><span class="t on" data-target="#wl2070">WL2070</span><span class="t" data-target="#mathmodel">math.model</span></div>
+  </header>
+
+  <hr class="seam">
+
+  <div class="forwhom">
+    <p class="sum-lab">who this map is for</p>
+    <div class="acc-body">
+      <p class="body">For principals and capital-owning families — those who decide the fate of personal and family wealth over generational horizons. And for those beside them: family-office CIOs, structuring lawyers, and foresight analysts — whose job is to see further than the quarterly report. If this is not you, close the map without regret. If you know such people, pass it on. Or look at the registry below: this is the audience against which the mathematical model at the end of the document is calibrated.</p>
+
+      <details class="acc">
+        <summary><span class="sum-lab">audience registry</span><span class="sum-hint">expandable</span></summary>
+        <div class="catalog">
+          <p class="rlab">optional block · market registry</p>
+          <h4>Who this map is for — a market registry</h4>
+          <p class="rsub">The capital market and its service perimeter to which the WL2070 foresight is addressed.</p>
+          <div class="cat-cols">
+
+            <div class="cat-g"><div class="h"><span class="L">A ·</span> Private banks — regional champions <span class="reg">(Singapore / Hong Kong)</span></div>
+              <div class="it">
+                <div><strong>DBS Private Bank</strong> (SG) — the largest local PB; PATH platform (private assets UHNW)</div>
+                <div><strong>Bank of Singapore</strong> (OCBC, SG) — Family Office Catalyst</div>
+                <div><strong>UOB Private Bank</strong> (SG) — UHNW SEA focus; NextGen programs</div>
+                <div><strong>Standard Chartered PB</strong> (SG/HK) — Zodia custody; spot crypto for institutions</div>
+                <div><strong>HSBC Global Private Banking</strong> (HK/SG) — tokenized deposits; Global FO Report</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">B ·</span> Private banks — Swiss boutiques <span class="reg">(Asia)</span></div>
+              <div class="it">
+                <div><strong>Julius Baer</strong> (SG/HK) — Global Wealth &amp; Lifestyle Report</div>
+                <div><strong>LGT Private Banking</strong> (SG/HK) — the Liechtenstein princely family's bank; #1 global FO services</div>
+                <div><strong>UBP — Union Bancaire Privée</strong> (HK/SG) — 90+ hedge strategies, alternatives leader</div>
+                <div><strong>Lombard Odier</strong> (SG + TH partnership) — "Rethink Everything"; NextGen Institute</div>
+                <div><strong>VP Bank</strong> (SG) — platform for EAMs / independent managers and FOs</div>
+                <div><strong>Pictet Wealth Management</strong> (SG/HK) — megatrend research; NextGen forums</div>
+                <div><strong>EFG Bank</strong> (SG/HK) — "entrepreneurial thinking"; New Capital alt-funds</div>
+                <div><strong>Indosuez Wealth</strong> (Crédit Agricole) — old-wealth SEA families; art advisory</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">C ·</span> Multi-Family Offices and boutiques <span class="reg">(SG / HK)</span></div>
+              <div class="it">
+                <div><strong>Raffles Family Office</strong> (HK/SG) — the leading Asian MFO</div>
+                <div><strong>Carret Private Capital</strong> (HK) — MFO + fintech (Endowus)</div>
+                <div><strong>Lighthouse Canton</strong> (SG + UAE, India) — alternatives + private debt</div>
+                <div><strong>Golden Equator Wealth</strong> (SG) — next-gen tech entrepreneurs; VC club</div>
+                <div><strong>Taurus Wealth Advisors</strong> (SG/Dubai) — conflict-neutral, cross-jurisdictional</div>
+                <div><strong>Prime Asia Asset Management</strong> (SG) — FO advisory (investments + tax + governance)</div>
+                <div><strong>Analog Capital</strong> (SG) — "by and for next-gen Asian entrepreneurs"</div>
+                <div><strong>Kamet Capital Partners</strong> (SG) — a pioneer of the SG MFO market; quant/data-driven</div>
+                <div><strong>Rockstead Capital</strong> (SG) — real assets + private credit; real-estate tokenization</div>
+                <div><strong>DL Family Office</strong> (DL Holdings, HKEX:1709) — publicly listed holding; AI FO Initiative</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">D ·</span> Local players — "rising" SEA markets</div>
+              <div class="it">
+                <div><strong>SCB Julius Baer</strong> (Bangkok) — JV Siam Commercial Bank × Julius Baer</div>
+                <div><strong>KBank Private Banking</strong> (Kasikornbank, TH) — TH leader; Lombard Odier partner</div>
+                <div><strong>Blueprint Forest</strong> (Bangkok) — family investment office; DeFi investments</div>
+                <div><strong>Maybank Private Wealth</strong> (MY/SG) — the largest Malaysian bank</div>
+                <div><strong>CIMB Private Banking</strong> (MY) — Malaysia's second-largest bank</div>
+                <div><strong>BPI Wealth Family Office</strong> (Philippines) — the first Filipino MFO</div>
+                <div><strong>BDO Private Bank</strong> (Philippines) — the only separately licensed PB</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">E ·</span> Foresight and research units</div>
+              <div class="it">
+                <div class="gh2">Banks — research / thought leadership:</div>
+                <div><strong>DBS Asian Insights</strong> — Asian Insights Conference</div>
+                <div><strong>Bank of Singapore — CIO Office</strong> — "Brilliant Minds" series</div>
+                <div><strong>Standard Chartered Global Research + SC Ventures</strong> — Digital Assets Research</div>
+                <div><strong>BNP Paribas L'Atelier</strong> — corporate foresight unit (quantitative foresight)</div>
+                <div><strong>Julius Baer — Next Generation Research</strong> — secular trends</div>
+                <div><strong>ANZ Institutional Research</strong> — long-horizon Asian scenarios</div>
+                <div class="gh2">Analytical institutes:</div>
+                <div><strong>Franklin Templeton Institute</strong> — Digital Assets Research Hub</div>
+                <div><strong>Thinking Ahead Institute (WTW)</strong> — membership foresight, "Investment Industry in 2030"</div>
+                <div><strong>Northern Trust Institute</strong> — stewardship + purposeful capital for FOs</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">F ·</span> Forums and associations</div>
+              <div class="it">
+                <div class="gh2">Asia / SEA:</div>
+                <div><strong>WMI Global-Asia Family Office Summit</strong> (SG, MAS/EDB) — ~600 participants</div>
+                <div><strong>Caproasia Family Office Summit</strong> (HK/SG) — invite-only</div>
+                <div><strong>AFO — Association of Family Offices in Asia</strong> (HK)</div>
+                <div><strong>Prestel &amp; Partner FO Forums</strong> (Asia/MENA)</div>
+                <div><strong>Campden Wealth — Asia Pacific FO Forum</strong> (HK/SG)</div>
+                <div><strong>Connect Group — World Family Office Forum</strong> (HK + Montreux)</div>
+                <div class="gh2">Middle East / MENA:</div>
+                <div><strong>Alea Global — ME Family Office Summit</strong> (Dubai)</div>
+                <div><strong>Emirates Family Office Association — EFOA + ADFW</strong> (Abu Dhabi, ADGM)</div>
+                <div><strong>Abu Dhabi Family Office Summit — ADFO</strong> (Investopia)</div>
+                <div><strong>Dubai Family Office Investment Summit</strong> — Epicon Capital Club</div>
+                <div class="gh2">Europe / offshore:</div>
+                <div><strong>Campden Wealth — Global FO &amp; Owners Congress</strong></div>
+                <div><strong>Family Business Network — FBN International</strong></div>
+                <div><strong>Global Partnership Family Office — GPFO</strong> (London)</div>
+                <div><strong>DC Finance — London FO &amp; HNW Conference</strong></div>
+                <div><strong>Cambridge Forums — EFOF</strong> (Milan)</div>
+                <div class="gh2">Global clubs and networks:</div>
+                <div><strong>Tiger 21</strong> (NY/London/Zürich/SG) — ~1,000 UHNW members</div>
+                <div><strong>Campden IPI — Institute for Private Investors</strong> (threshold $30M)</div>
+                <div><strong>Family Office Exchange — FOX</strong> (Chicago, threshold $100M+)</div>
+                <div><strong>SFO Alliance</strong> — single-family offices only, $400M+ AUM</div>
+                <div><strong>NEXUS Global Summit</strong> — NextGen philanthropists + impact investors</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">G ·</span> Jurisdictional partners / IFCs</div>
+              <div class="it">
+                <div><strong>Singapore</strong> (MAS/EDB) — 59% of Asian FOs; 13O/13U regimes</div>
+                <div><strong>DIFC / DFSA</strong> (Dubai) — Family Office Licence; Family Wealth Centre</div>
+                <div><strong>ADGM</strong> (Abu Dhabi) — SPV / legal shells</div>
+                <div><strong>Labuan</strong> (Malaysia) — FO threshold ~$2.1M</div>
+                <div><strong>QFC</strong> (Qatar) · <strong>RAKEZ / DMCC</strong> (UAE) — clusters and legal shells</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">H ·</span> Media and distribution</div>
+              <div class="it">
+                <div><strong>WealthBriefingAsia</strong> — WBA Awards; Family Office section</div>
+                <div><strong>Hubbis</strong> (Asia WM/PB) — bespoke events</div>
+                <div><strong>Asian Private Banker</strong> — the largest Asian PB editorial office</div>
+                <div><strong>Campden Wealth Research &amp; Media</strong></div>
+                <div><strong>Spear's / Citywealth</strong> — IFC / UHNW coverage</div>
+                <div><strong>Henley &amp; Partners · Hurun</strong> — UHNW data, capital migration</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">J ·</span> China</div>
+              <div class="it">
+                <div><strong>CMB Private Banking</strong> (China Merchants Bank) — mainland PB leader</div>
+                <div><strong>Ping An Private Banking</strong></div>
+                <div><strong>CICC Wealth Management</strong> — research-driven, one of the most cited in the PRC</div>
+                <div><strong>Noah Holdings</strong> — independent MFO (NYSE/HK listing)</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">K ·</span> Japan</div>
+              <div class="it">
+                <div><strong>Nomura — Wealth Management</strong> + <strong>Nomura Research Institute (NRI)</strong> — the benchmark for HNW/UHNW estimates</div>
+                <div><strong>Daiwa Securities — Wealth Management</strong></div>
+                <div><strong>MUFG × Morgan Stanley</strong> — private assets / RE / infra alliance</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">L ·</span> Korea</div>
+              <div class="it">
+                <div><strong>Mirae Asset</strong> — the most global</div>
+                <div><strong>Samsung Securities · KB · Shinhan · Hana</strong> — broker FO desks</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">M ·</span> India</div>
+              <div class="it">
+                <div><strong>360 ONE WAM</strong> (ex-IIFL Wealth) — the largest local platform</div>
+                <div><strong>Nuvama · Kotak · Waterfield Advisors · Client Associates · ASK · Anand Rathi</strong></div>
+                <div>Indian SFOs: <strong>Premji Invest</strong>, <strong>Catamaran</strong> (Murthy), <strong>RPSG</strong></div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">I ·</span> Adjacent / lifestyle access points to UHNW</div>
+              <div class="it">
+                <div><strong>Camper &amp; Nicholsons Marinas</strong> · Suntex Marinas (US) · MDL Marinas (UK) — yachting infrastructure</div>
+                <div><strong>Monaco Yacht Show</strong> · Cannes Yachting Festival — yachting events</div>
+                <div><strong>Art Basel</strong> · Artory / Arcual — art provenance and events</div>
+                <div><strong>DMCC</strong> (Dubai: diamonds/gold/tea) · Ogier / Walkers / Harneys — offshore law firms</div>
+                <div><strong>WestWater Research / Waterfind</strong> — water-rights trading</div>
+                <div><strong>IATA Slot Conference · ACI World</strong> — aviation (private jets / slots)</div>
+                <div><strong>Toniic · The Conduit</strong> — impact investors</div>
+              </div></div>
+
+          </div>
+          <p class="rfoot">If you recognized yourself or those you work with — this map was written for you. If not — you are not the primary audience, but the view from this vantage point may still be worth the read.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="hr-double"></div>
+
+  <h2 class="lh" id="wl2070" style="font-size:clamp(34px,6vw,44px); margin-top:.2em;"><span class="code">M·0 BODY</span>WL2070</h2>
+
+  <ol class="toc">
+    <li><a onclick="navTo('s1')" style="cursor:pointer"><span class="num">1</span><span class="dot">·</span><strong>The obvious question: why 2070?</strong></a></li>
+    <li><a onclick="navTo('s2')" style="cursor:pointer"><span class="num">2</span><span class="dot">·</span><strong>The method: a leap to an impossible height</strong></a></li>
+    <li><a onclick="navTo('s3')" style="cursor:pointer"><span class="num">3</span><span class="dot">·</span><strong>Machines will do everything. What then?</strong></a></li>
+    <li><a onclick="navTo('s4')" style="cursor:pointer"><span class="num">4</span><span class="dot">·</span><strong>The experiment: "A Suitcase into the Future"</strong></a></li>
+    <li><a onclick="navTo('s5')" style="cursor:pointer"><span class="num">5</span><span class="dot">·</span><strong>The complete form and the mathematical model</strong></a></li>
+  </ol>
+
+  <blockquote class="epigraph">Wealth is a substance; it must be frozen into form and carried through the portal. The portal admits only the complete form.</blockquote>
+
+  <h2 class="lh" id="s1"><span class="code">S·01 MEDIUM</span><span class="n">1 ·</span> The obvious question: why 2070?</h2>
+  <p class="body">The date itself is arbitrary. It could have been 2073 or 2077. But the approach is precise in an engineering sense. The singularity is not a single event. It is a regime in which the density of events accelerates, with no fixed point of arrival. For this foresight, we chose the key image of the AGI portal. Not a single doorway, but a corridor — a transition regime in which technologies, economies, conflicts, and the shock waves that follow all accelerate in cascades.</p>
+  <p class="body">As we move through the portal, the laws of civilization that held for millennia must change. But not everywhere, not for everyone, and not all at once. Civilization, as a whole, is extraordinarily inertial. The carrier of that inertia is generational dynamics. It is reasonable to assume that civilization, as a planetary body, will crawl through the portal for at least two generations — those same 40–50 years. From grandfathers to grandchildren.</p>
+  <aside class="note-quiet">The initial premise: You fall asleep — for 15, 25, or 45 years. While you sleep, the most sweeping changes in recorded history take place. The question upon waking is not "how long was I out" — the question is "what here is still mine." Reducing the strategic uncertainty of that answer is the task of foresight. We propose to solve it from the far end: the year 2070.</aside>
+  <h3 class="sub">Where do we start?</h3>
+  <p class="body">By original design, our foresight is the opposite pole — a response to Sam Altman's 2021 essay "Moore's Law for Everything" and its central thesis: if AGI-driven robotics explode productivity, everything reproducible cheapens relentlessly and at an accelerating rate. Moore's Law for everything: <a href="https://moores.samaltman.com">moores.samaltman.com</a>.</p>
+  <p class="body">Altman looks from the top down: the state, taxation, redistribution. Everything will cheapen — so tax what will not cheapen (companies and land) and give everyone a share of the pie. The problem of wealth is solved by policy. We look from the bottom up: family, shell, transit. Everything will cheapen — so find what will not cheapen, freeze it into form, and carry it through the AGI portal. The problem of wealth is solved by engineering.</p>
+  <p class="body">Altman says: value will exist — the question is who will get it. We say: a) the question is what will constitute value at all; b) far from everything will survive the passage through the portal. His blind spot is built into his position: he is a builder of AGI. By definition, he cannot ask: "What if AGI does not merely cheapen, but destroys the very category of value for the reproducible?" — because the reproducible is what he builds. For him, cheapening is an inevitable good. For us, it is a new environment in which wealth must survive. His reader is the citizen, or the policymaker. Ours is the family, the lineage, the personified apex of the global wealth pyramid.</p>
+
+  <h2 class="lh" id="s2"><span class="code">S·02 METHOD</span><span class="n">2 ·</span> The leap to an impossible height</h2>
+  <p class="kicker">The impossible height as a method</p>
+  <p class="body">The discovery of this foresight lies not in a catalogue of assets but in the approach. A leap half a century ahead, through and beyond the AGI portal, is not a forecast. It is a method of invention. By our estimate, the density of change between now and 2070 will be roughly equivalent to the previous four to six hundred years. At that rate of acceleration, short-range foresight goes blind. A five-year horizon is like a flashlight in fog: you see one meter ahead, and the cliff is two meters away. A leap of half a century through the singularity portal is the only way to see form: an absurd framing burns the templates of the present. We find the invariants there — and unwind them back to today's decisions. This is not extravagance. It is the only method that works in an era when cascades of invention rewrite the code of the possible.</p>
+  <p class="kicker">Two challenge problems: the sight and the telescope</p>
+  <div class="lay"><div class="h">The Sight</div><p>You are 40–50 years old. You have $200M in free capital. A son has just been born. The challenge: send ten percent ($20M) across two generations — to your grandson on his twentieth birthday. But so that its purchasing power in today's money does not drop, and ideally grows. You have a sum, a name, a date; the era has been described. A worthy management problem. Try to solve it.</p></div>
+  <div class="lay"><div class="h">The Telescope</div><p>Now look further. Send one million dollars into the future — for one thousand years<sup class="fn">*</sup>. The reaction "they'll think you're insane" is a marker that the correct mode has been engaged. This is how any properly formulated inventive problem is met when it breaks through psychological inertia. A million orbital data centers delivering the cheapest inference to the planet sounded insane five years ago. In June 2026, it became the basis of the most successful IPO — and the first trillion-dollar fortune — in history. Half an hour of this intellectual game, and the question about 40–50 years stops being "Everest."</p></div>
+  <aside class="spec"><div class="stag"><b>SPECIMEN</b> · tandem</div><div class="in"><p><strong>The pair works as a tandem:</strong> the telescope calibrates the scale; the sight aims at a concrete solution. From there, expert practitioners ground the findings in real moves for today.</p></div></aside>
+  <p class="footnote"><span class="star">*</span>&nbsp; If a thousand years sounds absurdly long, start with two hundred. What matters is to take a horizon that is clearly impossible — for you. And while the game is on, solve the problem honestly, as though it were real and achievable.</p>
+
+  <h2 class="lh" id="s3"><span class="code">S·03 CARRIER</span><span class="n">3 ·</span> Machines will do everything. What then?</h2>
+  <aside class="spec"><div class="stag"><b>THE TWO-A.M. QUESTION</b></div><div class="in"><p>For anyone who wakes at night asking: "What out of all this will be worth anything at all when machines can do everything?"</p></div></aside>
+  <aside class="spec"><div class="stag"><b>THE BRUTALLY HONEST ANSWER</b></div><div class="in"><p>Machines will do everything. This is not a question of "if" — it is a question of pace. Suppose that by 2050, the reproducible is practically free to produce. What then?</p></div></aside>
+  <p class="body"><strong>Diagnosis: wealth will not vanish — it will change its carrier. As it has done many times before.</strong></p>
+  <p class="body">Each time, the previous carrier was not zeroed out — it lost its monetary function but kept its function as a thing. Gold ceased to be currency, but it did not cease to be gold. Land ceased to be the primary measure of wealth, but it did not cease to feed. At every transition, the carrier left behind lost to whatever leapt above it. But the thing itself — if it passed the filter (scarcity, rights, liquidity, taste) — remained.</p>
+  <p class="body">The real question, then, is not "what will be worth something" but <strong>"what will cease to be money while remaining a thing — and what will cease to be a thing altogether."</strong> The line runs exactly along reproducibility. Everything that AGI-driven robotics can "print" will cease to be both money and thing in the economic sense. This is not a loss — it is a liberation: the scarce becomes free, and that is magnificent. But whoever's wealth consists entirely of the reproducible will one morning discover that they own the free.</p>
+  <span class="note-mono">asteroid gold</span>
+  <figure class="vignette">
+    <p>Gold, as a precious metal, has survived everything: empires, wars, the death of currencies. For five thousand years it was synonymous with "forever." But its value lies not in the fact that there is little of it. It lies in the fact that there will be almost no more. This is the premium for finite supply — the finitude premium: anti-fiat. It cannot be printed.</p>
+    <p>Space changes this — and not in the way most people think. No one will hunt for gold on asteroids. But when orbital manufacturing begins to grind metallic bodies for iron, nickel, and water — for stations and ships — gold will fall out on its own, as bycatch. It is not mined; it drops into the tailings. And the market will strip the finitude premium not when the first ton arrives in Earth orbit, but when the first credible project appears. On the expectations curve, not on the delivery curve.</p>
+    <p>But here is what matters: the finitude premium does not vanish. It migrates — upward, to what even the orbital highway cannot catch. To a colored stone that took millions of years to form. To coordinates that cannot be copied. To a biography that cannot be printed. Space takes from gold — the pyramid inherits.</p>
+  </figure>
+  <p class="body"><strong>Now, bluntly: what exactly will remain.</strong></p>
+  <div class="lay"><p class="runin">First and foremost — <b>time</b>.</p><p>Not in the poetic sense. In the literal one. An asset in which time is frozen — time that cannot be accelerated and cannot be repeated. A gemstone that formed over 20 million years. A terroir created by a specific geology with a specific microclimate. An ageing that cannot be fast-forwarded. AGI can do everything except one thing: it cannot make "long ago." And it never will — this is not a technical limitation; it is a property of time.</p></div>
+  <div class="lay"><p class="runin">Second — <b>place</b>.</p><p>A coordinate to which a flow is attached. A berth in a strait. A waterfront where water and people converge. A spring with a temperature found here and nowhere else. AGI can build any structure — but it cannot create a second point with the same coordinates, the same view, the same hydrology. Place does not scale.</p></div>
+  <div class="lay"><p class="runin">Third — <b>the chokepoint</b>.</p><p>A right of passage through a narrow point. A slot, a frequency, a berth, a mountain pass. Their number is finite by physics or by law. The denser the traffic — and the AGI world is a world of maximum traffic — the more valuable each turnstile becomes. The paradox of abundance: the more there is of everything, the more valuable each finite passage becomes.</p></div>
+  <div class="lay"><p class="runin">Fourth — <b>provenance</b>.</p><p>The proven biography of a thing. Not the thing itself — its biography. AGI can synthesize a perfect ruby. It cannot synthesize "this ruby belonged to the Nizam of Hyderabad." Authenticity is unavailable to production by definition. And the more perfect the synthetic becomes, the higher the premium on the real — synthetic perfection creates demand for its opposite.</p></div>
+  <p class="body"><strong>What will certainly die as wealth:</strong></p>
+  <p class="body">Everything that rests on informational asymmetry (I know and you don't — AGI will equalize that); everything that rests on execution skill without a master (a process without a bearer is automated); everything that rests on a scarcity of compute (compute will cheapen by orders of magnitude); the middle tier of anything (a middling stone, a middling location, middling art) — all of this is the zone where synthetics and scale devour the premium.</p>
+  <p class="body"><strong>Beyond the horizon — what if the very need for scarcity dies?</strong></p>
+  <p class="body">A neural interface delivering the sensation of owning anything theoretically kills status-driven consumption. But. Status is not the only function of scarcity. There is a second: <strong>it anchors the lineage's identity</strong>. "This is ours. It has been ours. It will remain ours." This is not about status. It is about coherence across generations. A tribe without a totem comes apart. A family with nothing ancestral of its own stops being a family. A neural interface can simulate possession. It cannot simulate continuity. That is why the top of the pyramid will survive even neural interfaces — but for a different reason than we assume today. Not as an asset. As a totem.</p>
+
+  <div class="fitline"><span class="pull fit-phrase">long ago · here · passage · the real</span></div>
+  <div class="quartet">
+    <div class="cap">four invariants</div>
+    <div class="row"><div class="w">long ago</div><div class="g">Frozen time — gemstone, terroir, ageing. AGI cannot make "long ago."</div></div>
+    <div class="row"><div class="w">here</div><div class="g">Place bound to coordinates and flow. It does not scale.</div></div>
+    <div class="row"><div class="w">passage</div><div class="g">Chokepoint, a right of passage. The denser the traffic, the more valuable each turnstile.</div></div>
+    <div class="row"><div class="w">the real</div><div class="g">Provenance, the proven biography. Authenticity cannot be manufactured.</div></div>
+  </div>
+  <div style="height:.8em" aria-hidden="true"></div>
+  <p class="kicker">a note in the margin</p>
+  <p class="body">This foresight does not quarrel with accumulated expertise. A rental building next to Sagrada Familia is as much an invariant as the apex of the colored-gemstone pyramid. With AGI or without, with neural interfaces or without — over two generations the obvious will not change. A reader with a historic building in central Barcelona knows: their building will be worth millions a century from now. And they are right.</p>
+  <p class="body">Yet the stream of change is relentless. Scale, speed, cascades of bifurcations — all of this will keep mounting and will not plateau before mid-century. Plus another generation for adaptation. A storm of this magnitude has no analogue in recorded history. The value of the map is not in overturning anyone's expertise. It lies in two things. First: to see form behind the kaleidoscope of events — to find the eye of the typhoon. Second: psychological resilience. Whoever holds the map does not panic when everyone panics. Does not sell at the bottom. Does not chase the hype. Does not spend a year on a decision that, with the map, takes a week. The storm is the same — the losses are different.</p>
+
+  <h2 class="lh" id="s4"><span class="code">S·04 SUITCASE</span><span class="n">4 ·</span> The experiment: "A Suitcase into the Future"</h2>
+  <aside class="note-quiet">The old transit question: what do we put in the suitcase?<br>The new question: what form can pass through the portal?</aside>
+  <p class="body">Without the "suitcase," though, the map remains pure philosophy.<br>So what should one invest in today to send wealth to oneself or one's family one or two generations ahead? We do not claim ready answers; we offer a thought experiment.</p>
+  <p class="body"><strong>The full hypothesis:</strong> AGI-driven robotics explode productivity and the reproducible cheapens at an accelerating rate. Against this backdrop, the winners are things that cannot be additionally produced within the Solar System. They are no longer "printed"; their scarcity is not diluted by technology. The overall wealth pie also grows; there are more and more affluent buyers. Hence demand also grows for non-reproducible premium assets that have been considered valuable by the wealthy for centuries.</p>
+  <p class="body">The section above described the load-bearing channels of transit through the portal.<br>Now we add a four-multiplier filter:</p>
+  <div class="spec"><div class="stag"><b>TURNSTILES</b> · completeness filter</div><div class="core"><p class="f"><span class="fit-phrase">Scarcity <span class="op">×</span> Rights <span class="op">×</span> Liquidity <span class="op">×</span> Taste</span></p><p class="glo"><b>Zero in any multiplier — zero at the output.</b></p></div></div>
+  <p class="body">Scarcity must be auditable — it cannot be drawn by synthetics. Protected by rights — it must be defensible in a court or a protocol. Liquid — there must be an exit market without losing half the value. Taste-durable — it must survive changes in fashion and in generations. If even one of the four conditions does not hold, non-reproducibility alone will not save it.</p>
+  <aside class="cond">If scarcity cannot be verified, it will be fabricated.<br>If rights do not protect, it will be taken.<br>If there is no liquidity, heirs will receive not capital but an altar with no exit.<br>If taste does not survive generations, the status premium rots.</aside>
+  <p style="font-family:'Cormorant',serif;font-weight:700;font-size:clamp(22px,4.4vw,27px);color:var(--ink);letter-spacing:.01em;margin:1.2em 0 .4em;">The experiment:</p>
+  <p class="body">Two steps. First, we pack the suitcase with positions that pass the gates. Second, we lock them into a shell for two generations. The sketch is deliberately incomplete and, in places, provocative — by design. Run it through the filter and the foresight's mathematical model, assemble your own list, and discuss it with those you trust.</p>
+
+  <h3 class="step">Step 1. Sending the suitcase into the future</h3>
+  <ol class="list">
+    <li>Prime A+ land in stable nodes: actual waterfronts and hilltop vantage points, historic quarters, island "piers of civilization." The key is not "square meters" but the <strong>flow-node</strong> (water, culture, etc.).</li>
+    <li>Water and waterfront rights in scarce basins (irrigation, cooling, berths). Even with cheap desalination, local hydrology and legal title remain chokepoints.</li>
+    <li>Geothermal and spring sites (unique temperature / flow rate). Energy may cheapen, but a specific source at a specific location is finite.</li>
+    <li>Top-tier natural colored gemstones with an impeccable provenance trail (Kashmir sapphire, Burmese ruby, etc.). Only the apex of the pyramid or close to it matters — plus lab reports and documented history.</li>
+    <li>Soil-and-climate terroirs (vine, tea, olive) with a provable "place." Not commodity agriculture but terroir as brand.</li>
+    <li>Long-term rights to infrastructure nodes: ports, marinas, locks, anchorages, mountain passes, cable cars. These are turnstiles on perpetual flows.</li>
+    <li>Spectrum, frequencies, and slots (including aviation and port slots). They are not printed; the market is conservative by nature; demand grows with traffic density. For a family — via funds or partnerships.</li>
+    <li>Closed-issuance urban memberships (private clubs, schools, harbors) with limited transferability and resale. This is about access to people and deals, not about the interior.</li>
+    <li>Museum-grade art with exhibition history (canon, not hype). Liquidity via top-tier platforms.</li>
+    <li>Documented historical objects (instruments, maps, scientific apparatus, significant manuscripts). Not "vintage for vintage's sake" but milestones of civilization.</li>
+    <li>Orbital and lunar slots and spectrum — for now, only through stakes in operators and concessions. Risk is high; portfolio share is small.</li>
+    <li>Natural refuges (temperate highlands, water, forests) — not for speculation but as a family's insurance asset.</li>
+  </ol>
+
+  <div style="height:.53em" aria-hidden="true"></div>
+  <p class="kicker">From clogs to clogs · five cultures, one loop</p>
+  <p class="body">The source proverb behind the "three-generation rule" is Lancashire — England's textile north, where clogs were workers' wooden-soled shoes: <strong>"From clogs to clogs is only three generations."</strong> It is a folk saying from the mill counties. The arc is built into the formula itself: the grandfather earns in clogs → the son multiplies and spends in leather shoes → the grandson ends up back in clogs.</p>
+  <p class="body">The same rise-and-return arc appears independently elsewhere:</p>
+  <ul class="list">
+    <li><strong>United States:</strong> "Shirtsleeves to shirtsleeves in three generations" — often attributed to Carnegie, but it is an adaptation of the English formula, not his coinage.</li>
+    <li><strong>Scotland:</strong> "The father buys, the son builds, the grandchild sells, and his son begs."</li>
+    <li><strong>China:</strong> 富不过三代 (fù bù guò sān dài) — "Wealth does not outlast three generations."</li>
+    <li><strong>Japan:</strong> 売り家と唐様で書く三代目 — "The third generation writes the 'house for sale' sign in exquisite Chinese calligraphy": the grandson is so refined that he calligraphs the liquidation of his grandfather's estate in beautiful script. The most venomous version of them all.</li>
+    <li><strong>Italy:</strong> "dalla stalla alle stelle e ritorno" — from the stable to the stars and back.</li>
+  </ul>
+  <div style="height:.27em" aria-hidden="true"></div>
+
+  <h3 class="step">Step 2. Breaking the three-generation doom loop<br><span>[sending wealth to grandchildren]</span></h3>
+  <p class="body">Five cultures mistook incompleteness for a law of nature and called it the "three-generation rule." An engineer reads it differently: a recurring failure is not nature's verdict but an engineering problem. A complete solution may not exist without rebuilding human nature itself. But there is an engineering hypothesis: put the weak link on external rails. Break the loop by institutionalizing capital, not by trying to raise better heirs<sup class="fn">*</sup>.</p>
+  <p class="body"><strong>We lock the assets into a three-compartment institutional shell governed by a charter:</strong></p>
+  <dl class="kv">
+    <dt>Core Vault</dt><dd>holds the inviolable core of scarcities: prime A+ land, rights to chokepoints, museum-grade art. By charter, these may not be sold or pledged; only income may be drawn.</dd>
+    <dt>Flow HoldCo</dt><dd>manages liquid and income-generating assets by protocol: buying, selling, rebalancing.</dd>
+    <dt>OpsCo</dt><dd>carries operational risk and has no access to the core. No "single button": decisions on the core require a super-quorum with the protector's veto; in the near future, with the participation of an AGI custodian.</dd>
+  </dl>
+  <p class="body">From here on, architecture does the work — not "family values":</p>
+  <p class="body">A payout formula, annual rebalancing within corridors, circuit breakers on drawdowns, a liquidity buffer across multiple currencies and countries, multi-key protection, dead-man switches on keys, proof-of-custody for scarcities, and pre-signed exit routes. Voting rights are separated from access to money. The heir receives distributions only after heir licensing — an apprenticeship and a test on the portfolio policy.</p>
+  <p class="body">The principle: nothing depends on a single person. No one document, key, or decision gives the ability to burn the core. Capital becomes an engineered object with fail-safes — capable of reaching 2070 without the third generation ending back in clogs.</p>
+  <p class="footnote"><span class="star">*</span> The above is the skeleton of a solution; the full mechanics exceed the scope of this map.</p>
+  <aside class="note-quiet">Why "send wealth to grandchildren" at all? Perhaps you have none. Then find an analogous problem. If you succeed in solving such a problem against the backdrop of the AGI era, you will inevitably discover more effective solutions for the 5–10-year horizon as well.</aside>
+
+  <h2 class="lh" id="s5"><span class="code">S·05 FORM</span><span class="n">5 ·</span> The complete form and the mathematical model</h2>
+  <p class="body">The elements were above. Now — the map of the whole.</p>
+  <p class="kicker">The transit stratigraph through the portal <span style="color:var(--muted); text-transform:none; letter-spacing:0;">[sketch, work in progress]</span></p>
+  <div class="scrollx"><div class="strat">
+    <div class="k">What we travel on</div><div class="t">— MEDIUM:</div><div class="v">currencies, rails, settlement systems</div>
+    <div class="k">What we carry</div><div class="t">— CARGO:</div><div class="v">stones, terroirs, processes, artifacts</div>
+    <div class="k">What we carry it in</div><div class="t">— SHELL:</div><div class="v">charters, trusts, pools, tokens</div>
+    <div class="k">Where we stand</div><div class="t">— PLACE:</div><div class="v">land, water, nodes, turnstiles</div>
+    <div class="k">Who carries</div><div class="t">— PEOPLE:</div><div class="v">family models, succession, NextGen</div>
+    <div class="k">What we measure with</div><div class="t">— INSTRUMENTS:</div><div class="v">indexes, oracles, nowcast signals</div>
+  </div></div>
+  <p class="body"><strong>The formula of the entire assembly:</strong></p>
+  <p class="pull ink">The portal admits form.</p>
+  <div class="litany center">Not an event.<br>Not a beautiful idea.<br>Not a collection of assets.<br>Not a catalogue of scarcities.<br>Not a family legend.<br>Not the legal shell by itself.</div>
+  <p class="pull">Not every form. Only the complete form.</p>
+  <div class="ledger">
+    <div class="r"><span class="t">Cargo without a shell</span><span class="ldr"></span><span class="z">zero</span></div>
+    <div class="r"><span class="t">A shell without rights</span><span class="ldr"></span><span class="z">zero</span></div>
+    <div class="r"><span class="t">Scarcity without liquidity</span><span class="ldr"></span><span class="z">zero</span></div>
+    <div class="r"><span class="t">Provenance without audit</span><span class="ldr"></span><span class="z">zero</span></div>
+    <div class="r"><span class="t">A charter without people</span><span class="ldr"></span><span class="z">zero</span></div>
+    <div class="r"><span class="t">People without instruments</span><span class="ldr"></span><span class="z">zero</span></div>
+  </div>
+  <p class="body">The axial thesis, then, is this:</p>
+  <aside class="spec"><div class="stag"><b>SPECIMEN</b> · axial thesis</div><div class="in"><p><strong>Wealth is a substance. It must be frozen into form, carried through the portal, and thawed on the other side. The portal admits only the complete form. The old question was: what do we put in the suitcase? The new question: is the form complete?</strong></p></div></aside>
+
+  <h2 class="lh" id="mathmodel"><span class="code">M·X MODEL</span>Mathematical model</h2>
+  <p class="body" style="margin-bottom:0">The formalization below is not a forecast. It is a language in which the hypothesis can be worked with: measured, challenged, played.</p>
+  <p class="label-c">| two independent analytical approaches |</p>
+  <div class="links-team">
+    <p><a onclick="navTo('team-a')" style="cursor:pointer"><b>Team A</b> &nbsp;·&nbsp; Portal Geometry</a></p>
+    <p><a onclick="navTo('team-b')" style="cursor:pointer"><b>Team B</b> &nbsp;·&nbsp; Shadow-Price Economics</a></p>
+  </div>
+
+  <div class="hr-double" id="team-a" style="scroll-margin-top:24px; margin-top:36px;"></div>
+  <p class="team-tag">Team A</p>
+  <h2 class="team">Portal Geometry</h2>
+  <p class="team-char">A structural-algebraic view: what lies in the kernel of the non-reproducible, and why the form is multiplicative.</p>
+
+  <h3 class="mh">A1 · The Tincture (what does not burn)</h3>
+  <p class="body">One assertion from which everything grows:</p>
+  <aside class="spec"><div class="stag"><b>TINCTURE</b> · A1</div><div class="in"><p><strong>There exists a class of assets whose value is invariant under AGI transformation; the survival of wealth through a regime change is determined by the completeness of the form, not only by the choice of cargo.</strong></p></div></aside>
+
+  <h3 class="mh">A2 · Formal Model</h3>
+  <p class="kicker">Definitions</p>
+  <p class="body">An economic regime <code class="inl">R</code> is described by a production function <code class="inl">P_R</code>, which defines the set of the reproducible:</p>
+  <pre class="code">Im(P_R) = { x : P_R can produce x }</pre>
+  <p class="body">AGI transformation is the transition <code class="inl">R&#8321; &rarr; R&#8322;</code>, in which <code class="inl">Im(P_{R&#8322;})</code> expands sharply: nearly everything becomes reproducible.</p>
+  <p class="body">The kernel of the non-reproducible is what the production function cannot reach under any input:</p>
+  <pre class="code">K(R) = { a : a &notin; Im(P_R) }</pre>
+  <p class="body">With each successive regime, the set of the reproducible grows, and the kernel shrinks: <code class="inl">K(R&#8322;) &sub; K(R&#8321;)</code>. The question of the foresight: what will remain in the kernel under the most powerful regime — <code class="inl">K(R_AGI)</code>?</p>
+
+  <p class="kicker">Hypothesis of the four invariants</p>
+  <p class="body"><code class="inl">K(R_AGI)</code> is generated by four irreducible invariants:</p>
+  <div class="glyphs">
+    <div><div class="gy">τ</div><div class="lb">long ago</div><div class="gl">Time is irreversible</div></div>
+    <div><div class="gy">ξ</div><div class="lb">here</div><div class="gl">The coordinate is unique</div></div>
+    <div><div class="gy">θ</div><div class="lb">passage</div><div class="gl">Passage is finite</div></div>
+    <div><div class="gy">π</div><div class="lb">the real</div><div class="gl">Authenticity is unavailable</div></div>
+  </div>
+  <p class="body">Irreducibility: none of the four is a subset or a combination of the others. None lies in the image of any production function — not because the technology is weak, but because:</p>
+  <pre class="code">— time is not an input to production;
+— coordinates are not produced;
+— the finiteness of passages is set by physics or by law;
+— history is not produced (only counterfeited,
+  and detectably so in the limit).</pre>
+  <p class="body">Every asset has projections onto all four invariants:</p>
+  <div class="chip"><code>a = (&tau;(a), &xi;(a), &theta;(a), &pi;(a))</code></div>
+  <p class="body">The higher the projection, the more resilient it is to AGI transformation.</p>
+
+  <h3 class="mh">Survival function</h3>
+  <p class="body">The value of an asset after passing through the portal:</p>
+  <pre class="code">V(a) = V&#8320;(a) · F(a) · G(S)
+
+V&#8320;(a)   — pre-AGI value
+F(a)    — completeness filter (multiplicative)
+G(S)    — quality of the shell (institutional packaging)</pre>
+  <p class="body">The individual multipliers:</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">F(a)</code> — completeness filter (multiplicative):</p>
+  <pre class="code">F(a) = r(a) · l(a) · q(a) · t(a)
+
+r(a) = scarcity (auditable)
+l(a) = legal protection (rights)
+q(a) = liquidity
+t(a) = taste-durability (survives generational change)</pre>
+  <p class="body">The key property of <code class="inl">F</code>: multiplicativity. This is a product, not a sum. Zero in any multiplier zeroes out everything. It cannot be compensated. It cannot be circumvented. In algebraic terms: the survival space is not a linear subspace but a positive cone in the tensor product of four factor spaces.</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">G(S)</code> — quality of the shell (institutional packaging):</p>
+  <pre class="code">G(S) &isin; [0, 1]
+
+G = 0:  no shell (unpackaged capital)
+G &rarr; 1:  the shell is fully built out (charter + formula + multisig
+        + dead-man + proof-of-custody + exit routes)</pre>
+
+  <h3 class="mh">A3 · Commentary</h3>
+  <p class="kicker">This is not about wealth</p>
+  <p class="body">Wealth is the domain of application. The structure beneath it runs deeper: this is a theory of what survives when the world changes. Mathematics knows exactly one central question: what remains unchanged when everything changes? Group theory asks: which properties are preserved under symmetries? Topology: what does not tear under deformation? Category theory: what is preserved under mappings between structures?</p>
+  <p class="body">WL2070 asks the same question in the domain of civilization: which properties of value are preserved under a change of economic regime? The answer — four invariants — are generators of the invariant subspace. They are orthogonal to the image of the production function. In linear algebra, this would be the kernel of the adjoint operator. Here it is four directions in which production is powerless — not out of weakness, but by the geometry of the space.</p>
+  <p class="kicker">Multiplicativity — the central observation</p>
+  <p class="body">The entire world of wealth management thinks additively. Diversification is a sum: 60/40, 70/30, a portfolio as a weighted average. Risk management: VaR is a quantile of a sum. Everything is linear combinations. Everything is a direct sum.</p>
+  <p class="body">WL2070 says: no. Transit is multiplicative.</p>
+  <p class="body">This is not stylistics but an assertion about geometry. The survival space is not a direct sum of factors (where weakness in one is compensated by strength in another) but a tensor product (where zero in one zeroes out everything). A $5M stone with impeccable provenance, supreme scarcity, and century-proven taste-durability, but no legal protection (the jurisdiction collapsed, the title was challenged) — counts as zero. Not "worth less." Zero. Because it cannot be carried through the portal: the form is incomplete. This is counterintuitive for anyone raised on Markowitz portfolio theory. There, you can compensate. Here, you cannot.</p>
+  <p class="kicker">Phase transition — literally</p>
+  <p class="body">In the "ore" of the foresight, there is a claim: wealth is a substance; it must be frozen into form, carried through the portal, and thawed on the other side. But this is not a metaphor. It is physics.</p>
+  <p class="body">In physics, a phase transition is characterized by:</p>
+  <pre class="code">— an order parameter that changes discontinuously;
+— a critical point where the system reorganizes;
+— universality: systems with different microscopics,
+  but the same symmetry — behave identically
+  near the transition point.</pre>
+  <p class="body">The AGI portal is a phase transition of the economy. The order parameter is the reproducibility function ρ(t): it grows slowly, then explodes when AGI crosses the threshold. The four invariants are protected quantities that are conserved through the transition. Like energy in thermodynamics. Like a topological charge in condensed-matter physics.</p>
+  <p class="body">And "freezing" is then literal: to survive a phase transition, one must be in the phase that is stable on the other side. Liquid wealth (money, flows, reproducible assets) is unstable in the post-AGI regime. Solid wealth (frozen into non-reproducible form and held inside an institutional shell) is resilient. The portal is the phase boundary. The liquid evaporates on crossing.</p>
+  <p class="kicker">Recommendation atop the foresight's "ore": Minimax</p>
+  <p class="body">The multiplicative model predicts the existence of critical vulnerabilities — points where one multiplier approaches zero and threatens to zero everything out. In an additive model, such points are smoothed. In a multiplicative one, they kill.</p>
+  <p class="body">This means the correct strategy is not maximization of aggregate strength (as in portfolio theory) but minimax: maximizing the minimum multiplier. Not "where am I strongest" but "where am I weakest — and how do I raise precisely that floor."</p>
+  <div class="chip"><code>WL2070 strategy:&nbsp;&nbsp;max min{ r(a), l(a), q(a), t(a) }</code></div>
+  <p class="body">This fundamentally changes the entire logic of wealth management. The usual question: "which asset will bring the highest return?" (maximization). The WL2070 question: "which multiplier is closest to zero — and how do I raise it?" (minimax).</p>
+  <p class="body">Minimax is the strategy optimal under uncertainty (von Neumann's theorem). Which makes sense: we do not know which multiplier will zero out — so we protect the weakest. This follows directly from the formula.</p>
+
+  <hr class="divider-narrow">
+  <p class="kicker center" style="margin-bottom:.3em;">The bottom line for the navigator through the portal</p>
+  <h3 class="mh center" style="font-size:25px;">The entire model — in three formulas</h3>
+  <div class="summary">
+    <div class="row"><span class="ix">(1)</span><div><div class="frm">K(R_AGI) = span(&tau;, &xi;, &theta;, &pi;)</div><div class="gl">Four invariants = generators of the kernel of the non-reproducible</div></div></div>
+    <div class="row"><span class="ix">(2)</span><div><div class="frm">V(a) = V&#8320; · &prod; f&#7522; · G(S)</div><div class="gl">Survival is multiplicative — zero kills</div></div></div>
+    <div class="row"><span class="ix">(3)</span><div><div class="frm">max min{ f&#7522;(a) }</div><div class="gl">The optimal strategy is minimax, not maximization</div></div></div>
+  </div>
+
+  <div class="hr-double" id="team-b" style="scroll-margin-top:24px;"></div>
+  <p class="team-tag">Team B</p>
+  <h2 class="team">Shadow-Price Economics</h2>
+  <p class="team-char">A single running derivation: from an optimization problem to a right to a boundary.</p>
+  <div id="mm-bravo">
+
+    <h3 class="mh">The limiting formula</h3>
+    <p class="statement line">Wealth after AGI = a transferable right to a non-relaxable constraint</p>
+    <p class="body">Or, more tightly:</p>
+    <div class="spec result"><div class="stag"><b>RESULT</b> · limiting form</div><div class="core"><p class="f">\(W_{2070} = \mathrm{Title}(\lambda_{\mathrm{constraint}})\)</p></div></div>
+    <p class="body">where \(\lambda_{\mathrm{constraint}}\) is the <strong>shadow price of a constraint</strong> that AGI cannot relax.</p>
+    <p class="body">Everything else is a special case.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The model</h3>
+    <p class="body">The world can be represented as an optimization problem:</p>
+    <div class="eqn solo"><div class="b">\(\max\; U(x)\)</div></div>
+    <p class="body">subject to constraints:</p>
+    <div class="eqn solo"><div class="b">\(c_i(x) \le K_i\)</div></div>
+    <p class="body">Each constraint \(K_i\) has a shadow price \(\lambda_i\).<br>This is the source of value.</p>
+    <p class="body">AGI does one decisive thing: it sharply raises \(K_i\) for everything reproducible.</p>
+    <div class="eqn solo"><div class="b">\(K_i\)(producible) \(\to \infty\)</div></div>
+    <p class="body">Therefore:</p>
+    <div class="eqn solo"><div class="b">\(\lambda_i\)(producible) \(\to 0\)</div></div>
+    <p class="body">That is: everything that can be printed, computed, copied, synthesized, automated, or scaled gradually loses its rent.</p>
+    <p class="body">But there are constraints for which:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{\partial K_i}{\partial\, \mathit{AGI}} = 0\)</div></div>
+    <p class="body">AGI cannot increase their capacity.</p>
+    <p class="body">These remain the carriers of wealth.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The true invariant</h3>
+    <p class="body">Not "scarcity" in itself.</p>
+    <p class="body">Scarcity is too colloquial a word.</p>
+    <p class="body">In the limit:</p>
+    <p class="statement line">value = the positive shadow price of a non-relaxable constraint</p>
+    <p class="statement line">wealth = a legally protected share in that constraint</p>
+    <p class="statement line">lineage wealth = a protected and transferable share in that constraint, passed across generations</p>
+    <p class="body">That is all.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The Four Basis Vectors of the Constraint Space</h3>
+    <p class="body">The formula <strong>"long ago · here · passage · the real"</strong> is sound, but I would now understand it not as poetry and not as a list of assets, but as a <strong>basis of the vector space of non-relaxable constraints</strong>.</p>
+
+    <h4 class="mh4">1. Long ago</h4>
+    <p class="body">This is the constraint of time.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{time-past}} = \mathit{const}\)</div></div>
+    <p class="body">AGI can accelerate production but cannot produce the past.</p>
+    <p class="body">It can make a new ruby.<br>It cannot make a ruby that has <strong>already</strong> lain in the earth for 20 million years.</p>
+    <p class="body">It can generate the taste of aged wine.<br>It cannot create the fact of ageing that has already passed through real time.</p>
+    <p class="body"><strong>Long ago</strong> is not the age of a thing.<br>It is the impossibility of rewriting the arrow of time.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">2. Here</h4>
+    <p class="body">This is the constraint of coordinate.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{place}} = \mathit{const}\)</div></div>
+    <p class="body">AGI can build a perfect villa.<br>But it cannot create a second point with the same coordinates, the same view, the same water, the same historic neighborhood, the same flow of people.</p>
+    <p class="body">This is why land as "square meters" is weak.</p>
+    <p class="body">Land as a <strong>flow-node</strong> is strong.</p>
+    <p class="body">This is an important shift: not land, but <strong>place-node</strong>.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">3. Passage</h4>
+    <p class="body">This is the constraint of throughput.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{throughput}} = \mathit{const}\)</div></div>
+    <div class="litany">A berth.<br>A slot.<br>A frequency.<br>A mountain pass.<br>A marina.<br>A lock.<br>A right of passage.<br>A right of connection.<br>A right of access to a network.</div>
+    <p class="body">The AGI world will be not merely a world of abundance.<br>It will be a world of enormous growth in flows.</p>
+    <p class="body">And where flows grow, the price of the narrow point grows.</p>
+    <p class="body">If I am being entirely honest, I would rank <strong>passage</strong> above "beautiful scarcities." A stone stores. A chokepoint earns. The stone is a totem and an accumulator. The chokepoint is a rent engine.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">4. The real</h4>
+    <p class="body">This is the constraint of authenticity.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{provenance}} = \mathit{const}\)</div></div>
+    <p class="body">AGI can synthesize a perfect copy.<br>But it cannot make that copy <strong>be the same object</strong>.</p>
+    <p class="body">Resemblance is not identity.</p>
+    <p class="body">This is fundamental.</p>
+    <p class="body">Authenticity is not a quality of matter.<br>It is a belonging to a single line of history.</p>
+    <p class="body">That is why in the model, provenance is not an ornament but the core of the price. Synthetics do not kill authenticity; they amplify the premium for proven naturalness and a proven biography of a thing.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The key shift: not assets, but constraints</h3>
+    <p class="body">I would rewrite the internal law as:</p>
+    <p class="statement line">AGI kills the rent of production and amplifies the rent of constraint</p>
+    <p class="body">This is stronger than:</p>
+    <p class="body">"everything reproducible cheapens; the scarce appreciates."</p>
+    <p class="body">Because "the scarce appreciates" is not always true.</p>
+    <p class="body">The scarce can die if:</p>
+    <div class="eqn solo"><div class="b">Rights = 0</div></div>
+    <p class="body center" style="color:var(--muted);">or</p>
+    <div class="eqn solo"><div class="b">Liquidity = 0</div></div>
+    <p class="body center" style="color:var(--muted);">or</p>
+    <div class="eqn solo"><div class="b">Taste = 0</div></div>
+    <p class="body center" style="color:var(--muted);">or</p>
+    <div class="eqn solo"><div class="b">Provenance = 0</div></div>
+    <p class="body">This is why the formula <strong>Scarcity × Rights × Liquidity × Taste</strong> is correct as a multiplicative filter: zero in any multiplier yields zero for the whole construct.</p>
+    <p class="body">But I would add one more multiplier:</p>
+    <p class="statement line">Transferability</p>
+    <p class="body">And then the complete form:</p>
+    <div class="eqn solo"><div class="b">\(V = O \times J \times L \times D \times T\)</div></div>
+    <p class="body">where:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(O\)</div><div class="d">ontological scarcity: non-producibility;</div></div>
+      <div class="lr"><div class="s">\(J\)</div><div class="d">jurisdiction: protection by law;</div></div>
+      <div class="lr"><div class="s">\(L\)</div><div class="d">liquidity: the ability to exit;</div></div>
+      <div class="lr"><div class="s">\(D\)</div><div class="d">desire durability: the persistence of desire;</div></div>
+      <div class="lr"><div class="s">\(T\)</div><div class="d">transferability: the ability to pass across a generation.</div></div>
+    </div>
+    <p class="body">If any multiplier is zero:</p>
+    <div class="eqn solo"><div class="b">\(V = 0\)</div></div>
+    <p class="body">This is "the portal admits only the complete form." The old question "what do we put in the suitcase?" must be replaced by the question "is the form complete, and have the walls been named?"</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The share-preservation formula</h3>
+    <p class="body">Since the task is not merely to preserve absolute money but to preserve a <strong>relative share</strong>, we should count not \(W\) but:</p>
+    <div class="eqn solo"><div class="b">\(s = \dfrac{W}{Y}\)</div></div>
+    <p class="body">where:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(W\)</div><div class="d">the family's wealth;</div></div>
+      <div class="lr"><div class="s">\(Y\)</div><div class="d">total global pie.</div></div>
+    </div>
+    <p class="body">An asset passes into 2070 not when it "grows."</p>
+    <p class="body">It passes only if:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{d}{dt}\ln W_a \ge \dfrac{d}{dt}\ln Y\)</div></div>
+    <p class="body">That is:</p>
+    <div class="eqn solo"><div class="b">\(g_a \ge g_Y\)</div></div>
+    <p class="body">In the limiting form:</p>
+    <div class="eqn solo"><div class="b">\(g_a = \beta_a g_Y + \gamma_a g_F - \mu_a - \kappa_a\)</div></div>
+    <p class="body">where:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(\beta_a\)</div><div class="d">how much demand for the asset grows with the wealth of the upper tier;</div></div>
+      <div class="lr"><div class="s">\(\gamma_a\)</div><div class="d">how much the asset benefits from the growth of flows;</div></div>
+      <div class="lr"><div class="s">\(g_F\)</div><div class="d">the growth of flows: people, data, energy, deals, logistics, attention;</div></div>
+      <div class="lr"><div class="s">\(\mu_a\)</div><div class="d">legal / confiscation / regulatory risk;</div></div>
+      <div class="lr"><div class="s">\(\kappa_a\)</div><div class="d">costs of storage, security, management, degradation, taste-ageing.</div></div>
+    </div>
+    <p class="body">The condition for preserving the share:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a g_Y + \gamma_a g_F \ge g_Y + \mu_a + \kappa_a\)</div></div>
+    <p class="body">An important conclusion:</p>
+    <p class="body"><strong>Static scarcity is insufficient.</strong></p>
+    <p class="body">Scarcity must be either:</p>
+    <p class="body">1. tied to the wealth of the upper tier:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a \ge 1\)</div></div>
+    <p class="body">2. or tied to growing flows:</p>
+    <div class="eqn solo"><div class="b">\(\gamma_a g_F \gg 0\)</div></div>
+    <p class="body">This is why <strong>chokepoints</strong> are mathematically stronger than many "beautiful scarcities."</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">My true answer</h3>
+    <p class="body">I would compress all of WL2070 into a single line:</p>
+    <div class="spec result"><div class="stag"><b>COMPRESSED</b> · one line</div><div class="core"><p class="f" style="font-size:clamp(20px,4vw,25px);">Do not buy things.<br>Buy protected rights to the world's boundaries.</p></div></div>
+    <div class="litany">Not to "the world."<br>Not to "production."<br>Not to "technologies."<br>Not to "portfolios."</div>
+    <p class="body">To the <strong>boundaries</strong>.</p>
+    <div class="litany">The boundary of time.<br>The boundary of place.<br>The boundary of passage.<br>The boundary of authenticity.<br>The boundary of law.<br>The boundary of lineage memory.</div>
+    <p class="body">AGI expands nearly everything inside the world.<br>But it does not abolish the boundary.</p>
+    <p class="body">And if something cannot be expanded, while the whole world begins to press harder against that boundary, a new density of wealth appears there.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The most precise name for the model</h3>
+    <p class="body">I would call it not "a model of scarcities."</p>
+    <p class="body">But:</p>
+    <p class="statement line">a model of residual constraints</p>
+    <p class="body">or, more powerfully:</p>
+    <p class="statement line">The Economics of Non-Relaxable Boundaries</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">The shortest limiting formula</h3>
+    <div class="spec result"><div class="stag"><b>RESULT</b> · limiting formula</div><div class="core"><div class="mono" style="font-family:'IBM Plex Mono',monospace; color:var(--ink); line-height:1.9;"><div>\(\mathit{AGI}\uparrow \;\Rightarrow\; MC_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow \lambda_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow W \to \mathrm{Title}(\lambda_{\text{non-relaxable constraints}})\)</div></div></div></div>
+    <p class="body">In plain language:</p>
+    <p class="statement line">When production tends to infinity, wealth becomes the right to that which production does not expand.</p>
+    <p class="body">Shorter still:</p>
+    <p class="result-hero">Wealth = a right to a boundary.</p>
+    <p class="result-hero" style="font-size:clamp(22px,4.4vw,28px); color:var(--ink);">Lineage wealth = a right to a boundary — one that has survived a change of worlds.</p>
+
+  </div>
+
+  <hr class="hairline" style="margin-top:44px;">
+  <aside class="disclaimer"><strong>DISCLAIMER:</strong> This material is a research hypothesis and a map of questions. It is not investment, legal, tax, estate-planning, or fiduciary advice, and it is not an offer or solicitation. Money, law, inheritance, and jurisdictions require independent professional review. The purpose of this map is to share the results of research and to invite joint work: to build out the transit theorem, to stress-test the model. If you see how — write to us: <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a></aside>
+
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">→</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){ if(!bar)return; var h=document.documentElement; var m=(h.scrollHeight-h.clientHeight)||1; bar.style.width=(Math.min(1,h.scrollTop/m)*100)+'%'; }
+  if(bar){ window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll(); }
+  function render(){ var el=document.body;
+    if(el&&window.renderMathInElement){ try{ window.renderMathInElement(el,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false}); }catch(e){} }
+    else { setTimeout(render,90); } }
+  if(document.readyState!=='loading') render(); else document.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+<script>
+(function(){
+  window.navTo=function(id){ try{ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }catch(e){} };
+  document.querySelectorAll('.t[data-target]').forEach(function(t){
+    t.style.cursor='pointer';
+    t.addEventListener('click',function(){ navTo(t.getAttribute('data-target').replace('#','')); });
+  });
+})();
+</script>
+<style>
+/* fitty: фраза-доминанта влезает в одну строку на мобиле, центрирована */
+.fitline{ text-align:center; margin:1.1em 0 1.2em; }
+.fitline .pull{ margin:0; }
+.fit-phrase{ display:inline-block; }
+</style>
+<script src="../fitty.min.js"></script>
+<script>
+(function(){
+  var sel='.fit-phrase', inst=null;
+  function isMobile(){ return window.matchMedia('(max-width:600px)').matches; }
+  function enable(){ if(inst)return; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace='nowrap'; }); inst=fitty(sel,{minSize:11,maxSize:200}); }
+  function disable(){ if(!inst)return; (Array.isArray(inst)?inst:[inst]).forEach(function(i){ i.unsubscribe(); }); inst=null; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace=''; e.style.fontSize=''; }); }
+  function sync(){ isMobile()?enable():disable(); }
+  function go(){ sync(); window.addEventListener('resize',sync); }
+  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(go); } else { go(); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Форсайт богатства в эпоху AGI · WL2070</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ===== СТРАТИГРАФ · тёмная (текущая версия) ===== */
+:root{
+  --bg:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-dim:#b65038; --seam:#d2c6b0;
+  --rule:#e4dccb; --hair:#ece4d5; --code-ink:#3a352d;
+  --inline-bg:rgba(143,50,33,.10); --inline-ink:#8f3221;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--bg); color:var(--ink); font-family:'Spectral',Georgia,serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:var(--bg); }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 38%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:50; transition:width .08s linear; }
+.toolbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px; padding:11px 22px;
+  backdrop-filter:blur(8px); background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--hair); }
+.toolbar .brand{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.toolbar .brand b{ color:var(--accent); font-weight:600; }
+.toolbar .sp{ margin-left:auto; }
+.tbtn{ font-family:'Golos Text',sans-serif; font-size:12.5px; color:var(--ink-soft); background:transparent;
+  border:1px solid var(--rule); border-radius:999px; padding:6px 14px; cursor:pointer; }
+.tbtn:hover{ border-color:var(--accent); color:var(--accent); }
+
+.page{ padding:34px 22px 120px; }
+.sheet{ max-width:852px; margin:0 auto; position:relative; padding-left:88px; }
+.sheet::before{ content:""; position:absolute; left:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 7%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin:0 0 18px; }
+.hero h1{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(42px,7vw,60px); line-height:1.0; letter-spacing:-.01em; margin:0 0 16px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(19px,3.4vw,22px); line-height:1.4; color:var(--muted); margin:0 0 26px; }
+.tags{ display:flex; flex-wrap:wrap; gap:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.tags .t{ display:inline-flex; align-items:center; gap:7px; }
+.tags .t::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--rule); }
+.tags .t.on{ color:var(--accent); } .tags .t.on::before{ background:var(--accent); }
+
+/* dividers */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:48px 0 38px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:34px 0; }
+.hr-double{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:54px 0 42px; }
+.hr-double::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.divider-narrow{ border:none; border-top:1px solid var(--rule); width:240px; margin:30px auto; }
+
+/* accordion */
+details.acc{ margin:0 0 24px; }
+details.acc > summary{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:11px; }
+details.acc > summary::-webkit-details-marker{ display:none; }
+.sum-lab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.14em; font-size:12px; font-weight:600; color:var(--accent); }
+.sum-hint{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); }
+details.acc[open] .sum-hint::after{ content:" ▾"; } details.acc:not([open]) .sum-hint::after{ content:" ▸"; }
+.acc-body{ margin-top:16px; }
+
+/* text */
+p.lead{ font-weight:300; font-size:19.5px; line-height:1.72; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body{ font-size:18.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body strong, p.lead strong, li strong{ color:var(--ink); font-weight:600; }
+p.kicker{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.13em; font-size:12px; font-weight:600; color:var(--accent); margin:1.7em 0 .55em; }
+p.kicker.ink{ color:var(--ink); }
+.center{ text-align:center; }
+
+h3.sub{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; line-height:1.2; margin:1.7em 0 .55em; color:var(--ink); position:relative; padding-left:22px; }
+h3.sub::before{ content:""; position:absolute; left:0; top:.62em; width:13px; height:1px; background:var(--accent); }
+
+/* section heads + rail code */
+h2.lh{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5vw,35px); line-height:1.12; margin:1.9em 0 .7em; color:var(--ink); position:relative; scroll-margin-top:24px; }
+h2.lh .n{ color:var(--accent); font-weight:500; }
+h2.lh::before{ content:""; position:absolute; left:-66px; top:.62em; width:16px; height:1px; background:var(--accent); }
+h2.lh .code{ position:absolute; left:-82px; top:.12em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+/* epigraph + vignette */
+.epigraph{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(20px,3.6vw,23px); line-height:1.5; color:var(--ink-soft); border-left:1px solid var(--accent); padding-left:24px; margin:0 0 30px; }
+figure.vignette{ margin:0 0 1.5em; padding:16px 0 16px 24px; border-left:1px solid var(--seam); }
+figure.vignette p{ font-family:'Spectral',serif; font-style:italic; font-size:18px; line-height:1.62; color:var(--ink-soft); margin:0 0 1em; }
+figure.vignette p:last-child{ margin:0; }
+
+/* lists */
+ul.list{ margin:0 0 1.3em; padding-left:1.5em; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; }
+ul.list > li{ margin:0 0 .6em; position:relative; }
+ul.list > li::before{ content:""; position:absolute; left:-1.1em; top:.7em; width:9px; height:1px; background:var(--accent); }
+ol.list{ margin:0 0 1.4em; padding-left:0; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; counter-reset:li; }
+ol.list > li{ counter-increment:li; padding-left:2.4em; position:relative; margin:0 0 .6em; }
+ol.list > li::before{ content:counter(li,decimal-leading-zero); position:absolute; left:0; top:.12em; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--accent); }
+
+/* deflist */
+dl.kv{ display:grid; grid-template-columns:max-content 1fr; gap:13px 20px; margin:0 0 1.2em; font-size:17.5px; line-height:1.55; color:var(--ink-soft); }
+dl.kv dt{ font-family:'IBM Plex Mono',monospace; font-weight:600; white-space:nowrap; color:var(--accent); overflow-wrap:anywhere; }
+dl.kv dd{ margin:0; min-width:0; overflow-wrap:anywhere; }
+
+/* TOC */
+ol.toc{ list-style:none; margin:0 0 34px; padding:0; font-size:19px; line-height:1.9; }
+ol.toc a{ display:flex; gap:12px; color:var(--ink-soft); border-bottom:none; }
+ol.toc a:hover{ color:var(--ink); }
+ol.toc .num{ font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--accent); min-width:18px; }
+ol.toc .dot{ color:var(--muted); }
+ol.toc strong{ font-weight:600; }
+
+/* залегание (run-in) */
+.lay{ margin:1.5em 0 1.1em; padding-left:28px; position:relative; }
+.lay::before{ content:""; position:absolute; left:0; top:.74em; width:14px; height:1px; background:var(--accent); }
+.lay .h{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; color:var(--accent); margin:0 0 .2em; }
+.lay p{ margin:0; font-size:18px; line-height:1.66; color:var(--ink-soft); }
+.lay p.runin{ font-size:19px; color:var(--ink); margin:0 0 .35em; }
+.lay p.runin b{ color:var(--accent); font-weight:600; }
+.qlist{ list-style:none; margin:.2em 0 1.3em; padding:0; border-top:1px solid var(--seam); }
+.qlist li{ font-size:17.5px; line-height:1.6; color:var(--ink-soft); padding:13px 0; border-bottom:1px solid var(--hair); }
+.qlist li strong{ color:var(--accent); font-weight:600; }
+.cond{ border-left:2px solid var(--accent); padding:4px 0 4px 22px; margin:1.5em 0; font-size:18px; line-height:1.7; color:var(--ink-soft); }
+
+/* quartet — ruled */
+.quartet{ margin:24px 0; border-top:1px solid var(--seam); }
+.quartet .cap{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); padding:11px 0 0; }
+.quartet .row{ display:grid; grid-template-columns:150px 1fr; gap:22px; padding:14px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.quartet .w{ font-family:'Cormorant',serif; font-weight:600; font-size:20px; color:var(--accent); }
+.quartet .g{ font-size:16.5px; line-height:1.55; color:var(--ink-soft); }
+
+/* quartet — glyph grane */
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:18px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:32px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:10px 0 5px; }
+.glyphs .gl{ font-size:13px; color:var(--muted); line-height:1.4; }
+
+/* specimen */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:28px 0; }
+.spec .stag{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:12px 20px; border-bottom:1px solid var(--rule); display:flex; gap:10px; }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:18px 22px; }
+.spec .in p{ margin:0 0 .8em; font-size:18px; line-height:1.62; color:var(--ink-soft); }
+.spec .in p:last-child{ margin:0; }
+.spec .in p strong{ color:var(--ink); font-weight:600; }
+.spec .pre{ font-family:'IBM Plex Mono',monospace; white-space:pre-wrap; font-size:14px; line-height:1.8; color:var(--code-ink); padding:18px 22px; margin:0; }
+.spec .core{ text-align:center; padding:26px 18px; }
+.spec .core .f{ font-family:'Cormorant',serif; font-weight:700; font-size:clamp(22px,4.4vw,27px); color:var(--ink); margin:0 0 .3em; letter-spacing:.01em; }
+.spec .core .f .op{ color:var(--accent); }
+.spec .core .glo{ font-size:14.5px; color:var(--muted); } .spec .core .glo b{ color:var(--accent); font-weight:600; }
+.spec.result .core .f{ font-size:clamp(22px,4.6vw,28px); }
+
+/* code / chip */
+pre.code{ font-family:'IBM Plex Mono',monospace; background:var(--panel); border:1px solid var(--rule); border-radius:5px; padding:14px 17px; margin:15px 0; font-size:13.5px; line-height:1.75; white-space:pre; overflow-x:auto; -webkit-overflow-scrolling:touch; color:var(--code-ink); }
+pre.code::-webkit-scrollbar{ height:6px; }
+pre.code::-webkit-scrollbar-track{ background:transparent; }
+pre.code::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+code.inl{ font-family:'IBM Plex Mono',monospace; background:var(--inline-bg); color:var(--inline-ink); padding:1px 6px; border-radius:4px; font-size:.86em; white-space:nowrap; }
+.chip{ text-align:center; margin:16px 0; }
+.chip code{ display:inline-block; font-family:'IBM Plex Mono',monospace; background:var(--inline-bg);
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:6px; padding:9px 17px; font-size:15px; font-weight:600; color:var(--inline-ink); }
+
+/* notes */
+.note-quiet{ border-left:2px solid var(--seam); padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft); font-size:17.5px; line-height:1.6; margin:1.4em 0; }
+.footnote{ font-size:14.5px; line-height:1.6; color:var(--muted); margin:1.4em 0; }
+.footnote .star{ color:var(--accent); }
+.note-mono{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--accent-dim);
+  background:var(--inline-bg); border:1px dashed color-mix(in srgb,var(--accent) 45%,transparent); border-radius:3px; padding:7px 12px; margin:1.6em 0 .5em; display:inline-block; }
+sup.fn{ font-size:.66em; color:var(--accent); }
+
+/* ledger / litany / statement */
+.ledger{ margin:1.5em 0; }
+.ledger .r{ display:grid; grid-template-columns:max-content 1fr max-content; align-items:baseline; gap:12px; padding:11px 0; border-bottom:1px solid var(--hair); }
+.ledger .r .t{ font-family:'Spectral',serif; font-size:18px; color:var(--ink-soft); }
+.ledger .r .ldr{ border-bottom:1px dotted var(--seam); transform:translateY(-5px); }
+.ledger .r .z{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.litany{ font-family:'Spectral',serif; font-size:19px; line-height:1.85; margin:0 0 1.3em; color:var(--ink-soft); }
+.statement{ text-align:center; font-family:'Spectral',serif; font-size:19.5px; line-height:1.5; color:var(--ink); margin:18px auto; max-width:620px; }
+.statement.line{ padding:16px 0; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); }
+.pull{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(27px,5.4vw,35px); line-height:1.18; letter-spacing:.01em; margin:1.1em 0 1.2em; color:var(--accent); }
+.pull.ink{ color:var(--ink); }
+.result-hero{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5.6vw,38px); color:var(--accent); line-height:1.15; margin:1.3em 0; }
+
+/* stratigraph table */
+.strat{ display:grid; grid-template-columns:max-content max-content 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:0 0 1.5em; }
+.strat > div{ background:var(--panel); padding:12px 16px; font-size:16.5px; line-height:1.4; }
+.strat .k{ font-weight:600; color:var(--ink); white-space:nowrap; }
+.strat .t{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent); white-space:nowrap; }
+.strat .v{ color:var(--ink-soft); }
+
+/* step plate */
+h3.step{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.3; margin:1.8em 0 1em; padding:12px 18px; border-left:4px solid var(--accent); background:var(--panel-2); color:var(--ink); border-radius:0 2px 2px 0; }
+h3.step span{ font-size:.8em; font-weight:600; color:var(--muted); }
+
+/* three-formula summary */
+.summary{ border:1px solid var(--rule); border-radius:5px; background:var(--panel); margin:18px 0; }
+.summary .row{ display:flex; gap:18px; align-items:baseline; padding:18px 24px; border-bottom:1px solid var(--rule); }
+.summary .row:last-child{ border-bottom:none; }
+.summary .ix{ font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; color:var(--accent); flex:none; }
+.summary .frm{ font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink); line-height:1.4; }
+.summary .gl{ font-size:14.5px; line-height:1.45; color:var(--muted); margin-top:7px; }
+
+/* math apparatus */
+.eqn{ display:grid; grid-template-columns:1fr max-content; align-items:center; gap:18px; margin:14px 0; }
+.eqn .b{ text-align:center; font-size:17px; color:var(--ink); }
+.eqn .no{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); }
+.eqn.solo{ grid-template-columns:1fr; }
+.legend{ margin:14px 0 20px; border-left:1px solid var(--seam); padding-left:18px; }
+.legend .lr{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:baseline; padding:5px 0; }
+.legend .lr .s{ text-align:center; color:var(--ink); }
+.legend .lr .d{ font-size:16px; line-height:1.5; color:var(--ink-soft); }
+
+/* team register */
+.team-tag{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:12px; font-weight:600; color:var(--accent); margin:0 0 3px; }
+h2.team{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(26px,5vw,31px); line-height:1.15; margin:0 0 .3em; color:var(--ink); scroll-margin-top:24px; }
+.team-char{ font-family:'Spectral',serif; font-style:italic; font-size:16.5px; color:var(--muted); margin:0 0 1.4em; }
+h3.mh{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; margin:1.7em 0 .55em; color:var(--ink); }
+h4.mh4{ font-family:'Cormorant',serif; font-weight:600; font-size:19px; margin:1.5em 0 .5em; color:var(--ink); }
+.label-c{ text-align:center; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--muted); margin:34px 0 16px; letter-spacing:.04em; }
+.links-team{ display:grid; gap:14px; font-size:19px; margin:0 0 1.2em; }
+.links-team p{ margin:0; }
+.links-team a{ color:var(--ink-soft); border-bottom:none; }
+.links-team a:hover{ color:var(--ink); }
+.links-team b{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; letter-spacing:.04em; color:var(--accent); }
+
+/* catalog (registry) */
+.catalog{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; padding:24px 26px; margin:16px 0 0; }
+.catalog .rlab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:10.5px; font-weight:600; color:var(--accent); margin:0 0 6px; }
+.catalog h4{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.15; margin:0 0 6px; color:var(--ink); }
+.catalog .rsub{ font-size:14px; line-height:1.5; color:var(--muted); margin:0 0 20px; }
+.cat-cols{ column-count:2; column-gap:36px; }
+.cat-g{ break-inside:avoid; margin:0 0 17px; }
+.cat-g .h{ font-weight:600; font-size:14px; line-height:1.32; color:var(--ink); margin:0 0 5px; }
+.cat-g .h .L{ font-family:'IBM Plex Mono',monospace; color:var(--accent); }
+.cat-g .h .reg{ font-weight:400; color:var(--muted); }
+.cat-g .it{ font-size:14px; line-height:1.55; color:var(--ink-soft); }
+.cat-g .it div{ margin:2.5px 0; }
+.cat-g .it strong{ color:var(--ink); font-weight:600; }
+.cat-g .it .gh2{ font-weight:600; color:var(--ink); margin:6px 0 3px; }
+.rfoot{ font-size:14px; line-height:1.55; font-style:italic; color:var(--muted); margin:8px 0 0; padding-top:16px; border-top:1px solid var(--rule); }
+
+/* disclaimer + foot */
+.disclaimer{ background:var(--panel); border:1px solid var(--rule); border-radius:3px; padding:20px 24px; margin:0 0 22px; font-size:15.5px; line-height:1.6; color:var(--ink-soft); }
+.disclaimer strong{ color:var(--ink); font-weight:600; }
+.foot{ font-size:16px; line-height:1.5; color:var(--muted); }
+.foot .fm{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-dim); }
+
+/* responsive */
+@media(max-width:760px){
+  .page{ padding:24px 18px 90px; }
+  .sheet{ padding-left:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .quartet .row{ grid-template-columns:1fr; gap:4px; }
+  .glyphs{ grid-template-columns:repeat(2,1fr); }
+  .cat-cols{ column-count:1; }
+  .strat{ grid-template-columns:max-content max-content max-content; width:max-content; min-width:100%; }
+  .summary .row{ flex-direction:column; gap:6px; }
+  .eqn{ grid-template-columns:1fr; gap:4px; } .eqn .no{ justify-self:end; }
+  .toolbar{ padding:10px 16px; }
+}
+
+/* print */
+@media print{
+  :root{ --bg:#fff; --ink:#1a1a1a; --ink-soft:#222; --muted:#666; --accent:#7a5a12;
+    --panel:#fff; --panel-2:#fff; --rule:#ccc; --hair:#ddd; --seam:#bbb; --code-ink:#222;
+    --inline-bg:#f3eedf; --inline-ink:#7a5a12; }
+  .toolbar,.progress{ display:none !important; }
+  body{ background:#fff; }
+  .page{ padding:0; } .sheet{ max-width:none; padding-left:0; }
+  .sheet::before,h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .spec,.summary,.catalog,pre,figure,.strat,.glyphs{ break-inside:avoid; }
+  h2,h3{ break-after:avoid; }
+}
+.note-bar{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--bg); }
+.note-bar b{ color:var(--accent); }
+.forwhom{ margin:0 0 24px; }
+/* === ФРАГМЕНТ s5→конец · гармонизация === */
+/* заголовки модели должны оптически выходить над текстом (body 18.5px, Cormorant мелкий x-height) */
+h3.mh{ font-size:24px; }
+h4.mh4{ font-size:21px; }
+/* ОБРАЗЕЦ: квартет τ/ξ/θ/π как глиф-грань (перенесён из stratigraph_light_pilot) */
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:16px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:30px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:9px 0 5px; }
+.glyphs .gl{ font-size:12px; color:var(--muted); line-height:1.4; }
+@media (max-width:640px){ .glyphs{ grid-template-columns:repeat(2,1fr); } }
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(3px); }
+/* гориз. скролл для таблиц вне .spec (стратиграф) */
+.scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.scrollx::-webkit-scrollbar{ height:6px; }
+.scrollx::-webkit-scrollbar-track{ background:transparent; }
+.scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+
+/* П.5 · только chip-код (длинная строка) — гориз. скролл на узком экране.
+   .eqn / .spec .core НЕ скроллим (давало артефакт-полоску слева) */
+.chip{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.chip code{ white-space:nowrap; }
+.chip::-webkit-scrollbar{ height:6px; }
+.chip::-webkit-scrollbar-track{ background:transparent; }
+.chip::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="язык">
+      <a href="../en/foresight.html">EN</a><a href="../ru/foresight.html" class="on" aria-current="true">RU</a><a href="../ar/foresight.html">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">wealthleap2070.io</p>
+    <h1>Форсайт богатства до 2070</h1>
+    <p class="sub">Карта транзита богатства через сингулярный портал</p>
+    <div class="tags"><span class="t on" data-target="#wl2070">WL2070</span><span class="t" data-target="#mathmodel">math.model</span></div>
+  </header>
+
+  <hr class="seam">
+
+  <div class="forwhom">
+    <p class="sum-lab">для кого эта карта</p>
+    <div class="acc-body">
+      <p class="body">Для владельцев капитала — тех, кто решает судьбу личного и семейного богатства на горизонте поколений. И для тех, кто рядом с ними: CIO, юристов-структураторов, форсайт-аналитиков, — чья работа — видеть дальше квартального отчёта. Не узнали себя — закройте без сожаления. Знаете таких — передайте им. Или загляните в реестр ниже: это аудитория, на которую калибрована мат.модель в конце документа.</p>
+
+      <details class="acc">
+        <summary><span class="sum-lab">реестр целевой аудитории</span><span class="sum-hint">раскрывается</span></summary>
+        <div class="catalog">
+          <p class="rlab">факультативный блок · реестр рынка</p>
+          <h4>Для кого эта карта — реестр рынка</h4>
+          <p class="rsub">Рынок капитала и его сервисного контура, к которому обращён форсайт.</p>
+          <div class="cat-cols">
+
+            <div class="cat-g"><div class="h"><span class="L">A ·</span> Частные банки — региональные чемпионы <span class="reg">(Сингапур / Гонконг)</span></div>
+              <div class="it">
+                <div><strong>DBS Private Bank</strong> (SG) — крупнейший локальный PB; платформа PATH (private assets UHNW)</div>
+                <div><strong>Bank of Singapore</strong> (OCBC, SG) — Family Office Catalyst</div>
+                <div><strong>UOB Private Bank</strong> (SG) — фокус UHNW ЮВА; NextGen-программы</div>
+                <div><strong>Standard Chartered PB</strong> (SG/HK) — Zodia custody; спот-крипто для институтов</div>
+                <div><strong>HSBC Global Private Banking</strong> (HK/SG) — tokenized deposits; Global FO Report</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">B ·</span> Частные банки — швейцарские бутики <span class="reg">(Азия)</span></div>
+              <div class="it">
+                <div><strong>Julius Baer</strong> (SG/HK) — Global Wealth &amp; Lifestyle Report</div>
+                <div><strong>LGT Private Banking</strong> (SG/HK) — банк семьи Лихтенштейна; #1 global FO-services</div>
+                <div><strong>UBP — Union Bancaire Privée</strong> (HK/SG) — 90+ hedge-стратегий, лидер alternatives</div>
+                <div><strong>Lombard Odier</strong> (SG + партнёрство TH) — «Rethink Everything»; NextGen Institute</div>
+                <div><strong>VP Bank</strong> (SG) — платформа для EAM/независимых управляющих и FO</div>
+                <div><strong>Pictet Wealth Management</strong> (SG/HK) — мегатренд-исследования; NextGen форумы</div>
+                <div><strong>EFG Bank</strong> (SG/HK) — «entrepreneurial thinking»; New Capital alt-фонды</div>
+                <div><strong>Indosuez Wealth</strong> (Crédit Agricole) — старые богатые семьи ЮВА; art advisory</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">C ·</span> Multi-Family Offices и бутики <span class="reg">(SG / HK)</span></div>
+              <div class="it">
+                <div><strong>Raffles Family Office</strong> (HK/SG) — ведущий азиатский MFO</div>
+                <div><strong>Carret Private Capital</strong> (HK) — MFO + финтех (Endowus)</div>
+                <div><strong>Lighthouse Canton</strong> (SG + UAE, India) — альтернативы + private debt</div>
+                <div><strong>Golden Equator Wealth</strong> (SG) — next-gen tech-предприниматели; VC-клуб</div>
+                <div><strong>Taurus Wealth Advisors</strong> (SG/Dubai) — conflict-neutral, кросс-юрисдикционный</div>
+                <div><strong>Prime Asia Asset Management</strong> (SG) — FO advisory (инвестиции + tax + governance)</div>
+                <div><strong>Analog Capital</strong> (SG) — «by and for next-gen Asian entrepreneurs»</div>
+                <div><strong>Kamet Capital Partners</strong> (SG) — пионер SG MFO-рынка; quant/data-driven</div>
+                <div><strong>Rockstead Capital</strong> (SG) — real assets + private credit; токенизация недвижимости</div>
+                <div><strong>DL Family Office</strong> (DL Holdings, HKEX:1709) — публичный холдинг; AI FO Initiative</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">D ·</span> Локальные игроки — «восходящие» рынки ЮВА</div>
+              <div class="it">
+                <div><strong>SCB Julius Baer</strong> (Bangkok) — JV Siam Commercial Bank × Julius Baer</div>
+                <div><strong>KBank Private Banking</strong> (Kasikornbank, TH) — лидер TH; партнёр Lombard Odier</div>
+                <div><strong>Blueprint Forest</strong> (Bangkok) — семейный инвест-офис; инвестиции в DeFi</div>
+                <div><strong>Maybank Private Wealth</strong> (MY/SG) — крупнейший банк Малайзии</div>
+                <div><strong>CIMB Private Banking</strong> (MY) — второй банк Малайзии</div>
+                <div><strong>BPI Wealth Family Office</strong> (Philippines) — первый MFO Филиппин</div>
+                <div><strong>BDO Private Bank</strong> (Philippines) — единственный отдельный лицензированный PB</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">E ·</span> Форсайт и research-юниты</div>
+              <div class="it">
+                <div class="gh2">Банки — research / thought-leadership:</div>
+                <div><strong>DBS Asian Insights</strong> — Asian Insights Conference</div>
+                <div><strong>Bank of Singapore — CIO Office</strong> — серия «Brilliant Minds»</div>
+                <div><strong>Standard Chartered Global Research + SC Ventures</strong> — Digital Assets Research</div>
+                <div><strong>BNP Paribas L'Atelier</strong> — корпоративный форсайт-юнит (quantitative foresight)</div>
+                <div><strong>Julius Baer — Next Generation Research</strong> — секулярные тренды</div>
+                <div><strong>ANZ Institutional Research</strong> — азиатские долгосрочные сценарии</div>
+                <div class="gh2">Аналитические институты:</div>
+                <div><strong>Franklin Templeton Institute</strong> — Digital Assets Research Hub</div>
+                <div><strong>Thinking Ahead Institute (WTW)</strong> — membership-форсайт, Investment Industry in 2030</div>
+                <div><strong>Northern Trust Institute</strong> — stewardship + purposeful capital для FO</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">F ·</span> Форумы и ассоциации</div>
+              <div class="it">
+                <div class="gh2">Азия / ЮВА:</div>
+                <div><strong>WMI Global-Asia Family Office Summit</strong> (SG, MAS/EDB) — ~600 участников</div>
+                <div><strong>Caproasia Family Office Summit</strong> (HK/SG) — invite-only</div>
+                <div><strong>AFO — Association of Family Offices in Asia</strong> (HK)</div>
+                <div><strong>Prestel &amp; Partner FO Forums</strong> (Asia/MENA)</div>
+                <div><strong>Campden Wealth — Asia Pacific FO Forum</strong> (HK/SG)</div>
+                <div><strong>Connect Group — World Family Office Forum</strong> (HK + Montreux)</div>
+                <div class="gh2">Ближний Восток / MENA:</div>
+                <div><strong>Alea Global — ME Family Office Summit</strong> (Dubai)</div>
+                <div><strong>Emirates Family Office Association — EFOA + ADFW</strong> (Abu Dhabi, ADGM)</div>
+                <div><strong>Abu Dhabi Family Office Summit — ADFO</strong> (Investopia)</div>
+                <div><strong>Dubai Family Office Investment Summit</strong> — Epicon Capital Club</div>
+                <div class="gh2">Европа / офшоры:</div>
+                <div><strong>Campden Wealth — Global FO &amp; Owners Congress</strong></div>
+                <div><strong>Family Business Network — FBN International</strong></div>
+                <div><strong>Global Partnership Family Office — GPFO</strong> (London)</div>
+                <div><strong>DC Finance — London FO &amp; HNW Conference</strong></div>
+                <div><strong>Cambridge Forums — EFOF</strong> (Милан)</div>
+                <div class="gh2">Глобальные клубы и сети:</div>
+                <div><strong>Tiger 21</strong> (NY/London/Zürich/SG) — ~1000 членов UHNW</div>
+                <div><strong>Campden IPI — Institute for Private Investors</strong> (порог $30M)</div>
+                <div><strong>Family Office Exchange — FOX</strong> (Chicago, порог $100M+)</div>
+                <div><strong>SFO Alliance</strong> — только односемейные офисы $400M+ AUM</div>
+                <div><strong>NEXUS Global Summit</strong> — NextGen филантропы + impact-инвесторы</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">G ·</span> Юрисдикционные партнёры / IFC</div>
+              <div class="it">
+                <div><strong>Сингапур</strong> (MAS/EDB) — 59% FO Азии; режимы 13O/13U</div>
+                <div><strong>DIFC / DFSA</strong> (Dubai) — Family Office Licence; Family Wealth Centre</div>
+                <div><strong>ADGM</strong> (Abu Dhabi) — SPV/правовые оболочки</div>
+                <div><strong>Labuan</strong> (Malaysia) — порог FO ~$2.1M</div>
+                <div><strong>QFC</strong> (Qatar) · <strong>RAKEZ / DMCC</strong> (UAE) — кластеры и оболочки</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">H ·</span> Медиа и дистрибуция</div>
+              <div class="it">
+                <div><strong>WealthBriefingAsia</strong> — WBA Awards; Family Office секция</div>
+                <div><strong>Hubbis</strong> (Asia WM/PB) — bespoke-events</div>
+                <div><strong>Asian Private Banker</strong> — крупнейшая редакция Asia PB</div>
+                <div><strong>Campden Wealth Research &amp; Media</strong></div>
+                <div><strong>Spear's / Citywealth</strong> — IFC / UHNW-охват</div>
+                <div><strong>Henley &amp; Partners · Hurun</strong> — UHNW-данные, миграция капитала</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">J ·</span> Китай</div>
+              <div class="it">
+                <div><strong>CMB Private Banking</strong> (China Merchants Bank) — лидер материкового PB</div>
+                <div><strong>Ping An Private Banking</strong></div>
+                <div><strong>CICC Wealth Management</strong> — research-driven, одна из самых цитируемых в КНР</div>
+                <div><strong>Noah Holdings</strong> — независимый MFO (листинг NYSE/HK)</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">K ·</span> Япония</div>
+              <div class="it">
+                <div><strong>Nomura — Wealth Management</strong> + <strong>Nomura Research Institute (NRI)</strong> — эталон оценок HNW/UHNW</div>
+                <div><strong>Daiwa Securities — Wealth Management</strong></div>
+                <div><strong>MUFG × Morgan Stanley</strong> — альянс private assets / RE / infra</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">L ·</span> Корея</div>
+              <div class="it">
+                <div><strong>Mirae Asset</strong> — самый глобальный</div>
+                <div><strong>Samsung Securities · KB · Shinhan · Hana</strong> — FO-дески брокеров</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">M ·</span> Индия</div>
+              <div class="it">
+                <div><strong>360 ONE WAM</strong> (ex-IIFL Wealth) — крупнейшая локальная платформа</div>
+                <div><strong>Nuvama · Kotak · Waterfield Advisors · Client Associates · ASK · Anand Rathi</strong></div>
+                <div>Индийские SFO: <strong>Premji Invest</strong>, <strong>Catamaran</strong> (Murthy), <strong>RPSG</strong></div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">I ·</span> Смежные / lifestyle-точки доступа к UHNW</div>
+              <div class="it">
+                <div><strong>Camper &amp; Nicholsons Marinas</strong> · Suntex Marinas (US) · MDL Marinas (UK) — яхтенная инфраструктура</div>
+                <div><strong>Monaco Yacht Show</strong> · Cannes Yachting Festival — яхт-события</div>
+                <div><strong>Art Basel</strong> · Artory / Arcual — арт-провенанс и события</div>
+                <div><strong>DMCC</strong> (Dubai: алмазы/золото/чай) · Ogier / Walkers / Harneys — офшорные юрфирмы</div>
+                <div><strong>WestWater Research / Waterfind</strong> — торговля правами на воду</div>
+                <div><strong>IATA Slot Conference · ACI World</strong> — авиация (частные самолёты/слоты)</div>
+                <div><strong>Toniic · The Conduit</strong> — impact-инвесторы</div>
+              </div></div>
+
+          </div>
+          <p class="rfoot">Узнали себя или тех, с кем работаете — карта писалась для вас. Не узнали — вы не прямая аудитория, но вид с этой точки всё равно стоит того.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="hr-double"></div>
+
+  <h2 class="lh" id="wl2070" style="font-size:clamp(34px,6vw,44px); margin-top:.2em;"><span class="code">M·0 ТЕЛО</span>WL2070</h2>
+
+  <ol class="toc">
+    <li><a onclick="navTo('s1')" style="cursor:pointer"><span class="num">1</span><span class="dot">·</span><strong>Очевидный вопрос: почему 2070?</strong></a></li>
+    <li><a onclick="navTo('s2')" style="cursor:pointer"><span class="num">2</span><span class="dot">·</span><strong>Метод: прыжок на невозможную высоту</strong></a></li>
+    <li><a onclick="navTo('s3')" style="cursor:pointer"><span class="num">3</span><span class="dot">·</span><strong>Машины будут делать всё. Что тогда?</strong></a></li>
+    <li><a onclick="navTo('s4')" style="cursor:pointer"><span class="num">4</span><span class="dot">·</span><strong>Эксперимент: «Чемодан в будущее»</strong></a></li>
+    <li><a onclick="navTo('s5')" style="cursor:pointer"><span class="num">5</span><span class="dot">·</span><strong>Полная форма и мат.модель</strong></a></li>
+  </ol>
+
+  <blockquote class="epigraph">Богатство — вещество, его надо заморозить в форму и протащить через портал. Портал пропускает только полную форму.</blockquote>
+
+  <h2 class="lh" id="s1"><span class="code">S·01 СРЕДА</span><span class="n">1 ·</span> Очевидный вопрос: почему 2070?</h2>
+  <p class="body">Сама дата произвольна. Мог быть год 2073 или 2077. Но подход инженерно точный. Сингулярность — не разовое событие. Это режим ускорения событийности без фиксированной точки прибытия. Для целей данного форсайта мы выбрали ключевой образ «портал AGI». Форма портала — коридор. Его врождённое свойство — каскадный разгон технологий, экономик, конфликтов и следующие из этого шок-волны перемен.</p>
+  <p class="body">По мере движения через портал законы цивилизации, которые работали тысячи лет, должны измениться. Но не везде, не для всех и не сразу. Цивилизация, как целое, чрезвычайно инерционна. Носитель этой инерции — поколенческая динамика. Разумно предположить, что планетарная «гусеница цивилизации» будет ползти через портал минимум два поколения — те самые 40-50 лет. От дедов к внукам.</p>
+  <aside class="note-quiet">Исходная фабула: Вы засыпаете — на 15/25/45 лет. И пока спите, происходят самые масштабные изменения за известную историю цивилизации. Вопрос после пробуждения не «сколько времени прошло» — вопрос «что здесь ещё моё». Снижение стратегической неопределённости ответа — задача форсайта. Решать её мы предлагаем с конца: год 2070.</aside>
+  <h3 class="sub">С чего мы стартуем?</h3>
+  <p class="body">По исходной задумке наш форсайт — противоположный полюс/ответ на статью Сэма Альтмана 2021 года и её главный тезис: Если AGI-роботизация взрывает производительность, всё воспроизводимое неумолимо дешевеет и дешевеет с ускорением. Это закон Мура для всего: <a href="https://moores.samaltman.com">moores.samaltman.com</a>.</p>
+  <p class="body">Альтман смотрит сверху вниз: государство, налог, перераспределение. Всё подешевеет — значит, надо обложить (налогом) то, что не подешевеет (компании и землю), и раздать всем по доле пирога. Проблема богатства решается политикой. Мы смотрим снизу вверх: семья, оболочка, транзит. Всё подешевеет — значит, надо найти то, что не подешевеет, заморозить в форму и переправить через портал AGI. Проблема богатства решается инженерией.</p>
+  <p class="body">Альтман говорит: ценность будет — вопрос кому она достанется. Мы говорим: а) вопрос в том, что вообще будет ценностью; б) далеко не все переживут проход через портал. Его слепое пятно встроено в позицию: он строитель AGI. И по определению не может спросить: «Что если AGI не просто удешевит, а уничтожит саму категорию стоимости для воспроизводимого?» — ведь он это воспроизводимое строит. Для него удешевление — неизбежное благо. Для нас — новая среда, в которой богатству нужно выживать. Его читатель — гражданин (или политик). Наш — семья, род, персонифицированная вершина пирамиды мирового богатства.</p>
+
+  <h2 class="lh" id="s2"><span class="code">S·02 МЕТОД</span><span class="n">2 ·</span> Прыжок на невозможную высоту</h2>
+  <p class="kicker">Невозможная высота как метод</p>
+  <p class="body">Открытие форсайта — не в каталоге активов, а в подходе. Прыжок на полвека вперёд, через портал AGI и далее — это не прогноз, а изобретательский приём. По нашей оценке, плотность перемен до 2070 года будет примерно такой же, как за предыдущие четыреста-шестьсот лет. На таком разгоне ближний форсайт слепнет. Горизонт в пять лет — всё равно что фонарик в тумане: видишь один метр перед собой, а обрыв — через два. Прыжок на полвека через сингулярный портал — единственный способ увидеть форму: абсурдная постановка задачи сжигает шаблоны настоящего. Находим инварианты там — и разматываем назад к решениям сегодняшнего дня. Это не экстравагантность, а единственный метод, который работает в эпоху, когда каскады изобретений переписывают код возможного.</p>
+  <p class="kicker">Две задачи-вызова: прицел и телескоп</p>
+  <div class="lay"><div class="h">Прицел</div><p>Вам 40-50 лет. У вас $200M свободного капитала. Родился сын. Вызов: отправьте десять процентов ($20M) через два поколения — внуку на его двадцатилетие. Но так, чтобы покупательная способность в нынешних деньгах минимум не упала, а лучше — выросла. Итого есть: сумма, имя, дата; описана эпоха-среда. Достойная управленческая задача. Попробуйте её решить.</p></div>
+  <div class="lay"><div class="h">Телескоп</div><p>Заглянем дальше. Отправьте миллион долларов в будущее — на тысячу лет<sup class="fn">*</sup>. Реакция «сочтут сумасшедшим» — маркер правильно включённого режима. Так встречают любую корректно поставленную изобретательскую задачу, преодолевающую психологическую инерцию. Миллион спутников-дата-центров для поставки планете самого дешёвого инференса — пять лет назад это было безумие. В июне 2026 — база самого успешного IPO и первого триллионного состояния в истории. Полчаса такой интеллектуальной игры — и вопрос про 40-50 лет перестаёт быть «Эверестом».</p></div>
+  <aside class="spec"><div class="stag"><b>ОБРАЗЕЦ</b> · связка</div><div class="in"><p><strong>Пара работает связкой:</strong> телескоп калибрует масштаб, прицел стреляет в конкретное решение. Дальше эксперты-практики приземляют находки в реальные ходы текущего дня.</p></div></aside>
+  <p class="footnote"><span class="star">*</span>&nbsp; Если тысяча лет смущает абсурдным числом, начните с двухсот. Важно взять именно заведомо невозможный (для вас) отрезок времени. И пока игра идёт, решать задачу надо честно, как реальную и достижимую.</p>
+
+  <h2 class="lh" id="s3"><span class="code">S·03 НОСИТЕЛЬ</span><span class="n">3 ·</span> Машины будут делать всё. Что тогда?</h2>
+  <aside class="spec"><div class="stag"><b>ВОПРОС В ДВА ЧАСА НОЧИ</b></div><div class="in"><p>Для того, кто просыпается ночью и спрашивает: «что из всего этого будет хоть что-то стоить, когда машины будут делать всё?»</p></div></aside>
+  <aside class="spec"><div class="stag"><b>БЕЗЖАЛОСТНО ЧЕСТНЫЙ ОТВЕТ</b></div><div class="in"><p>Машины будут делать всё. Это не вопрос «если» — вопрос темпа. Допустим, к 2050 производительность воспроизводимого практически бесплатна. Что тогда?</p></div></aside>
+  <p class="body"><strong>Диагноз: богатство не исчезнет — оно сменит носитель. Как уже делало много раз.</strong></p>
+  <p class="body">Каждый раз предыдущий носитель не обнулялся — он терял функцию денег, но сохранял функцию вещи. Золото перестало быть валютой, но не перестало быть золотом. Земля перестала быть главным мерилом состояния, но не перестала кормить. При каждой смене носитель, оставшийся внизу, проигрывал тому, что перепрыгнул наверх. Но сама вещь — если она проходила фильтр (редкость, право, ликвидность, вкус) — оставалась.</p>
+  <p class="body">Значит, настоящий вопрос не «что будет стоить», а <strong>«что перестанет быть деньгами, оставшись вещью, — и что перестанет быть вещью вообще»</strong>. Граница проходит ровно по линии воспроизводимости. Всё, что AGI-роботизация может «напечатать», — перестанет быть и деньгами, и вещью в экономическом смысле. Это не потеря — это освобождение: дефицитное становится бесплатным, и это прекрасно. Но тот, чьё богатство целиком состоит из воспроизводимого, однажды утром обнаружит, что владеет бесплатным.</p>
+  <span class="note-mono">астероидное золото</span>
+  <figure class="vignette">
+    <p>Золото, как драгоценный металл, пережило всё: империи, войны, смерть валют. Пять тысяч лет оно было синонимом слова «навсегда». Но его ценность — не в том, что его мало. А в том, что больше почти не будет. Это премия за конечность предложения: анти-фиат. Нельзя напечатать.</p>
+    <p>Космос меняет это — и не так, как кажется. Никто не будет охотиться за золотом на астероидах. Но когда орбитальное производство начнёт перемалывать металлические тела ради железа, никеля и воды для станций и кораблей — золото посыплется само, как попутный улов. Его не добывают — оно выпадает в отвал. Причём рынок снимет премию за конечность не когда первая тонна прибудет на орбиту Земли, а когда появится первый убедительный проект. По кривой ожиданий, не по кривой доставки.</p>
+    <p>Но вот что важно: премия за конечность не исчезнет. Она мигрирует — вверх, к тому, чего не догнать даже орбитальным шоссе. К цветному камню, который формировался миллионы лет. К координатам, которые нельзя скопировать. К биографии, которую нельзя напечатать. Космос отбирает у золота — пирамида наследует.</p>
+  </figure>
+  <p class="body"><strong>Теперь жёстко: что именно останется.</strong></p>
+  <div class="lay"><p class="runin">Первое и главное — <b>время</b>.</p><p>Не в поэтическом смысле. В буквальном. Актив, в котором заморожено время, которое невозможно ускорить и невозможно повторить. Камень, формировавшийся 20 миллионов лет. Терруар, который создавала конкретная геология с конкретным микроклиматом. Выдержка, которую нельзя перемотать. AGI умеет делать всё, кроме одного: он не умеет делать «давно». И не сможет — это не техническое ограничение, это свойство времени.</p></div>
+  <div class="lay"><p class="runin">Второе — <b>место</b>.</p><p>Координата, к которой привязан поток. Причал в проливе. Waterfront, к которому приходят вода и люди. Источник с температурой, которая здесь и нигде больше. AGI может построить любое здание — но не может создать вторую точку с теми же координатами, тем же видом, той же гидрологией. Место не масштабируется.</p></div>
+  <div class="lay"><p class="runin">Третье — <b>горлышко</b>.</p><p>Право на пропуск через узкое место. Слот, частота, причал, перевал. Их количество конечно по физике или по праву. Чем плотнее трафик (а AGI-мир — мир максимального трафика), тем дороже каждый турникет. Парадокс изобилия: чем больше всего — тем дороже доступ к каждому «через».</p></div>
+  <div class="lay"><p class="runin">Четвёртое — <b>провенанс</b>.</p><p>Доказанная история вещи. Не сама вещь — а её биография. AGI может синтезировать идеальный рубин. Не может синтезировать «этот рубин принадлежал Низаму Хайдарабадскому». Подлинность недоступна производству по определению. И чем совершеннее синтетика, тем выше премия за доказанную натуральность — синтетика сама создаёт спрос на свою противоположность.</p></div>
+  <p class="body"><strong>Что точно умрёт как богатство:</strong></p>
+  <p class="body">Всё, что держится на информационной асимметрии (я знаю, а ты нет — AGI это уравняет); всё, что держится на исполнительском мастерстве без мастера (процесс без носителя — автоматизируется); всё, что держится на дефиците вычислений (compute подешевеет на порядки); средний сегмент чего угодно (средний камень, средняя локация, среднее искусство) — всё это зона, где синтетика и масштаб съедают премию.</p>
+  <p class="body"><strong>За горизонтом — а что если сама потребность в редкости умрёт?</strong></p>
+  <p class="body">Нейроинтерфейс, дающий ощущение владения чем угодно — теоретически убивает статусное потребление. Но. Статус — не единственная функция редкости. Есть вторая: <strong>якорь идентичности рода</strong>. «Это наше, это было наше, это будет наше» — это не про статус, а про связность поколений. Племя без тотема распадается. Семья без «фамильного» — перестаёт быть семьёй. Нейроинтерфейс может симулировать владение — не может симулировать преемственность. Поэтому вершина пирамиды переживёт даже нейроинтерфейсы — но по другой причине, чем кажется сейчас. Не как актив. Как тотем.</p>
+
+  <div class="fitline"><span class="pull fit-phrase">давно · здесь · через · настоящее</span></div>
+  <div class="quartet">
+    <div class="cap">четыре инварианта</div>
+    <div class="row"><div class="w">давно</div><div class="g">Замороженное время — драг. камень, терруар, выдержка. AGI не умеет «давно».</div></div>
+    <div class="row"><div class="w">здесь</div><div class="g">Место, привязанное к координатам и потоку. Не масштабируется.</div></div>
+    <div class="row"><div class="w">через</div><div class="g">Горлышко, право на пропуск. Чем плотнее трафик, тем дороже турникет.</div></div>
+    <div class="row"><div class="w">настоящее</div><div class="g">Провенанс, доказанная биография. Подлинность не производится.</div></div>
+  </div>
+  <div style="height:.8em" aria-hidden="true"></div>
+  <p class="kicker">заметка на полях</p>
+  <p class="body">Этот форсайт не спорит с накопленной экспертизой. Доходный дом рядом с Sagrada Familia — такой же инвариант, как вершина пирамиды цветных драг. камней. С AGI или без, с нейроинтерфейсами или без них — за два поколения очевидное не изменится. Читатель со старинным домом в центре Барселоны знает: его дом будет стоить миллионы и через сто лет. Что ж, он прав.</p>
+  <p class="body">И всё же поток перемен неумолим. Масштаб, скорость, каскады бифуркаций — всё это продолжит нарастать и выйдет на плато не ранее середины века. Плюс ещё поколение на адаптацию. Шторм такого масштаба не имеет аналога в известной истории. Ценность карты не в том, чтобы опрокинуть чью-то экспертизу. Она в двух вещах. Первая: увидеть форму за калейдоскопом событий — найти глаз тайфуна. Вторая: психологическая устойчивость. Кто имеет карту — не паникует, когда паникуют все. Не продаёт на дне. Не ведётся на хайп. Не тратит год на решение, которое с картой занимает неделю. Шторм одинаковый — потери разные.</p>
+
+  <h2 class="lh" id="s4"><span class="code">S·04 ЧЕМОДАН</span><span class="n">4 ·</span> Эксперимент: «Чемодан в будущее»</h2>
+  <aside class="note-quiet">Старый вопрос транзита: что положить в чемодан?<br>Новый вопрос: какая форма проходит портал?</aside>
+  <p class="body">Но без «чемодана» карта останется чистой философией.<br>Так во что же вложиться сегодня, чтобы отправить богатство себе или семье на одно-два поколения вперёд? Не претендуем на готовые решения, а предлагаем мысленный эксперимент.</p>
+  <p class="body"><strong>Полная гипотеза:</strong> AGI-роботизация взрывает производительность и воспроизводимое дешевеет с ускорением. На этом фоне выигрывают вещи, которые нельзя дополнительно произвести в пределах Солнечной системы. Их больше не «печатают», их редкость не размывается технологиями. Общий пирог богатства тоже растёт, становится всё больше состоятельных покупателей. Отсюда растёт и спрос на невоспроизводимые премиальные активы, которые веками считались ценными у богатых.</p>
+  <p class="body">В разделе выше описаны опорные русла транзита через портал.<br>Дополним их фильтром из четырёх множителей-турникетов:</p>
+  <div class="spec"><div class="stag"><b>ТУРНИКЕТЫ</b> · фильтр полноты</div><div class="core"><p class="f"><span class="fit-phrase">Редкость <span class="op">×</span> Право <span class="op">×</span> Ликвидность <span class="op">×</span> Вкус</span></p><p class="glo"><b>Ноль в любом множителе — ноль на выходе.</b></p></div></div>
+  <p class="body">Редкость должна быть аудируемой — её нельзя нарисовать синтетикой. Защищённой правом — её можно отстоять в суде или протоколе. Ликвидной — есть рынок выхода без потери половины стоимости. Вкусоустойчивой — переживает смены моды и поколений. Если хотя бы одно из четырёх условий не держится, невоспроизводимость сама по себе не спасёт.</p>
+  <aside class="cond">Если редкость нельзя проверить, её нарисуют.<br>Если право не защищает, её отнимут.<br>Если нет ликвидности, наследники получат не капитал, а алтарь без выхода.<br>Если вкус не переживает поколения, статусная премия сгниёт.</aside>
+  <p style="font-family:'Cormorant',serif;font-weight:700;font-size:clamp(22px,4.4vw,27px);color:var(--ink);letter-spacing:.01em;margin:1.2em 0 .4em;">Эксперимент:</p>
+  <p class="body">Два шага. Первый — собираем чемодан из позиций, проходящих турникеты. Второй — заковываем в оболочку на два поколения. Набросок заведомо неполон, местами провокативен — так задумано. Прогоните его через фильтр и мат.модель форсайта, соберите свой список и обсудите с теми, кому доверяете.</p>
+
+  <h3 class="step">Шаг 1. Отправляем чемодан в будущее</h3>
+  <ol class="list">
+    <li>Земля А+ в устойчивых узлах: реальные waterfront/видовые вершины, исторические кварталы, островные «пирсы цивилизации». Ключ — не «квадратные метры», а <strong>узел потока</strong> (вода/культура/др.).</li>
+    <li>Водные/береговые права в дефицитных бассейнах (полив, охлаждение, причалы). Даже при дешёвом опреснении локальная гидрология и право остаются узкими горлышками.</li>
+    <li>Геотермальные/родниковые участки (уникальная температура/дебит). Энергия может подешеветь, но конкретный источник с локацией — конечен.</li>
+    <li>Топ-класс натуральных цветных драг. камней с безупречной провенанс-линией (Kashmir sapphire, Burmese ruby и др.). Смысл только у верха пирамиды или близко к вершине + лабораторные отчёты и история.</li>
+    <li>Почвенно-климатические терруары (виноград/чай/масло) с доказуемым «местом». Не коммодити-агро, а терруар как бренд.</li>
+    <li>Долгосрочные права на узлы инфраструктуры: портовые/марины/шлюзы/якорные стоянки/горные перевалы/канатки. Это «турникеты» на вечных потоках.</li>
+    <li>Спектр/частоты/«слоты» (в том числе авиационные/портовые). Их не печатают, а рынок консервативен по природе; спрос растёт с плотностью трафика. Для семьи — через фонды/партнёрства.</li>
+    <li>Городские «аристократические» членства (приватные клубы/школы/гавани) с ограниченной эмиссией и перепродажей. Это про доступ к людям и сделкам, не про интерьер.</li>
+    <li>Музейного уровня искусство с выставочной историей (канон, а не хайп). Ликвидность — через top-tier площадки.</li>
+    <li>Исторические предметы с документами (инструменты, карты, научные приборы, важные рукописи). Не «винтаж ради винтажа», а вехи цивилизации.</li>
+    <li>Орбитальные/лунные «слоты» и спектр — пока только через доли в операторах/концессиях. Риск высокий, доля портфеля малая.</li>
+    <li>Природные убежища (высоты с мягким климатом/вода/леса) — не для спекуляции, а как страховой актив семьи.</li>
+  </ol>
+
+  <div style="height:.53em" aria-hidden="true"></div>
+  <p class="kicker">Деревянные ботинки · пять культур одной петли</p>
+  <p class="body">Исходник «правила трёх поколений» — ланкаширская пословица (текстильный север Англии; клоги — рабочая обувь на деревянной подошве): <strong>«From clogs to clogs is only three generations».</strong> Авторство народное, фабричные графства. Дуга зашита в самой формуле: дед в клогах зарабатывает → сын в кожаных туфлях приумножает и тратит → внук снова в клогах.</p>
+  <p class="body">Та же трёхтактная дуга, зафиксированная независимо:</p>
+  <ul class="list">
+    <li><strong>США:</strong> «Shirtsleeves to shirtsleeves in three generations» — часто приписывается Карнеги, но это адаптация английской формулы, не его авторство.</li>
+    <li><strong>Шотландия:</strong> «The father buys, the son builds, the grandchild sells, and his son begs.»</li>
+    <li><strong>Китай:</strong> 富不过三代 (fù bù guò sān dài) — «богатство не переживает трёх поколений».</li>
+    <li><strong>Япония:</strong> 売り家と唐様で書く三代目 — «третье поколение пишет объявление „продаётся дом" изящным китайским стилем»: внук образован настолько, что красиво каллиграфирует распродажу дедова наследства. Самая ядовитая версия из всех.</li>
+    <li><strong>Италия:</strong> «dalla stalla alle stelle e ritorno» — из хлева к звёздам и обратно.</li>
+  </ul>
+  <div style="height:.27em" aria-hidden="true"></div>
+
+  <h3 class="step">Шаг 2. Разрываем «мёртвую петлю» трёх поколений<br><span>[отправляем богатство внукам]</span></h3>
+  <p class="body">Пять культур приняли неполноту за закон природы и назвали её «правилом трёх поколений». Инженер читает иначе: повторяющийся отказ — не приговор природы, а конструктивная задача. Полного решения у неё, возможно, нет без пересборки самой природы человека. Но есть инженерная гипотеза: подпереть слабое звено внешними рельсами. Разрывать петлю — институционализацией капитала, не воспитанием<sup class="fn">*</sup>.</p>
+  <p class="body"><strong>Заковываем активы в трёхконтурную оболочку с уставом:</strong></p>
+  <dl class="kv">
+    <dt>Core Vault</dt><dd>хранит неприкосновенное ядро редкостей: земля А+, права на горлышки, музейное искусство — по уставу их нельзя продавать или закладывать, только получать доход.</dd>
+    <dt>Flow HoldCo</dt><dd>управляет ликвидными и доходными активами по регламенту: покупка, продажа, ребаланс.</dd>
+    <dt>OpsCo</dt><dd>несёт операционные риски и не имеет доступа к ядру. Никакой «одной кнопки»: решения по ядру — только супер-кворумом и с правом вето протектора; в ближайшем будущем — с участием AGI-хранителя.</dd>
+  </dl>
+  <p class="body">Дальше работает архитектура, а не «семейные ценности»:</p>
+  <p class="body">Формула выплат, ежегодный ребаланс в коридорах, стоп-краны при просадках, подушка ликвидности в нескольких валютах и странах, многоключевая защита, dead-man switch на ключи, proof-of-custody по редкостям и заранее подписанные маршруты выхода. Права голоса отделены от доступа к деньгам. Наследник получает выплаты после лицензирования — стажировка и тест по политике портфеля.</p>
+  <p class="body">Принцип: ничего не зависит от одного человека. Ни один документ, ключ или решение не даёт возможности сжечь ядро. Капитал превращается в инженерный объект с предохранителями, способный доехать в 2070 без деревянных ботинок на третьем поколении.</p>
+  <p class="footnote"><span class="star">*</span> Выше каркас решения; полная механика выходит за рамки данной карты.</p>
+  <aside class="note-quiet">Зачем вообще «отправлять богатство внукам»? Вдруг их нет. Тогда найдите задачу-аналог. Если преуспеете в решении такой задачи на фоне AGI-эпохи, неизбежно увидите более эффективные решения и для горизонта в 5-10 лет.</aside>
+
+  <h2 class="lh" id="s5"><span class="code">S·05 ФОРМА</span><span class="n">5 ·</span> Полная форма и мат.модель</h2>
+  <p class="body">Выше были элементы. Теперь — карта целого.</p>
+  <p class="kicker">Стратиграф транзита через портал <span style="color:var(--muted); text-transform:none; letter-spacing:0;">[набросок, дорабатывается]</span></p>
+  <div class="scrollx"><div class="strat">
+    <div class="k">По чему едем</div><div class="t">— СРЕДА:</div><div class="v">валюты, рельсы, расчётные системы</div>
+    <div class="k">Что везём</div><div class="t">— ГРУЗ:</div><div class="v">камни, терруары, процессы, артефакты</div>
+    <div class="k">В чём везём</div><div class="t">— ОБОЛОЧКА:</div><div class="v">уставы, трасты, пулы, токены</div>
+    <div class="k">Где стоим</div><div class="t">— МЕСТО:</div><div class="v">земля, вода, узлы, турникеты</div>
+    <div class="k">Кто везёт</div><div class="t">— ЛЮДИ:</div><div class="v">модели семей, передача, NextGen</div>
+    <div class="k">Чем меряем</div><div class="t">— ПРИБОРЫ:</div><div class="v">индексы, оракулы, nowcast-сигналы</div>
+  </div></div>
+  <p class="body"><strong>Формула всей сборки:</strong></p>
+  <p class="pull ink">Портал пропускает форму.</p>
+  <div class="litany center">Не событие.<br>Не красивую идею.<br>Не набор активов.<br>Не каталог редкостей.<br>Не семейную легенду.<br>Не юридическую оболочку саму по себе.</div>
+  <p class="pull">И не всякую форму. Только полную.</p>
+  <div class="ledger">
+    <div class="r"><span class="t">Груз без оболочки</span><span class="ldr"></span><span class="z">ноль</span></div>
+    <div class="r"><span class="t">Оболочка без права</span><span class="ldr"></span><span class="z">ноль</span></div>
+    <div class="r"><span class="t">Редкость без ликвидности</span><span class="ldr"></span><span class="z">ноль</span></div>
+    <div class="r"><span class="t">Провенанс без аудита</span><span class="ldr"></span><span class="z">ноль</span></div>
+    <div class="r"><span class="t">Устав без людей</span><span class="ldr"></span><span class="z">ноль</span></div>
+    <div class="r"><span class="t">Люди без прибора</span><span class="ldr"></span><span class="z">ноль</span></div>
+  </div>
+  <p class="body">Поэтому осевой тезис такой:</p>
+  <aside class="spec"><div class="stag"><b>ОБРАЗЕЦ</b> · осевой тезис</div><div class="in"><p><strong>Богатство — вещество. Его нужно заморозить в форму, протащить через портал, разморозить по ту сторону. Портал пропускает только полную форму. Старый вопрос был: что положить в чемодан? Новый вопрос: полна ли форма?</strong></p></div></aside>
+
+  <h2 class="lh" id="mathmodel"><span class="code">M·X МОДЕЛЬ</span>Математическая модель</h2>
+  <p class="body" style="margin-bottom:0">Формализация ниже — не прогноз. Это язык, на котором с гипотезой можно работать: мерить, спорить, играть.</p>
+  <p class="label-c">| два независимых аналитических подхода |</p>
+  <div class="links-team">
+    <p><a onclick="navTo('team-a')" style="cursor:pointer"><b>Команда А</b> &nbsp;·&nbsp; Геометрия портала</a></p>
+    <p><a onclick="navTo('team-b')" style="cursor:pointer"><b>Команда Б</b> &nbsp;·&nbsp; Экономика теневой цены</a></p>
+  </div>
+
+  <div class="hr-double" id="team-a" style="scroll-margin-top:24px; margin-top:36px;"></div>
+  <p class="team-tag">Команда А</p>
+  <h2 class="team">Геометрия портала</h2>
+  <p class="team-char">Структурно-алгебраический взгляд: что лежит в ядре невоспроизводимого и почему форма мультипликативна.</p>
+
+  <h3 class="mh">A1 · Тинктура (что не горит)</h3>
+  <p class="body">Одно утверждение, из которого растёт всё:</p>
+  <aside class="spec"><div class="stag"><b>ТИНКТУРА</b> · A1</div><div class="in"><p><strong>Существует класс активов, чья ценность инвариантна относительно AGI-трансформации; выживание богатства через смену режима определяется полнотой упаковки, а не только выбором груза.</strong></p></div></aside>
+
+  <h3 class="mh">A2 · Формальная модель</h3>
+  <p class="kicker">Определения</p>
+  <p class="body">Экономический режим <code class="inl">R</code> — описывается производственной функцией <code class="inl">P_R</code>, задающей множество воспроизводимого:</p>
+  <pre class="code">Im(P_R) = { x : P_R может произвести x }</pre>
+  <p class="body">AGI-трансформация — переход <code class="inl">R&#8321; &rarr; R&#8322;</code>, при котором <code class="inl">Im(P_{R&#8322;})</code> резко расширяется: почти всё воспроизводимо.</p>
+  <p class="body">Ядро невоспроизводимого — то, чего производственная функция достичь не может ни при каком входе:</p>
+  <pre class="code">K(R) = { a : a &notin; Im(P_R) }</pre>
+  <p class="body">С каждым следующим производственным режимом множество воспроизводимого растёт, поэтому ядро сужается: <code class="inl">K(R&#8322;) &sub; K(R&#8321;)</code>. Вопрос форсайта: что останется в ядре при самом мощном режиме — <code class="inl">K(R_AGI)</code>?</p>
+
+  <p class="kicker">Гипотеза четырёх инвариантов</p>
+  <p class="body"><code class="inl">K(R_AGI)</code> порождается четырьмя неприводимыми инвариантами:</p>
+  <div class="glyphs">
+    <div><div class="gy">τ</div><div class="lb">давно</div><div class="gl">Время необратимо</div></div>
+    <div><div class="gy">ξ</div><div class="lb">здесь</div><div class="gl">Координата уникальна</div></div>
+    <div><div class="gy">θ</div><div class="lb">через</div><div class="gl">Проход конечен</div></div>
+    <div><div class="gy">π</div><div class="lb">настоящее</div><div class="gl">Подлинность недоступна</div></div>
+  </div>
+  <p class="body">Неприводимость: ни одно из четырёх не подмножество и не комбинация остальных. Ни одно не лежит в образе никакой производственной функции — не потому что технология слаба, а потому что:</p>
+  <pre class="code">— время не является входом производства;
+— координаты не производятся;
+— конечность проходов задана физикой/правом;
+— история не производится (только подделывается,
+  что обнаружимо в пределе).</pre>
+  <p class="body">Каждый актив имеет проекции на все четыре инварианта:</p>
+  <div class="chip"><code>a = (&tau;(a), &xi;(a), &theta;(a), &pi;(a))</code></div>
+  <p class="body">Чем выше проекция — тем устойчивее к AGI-трансформации.</p>
+
+  <h3 class="mh">Функция выживания</h3>
+  <p class="body">Ценность актива после прохождения портала:</p>
+  <pre class="code">V(a) = V&#8320;(a) · F(a) · G(S)
+
+V&#8320;(a)   — доAGI-ценность
+F(a)    — фильтр полноты (мультипликативный)
+G(S)    — качество оболочки (институциональной упаковки)</pre>
+  <p class="body">Дальше — сложные множители по отдельности.</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">F(a)</code> — фильтр полноты (мультипликативный):</p>
+  <pre class="code">F(a) = r(a) · l(a) · q(a) · t(a)
+
+r(a) = редкость (аудируемая)
+l(a) = правовая защита
+q(a) = ликвидность
+t(a) = вкусоустойчивость (переживает смену поколений)</pre>
+  <p class="body">Ключевое свойство <code class="inl">F</code>: мультипликативность. Это произведение, не сумма. Ноль в любом множителе обнуляет всё. Нельзя компенсировать. Нельзя обойти. В терминах алгебры: пространство выживания — не линейное подпространство, а положительный конус в тензорном произведении четырёх факторных пространств.</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">G(S)</code> — качество оболочки (институциональной упаковки):</p>
+  <pre class="code">G(S) &isin; [0, 1]
+
+G = 0:  нет оболочки (неупакованный капитал)
+G &rarr; 1:  полная оболочка (устав + формула + мультисиг
+        + dead-man + proof-of-custody + маршрут выхода)</pre>
+
+  <h3 class="mh">A3 · свободный комментарий</h3>
+  <p class="kicker">Это не про богатство</p>
+  <p class="body">Богатство — область применения. Структура под ним глубже: это теория о том, что выживает при смене мира. Математика знает ровно один главный вопрос: что остаётся неизменным, когда всё меняется? Теория групп спрашивает: какие свойства сохраняются при симметриях? Топология: что не рвётся при деформации? Теория категорий: что сохраняется при отображениях между структурами?</p>
+  <p class="body">WL2070 задаёт тот же вопрос, но в области цивилизации: какие свойства ценности сохраняются при смене экономического режима? Ответ — четыре инварианта — генераторы инвариантного подпространства. Они ортогональны образу производственной функции. В линейной алгебре это было бы ядро сопряжённого оператора. Здесь это четыре направления, в которых производство бессильно не по слабости, а по геометрии пространства.</p>
+  <p class="kicker">Мультипликативность — центральное наблюдение</p>
+  <p class="body">Весь мир wealth management мыслит аддитивно. Диверсификация — это сумма: 60/40, 70/30, портфель как взвешенное среднее. Риск-менеджмент: VaR — это квантиль суммы. Всё — линейные комбинации. Всё — прямая сумма.</p>
+  <p class="body">WL2070 говорит: нет. Транзит мультипликативен.</p>
+  <p class="body">Это не стилистика, а утверждение о геометрии. Пространство выживания — не прямая сумма факторов (где слабость одного компенсируется силой другого), а тензорное произведение (где ноль в одном обнуляет всё). Камень за $5M с безупречным провенансом, высочайшей редкостью и вековой вкусоустойчивостью, но без правовой защиты (юрисдикция рухнула, титул оспорен) — стоит ноль. Не «стоит меньше». Ноль. Потому что его нельзя провезти через портал — форма неполна. Это контринтуитивно для всех, кто вырос на портфельной теории Марковица. Там можно компенсировать. Здесь — нельзя.</p>
+  <p class="kicker">Фазовый переход — это буквально</p>
+  <p class="body">В «руде» форсайта есть метафора: богатство — вещество, его надо заморозить в форму, протащить через портал, разморозить на той стороне. Но это не метафора, а чистая физика.</p>
+  <p class="body">В физике фазовый переход характеризуется:</p>
+  <pre class="code">— параметром порядка, который меняется скачком;
+— критической точкой, где система реорганизуется;
+— универсальностью: системы с разной микроскопией,
+  но одной симметрией — ведут себя одинаково
+  у точки перехода.</pre>
+  <p class="body">AGI-портал — это фазовый переход экономики. Параметр порядка — функция воспроизводимости ρ(t): растёт медленно, потом взрывается, когда AGI пересекает порог. Четыре инварианта — это защищённые величины, сохраняющиеся при переходе. Как энергия в термодинамике. Как топологический заряд в физике конденсированного состояния.</p>
+  <p class="body">И «замораживание» тогда буквально: чтобы пережить фазовый переход, нужно быть в фазе, устойчивой по ту сторону. Жидкое богатство (деньги, потоки, воспроизводимые активы) неустойчиво в пост-AGI-режиме. Твёрдое богатство (замороженное в невоспроизводимую форму + институциональную оболочку) — устойчиво. Портал — граница фаз. Жидкость испаряется при прохождении.</p>
+  <p class="kicker">Рекомендация поверх «руды» форсайта: Minimax</p>
+  <p class="body">Мультипликативная модель предсказывает существование критических уязвимостей — точек, где один множитель стремится к нулю и угрожает обнулить всё. В аддитивной модели такие точки сглаживаются. В мультипликативной — убивают.</p>
+  <p class="body">Это значит, что правильная стратегия — не максимизация суммарной силы (как в портфельной теории), а минимаксная: максимизация минимального множителя. Не «где я сильнее всего», а «где я слабее всего — и как поднять именно этот пол».</p>
+  <div class="chip"><code>Стратегия WL2070:&nbsp;&nbsp;max min{ r(a), l(a), q(a), t(a) }</code></div>
+  <p class="body">Это существенно меняет всю логику wealth management. Обычный вопрос: «какой актив принесёт наибольший доход?» (максимизация). Вопрос WL2070: «какой множитель ближе всего к нулю — и как его поднять?» (minimax).</p>
+  <p class="body">Minimax — стратегия, оптимальная при неопределённости (теорема фон Неймана). Что логично: мы не знаем, какой именно множитель обнулится — значит, защищаем самый слабый. Это прямо вытекает из формулы.</p>
+
+  <hr class="divider-narrow">
+  <p class="kicker center" style="margin-bottom:.3em;">Сухой остаток для навигатора через портал</p>
+  <h3 class="mh center" style="font-size:25px;">Вся модель — в трёх формулах</h3>
+  <div class="summary">
+    <div class="row"><span class="ix">(1)</span><div><div class="frm">K(R_AGI) = span(&tau;, &xi;, &theta;, &pi;)</div><div class="gl">Четыре инварианта = генераторы ядра невоспроизводимого</div></div></div>
+    <div class="row"><span class="ix">(2)</span><div><div class="frm">V(a) = V&#8320; · &prod; f&#7522; · G(S)</div><div class="gl">Выживание мультипликативно — ноль убивает</div></div></div>
+    <div class="row"><span class="ix">(3)</span><div><div class="frm">max min{ f&#7522;(a) }</div><div class="gl">Оптимальная стратегия — минимакс, не максимизация</div></div></div>
+  </div>
+
+  <div class="hr-double" id="team-b" style="scroll-margin-top:24px;"></div>
+  <p class="team-tag">Команда Б</p>
+  <h2 class="team">Экономика теневой цены</h2>
+  <p class="team-char">Один бегущий вывод: от задачи оптимизации — к праву на границу.</p>
+  <div id="mm-bravo">
+
+    <h3 class="mh">Предельная формула</h3>
+    <p class="statement line">Богатство после AGI = передаваемое право на нерасслабляемое ограничение</p>
+    <p class="body">Или жёстче:</p>
+    <div class="spec result"><div class="stag"><b>РЕЗУЛЬТАТ</b> · предельная форма</div><div class="core"><p class="f">\(W_{2070} = \mathrm{Title}(\lambda_{\mathrm{constraint}})\)</p></div></div>
+    <p class="body">где \(\lambda_{\mathrm{constraint}}\) — <strong>теневая цена ограничения</strong>, которое AGI не может расширить.</p>
+    <p class="body">Всё остальное — частные случаи.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Матемодель</h3>
+    <p class="body">Мир можно представить как задачу оптимизации:</p>
+    <div class="eqn solo"><div class="b">\(\max\; U(x)\)</div></div>
+    <p class="body">при ограничениях:</p>
+    <div class="eqn solo"><div class="b">\(c_i(x) \le K_i\)</div></div>
+    <p class="body">Каждое ограничение \(K_i\) имеет теневую цену \(\lambda_i\).<br>Это и есть источник стоимости.</p>
+    <p class="body">AGI делает главное: он резко увеличивает \(K_i\) для всего воспроизводимого.</p>
+    <div class="eqn solo"><div class="b">\(K_i\)(производимое) \(\to \infty\)</div></div>
+    <p class="body">Значит:</p>
+    <div class="eqn solo"><div class="b">\(\lambda_i\)(производимое) \(\to 0\)</div></div>
+    <p class="body">То есть всё, что можно напечатать, рассчитать, скопировать, синтезировать, автоматизировать, масштабировать, постепенно теряет ренту.</p>
+    <p class="body">Но есть ограничения, для которых:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{\partial K_i}{\partial\, \mathit{AGI}} = 0\)</div></div>
+    <p class="body">AGI не может увеличить их ёмкость.</p>
+    <p class="body">Вот они и остаются носителями богатства.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Настоящий инвариант</h3>
+    <p class="body">Не «редкость» сама по себе.</p>
+    <p class="body">Редкость — слишком бытовое слово.</p>
+    <p class="body">Предельнее:</p>
+    <p class="statement line">ценность = положительная теневая цена нерасслабляемого ограничения</p>
+    <p class="statement line">богатство = юридически защищённая доля в этом ограничении</p>
+    <p class="statement line">родовое богатство = защищённая и передаваемая через поколения доля в этом ограничении</p>
+    <p class="body">Вот и всё.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Четыре базиса ограничения</h3>
+    <p class="body">Формула <strong>«давно · здесь · через · настоящее»</strong> — хорошая, но я бы теперь понимал её не как поэзию и не как список активов, а как <strong>базис векторного пространства нерасслабляемых ограничений</strong>.</p>
+
+    <h4 class="mh4">1. Давно</h4>
+    <p class="body">Это ограничение времени.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{time-past}} = \mathit{const}\)</div></div>
+    <p class="body">AGI может ускорить производство, но не может произвести прошлое.</p>
+    <p class="body">Он может сделать новый рубин.<br>Не может сделать рубин, который <strong>уже</strong> 20 миллионов лет лежал в земле.</p>
+    <p class="body">Он может сгенерировать вкус выдержанного вина.<br>Не может создать факт выдержки, уже прошедшей через реальное время.</p>
+    <p class="body"><strong>Давно</strong> — это не возраст вещи.<br>Это невозможность переписать стрелу времени.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">2. Здесь</h4>
+    <p class="body">Это ограничение координаты.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{place}} = \mathit{const}\)</div></div>
+    <p class="body">AGI может построить идеальную виллу.<br>Но не может создать вторую точку с теми же координатами, тем же видом, той же водой, тем же историческим соседством, тем же потоком людей.</p>
+    <p class="body">Поэтому земля как «квадратные метры» — слабая.</p>
+    <p class="body">Земля как <strong>узел потока</strong> — сильная.</p>
+    <p class="body">Это важный сдвиг: не land, а <strong>place-node</strong>.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">3. Через</h4>
+    <p class="body">Это ограничение пропускной способности.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{throughput}} = \mathit{const}\)</div></div>
+    <div class="litany">Причал.<br>Слот.<br>Частота.<br>Перевал.<br>Марина.<br>Шлюз.<br>Право прохода.<br>Право подключения.<br>Право доступа к сети.</div>
+    <p class="body">AGI-мир будет не просто миром изобилия.<br>Он будет миром чудовищного роста потоков.</p>
+    <p class="body">А где растёт поток, там растёт цена узкого места.</p>
+    <p class="body">Поэтому, если совсем честно, я бы поставил <strong>через</strong> выше, чем «редкие вещи». Камень хранит. Горлышко зарабатывает. Камень — тотем и аккумулятор. Горлышко — машина ренты.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">4. Настоящее</h4>
+    <p class="body">Это ограничение подлинности.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{provenance}} = \mathit{const}\)</div></div>
+    <p class="body">AGI может синтезировать идеальную копию.<br>Но не может сделать так, чтобы эта копия <strong>была тем самым объектом</strong>.</p>
+    <p class="body">Сходство не равно тождеству.</p>
+    <p class="body">Это фундаментально.</p>
+    <p class="body">Подлинность — не качество материи.<br>Это принадлежность к единственной линии истории.</p>
+    <p class="body">Поэтому в модели provenance — не украшение, а ядро цены. Синтетика не убивает подлинность, а усиливает премию за доказанную натуральность и доказанную биографию вещи.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Главный сдвиг: не активы, а ограничения</h3>
+    <p class="body">Я бы переписал внутренний закон так:</p>
+    <p class="statement line">AGI убивает ренту производства и усиливает ренту ограничения</p>
+    <p class="body">Это сильнее, чем:</p>
+    <p class="body">«всё воспроизводимое дешевеет, редкое дорожает».</p>
+    <p class="body">Потому что «редкое дорожает» не всегда верно.</p>
+    <p class="body">Редкое может умереть, если:</p>
+    <div class="eqn solo"><div class="b">Право = 0</div></div>
+    <p class="body center" style="color:var(--muted);">или</p>
+    <div class="eqn solo"><div class="b">Ликвидность = 0</div></div>
+    <p class="body center" style="color:var(--muted);">или</p>
+    <div class="eqn solo"><div class="b">Вкус = 0</div></div>
+    <p class="body center" style="color:var(--muted);">или</p>
+    <div class="eqn solo"><div class="b">Провенанс = 0</div></div>
+    <p class="body">Именно поэтому формула <strong>Редкость × Право × Ликвидность × Вкус</strong> верна как мультипликативный фильтр: ноль в любом множителе даёт ноль всей конструкции.</p>
+    <p class="body">Но я бы добавил ещё один множитель:</p>
+    <p class="statement line">Передаваемость</p>
+    <p class="body">И тогда полная форма:</p>
+    <div class="eqn solo"><div class="b">\(V = O \times J \times L \times D \times T\)</div></div>
+    <p class="body">где:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(O\)</div><div class="d">ontological scarcity: непроизводимость;</div></div>
+      <div class="lr"><div class="s">\(J\)</div><div class="d">jurisdiction: защищённость правом;</div></div>
+      <div class="lr"><div class="s">\(L\)</div><div class="d">liquidity: возможность выхода;</div></div>
+      <div class="lr"><div class="s">\(D\)</div><div class="d">desire durability: устойчивость желания;</div></div>
+      <div class="lr"><div class="s">\(T\)</div><div class="d">transferability: передаваемость через поколение.</div></div>
+    </div>
+    <p class="body">Если любой множитель ноль:</p>
+    <div class="eqn solo"><div class="b">\(V = 0\)</div></div>
+    <p class="body">Это и есть «портал пропускает только полную форму». Старый вопрос «что положить в чемодан?» надо заменить вопросом «полна ли форма и названы ли стены?».</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Формула сохранения доли</h3>
+    <p class="body">Поскольку задача не просто сохранить абсолютные деньги, а сохранить <strong>относительную долю</strong>, надо считать не \(W\), а:</p>
+    <div class="eqn solo"><div class="b">\(s = \dfrac{W}{Y}\)</div></div>
+    <p class="body">где:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(W\)</div><div class="d">богатство семьи;</div></div>
+      <div class="lr"><div class="s">\(Y\)</div><div class="d">общий мировой пирог.</div></div>
+    </div>
+    <p class="body">Тогда актив проходит в 2070 не тогда, когда он «растёт».</p>
+    <p class="body">Он проходит только если:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{d}{dt}\ln W_a \ge \dfrac{d}{dt}\ln Y\)</div></div>
+    <p class="body">То есть:</p>
+    <div class="eqn solo"><div class="b">\(g_a \ge g_Y\)</div></div>
+    <p class="body">В предельной форме:</p>
+    <div class="eqn solo"><div class="b">\(g_a = \beta_a g_Y + \gamma_a g_F - \mu_a - \kappa_a\)</div></div>
+    <p class="body">где:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(\beta_a\)</div><div class="d">насколько спрос на актив растёт вместе с богатством верхнего слоя;</div></div>
+      <div class="lr"><div class="s">\(\gamma_a\)</div><div class="d">насколько актив выигрывает от роста потоков;</div></div>
+      <div class="lr"><div class="s">\(g_F\)</div><div class="d">рост потоков: людей, данных, энергии, сделок, логистики, внимания;</div></div>
+      <div class="lr"><div class="s">\(\mu_a\)</div><div class="d">юридический / конфискационный / регуляторный риск;</div></div>
+      <div class="lr"><div class="s">\(\kappa_a\)</div><div class="d">издержки хранения, охраны, управления, деградации, вкусового старения.</div></div>
+    </div>
+    <p class="body">Условие сохранения доли:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a g_Y + \gamma_a g_F \ge g_Y + \mu_a + \kappa_a\)</div></div>
+    <p class="body">Отсюда важный вывод:</p>
+    <p class="body"><strong>статичная редкость недостаточна.</strong></p>
+    <p class="body">Нужно, чтобы редкость была либо:</p>
+    <p class="body">1. привязана к богатству верхнего слоя:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a \ge 1\)</div></div>
+    <p class="body">либо к растущим потокам:</p>
+    <div class="eqn solo"><div class="b">\(\gamma_a g_F \gg 0\)</div></div>
+    <p class="body">Именно поэтому <strong>горлышки</strong> математически сильнее многих «красивых редкостей».</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Мой настоящий ответ</h3>
+    <p class="body">Я бы сжал всю WL2070 до одной строки:</p>
+    <div class="spec result"><div class="stag"><b>СЖАТО</b> · одна строка</div><div class="core"><p class="f" style="font-size:clamp(20px,4vw,25px);">Покупай не вещи.<br>Покупай защищённые права на пределы мира.</p></div></div>
+    <div class="litany">Не на «мир».<br>Не на «производство».<br>Не на «технологии».<br>Не на «портфели».</div>
+    <p class="body">На <strong>пределы</strong>.</p>
+    <div class="litany">Предел времени.<br>Предел места.<br>Предел прохода.<br>Предел подлинности.<br>Предел закона.<br>Предел памяти рода.</div>
+    <p class="body">AGI расширяет почти всё внутри мира.<br>Но он не отменяет границу.</p>
+    <p class="body">А если что-то нельзя расширить, но весь мир начинает сильнее давить на эту границу, там появляется новая плотность богатства.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Самое точное название модели</h3>
+    <p class="body">Я бы назвал это не «модель редкостей».</p>
+    <p class="body">А:</p>
+    <p class="statement line">модель остаточных ограничений</p>
+    <p class="body">или сильнее:</p>
+    <p class="statement line">экономика нерасслабляемых границ</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">Самая короткая предельная формула</h3>
+    <div class="spec result"><div class="stag"><b>РЕЗУЛЬТАТ</b> · предельная формула</div><div class="core"><div class="mono" style="font-family:'IBM Plex Mono',monospace; color:var(--ink); line-height:1.9;"><div>\(\mathit{AGI}\uparrow \;\Rightarrow\; MC_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow \lambda_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow W \to \mathrm{Title}(\lambda_{\text{non-relaxable constraints}})\)</div></div></div></div>
+    <p class="body">По-русски:</p>
+    <p class="statement line">Когда производство стремится к бесконечности, богатством становится право на то, что производство не расширяет.</p>
+    <p class="body">Ещё короче:</p>
+    <p class="result-hero">Богатство = право на границу.</p>
+    <p class="result-hero" style="font-size:clamp(22px,4.4vw,28px); color:var(--ink);">Родовое богатство = право на границу, пережившее смену мира.</p>
+
+  </div>
+
+  <hr class="hairline" style="margin-top:44px;">
+  <aside class="disclaimer"><strong>ДИСКЛЕЙМЕР:</strong> Наш форсайт — это исследовательская гипотеза и карта вопросов. Не инвестиционная рекомендация, не оферта, не юридическая консультация. Деньги, право, наследование и юрисдикции требуют отдельной профессиональной проверки. Цель данной карты — поделиться результатами исследований и позвать в совместную работу: достроить теорему транзита, проверить модель на прочность. Если видите чем — напишите: <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a></aside>
+
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">→</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){ if(!bar)return; var h=document.documentElement; var m=(h.scrollHeight-h.clientHeight)||1; bar.style.width=(Math.min(1,h.scrollTop/m)*100)+'%'; }
+  if(bar){ window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll(); }
+  function render(){ var el=document.body;
+    if(el&&window.renderMathInElement){ try{ window.renderMathInElement(el,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false}); }catch(e){} }
+    else { setTimeout(render,90); } }
+  if(document.readyState!=='loading') render(); else document.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+<script>
+(function(){
+  window.navTo=function(id){ try{ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }catch(e){} };
+  document.querySelectorAll('.t[data-target]').forEach(function(t){
+    t.style.cursor='pointer';
+    t.addEventListener('click',function(){ navTo(t.getAttribute('data-target').replace('#','')); });
+  });
+})();
+</script>
+<style>
+/* fitty: фраза-доминанта влезает в одну строку на мобиле, центрирована */
+.fitline{ text-align:center; margin:1.1em 0 1.2em; }
+.fitline .pull{ margin:0; }
+.fit-phrase{ display:inline-block; }
+</style>
+<script src="../fitty.min.js"></script>
+<script>
+(function(){
+  var sel='.fit-phrase', inst=null;
+  function isMobile(){ return window.matchMedia('(max-width:600px)').matches; }
+  function enable(){ if(inst)return; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace='nowrap'; }); inst=fitty(sel,{minSize:11,maxSize:200}); }
+  function disable(){ if(!inst)return; (Array.isArray(inst)?inst:[inst]).forEach(function(i){ i.unsubscribe(); }); inst=null; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace=''; e.style.fontSize=''; }); }
+  function sync(){ isMobile()?enable():disable(); }
+  function go(){ sync(); window.addEventListener('resize',sync); }
+  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(go); } else { go(); }
+})();
+</script>
+</body>
+</html>

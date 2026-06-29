@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>استشراف الثروة في عصر الذكاء الاصطناعي العام · ⁨WL2070⁩</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-dim:#b65038; --seam:#d2c6b0;
+  --rule:#e4dccb; --hair:#ece4d5; --code-ink:#3a352d;
+  --inline-bg:rgba(143,50,33,.10); --inline-ink:#8f3221;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--bg); color:var(--ink); font-family:'Spectral',Georgia,serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:var(--bg); }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 38%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:50; transition:width .08s linear; }
+.toolbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:14px; padding:11px 22px;
+  backdrop-filter:blur(8px); background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--hair); }
+.toolbar .brand{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.toolbar .brand b{ color:var(--accent); font-weight:600; }
+.toolbar .sp{ margin-left:auto; }
+.tbtn{ font-family:'Golos Text',sans-serif; font-size:12.5px; color:var(--ink-soft); background:transparent;
+  border:1px solid var(--rule); border-radius:999px; padding:6px 14px; cursor:pointer; }
+.tbtn:hover{ border-color:var(--accent); color:var(--accent); }
+
+.page{ padding:34px 22px 120px; }
+.sheet{ max-width:852px; margin:0 auto; position:relative; padding-left:88px; }
+.sheet::before{ content:""; position:absolute; left:22px; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 7%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin:0 0 18px; }
+.hero h1{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(42px,7vw,60px); line-height:1.0; letter-spacing:-.01em; margin:0 0 16px; color:var(--ink); }
+.hero .sub{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(19px,3.4vw,22px); line-height:1.4; color:var(--muted); margin:0 0 26px; }
+.tags{ display:flex; flex-wrap:wrap; gap:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.tags .t{ display:inline-flex; align-items:center; gap:7px; }
+.tags .t::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--rule); }
+.tags .t.on{ color:var(--accent); } .tags .t.on::before{ background:var(--accent); }
+
+/* dividers */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:48px 0 38px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:34px 0; }
+.hr-double{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:54px 0 42px; }
+.hr-double::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.divider-narrow{ border:none; border-top:1px solid var(--rule); width:240px; margin:30px auto; }
+
+/* accordion */
+details.acc{ margin:0 0 24px; }
+details.acc > summary{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:11px; }
+details.acc > summary::-webkit-details-marker{ display:none; }
+.sum-lab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.14em; font-size:15px; font-weight:600; color:var(--accent); }
+.sum-hint{ font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--muted); }
+details.acc[open] .sum-hint::after{ content:" ▾"; } details.acc:not([open]) .sum-hint::after{ content:" ◂"; }
+.acc-body{ margin-top:16px; }
+
+/* text */
+p.lead{ font-weight:300; font-size:19.5px; line-height:1.72; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body{ font-size:18.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 1.05em; }
+p.body strong, p.lead strong, li strong{ color:var(--ink); font-weight:600; }
+p.kicker{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.13em; font-size:15px; font-weight:600; color:var(--accent); margin:1.7em 0 .55em; }
+p.kicker.ink{ color:var(--ink); }
+.center{ text-align:center; }
+
+h3.sub{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; line-height:1.2; margin:1.7em 0 .55em; color:var(--ink); position:relative; padding-left:22px; }
+h3.sub::before{ content:""; position:absolute; left:0; top:.62em; width:13px; height:1px; background:var(--accent); }
+
+/* section heads + rail code */
+h2.lh{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5vw,35px); line-height:1.12; margin:1.9em 0 .7em; color:var(--ink); position:relative; scroll-margin-top:24px; }
+h2.lh .n{ color:var(--accent); font-weight:500; }
+h2.lh::before{ content:""; position:absolute; left:-66px; top:.62em; width:16px; height:1px; background:var(--accent); }
+h2.lh .code{ position:absolute; left:-82px; top:.12em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+/* epigraph + vignette */
+.epigraph{ font-family:'Spectral',serif; font-style:italic; font-size:clamp(20px,3.6vw,23px); line-height:1.5; color:var(--ink-soft); border-left:1px solid var(--accent); padding-left:24px; margin:0 0 30px; }
+figure.vignette{ margin:0 0 1.5em; padding:16px 0 16px 24px; border-left:1px solid var(--seam); }
+figure.vignette p{ font-family:'Spectral',serif; font-style:italic; font-size:18px; line-height:1.62; color:var(--ink-soft); margin:0 0 1em; }
+figure.vignette p:last-child{ margin:0; }
+
+/* lists */
+ul.list{ margin:0 0 1.3em; padding-left:1.5em; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; }
+ul.list > li{ margin:0 0 .6em; position:relative; }
+ul.list > li::before{ content:""; position:absolute; left:-1.1em; top:.7em; width:9px; height:1px; background:var(--accent); }
+ol.list{ margin:0 0 1.4em; padding-left:0; font-size:18px; line-height:1.62; color:var(--ink-soft); list-style:none; counter-reset:li; }
+ol.list > li{ counter-increment:li; padding-left:2.4em; position:relative; margin:0 0 .6em; }
+ol.list > li::before{ content:counter(li,decimal-leading-zero); position:absolute; left:0; top:.12em; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--accent); }
+
+/* deflist */
+dl.kv{ display:grid; grid-template-columns:max-content 1fr; gap:13px 20px; margin:0 0 1.2em; font-size:17.5px; line-height:1.55; color:var(--ink-soft); }
+dl.kv dt{ font-family:'IBM Plex Mono',monospace; font-weight:600; white-space:nowrap; color:var(--accent); }
+dl.kv dd{ margin:0; }
+
+/* TOC */
+ol.toc{ list-style:none; margin:0 0 34px; padding:0; font-size:19px; line-height:1.9; }
+ol.toc a{ display:flex; gap:12px; color:var(--ink-soft); border-bottom:none; }
+ol.toc a:hover{ color:var(--ink); }
+ol.toc .num{ font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--accent); min-width:18px; }
+ol.toc .dot{ color:var(--muted); }
+ol.toc strong{ font-weight:600; }
+
+/* lay (run-in) */
+.lay{ margin:1.5em 0 1.1em; padding-left:28px; position:relative; }
+.lay::before{ content:""; position:absolute; left:0; top:.74em; width:14px; height:1px; background:var(--accent); }
+.lay .h{ font-family:'Cormorant',serif; font-weight:600; font-size:23px; color:var(--accent); margin:0 0 .2em; }
+.lay p{ margin:0; font-size:18px; line-height:1.66; color:var(--ink-soft); }
+.lay p.runin{ font-size:19px; color:var(--ink); margin:0 0 .35em; }
+.lay p.runin b{ color:var(--accent); font-weight:600; }
+.qlist{ list-style:none; margin:.2em 0 1.3em; padding:0; border-top:1px solid var(--seam); }
+.qlist li{ font-size:17.5px; line-height:1.6; color:var(--ink-soft); padding:13px 0; border-bottom:1px solid var(--hair); }
+.qlist li strong{ color:var(--accent); font-weight:600; }
+.cond{ border-left:2px solid var(--accent); padding:4px 0 4px 22px; margin:1.5em 0; font-size:18px; line-height:1.7; color:var(--ink-soft); }
+
+/* quartet — ruled */
+.quartet{ margin:24px 0; border-top:1px solid var(--seam); }
+.quartet .cap{ font-family:'IBM Plex Mono',monospace; font-size:17.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); padding:11px 0 0; }
+.quartet .row{ display:grid; grid-template-columns:150px 1fr; gap:22px; padding:14px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.quartet .w{ font-family:'Cormorant',serif; font-weight:600; font-size:20px; color:var(--accent); }
+.quartet .g{ font-size:16.5px; line-height:1.55; color:var(--ink-soft); }
+
+/* quartet — glyph grane */
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:18px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:32px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:18px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:10px 0 5px; }
+.glyphs .gl{ font-size:16px; color:var(--muted); line-height:1.4; }
+
+/* specimen */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:28px 0; }
+.spec .stag{ font-family:'IBM Plex Mono',monospace; font-size:17.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:12px 20px; border-bottom:1px solid var(--rule); display:flex; gap:10px; }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:18px 22px; }
+.spec .in p{ margin:0 0 .8em; font-size:18px; line-height:1.62; color:var(--ink-soft); }
+.spec .in p:last-child{ margin:0; }
+.spec .in p strong{ color:var(--ink); font-weight:600; }
+.spec .pre{ font-family:'IBM Plex Mono',monospace; white-space:pre-wrap; font-size:14px; line-height:1.8; color:var(--code-ink); padding:18px 22px; margin:0; }
+.spec .core{ text-align:center; padding:26px 18px; }
+.spec .core .f{ font-family:'Cormorant',serif; font-weight:700; font-size:clamp(22px,4.4vw,27px); color:var(--ink); margin:0 0 .3em; letter-spacing:.01em; }
+.spec .core .f .op{ color:var(--accent); }
+.spec .core .glo{ font-size:14.5px; color:var(--muted); } .spec .core .glo b{ color:var(--accent); font-weight:600; }
+.spec.result .core .f{ font-size:clamp(17.5px,3.7vw,22.5px); }
+
+/* code / chip */
+pre.code{ font-family:'IBM Plex Mono',monospace; background:var(--panel); border:1px solid var(--rule); border-radius:5px; padding:14px 17px; margin:15px 0; font-size:13.5px; line-height:1.75; white-space:pre; overflow-x:auto; -webkit-overflow-scrolling:touch; color:var(--code-ink); }
+pre.code::-webkit-scrollbar{ height:6px; }
+pre.code::-webkit-scrollbar-track{ background:transparent; }
+pre.code::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+code.inl{ font-family:'IBM Plex Mono',monospace; background:var(--inline-bg); color:var(--inline-ink); padding:1px 6px; border-radius:4px; font-size:.86em; white-space:nowrap; }
+.chip{ text-align:center; margin:16px 0; }
+.chip code{ display:inline-block; font-family:'IBM Plex Mono',monospace; background:var(--inline-bg);
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:6px; padding:9px 17px; font-size:15px; font-weight:600; color:var(--inline-ink); }
+
+/* notes */
+.note-quiet{ border-left:2px solid var(--seam); padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft); font-size:17.5px; line-height:1.6; margin:1.4em 0; }
+.footnote{ font-size:17px; line-height:1.6; color:var(--muted); margin:1.4em 0; }
+.footnote .star{ color:var(--accent); }
+.note-mono{ font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--accent-dim);
+  background:var(--inline-bg); border:1px dashed color-mix(in srgb,var(--accent) 45%,transparent); border-radius:3px; padding:7px 12px; margin:1.6em 0 .5em; display:inline-block; }
+sup.fn{ font-size:.66em; color:var(--accent); }
+
+/* ledger / litany / statement */
+.ledger{ margin:1.5em 0; }
+.ledger .r{ display:grid; grid-template-columns:max-content 1fr max-content; align-items:baseline; gap:12px; padding:11px 0; border-bottom:1px solid var(--hair); }
+.ledger .r .t{ font-family:'Spectral',serif; font-size:18px; color:var(--ink-soft); }
+.ledger .r .ldr{ border-bottom:1px dotted var(--seam); transform:translateY(-5px); }
+.ledger .r .z{ font-family:'IBM Plex Mono',monospace; font-size:20px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.litany{ font-family:'Spectral',serif; font-size:19px; line-height:1.85; margin:0 0 1.3em; color:var(--ink-soft); }
+.statement{ text-align:center; font-family:'Spectral',serif; font-size:19.5px; line-height:1.5; color:var(--ink); margin:18px auto; max-width:620px; }
+.statement.line{ padding:16px 0; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); }
+.pull{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(27px,5.4vw,35px); line-height:1.18; letter-spacing:.01em; margin:1.1em 0 1.2em; color:var(--accent); }
+.pull.ink{ color:var(--ink); }
+.result-hero{ text-align:center; font-family:'Cormorant',serif; font-weight:600; font-size:clamp(28px,5.6vw,38px); color:var(--accent); line-height:1.15; margin:1.3em 0; }
+
+/* stratigraph table */
+.strat{ display:grid; grid-template-columns:max-content max-content 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:0 0 1.5em; }
+.strat > div{ background:var(--panel); padding:12px 16px; font-size:16.5px; line-height:1.4; }
+.strat .k{ font-weight:600; color:var(--ink); white-space:nowrap; }
+.strat .t{ font-family:'IBM Plex Mono',monospace; font-size:16px; color:var(--accent); white-space:nowrap; }
+.strat .v{ color:var(--ink-soft); }
+
+/* step plate */
+h3.step{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.3; margin:1.8em 0 1em; padding:12px 18px; border-left:4px solid var(--accent); background:var(--panel-2); color:var(--ink); border-radius:0 2px 2px 0; }
+h3.step span{ font-size:.8em; font-weight:600; color:var(--muted); }
+
+/* three-formula summary */
+.summary{ border:1px solid var(--rule); border-radius:5px; background:var(--panel); margin:18px 0; }
+.summary .row{ display:flex; gap:18px; align-items:baseline; padding:18px 24px; border-bottom:1px solid var(--rule); }
+.summary .row:last-child{ border-bottom:none; }
+.summary .ix{ font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; color:var(--accent); flex:none; }
+.summary .frm{ font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink); line-height:1.4; }
+.summary .gl{ font-size:16px; line-height:1.45; color:var(--muted); margin-top:7px; }
+
+/* math apparatus */
+.eqn{ display:grid; grid-template-columns:1fr max-content; align-items:center; gap:18px; margin:14px 0; }
+.eqn .b{ text-align:center; font-size:17px; color:var(--ink); }
+.eqn .no{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); }
+.eqn.solo{ grid-template-columns:1fr; }
+.legend{ margin:14px 0 20px; border-left:1px solid var(--seam); padding-left:18px; }
+.legend .lr{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:baseline; padding:5px 0; }
+.legend .lr .s{ text-align:center; color:var(--ink); }
+.legend .lr .d{ font-size:17px; line-height:1.5; color:var(--ink-soft); }
+
+/* team register */
+.team-tag{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:15px; font-weight:600; color:var(--accent); margin:0 0 3px; }
+h2.team{ font-family:'Cormorant',serif; font-weight:600; font-size:clamp(26px,5vw,31px); line-height:1.15; margin:0 0 .3em; color:var(--ink); scroll-margin-top:24px; }
+.team-char{ font-family:'Spectral',serif; font-style:italic; font-size:17.5px; color:var(--muted); margin:0 0 1.4em; }
+h3.mh{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; margin:1.7em 0 .55em; color:var(--ink); }
+h4.mh4{ font-family:'Cormorant',serif; font-weight:600; font-size:19px; margin:1.5em 0 .5em; color:var(--ink); }
+.label-c{ text-align:center; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--muted); margin:34px 0 16px; letter-spacing:.04em; }
+.links-team{ display:grid; gap:14px; font-size:19px; margin:0 0 1.2em; }
+.links-team p{ margin:0; }
+.links-team a{ color:var(--ink-soft); border-bottom:none; }
+.links-team a:hover{ color:var(--ink); }
+.links-team b{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px; letter-spacing:.04em; color:var(--accent); }
+
+/* catalog (registry) */
+.catalog{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; padding:24px 26px; margin:16px 0 0; }
+.catalog .rlab{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; font-size:13.5px; font-weight:600; color:var(--accent); margin:0 0 6px; }
+.catalog h4{ font-family:'Cormorant',serif; font-weight:600; font-size:21px; line-height:1.15; margin:0 0 6px; color:var(--ink); }
+.catalog .rsub{ font-size:16px; line-height:1.5; color:var(--muted); margin:0 0 20px; }
+.cat-cols{ column-count:2; column-gap:36px; }
+.cat-g{ break-inside:avoid; margin:0 0 17px; }
+.cat-g .h{ font-weight:600; font-size:16px; line-height:1.32; color:var(--ink); margin:0 0 5px; }
+.cat-g .h .L{ font-family:'IBM Plex Mono',monospace; color:var(--accent); }
+.cat-g .h .reg{ font-weight:400; color:var(--muted); }
+.cat-g .it{ font-size:16px; line-height:1.55; color:var(--ink-soft); }
+.cat-g .it div{ margin:2.5px 0; }
+.cat-g .it strong{ color:var(--ink); font-weight:600; }
+.cat-g .it .gh2{ font-weight:600; color:var(--ink); margin:6px 0 3px; }
+.rfoot{ font-size:16px; line-height:1.55; font-style:italic; color:var(--muted); margin:8px 0 0; padding-top:16px; border-top:1px solid var(--rule); }
+
+/* disclaimer + foot */
+.disclaimer{ background:var(--panel); border:1px solid var(--rule); border-radius:3px; padding:20px 24px; margin:0 0 22px; font-size:17.5px; line-height:1.6; color:var(--ink-soft); }
+.disclaimer strong{ color:var(--ink); font-weight:600; }
+.foot{ font-size:16px; line-height:1.5; color:var(--muted); }
+.foot .fm{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-dim); }
+
+/* responsive */
+@media(max-width:760px){
+  .page{ padding:24px 18px 90px; }
+  .sheet{ padding-left:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .quartet .row{ grid-template-columns:1fr; gap:4px; }
+  .glyphs{ grid-template-columns:repeat(2,1fr); }
+  .cat-cols{ column-count:1; }
+  .strat{ grid-template-columns:max-content max-content max-content; width:max-content; min-width:100%; }
+  .summary .row{ flex-direction:column; gap:6px; }
+  .eqn{ grid-template-columns:1fr; gap:4px; } .eqn .no{ justify-self:end; }
+  .toolbar{ padding:10px 16px; }
+}
+
+/* print */
+@media print{
+  :root{ --bg:#fff; --ink:#1a1a1a; --ink-soft:#222; --muted:#666; --accent:#7a5a12;
+    --panel:#fff; --panel-2:#fff; --rule:#ccc; --hair:#ddd; --seam:#bbb; --code-ink:#222;
+    --inline-bg:#f3eedf; --inline-ink:#7a5a12; }
+  .toolbar,.progress{ display:none !important; }
+  body{ background:#fff; }
+  .page{ padding:0; } .sheet{ max-width:none; padding-left:0; }
+  .sheet::before,h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .spec,.summary,.catalog,pre,figure,.strat,.glyphs{ break-inside:avoid; }
+  h2,h3{ break-after:avoid; }
+}
+.note-bar{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--bg); }
+.note-bar b{ color:var(--accent); }
+.forwhom{ margin:0 0 24px; }
+h3.mh{ font-size:24px; }
+h4.mh4{ font-size:21px; }
+.glyphs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:2px; overflow:hidden; margin:22px 0; }
+.glyphs > div{ background:var(--panel); padding:16px 12px; text-align:center; }
+.glyphs .gy{ font-family:'Cormorant',serif; font-weight:600; font-size:30px; color:var(--accent); line-height:1; }
+.glyphs .lb{ font-family:'IBM Plex Mono',monospace; font-size:18px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:9px 0 5px; }
+.glyphs .gl{ font-size:16px; color:var(--muted); line-height:1.4; }
+@media (max-width:640px){ .glyphs{ grid-template-columns:repeat(2,1fr); } }
+
+/* ============================================================
+   RTL LAYER · Arabic adaptation of the canon
+   Arabic fonts: Amiri (serif body) + IBM Plex Sans Arabic (mono-like labels/eyebrow/kicker)
+   Latin/Cyrillic font stacks are preserved and Arabic faces appended for per-glyph fallback.
+   ============================================================ */
+
+:root{ --ar-serif:'Amiri'; --ar-sans:'Amiri'; }
+
+/* --- Arabic-aware font stacks: serif body uses Amiri; mono-like labels use Plex Sans Arabic --- */
+body{ font-family:'Spectral',var(--ar-serif),Georgia,serif; }
+p.lead,p.body,.epigraph,figure.vignette p,ul.list,ol.list,dl.kv,ol.toc,
+.lay p,.qlist li,.cond,.quartet .g,.spec .in p,.note-quiet,.footnote,
+.litany,.statement,.team-char,.disclaimer,.foot,.strat > div,.cat-g .it,
+.catalog .rsub,.rfoot,.legend .lr .d,.ledger .r .t,.summary .gl,.glyphs .gl,
+.note-bar,.links-team{ font-family:'Spectral',var(--ar-serif),Georgia,serif; }
+
+h1,h2.lh,h3.sub,h2.team,h3.mh,h4.mh4,h3.step,.lay .h,.pull,.result-hero,
+.quartet .w,.spec .core .f,.catalog h4,.cat-g .h,.glyphs .gy{
+  font-family:'Cormorant',var(--ar-serif),serif; }
+
+.eyebrow,.kicker,p.kicker,.sum-lab,.sum-hint,.toolbar .brand,.tags,.team-tag,
+.label-c,.rlab,.note-mono,.quartet .cap,.spec .stag,.glyphs .lb,.strat .t,
+.ledger .r .z,.summary .ix,.dl-mono,dl.kv dt,ol.list > li::before,ol.toc .num,
+.eqn .no,.links-team b,.cat-g .h .L{
+  font-family:'IBM Plex Mono',var(--ar-sans),monospace; }
+
+/* code blocks stay mono (latin formulas live here) */
+pre.code,code.inl,.chip code,.summary .frm,.spec .pre,.spec .core .mono{
+  font-family:'IBM Plex Mono',var(--ar-sans),monospace; }
+
+/* --- vertical rail: move from left to right --- */
+.sheet{ padding-left:0; padding-right:88px; }
+.sheet::before{ left:auto; right:22px; }
+
+/* --- hero / heads absolute marks: flip to the right --- */
+.toolbar .sp{ margin-left:0; margin-right:auto; }
+
+h3.sub{ padding-left:0; padding-right:22px; }
+h3.sub::before{ left:auto; right:0; }
+
+h2.lh::before{ left:auto; right:-66px; }
+h2.lh .code{ left:auto; right:-82px; }
+
+.lay{ padding-left:0; padding-right:28px; }
+.lay::before{ left:auto; right:0; }
+
+ul.list{ padding-left:0; padding-right:1.5em; }
+ul.list > li::before{ left:auto; right:-1.1em; }
+ol.list > li{ padding-left:0; padding-right:2.4em; }
+ol.list > li::before{ left:auto; right:0; }
+
+/* --- epigraph / vignette / notes: accent border to the right --- */
+.epigraph{ border-left:none; border-right:1px solid var(--accent); padding-left:0; padding-right:24px; }
+figure.vignette{ border-left:none; border-right:1px solid var(--seam); padding:16px 24px 16px 0; }
+.cond{ border-left:none; border-right:2px solid var(--accent); padding:4px 22px 4px 0; }
+.note-quiet{ border-left:none; border-right:2px solid var(--seam); padding:2px 20px 2px 0; }
+.legend{ border-left:none; border-right:1px solid var(--seam); padding-left:0; padding-right:18px; }
+
+/* --- step plate: thick accent bar to the right --- */
+h3.step{ border-left:none; border-right:4px solid var(--accent); border-radius:2px 0 0 2px; }
+
+/* --- text alignment: default right; mono labels with .04em tracking read fine --- */
+.note-mono{ }
+
+/* --- deflist grid: keys on the right --- */
+/* keys (dt, short) take their natural width on the right; values (dd, long) get the
+   flexible 1fr track and wrap. min-width:0 lets the dd track actually shrink (grid items
+   default to min-width:auto), so long Arabic dd no longer blows the grid past .sheet. */
+dl.kv{ grid-template-columns:max-content minmax(0,1fr); }
+dl.kv dt{ order:0; white-space:normal; overflow-wrap:anywhere; }
+dl.kv dd{ min-width:0; overflow-wrap:anywhere; }
+
+/* --- stratigraph: reverse column order (k | t | v  ->  v | t | k visually) --- */
+.strat{ grid-template-columns:1fr max-content max-content; }
+.strat .k{ order:3; } .strat .t{ order:2; } .strat .v{ order:1; }
+
+/* --- ledger row: term | leader | tag  -> mirror so tag sits at the left edge --- */
+.ledger .r{ grid-template-columns:max-content 1fr max-content; }
+
+/* ============================================================
+   ЗАМОРОЖЕНО ПО ТРЕБОВАНИЮ КАПИТАНА — НЕ ТРОГАТЬ НИКОГДА.
+   Блок .summary (формулы 1/2/3) выверен вручную. Любые правки запрещены.
+   DO NOT TOUCH — approved final, no edits under any circumstances.
+   ============================================================ */
+.summary .row{ display:flex; flex-direction:row; align-items:baseline; gap:14px; text-align:right; }
+.summary .ix{ flex:0 0 auto; order:0; }
+.summary .row > div{ flex:1 1 auto; min-width:0; order:1; text-align:right; }
+.summary .frm{ display:block; width:100%; direction:ltr; text-align:right; }
+.summary .gl{ display:block; width:100%; text-align:right; }
+
+/* --- legend lr: symbol cell pinned to the right (RTL start), explanation
+   beside it to the left — compact pair, no stretching track, no hole.
+   Source order is .s then .d; in RTL grid auto-places .s in the first
+   (right) column and .d in the second, so NO order swap is needed.
+   justify-content:start packs both max-content tracks to the inline-start
+   (= right edge in RTL); justify-content:end would push them to the LEFT
+   and reopen the gap. --- */
+.legend .lr{ grid-template-columns:max-content minmax(0,1fr); justify-content:start; }
+.legend .lr .s{ order:0; min-width:1.6em; } .legend .lr .d{ order:0; }
+
+/* --- eqn: number on the left, body on the right --- */
+.eqn{ grid-template-columns:max-content 1fr; }
+.eqn .b{ order:2; } .eqn .no{ order:1; }
+/* solo eqn has no number cell: keep a single centred column so the
+   max-content track above cannot leave an empty gapped strip at the
+   start (left) edge in RTL */
+.eqn.solo{ grid-template-columns:1fr; gap:0; }
+.eqn.solo .b{ order:0; }
+
+/* --- TOC anchor: number stays first (right) --- */
+
+/* --- catalog L-letter chip: keep tight --- */
+
+/* --- KaTeX islands stay LTR (KaTeX renders its own LTR boxes; force isolation) --- */
+.katex, .katex-display{ direction:ltr; unicode-bidi:isolate; text-align:center; }
+
+/* --- generic LTR island helper --- */
+.ltr{ direction:ltr; unicode-bidi:isolate; }
+bdi{ unicode-bidi:isolate; }
+
+/* --- pre/code: формула читается LTR, но блок прижат ВПРАВО (норма RTL: W3C) --- */
+pre.code{ direction:ltr; unicode-bidi:isolate; text-align:right; }
+/* арабские pre-блоки (списки с тире) — полностью правосторонние */
+pre.code.rtl{ direction:rtl; unicode-bidi:isolate; text-align:right; }
+/* F4 · инлайн-код изолируем как атом (запас прочности к будущим правкам) */
+code.inl{ direction:ltr; unicode-bidi:isolate; }
+
+/* --- mobile: rail off, padding reset on the right --- */
+@media(max-width:760px){
+  .sheet{ padding-right:0; }
+  .strat{ grid-template-columns:max-content max-content max-content; width:max-content; min-width:100%; }
+  /* summary stacks: drop the fixed index column so number sits above formula */
+  .summary .ix{ flex:none; text-align:right; }
+}
+@media print{
+  .sheet{ padding-right:0; }
+}
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(-3px); }
+/* гориз. скролл для таблиц вне .spec (стратиграф) */
+.scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.scrollx::-webkit-scrollbar{ height:6px; }
+.scrollx::-webkit-scrollbar-track{ background:transparent; }
+.scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+
+/* П.5 · только chip-код (длинная строка) — гориз. скролл на узком экране.
+   .eqn / .spec .core НЕ скроллим (давало артефакт-полоску слева в RTL Safari) */
+.chip{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.chip code{ white-space:nowrap; }
+.chip::-webkit-scrollbar{ height:6px; }
+.chip::-webkit-scrollbar-track{ background:transparent; }
+.chip::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+
+/* ════ F3 · нейтрализация letter-spacing на арабской вязи (курсивное соединение) ════
+   Трекинг рвёт соединение арабских букв (W3C ALReq). Латинские/моно-лейблы,
+   где трекинг уместен, сюда НЕ входят. Меняется только межбуквенный интервал — текст не трогается. */
+.sum-lab, p.kicker, .team-tag, .catalog .rlab, .quartet .cap,
+.glyphs .lb, .ledger .r .z, .label-c, h2.lh .code{ letter-spacing:0; }
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="اللغة">
+      <a href="../en/foresight.html">EN</a><a href="../ru/foresight.html">RU</a><a href="../ar/foresight.html" class="on" aria-current="true">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">wealthleap2070.io</p>
+    <h1>استشراف الثروة <bdi>2070</bdi></h1>
+    <p class="sub">رسم خريطة العبور عبر بوابة التفرّد</p>
+    <div class="tags"><span class="t on" data-target="#wl2070">WL2070</span><span class="t" data-target="#mathmodel">math.model</span></div>
+  </header>
+
+  <hr class="seam">
+
+  <div class="forwhom">
+    <p class="sum-lab">لمن هذه الخريطة</p>
+    <div class="acc-body">
+      <p class="body">لأصحاب رؤوس الأموال والعائلات المالكة — أولئك الذين يقرّرون مصير الثروة الشخصية والعائلية على أفق أجيال. ولمن يقف إلى جانبهم: كبار مسؤولي الاستثمار في المكاتب العائلية <bdi>(family-office CIOs)</bdi>، والمحامين المتخصصين في الهيكلة، ومحلّلي الاستشراف — الذين مهمّتهم أن يروا أبعد من التقرير الفصلي. إن لم تجد نفسك هنا، أغلق الخريطة دون أسف. وإن كنت تعرف من يناسبه هذا — أوصِله إليهم. أو ألقِ نظرة على السجل أدناه: هذا هو الجمهور الذي عُوير عليه النموذج الرياضي في نهاية الوثيقة.</p>
+
+      <details class="acc">
+        <summary><span class="sum-lab">سجل الجمهور المستهدف</span><span class="sum-hint">قابل للتوسيع</span></summary>
+        <div class="catalog">
+          <p class="rlab">كتلة اختيارية · سجل السوق</p>
+          <h4>من هو جمهور هذه الخريطة — سجل السوق</h4>
+          <p class="rsub">سوق رأس المال ومحيط خدماته الذي يخاطبه الاستشراف.</p>
+          <div class="cat-cols">
+
+            <div class="cat-g"><div class="h"><span class="L">A ·</span> بنوك خاصة — أبطال إقليميون <span class="reg">(سنغافورة / هونغ كونغ)</span></div>
+              <div class="it">
+                <div><strong>DBS Private Bank</strong> (SG) — أكبر بنك خاص محلي؛ منصّة PATH (أصول خاصة UHNW)</div>
+                <div><strong>Bank of Singapore</strong> (OCBC, SG) — Family Office Catalyst</div>
+                <div><strong>UOB Private Bank</strong> (SG) — تركيز UHNW جنوب شرق آسيا؛ برامج NextGen</div>
+                <div><strong>Standard Chartered PB</strong> (SG/HK) — حفظ Zodia؛ كريبتو فوري للمؤسسات</div>
+                <div><strong>HSBC Global Private Banking</strong> (HK/SG) — ودائع مرمّزة؛ Global FO Report</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">B ·</span> بنوك خاصة — بوتيكات سويسرية <span class="reg">(آسيا)</span></div>
+              <div class="it">
+                <div><strong>Julius Baer</strong> (SG/HK) — Global Wealth &amp; Lifestyle Report</div>
+                <div><strong>LGT Private Banking</strong> (SG/HK) — بنك الأسرة الأميرية الليختنشتاينية؛ #1 عالميًّا في خدمات FO</div>
+                <div><strong>UBP — Union Bancaire Privée</strong> (HK/SG) — +90 استراتيجية تحوّط، رائد بدائل</div>
+                <div><strong>Lombard Odier</strong> (SG + شراكة TH) — «Rethink Everything»؛ معهد NextGen</div>
+                <div><strong>VP Bank</strong> (SG) — منصّة لمديرين مستقلّين وFOs</div>
+                <div><strong>Pictet Wealth Management</strong> (SG/HK) — أبحاث الاتجاهات الكبرى؛ منتديات NextGen</div>
+                <div><strong>EFG Bank</strong> (SG/HK) — «تفكير ريادي»؛ صناديق بدائل New Capital</div>
+                <div><strong>Indosuez Wealth</strong> (Crédit Agricole) — عائلات ثروة قديمة في جنوب شرق آسيا؛ استشارات فنية</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">C ·</span> مكاتب عائلية متعددة وبوتيكات <span class="reg">(SG / HK)</span></div>
+              <div class="it">
+                <div><strong>Raffles Family Office</strong> (HK/SG) — أبرز MFO آسيوي</div>
+                <div><strong>Carret Private Capital</strong> (HK) — MFO + فينتك (Endowus)</div>
+                <div><strong>Lighthouse Canton</strong> (SG + UAE, India) — بدائل + دَين خاص</div>
+                <div><strong>Golden Equator Wealth</strong> (SG) — روّاد تقنية الجيل الجديد؛ نادي VC</div>
+                <div><strong>Taurus Wealth Advisors</strong> (SG/Dubai) — محايد، متعدّد الولايات القضائية</div>
+                <div><strong>Prime Asia Asset Management</strong> (SG) — استشارات FO (استثمار + ضرائب + حوكمة)</div>
+                <div><strong>Analog Capital</strong> (SG) — «بِيد روّاد آسيا الجدد ولأجلهم»</div>
+                <div><strong>Kamet Capital Partners</strong> (SG) — رائد سوق MFO في سنغافورة؛ كمّي/بيانات</div>
+                <div><strong>Rockstead Capital</strong> (SG) — أصول حقيقية + ائتمان خاص؛ ترميز عقاري</div>
+                <div><strong>DL Family Office</strong> (DL Holdings, HKEX:1709) — شركة مُدرجة؛ مبادرة AI FO</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">D ·</span> لاعبون محليون — أسواق جنوب شرق آسيا «الصاعدة»</div>
+              <div class="it">
+                <div><strong>SCB Julius Baer</strong> (Bangkok) — مشروع مشترك Siam Commercial Bank × Julius Baer</div>
+                <div><strong>KBank Private Banking</strong> (Kasikornbank, TH) — الرائد التايلندي؛ شريك Lombard Odier</div>
+                <div><strong>Blueprint Forest</strong> (Bangkok) — مكتب استثمار عائلي؛ استثمارات DeFi</div>
+                <div><strong>Maybank Private Wealth</strong> (MY/SG) — أكبر بنك ماليزي</div>
+                <div><strong>CIMB Private Banking</strong> (MY) — ثاني أكبر بنك ماليزي</div>
+                <div><strong>BPI Wealth Family Office</strong> (Philippines) — أول MFO فلبيني</div>
+                <div><strong>BDO Private Bank</strong> (Philippines) — البنك الخاص الوحيد المرخّص منفصلًا</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">E ·</span> وحدات استشراف وبحث</div>
+              <div class="it">
+                <div class="gh2">بنوك — بحث / ريادة فكرية:</div>
+                <div><strong>DBS Asian Insights</strong> — مؤتمر Asian Insights</div>
+                <div><strong>Bank of Singapore — CIO Office</strong> — سلسلة «Brilliant Minds»</div>
+                <div><strong>Standard Chartered Global Research + SC Ventures</strong> — بحث الأصول الرقمية</div>
+                <div><strong>BNP Paribas L'Atelier</strong> — وحدة استشراف مؤسسي (استشراف كمّي)</div>
+                <div><strong>Julius Baer — Next Generation Research</strong> — اتجاهات بنيوية</div>
+                <div><strong>ANZ Institutional Research</strong> — سيناريوهات آسيوية طويلة الأفق</div>
+                <div class="gh2">معاهد تحليلية:</div>
+                <div><strong>Franklin Templeton Institute</strong> — مركز بحث الأصول الرقمية</div>
+                <div><strong>Thinking Ahead Institute (WTW)</strong> — استشراف بعضوية، Investment Industry in 2030</div>
+                <div><strong>Northern Trust Institute</strong> — رعاية + رأس مال هادف للمكاتب العائلية</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">F ·</span> منتديات وجمعيات</div>
+              <div class="it">
+                <div class="gh2">آسيا / جنوب شرق آسيا:</div>
+                <div><strong>WMI Global-Asia Family Office Summit</strong> (SG, MAS/EDB) — ~600 مشارك</div>
+                <div><strong>Caproasia Family Office Summit</strong> (HK/SG) — بدعوة فقط</div>
+                <div><strong>AFO — Association of Family Offices in Asia</strong> (HK)</div>
+                <div><strong>Prestel &amp; Partner FO Forums</strong> (Asia/MENA)</div>
+                <div><strong>Campden Wealth — Asia Pacific FO Forum</strong> (HK/SG)</div>
+                <div><strong>Connect Group — World Family Office Forum</strong> (HK + Montreux)</div>
+                <div class="gh2">الشرق الأوسط / MENA:</div>
+                <div><strong>Alea Global — ME Family Office Summit</strong> (Dubai)</div>
+                <div><strong>Emirates Family Office Association — EFOA + ADFW</strong> (Abu Dhabi, ADGM)</div>
+                <div><strong>Abu Dhabi Family Office Summit — ADFO</strong> (Investopia)</div>
+                <div><strong>Dubai Family Office Investment Summit</strong> — Epicon Capital Club</div>
+                <div class="gh2">أوروبا / أوفشور:</div>
+                <div><strong>Campden Wealth — Global FO &amp; Owners Congress</strong></div>
+                <div><strong>Family Business Network — FBN International</strong></div>
+                <div><strong>Global Partnership Family Office — GPFO</strong> (London)</div>
+                <div><strong>DC Finance — London FO &amp; HNW Conference</strong></div>
+                <div><strong>Cambridge Forums — EFOF</strong> (Milan)</div>
+                <div class="gh2">نوادٍ وشبكات عالمية:</div>
+                <div><strong>Tiger 21</strong> (NY/London/Zürich/SG) — ~1,000 عضو UHNW</div>
+                <div><strong>Campden IPI — Institute for Private Investors</strong> (عتبة $30M)</div>
+                <div><strong>Family Office Exchange — FOX</strong> (Chicago, عتبة $100M+)</div>
+                <div><strong>SFO Alliance</strong> — مكاتب عائلية فردية فقط، AUM $400M+</div>
+                <div><strong>NEXUS Global Summit</strong> — محسنون ومستثمرو أثر من الجيل الجديد</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">G ·</span> شركاء الولاية القضائية / مراكز مالية دولية</div>
+              <div class="it">
+                <div><strong>سنغافورة</strong> (MAS/EDB) — 59% من FOs آسيا؛ أنظمة 13O/13U</div>
+                <div><strong>DIFC / DFSA</strong> (Dubai) — ترخيص Family Office؛ Family Wealth Centre</div>
+                <div><strong>ADGM</strong> (Abu Dhabi) — SPV / أغلفة قانونية</div>
+                <div><strong>Labuan</strong> (Malaysia) — عتبة FO ~$2.1M</div>
+                <div><strong>QFC</strong> (Qatar) · <strong>RAKEZ / DMCC</strong> (UAE) — تجمّعات وأغلفة قانونية</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">H ·</span> إعلام وتوزيع</div>
+              <div class="it">
+                <div><strong>WealthBriefingAsia</strong> — جوائز WBA؛ قسم Family Office</div>
+                <div><strong>Hubbis</strong> (Asia WM/PB) — فعاليات مخصّصة</div>
+                <div><strong>Asian Private Banker</strong> — أكبر هيئة تحرير PB آسيوية</div>
+                <div><strong>Campden Wealth Research &amp; Media</strong></div>
+                <div><strong>Spear's / Citywealth</strong> — تغطية IFC / UHNW</div>
+                <div><strong>Henley &amp; Partners · Hurun</strong> — بيانات UHNW، هجرة رؤوس الأموال</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">J ·</span> الصين</div>
+              <div class="it">
+                <div><strong>CMB Private Banking</strong> (China Merchants Bank) — الرائد في البرّ الرئيسي</div>
+                <div><strong>Ping An Private Banking</strong></div>
+                <div><strong>CICC Wealth Management</strong> — مدفوع بالبحث، من أكثر المُستشهَد بها في الصين</div>
+                <div><strong>Noah Holdings</strong> — MFO مستقل (مُدرج في NYSE/HK)</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">K ·</span> اليابان</div>
+              <div class="it">
+                <div><strong>Nomura — Wealth Management</strong> + <strong>Nomura Research Institute (NRI)</strong> — المرجعية لتقديرات HNW/UHNW</div>
+                <div><strong>Daiwa Securities — Wealth Management</strong></div>
+                <div><strong>MUFG × Morgan Stanley</strong> — تحالف أصول خاصة / عقارات / بنية تحتية</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">L ·</span> كوريا</div>
+              <div class="it">
+                <div><strong>Mirae Asset</strong> — الأكثر عالمية</div>
+                <div><strong>Samsung Securities · KB · Shinhan · Hana</strong> — مكاتب FO وسيطة</div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">M ·</span> الهند</div>
+              <div class="it">
+                <div><strong>360 ONE WAM</strong> (ex-IIFL Wealth) — أكبر منصّة محلية</div>
+                <div><strong>Nuvama · Kotak · Waterfield Advisors · Client Associates · ASK · Anand Rathi</strong></div>
+                <div>مكاتب عائلية هندية فردية: <strong>Premji Invest</strong>، <strong>Catamaran</strong> (Murthy)، <strong>RPSG</strong></div>
+              </div></div>
+
+            <div class="cat-g"><div class="h"><span class="L">I ·</span> نقاط وصول مجاورة / نمط حياة UHNW</div>
+              <div class="it">
+                <div><strong>Camper &amp; Nicholsons Marinas</strong> · Suntex Marinas (US) · MDL Marinas (UK) — بنية تحتية لليخوت</div>
+                <div><strong>Monaco Yacht Show</strong> · Cannes Yachting Festival — فعاليات يخوت</div>
+                <div><strong>Art Basel</strong> · Artory / Arcual — مصدر وفعاليات فنية</div>
+                <div><strong>DMCC</strong> (Dubai: ألماس/ذهب/شاي) · Ogier / Walkers / Harneys — مكاتب محاماة أوفشور</div>
+                <div><strong>WestWater Research / Waterfind</strong> — تداول حقوق المياه</div>
+                <div><strong>IATA Slot Conference · ACI World</strong> — طيران (طائرات خاصة / فتحات)</div>
+                <div><strong>Toniic · The Conduit</strong> — مستثمرو أثر</div>
+              </div></div>
+
+          </div>
+          <p class="rfoot">إن تعرّفت على نفسك أو على من تعمل معهم — فهذه الخريطة كُتبت لك. وإن لم تتعرّف — فلست الجمهور الأول، لكن المنظر من هذه الزاوية يستحق القراءة.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="hr-double"></div>
+
+  <h2 class="lh" id="wl2070" style="font-size:clamp(34px,6vw,44px); margin-top:.2em;"><span class="code">M·0 المتن</span>WL2070</h2>
+
+  <ol class="toc">
+    <li><a onclick="navTo('s1')" style="cursor:pointer"><span class="num">1</span><span class="dot">·</span><strong>السؤال البديهي: لماذا 2070؟</strong></a></li>
+    <li><a onclick="navTo('s2')" style="cursor:pointer"><span class="num">2</span><span class="dot">·</span><strong>المنهج: قفزة إلى ارتفاع مستحيل</strong></a></li>
+    <li><a onclick="navTo('s3')" style="cursor:pointer"><span class="num">3</span><span class="dot">·</span><strong>الآلات ستفعل كل شيء. ماذا بعدها؟</strong></a></li>
+    <li><a onclick="navTo('s4')" style="cursor:pointer"><span class="num">4</span><span class="dot">·</span><strong>التجربة: «حقيبة إلى المستقبل»</strong></a></li>
+    <li><a onclick="navTo('s5')" style="cursor:pointer"><span class="num">5</span><span class="dot">·</span><strong>الصيغة المكتملة والنموذج الرياضي</strong></a></li>
+  </ol>
+
+  <blockquote class="epigraph">الثروة مادة، يجب تصليبها في صيغة وتمريرها عبر البوابة. البوابة لا تمرّر إلا الصيغة المكتملة.</blockquote>
+
+  <h2 class="lh" id="s1"><span class="code">S·01 الوسط</span><span class="n">1 ·</span> السؤال البديهي: لماذا 2070؟</h2>
+  <p class="body">التاريخ نفسه اعتباطي. كان يمكن أن يكون <bdi>2073</bdi> أو <bdi>2077</bdi>. لكن المنهج دقيق دقّة هندسية. التفرّد ليس حدثًا واحدًا. إنه نظام يتسارع فيه تكاثف الأحداث دون نقطة وصول ثابتة. لأغراض هذا الاستشراف اخترنا الصورة المفتاحية: بوابة <bdi>AGI</bdi>. شكل البوابة ممرّ. خاصيّتها الفطرية: تسارع متتالٍ للتقنيات والاقتصادات والنزاعات والموجات الارتدادية التالية لها.</p>
+  <p class="body">بقدر ما نتقدّم عبر البوابة، لا بدّ أن تتغيّر قوانين الحضارة التي صمدت آلاف السنين. لكن ليس في كل مكان، ولا لكل أحد، ولا دفعة واحدة. الحضارة ككلّ شديدة القصور الذاتي. وحامل هذا القصور هو الديناميكا الجيلية. من المعقول الافتراض أن «يَرَقة الحضارة» الكوكبية ستزحف عبر البوابة لجيلين على الأقل — تلك الأربعين إلى الخمسين سنة ذاتها. من الأجداد إلى الأحفاد.</p>
+  <aside class="note-quiet">الفرضية المؤسِّسة: تغفو — خمسة عشر أو خمسًا وعشرين أو خمسًا وأربعين سنة. وأثناء نومك تجري أعمق التحوّلات في التاريخ المدوَّن. السؤال عند الاستيقاظ ليس «كم مضى من الوقت» — السؤال هو «ما الذي لا يزال لي هنا». تقليل الغموض الاستراتيجي لهذا الجواب هو مهمّة الاستشراف. ونقترح حلّه من الطرف البعيد: العام 2070.</aside>
+  <h3 class="sub">من أين نبدأ؟</h3>
+  <p class="body">بالتصميم الأصلي، استشرافنا هو القطب المقابل — ردّ على مقالة سام ألتمان عام 2021 وأطروحتها المركزية: إذا فجّرت الروبوتات المدفوعة بالذكاء الاصطناعي العام الإنتاجية، فإن كل ما هو قابل للاستنساخ يرخص بلا هوادة وبتسارع متزايد. قانون مور لكل شيء: <a href="https://moores.samaltman.com"><bdi>moores.samaltman.com</bdi></a>.</p>
+  <p class="body">ألتمان ينظر من أعلى إلى أسفل: الدولة، الضرائب، إعادة التوزيع. كل شيء سيرخص — إذن: افرض ضريبة على ما لن يرخص (الشركات والأرض)، وامنح الجميع حصّة من الكعكة. مشكلة الثروة تُحلّ بالسياسة. نحن ننظر من أسفل إلى أعلى: البيت، الغلاف، العبور. كل شيء سيرخص — إذن ابحث عمّا لن يرخص، وصلِّبه في صيغة، ومرّره عبر بوابة <bdi>AGI</bdi>. مشكلة الثروة تُحلّ بالهندسة.</p>
+  <p class="body">ألتمان يقول: القيمة ستوجد — السؤال لمن ستذهب. ونحن نقول: أ) السؤال هو ما الذي سيشكّل قيمة أصلًا؛ ب) لن ينجو كل شيء من العبور عبر البوابة. نقطته العمياء مبنيّة في موقعه: إنه بانٍ للذكاء الاصطناعي العام. وبحكم التعريف لا يستطيع أن يسأل: «ماذا لو أن <bdi>AGI</bdi> لا يُرخّص فحسب، بل يدمّر فئة القيمة ذاتها للقابل للاستنساخ؟» — لأن القابل للاستنساخ هو ما يبنيه. الرخص بالنسبة إليه خير حتمي. بالنسبة إلينا — بيئة جديدة يجب أن تنجو فيها الثروة. قارئه المواطن أو صانع السياسة. قارئنا البيت، واستمراريّته، والقمّة المتجسّدة لهرم الثروة العالمية.</p>
+
+  <h2 class="lh" id="s2"><span class="code">S·02 المنهج</span><span class="n">2 ·</span> القفزة إلى ارتفاع مستحيل</h2>
+  <p class="kicker">الارتفاع المستحيل كمنهج</p>
+  <p class="body">اكتشاف هذا الاستشراف لا يكمن في فهرس الأصول بل في المنهج. قفزة نصف قرن إلى الأمام، عبر بوابة <bdi>AGI</bdi> وما بعدها، ليست توقعًا بل أسلوب اختراع. بتقديرنا، سيكون تكاثف التغيّر بين الآن و<bdi>2070</bdi> مكافئًا تقريبًا لأربعمئة إلى ستمئة سنة سابقة. عند هذا المعدّل من التسارع، يُعمى الاستشراف قصير المدى. أفق خمس سنوات كمصباح يدوي في الضباب: ترى مترًا أمامك، والهاوية على بُعد مترين. القفزة نصف قرن عبر بوابة التفرّد هي الطريقة الوحيدة لرؤية الصيغة: إطار عبثي يحرق قوالب الحاضر. نعثر على الثوابت هناك — ونفكّها راجعين إلى قرارات اليوم. ليست ترفًا، بل المنهج الوحيد الذي يعمل في عصر تعيد فيه سلاسل الاختراعات كتابة شيفرة الممكن.</p>
+  <p class="kicker">مسألتان تحدّيتان: المنظار والمِقراب</p>
+  <div class="lay"><div class="h">المنظار</div><p>عمرك أربعون إلى خمسون عامًا. لديك <bdi>$200M</bdi> من رأس المال الحرّ. وُلِد لك ابن. التحدي: أرسِل عشرة بالمئة (<bdi>$20M</bdi>) عبر جيلين — إلى حفيدك في عيد ميلاده العشرين. لكن بحيث لا تنخفض قوّتها الشرائية بأسعار اليوم، بل تنمو إن أمكن. لديك مبلغ واسم وتاريخ؛ وُصِف العصر. مسألة إدارية جديرة. حاول حلّها.</p></div>
+  <div class="lay"><div class="h">المِقراب</div><p>انظر أبعد الآن. أرسِل مليون دولار إلى المستقبل — لألف سنة<sup class="fn">*</sup>. ردّ الفعل «سيحسبونك مجنونًا» — علامة أن النمط الصحيح قد اشتغل. هكذا يُستقبَل أيّ تحدٍّ اختراعي سليم الصياغة حين يكسر القصور النفسي. مليون مركز بيانات مداري لتوصيل أرخص استدلال على الكوكب — قبل خمس سنوات كان جنونًا. في يونيو <bdi>2026</bdi> صار أساس أنجح طرح عام أوّلي — وأول ثروة بالتريليون — في التاريخ. نصف ساعة من هذه اللعبة الذهنية، والسؤال عن أربعين إلى خمسين سنة يكفّ عن أن يكون «إفرست».</p></div>
+  <aside class="spec"><div class="stag"><b>الزوج</b> · تكامل</div><div class="in"><p><strong>الزوج يعمل بتكامل:</strong> المِقراب يُعاير المقياس، والمنظار يُصوّب على الحلّ الملموس. ومن هناك يُنزل الممارسون المحترفون المكتشفات إلى خطوات واقعية اليوم.</p></div></aside>
+  <p class="footnote"><span class="star">*</span>&nbsp; إن بدا ألف سنة طويلًا بشكل عبثي، ابدأ بمئتين. المهمّ أن تأخذ أفقًا مستحيلًا بوضوح — لك أنت. وما دامت اللعبة جارية، حُلّ المسألة بأمانة، وكأنها حقيقية وقابلة للتحقيق.</p>
+
+  <h2 class="lh" id="s3"><span class="code">S·03 الحامل</span><span class="n">3 ·</span> الآلات ستفعل كل شيء. ماذا بعدها؟</h2>
+  <aside class="spec"><div class="stag"><b>سؤال في الثانية صباحًا</b></div><div class="in"><p>لمن يستيقظ ليلًا متسائلًا: «ما الذي من كل هذا سيساوي شيئًا حين تستطيع الآلات فعل كل شيء؟»</p></div></aside>
+  <aside class="spec"><div class="stag"><b>الجواب الوحشي الصريح</b></div><div class="in"><p>الآلات ستفعل كل شيء. ليس السؤال «هل» — السؤال عن الوتيرة. لنفترض أنه بحلول <bdi>2050</bdi> أصبح إنتاج القابل للاستنساخ مجانيًّا عمليًّا. ماذا بعد ذلك؟</p></div></aside>
+  <p class="body"><strong>التشخيص: الثروة لن تختفي — ستغيّر حاملها. كما فعلت مرّات كثيرة من قبل.</strong></p>
+  <p class="body">في كل مرة، الحامل السابق لم يُصفَّر — فقد وظيفة النقد لكنه احتفظ بوظيفة الشيء. الذهب كفّ عن أن يكون عملة لكنه لم يكفّ عن أن يكون ذهبًا. الأرض كفّت عن أن تكون المقياس الأول للثروة لكنها لم تكفّ عن أن تُطعِم. في كل انتقال، الحامل الذي بقي في الأسفل خسر أمام ما قفز فوقه. لكن الشيء ذاته — إن اجتاز المرشّح (ندرة، حقوق، سيولة، ذوق) — بقي.</p>
+  <p class="body">السؤال الحقيقي، إذن، ليس «ما الذي سيساوي شيئًا» بل <strong>«ما الذي سيكفّ عن أن يكون نقدًا وهو يبقى شيئًا — وما الذي سيكفّ عن أن يكون شيئًا أصلًا»</strong>. الخطّ يمرّ بالضبط على خطّ قابلية الاستنساخ. كل ما تستطيع الروبوتات المدفوعة بـ<bdi>AGI</bdi> «طباعته» سيكفّ عن أن يكون نقدًا وشيئًا بالمعنى الاقتصادي. ليست خسارة — إنه تحرير: القابل للاستنساخ يصبح مجانيًّا، وهذا رائع. لكن من كانت ثروته بأكملها من القابل للاستنساخ سيكتشف ذات صباح أنه يملك المجاني.</p>
+  <span class="note-mono">ذهب الكويكبات</span>
+  <figure class="vignette">
+    <p>الذهب، كمعدن نفيس، نجا من كل شيء: إمبراطوريات، حروب، موت العملات. خمسة آلاف سنة كان مرادفًا لكلمة «إلى الأبد». لكن قيمته ليست في قلّته، بل في أنه لن يكون هناك المزيد تقريبًا. هذه علاوة المحدودية: مضادّ الإلزام <bdi>(anti-fiat)</bdi>. لا يُطبع.</p>
+    <p>الفضاء يغيّر هذا — وليس كما يبدو. لن يصطاد أحد الذهب على الكويكبات. لكن حين يبدأ التصنيع المداري بطحن الأجسام المعدنية لأجل الحديد والنيكل والماء — للمحطات والسفن — سيتساقط الذهب من تلقاء نفسه، كصيد عرَضي. لا يُستخرج؛ يقع في المخلّفات. والسوق ستنزع علاوة المحدودية ليس حين تصل أول طنّة إلى مدار الأرض، بل حين يظهر أول مشروع ذو مصداقية. على منحنى التوقعات، لا على منحنى التسليم.</p>
+    <p>لكن ها هو المهمّ: علاوة المحدودية لا تختفي. تهاجر — صعودًا، إلى ما لا يلحقه حتى الطريق المداري السريع. إلى حجر ملوّن استغرق تشكّله ملايين السنين. إلى إحداثيات لا تُنسخ. إلى سيرة لا تُطبع. الفضاء يأخذ من الذهب — الهرم يرث.</p>
+  </figure>
+  <p class="body"><strong>الآن، بلا مواربة: ما الذي سيبقى بالضبط.</strong></p>
+  <div class="lay"><p class="runin">أولًا وقبل كل شيء — <b>الزمن</b>.</p><p>ليس بالمعنى الشعري، بل بالمعنى الحرفي. أصل جُمّد فيه زمن لا يمكن تسريعه ولا تكراره. حجر تشكّل على مدى <bdi>20</bdi> مليون سنة. تيروار صنعته جيولوجيا بعينها بمناخ محلي بعينه. تعتيق لا يمكن تسريعه. يستطيع الذكاء الاصطناعي العام أن يفعل كل شيء، إلا شيئًا واحدًا: لا يعرف كيف يصنع «قديمًا». ولن يعرف — ليس هذا قيدًا تقنيًّا، إنه خاصية الزمن.</p></div>
+  <div class="lay"><p class="runin">ثانيًا — <b>المكان</b>.</p><p>إحداثية مربوطة بتدفّق. رصيف في مضيق. واجهة مائية <bdi>(waterfront)</bdi> يلتقي عندها الماء والناس. ينبوع بحرارة لا توجد إلا هنا. يستطيع <bdi>AGI</bdi> بناء أيّ منشأة — لكنه لا يستطيع إنشاء نقطة ثانية بالإحداثيات نفسها والمنظر نفسه والهيدرولوجيا نفسها. المكان لا يتوسّع.</p></div>
+  <div class="lay"><p class="runin">ثالثًا — <b>نقطة الاختناق</b>.</p><p>حقّ عبور عبر موضع ضيّق. فتحة، تردّد، رصيف، ممرّ جبلي. عددها محدود بالفيزياء أو بالقانون. وكلما تكاثف التدفّق — وعالم <bdi>AGI</bdi> عالم أقصى تدفّق — ازدادت قيمة كل حاجز تحصيل. مفارقة الوفرة: كلما زاد كل شيء، ازدادت قيمة كل «عبور» محدود.</p></div>
+  <div class="lay"><p class="runin">رابعًا — <b>الأصالة</b>.</p><p>السيرة المُثبتة للشيء. ليس الشيء ذاته — بل سيرته. يستطيع <bdi>AGI</bdi> تخليق ياقوتة مثالية. لا يستطيع تخليق «هذه الياقوتة كانت ملك نظام حيدر آباد». الأصالة غير متاحة للإنتاج بالتعريف. وكلما اكتمل الاصطناعي، ارتفعت علاوة الأصيل — الكمال الاصطناعي يولّد الطلب على نقيضه.</p></div>
+  <p class="body"><strong>ما سيموت حتمًا كثروة:</strong></p>
+  <p class="body">كل ما يقوم على لامماثلة المعلومات (أنا أعرف وأنت لا — <bdi>AGI</bdi> سيُسوّي ذلك)؛ كل ما يقوم على مهارة تنفيذ بلا حامل (عملية بلا صاحب — تُؤتمت)؛ كل ما يقوم على شُحّ الحوسبة (<bdi>compute</bdi> سترخص بأوامر عظمى)؛ الشريحة الوسطى من أيّ شيء (حجر متوسط، موقع متوسط، فنّ متوسط) — كلها منطقة يلتهم فيها الاصطناعي والحجم العلاوة.</p>
+  <p class="body"><strong>ما وراء الأفق — ماذا لو ماتت الحاجة إلى الندرة ذاتها؟</strong></p>
+  <p class="body">واجهة عصبية تمنح إحساس امتلاك أيّ شيء — نظريًّا تقتل الاستهلاك المدفوع بالمكانة. لكن. المكانة ليست الوظيفة الوحيدة للندرة. هناك وظيفة ثانية: <strong>مرساة لهوية البيت</strong>. «هذا لنا، كان لنا، وسيبقى لنا» — ليس هذا عن المكانة، بل عن التماسك عبر الأجيال. القبيلة بلا طوطم تتفكّك. والعائلة التي لا تملك شيئًا موروثًا خاصًّا بها تكفّ عن كونها عائلة. يمكن للواجهة العصبية أن تحاكي الملكية، لكنها لا تستطيع أن تحاكي الاستمرارية. لذلك ستنجو قمة الهرم حتى من الواجهات العصبية — لكن لسبب مختلف عمّا يبدو اليوم. ليس كأصل. بل كطوطم.</p>
+
+  <div class="fitline"><span class="pull fit-phrase">قديمًا · هنا · العبور · الأصيل</span></div>
+  <div class="quartet">
+    <div class="cap">الثوابت الأربعة</div>
+    <div class="row"><div class="w">قديمًا</div><div class="g">زمن مجمّد — حجر كريم، تيروار، تعتيق. <bdi>AGI</bdi> لا يعرف كيف يصنع «قديمًا».</div></div>
+    <div class="row"><div class="w">هنا</div><div class="g">مكان مشدود إلى الإحداثيات والتدفّق. لا يتوسّع.</div></div>
+    <div class="row"><div class="w">العبور</div><div class="g">نقطة اختناق، حقّ عبور. كلما تكاثف التدفّق، ازدادت قيمة الحاجز.</div></div>
+    <div class="row"><div class="w">الأصيل</div><div class="g">أصالة، سيرة مُثبتة. الأصالة لا تُصنع.</div></div>
+  </div>
+  <div style="height:.8em" aria-hidden="true"></div>
+  <p class="kicker">ملاحظة على الهامش</p>
+  <p class="body">هذا الاستشراف لا يُخاصم الخبرة المتراكمة. مبنى إيرادي بجوار <bdi>Sagrada Familia</bdi> ثابت لا يتغيّر تمامًا كقمة هرم الأحجار الكريمة الملوّنة. مع <bdi>AGI</bdi> أو بدونه، مع واجهات عصبية أو بدونها — على مدى جيلين لن يتغيّر البديهي. القارئ الذي يملك مبنى عريقًا في وسط برشلونة يعرف: مبناه سيساوي ملايين بعد قرن. وهو محقّ.</p>
+  <p class="body">ومع ذلك فإن تيار التغيير لا يهدأ. الحجم، السرعة، سلاسل التشعّبات — كلها ستستمر في التصاعد ولن تبلغ هضبة قبل منتصف القرن. زائد جيل آخر للتكيّف. عاصفة بهذا الحجم لا نظير لها في التاريخ المدوَّن. قيمة الخريطة ليست في قلب خبرة أحد. إنها في شيئين. الأول: رؤية الصيغة خلف مشكال الأحداث — إيجاد عين الإعصار. الثاني: المتانة النفسية. من يملك الخريطة لا يفزع حين يفزع الجميع. لا يبيع عند القاع. لا ينجرّ وراء الهوس. لا يقضي سنة في قرار يستغرق مع الخريطة أسبوعًا. العاصفة واحدة — الخسائر مختلفة.</p>
+
+  <h2 class="lh" id="s4"><span class="code">S·04 الحقيبة</span><span class="n">4 ·</span> التجربة: «حقيبة إلى المستقبل»</h2>
+  <aside class="note-quiet">السؤال القديم للعبور: ماذا نضع في الحقيبة؟<br>السؤال الجديد: أيّ صيغة تعبر البوابة؟</aside>
+  <p class="body">لكن بلا «الحقيبة» تبقى الخريطة فلسفة صرفة.<br>فيمَ إذن يُستثمر اليوم لإرسال الثروة إلى الذات أو العائلة على مدى جيل أو جيلين؟ لا ندّعي إجابات جاهزة، بل نعرض تجربة فكرية.</p>
+  <p class="body"><strong>الفرضية الكاملة:</strong> الروبوتات المدفوعة بـ<bdi>AGI</bdi> تُفجّر الإنتاجية والقابل للاستنساخ يرخص بتسارع. على هذه الخلفية، يفوز ما لا يمكن إنتاجه إضافيًّا في حدود المنظومة الشمسية. لم يعد «يُطبع»، ولا تُخفَّف ندرته بالتقنية. حجم كعكة الثروة الإجمالية ينمو أيضًا؛ والمشترون الأثرياء يزدادون. ومنه ينمو أيضًا الطلب على الأصول العُلوية غير القابلة للاستنساخ التي اعتبرها الأثرياء ثمينة لقرون.</p>
+  <p class="body">القسم أعلاه وصف القنوات الحاملة للعبور عبر البوابة.<br>الآن نضيف مرشّحًا من أربعة مضاعفات-حواجز:</p>
+  <div class="spec"><div class="stag"><b>الحواجز</b> · مرشّح الاكتمال</div><div class="core"><p class="f"><span class="fit-phrase">الندرة <span class="op">×</span> الحقوق <span class="op">×</span> السيولة <span class="op">×</span> الذوق</span></p><p class="glo"><b>صفر في أيّ مضاعف — صفر في المخرَج.</b></p></div></div>
+  <p class="body">يجب أن تكون الندرة قابلة للتدقيق — لا يمكن رسمها بالاصطناعي. محميّة بالحقوق — يمكن الدفاع عنها في محكمة أو بروتوكول. سائلة — يوجد سوق خروج دون فقدان نصف القيمة. مقاوِمة للذوق — تنجو من تبدّلات الموضة والأجيال. إذا لم يصمد حتى شرط واحد من الأربعة، فعدم القابلية للاستنساخ وحده لا ينقذ.</p>
+  <aside class="cond">إذا لم تكن الندرة قابلة للتحقّق، سيُصطنعونها.<br>إذا لم يحمِ الحقّ، سيأخذونها.<br>إذا لم تكن هناك سيولة، سيرث الورثة لا رأس مال بل فخًّا بلا مخرج.<br>إذا لم ينجُ الذوق من الأجيال، ستتعفّن علاوة المكانة.</aside>
+  <p style="font-family:'Cormorant','Amiri',serif;font-weight:700;font-size:clamp(22px,4.4vw,27px);color:var(--ink);letter-spacing:.01em;margin:1.2em 0 .4em;">التجربة:</p>
+  <p class="body">خطوتان. الأولى — نملأ الحقيبة بمواضع تعبر الحواجز. الثانية — نُقفلها في غلاف لجيلين. الرسم التقريبي ناقص عمدًا، وفيه مواضع استفزازية — هكذا قُصد. مرّره عبر المرشّح والنموذج الرياضي للاستشراف، واجمع قائمتك، وناقشها مع من تثق بهم.</p>
+
+  <h3 class="step">الخطوة 1. إرسال الحقيبة إلى المستقبل</h3>
+  <ol class="list">
+    <li>أراضٍ ممتازة <bdi>A+</bdi> في عُقد مستقرة: واجهات مائية حقيقية وإطلالات مرتفعة، أحياء تاريخية، «أرصفة حضارة» جزرية. المفتاح ليس «المتر المربع» بل <strong>عقدة التدفّق</strong> (الماء/الثقافة/غيرها).</li>
+    <li>حقوق مياه وواجهات مائية في أحواض شحيحة (ريّ، تبريد، أرصفة). حتى مع تحلية رخيصة، تبقى الهيدرولوجيا المحلية والسند القانوني نقطتي اختناق.</li>
+    <li>مواقع جيوحرارية وينابيع (حرارة/تدفّق فريدان). الطاقة قد ترخص، لكن مصدرًا بعينه في موقع بعينه محدود.</li>
+    <li>أحجار كريمة ملوّنة عُليا بسلسلة مصدر لا تشوبها شائبة (<bdi>Kashmir sapphire</bdi>، <bdi>Burmese ruby</bdi>، وغيرها). قمة الهرم فقط أو ما يقاربها — زائد تقارير مختبرية وتاريخ موثّق.</li>
+    <li>تيروارات تربة-مناخ (كَرمة/شاي/زيتون) بـ«مكان» قابل للإثبات. ليست الزراعة السلعية بل التيروار كعلامة تجارية.</li>
+    <li>حقوق طويلة الأمد في عُقد بنية تحتية: موانئ/مراسٍ/أهوسة/مراسٍ للمراكب/ممرّات جبلية/تلفريكات. هذه «حواجز تحصيل» على تدفّقات دائمة.</li>
+    <li>طيف/تردّدات/«فتحات» (بما فيها فتحات الطيران والموانئ). لا تُطبع؛ والسوق محافظة بطبيعتها؛ والطلب ينمو مع تكاثف التدفّق. للعائلة — عبر صناديق/شراكات.</li>
+    <li>عضويات مدنية «أرستقراطية» (نوادٍ خاصة/مدارس/موانئ) محدودة الإصدار وإعادة البيع. المقصود الوصول إلى الأشخاص والصفقات، لا الديكور.</li>
+    <li>فنّ بمستوى المتحف مع تاريخ عرض (الكلاسيكي، لا الموضة). سيولة عبر منصات الدرجة الأولى.</li>
+    <li>قطع تاريخية موثّقة (أدوات، خرائط، أجهزة علمية، مخطوطات ذات دلالة). ليس «العتيق لأجل العتيق» بل معالم الحضارة.</li>
+    <li>فتحات مدارية/قمرية وطيف — حاليًّا فقط عبر حصص في مشغّلين/امتيازات. المخاطرة عالية، والحصة في المحفظة صغيرة.</li>
+    <li>ملاذات طبيعية (مرتفعات معتدلة/ماء/غابات) — ليس للمضاربة بل كأصل تأمين عائلي.</li>
+  </ol>
+
+  <div style="height:.53em" aria-hidden="true"></div>
+  <p class="kicker">من القبقاب إلى القبقاب · سبع ثقافات، حلقة واحدة</p>
+  <p class="body">تظهر «قاعدة الأجيال الثلاثة» في إحدى أبكر صيَغها المكتوبة في العربية. يرى ابن خلدون أن «عمر الدولة لا يعدو في الغالب ثلاثة أجيال». القوس ذاته: الجدّ يبني في خشونة البداوة ← الابن يثبّت ويتمتّع ← الحفيد ينحدر في الترف. المحرّك — العصبية: تقوى في طور البداوة وتضعف بتقدّم الحضارة. وفي المثل الشعبي: <strong>«اللي تخلّفه الجدود تفنيه القرود».</strong></p>
+  <p class="body">والأصل الإنكليزي لـ«قاعدة الأجيال الثلاثة» مثلٌ من لانكشير (شمال إنكلترا الصناعي؛ القبقاب حذاء العمل ذو النعل الخشبي): <strong>«From clogs to clogs is only three generations».</strong> القوس مبني في الصيغة ذاتها: الجدّ يكسب في القبقاب ← الابن يُنمّي ويُنفق في الحذاء الجلدي ← الحفيد يعود إلى القبقاب.</p>
+  <p class="body">القوس نفسه يظهر مستقلًّا في ثقافات أخرى:</p>
+  <ul class="list">
+    <li><strong>الولايات المتحدة:</strong> <bdi>«Shirtsleeves to shirtsleeves in three generations»</bdi> — يُنسب غالبًا إلى كارنيغي، لكنه تكييف للصيغة الإنكليزية، لا اختراعه.</li>
+    <li><strong>اسكتلندا:</strong> <bdi>«The father buys, the son builds, the grandchild sells, and his son begs.»</bdi></li>
+    <li><strong>الصين:</strong> <bdi>富不过三代</bdi> (fù bù guò sān dài) — «الثروة لا تتجاوز ثلاثة أجيال».</li>
+    <li><strong>اليابان:</strong> <bdi>売り家と唐様で書く三代目</bdi> — «الجيل الثالث يكتب إعلان ‚بيت للبيع' بخطّ صيني فاخر»: الحفيد مثقّف إلى درجة أنه يُخطّط تصفية تركة جدّه بخطّ جميل. أسمّ النسخ على الإطلاق.</li>
+    <li><strong>إيطاليا:</strong> <bdi>«dalla stalla alle stelle e ritorno»</bdi> — من الحظيرة إلى النجوم والعودة.</li>
+  </ul>
+  <div style="height:.27em" aria-hidden="true"></div>
+
+  <h3 class="step">الخطوة 2. كسر «حلقة الانحدار» للأجيال الثلاثة<br><span>[إرسال الثروة إلى الأحفاد]</span></h3>
+  <p class="body">سبع ثقافات أخطأت فحسبت النقص قانون طبيعة وسمّته «قاعدة الأجيال الثلاثة». المهندس يقرأ الأمر على نحو آخر: عطل متكرّر ليس حكم طبيعة بل مسألة هندسية. قد لا يوجد حلّ كامل دون إعادة بناء الطبيعة البشرية ذاتها. لكن هناك فرضية هندسية: ضع الحلقة الضعيفة على قضبان خارجية. كسر حلقة الانحدار لا يكون بتربية ورثة أفضل، بل بمأسسة رأس المال<sup class="fn">*</sup>.</p>
+  <p class="body"><strong>تُقفل الأصول داخل غلاف مؤسسي ثلاثي الطبقات، يحكمه نظام أساسي:</strong></p>
+  <dl class="kv">
+    <dt><bdi>Core Vault</bdi></dt><dd>يحفظ النواة التي لا تُمسّ من الندرات: أراضٍ ممتازة <bdi>A+</bdi>، حقوق في نقاط اختناق، فنّ بمستوى المتحف — بموجب النظام الأساسي لا تُباع ولا تُرهن؛ يُسحب الدخل فقط.</dd>
+    <dt><bdi>Flow HoldCo</bdi></dt><dd>يدير الأصول السائلة والمدرّة بحسب بروتوكول: شراء، بيع، إعادة توازن.</dd>
+    <dt><bdi>OpsCo</bdi></dt><dd>يتحمّل المخاطر التشغيلية ولا يملك وصولًا إلى النواة. لا «زرّ واحد»: القرارات بشأن النواة تتطلّب نِصابًا أعلى مع حقّ نقض الحامي (<bdi>protector</bdi>)؛ وقريبًا بمشاركة حافظ مدعوم بالذكاء الاصطناعي العام (<bdi>AGI custodian</bdi>).</dd>
+  </dl>
+  <p class="body">من هنا تعمل الهندسة المعمارية — لا «القيم العائلية»:</p>
+  <p class="body">صيغة صرف، إعادة توازن سنوية ضمن ممرّات، آليات إيقاف تلقائي عند الانخفاضات، وسادة سيولة بعملات وبلدان متعددة، حماية متعددة المفاتيح (<bdi>multisig</bdi>)، آلية <bdi>dead-man switch</bdi> على المفاتيح، إثبات حفظ للأصل (<bdi>proof-of-custody</bdi>) للندرات، ومسارات خروج موقّعة مسبقًا. تُفصل حقوق التصويت عن الوصول إلى المال. لا يحصل الوريث على توزيعات إلا بعد ترخيص (<bdi>heir licensing</bdi>) — تدريب عملي واختبار على سياسة المحفظة.</p>
+  <p class="body">المبدأ: لا شيء يعتمد على شخص واحد. لا وثيقة واحدة أو مفتاح واحد أو قرار واحد يمنح القدرة على حرق النواة. رأس المال يصبح مُنشأة هندسية بآليات أمان، قادرة على بلوغ <bdi>2070</bdi> دون أن يعود الجيل الثالث إلى القبقاب.</p>
+  <p class="footnote"><span class="star">*</span> ما سبق هيكل عظمي لحلّ؛ آلياته الكاملة تتجاوز نطاق هذه الخريطة.</p>
+  <aside class="note-quiet">لماذا «إرسال الثروة إلى الأحفاد» أصلًا؟ ربما لا أحفاد لديك. إذن ابحث عن مسألة مكافئة. إن نجحت في حلّ مسألة كهذه على خلفية عصر <bdi>AGI</bdi>، ستكتشف حتمًا حلولًا أنجع لأفق الخمس إلى العشر سنوات أيضًا.</aside>
+
+  <h2 class="lh" id="s5"><span class="code">S·05 الصيغة</span><span class="n">5 ·</span> الصيغة المكتملة والنموذج الرياضي</h2>
+  <p class="body">العناصر كانت أعلاه. الآن — خريطة الكلّ.</p>
+  <p class="kicker">الستراتيغراف للعبور عبر البوابة <span style="color:var(--muted); text-transform:none; letter-spacing:0;">[رسم تقريبي، عمل جارٍ]</span></p>
+  <div class="scrollx"><div class="strat">
+    <div class="k">ما ننتقل عليه</div><div class="t">— الوسط:</div><div class="v">عملات، سكك، أنظمة تسوية</div>
+    <div class="k">ما ننقله</div><div class="t">— الحمولة:</div><div class="v">أحجار، تيروارات، عمليات، مقتنيات</div>
+    <div class="k">فيمَ ننقله</div><div class="t">— الغلاف:</div><div class="v">أنظمة أساسية، ترتيبات ائتمانية، مجمّعات، رموز</div>
+    <div class="k">أين نقف</div><div class="t">— المكان:</div><div class="v">أرض، ماء، عُقد، حواجز تحصيل</div>
+    <div class="k">من ينقل</div><div class="t">— الأشخاص:</div><div class="v">نماذج عائلية، تعاقب، الجيل التالي</div>
+    <div class="k">بماذا نقيس</div><div class="t">— الأدوات:</div><div class="v">مؤشرات، أوراكل، إشارات آنية</div>
+  </div></div>
+  <p class="body"><strong>صيغة التجميع الكامل:</strong></p>
+  <p class="pull ink">البوابة تمرّر الصيغة.</p>
+  <div class="litany center">ليس حدثًا.<br>ليس فكرة جميلة.<br>ليس مجموعة أصول.<br>ليس فهرس ندرات.<br>ليس أسطورة عائلية.<br>ليس الغلاف القانوني وحده.</div>
+  <p class="pull">وليست أيّ صيغة — بل الصيغة المكتملة فقط.</p>
+  <div class="ledger">
+    <div class="r"><span class="t">حمولة بلا غلاف</span><span class="ldr"></span><span class="z">صفر</span></div>
+    <div class="r"><span class="t">غلاف بلا حقوق</span><span class="ldr"></span><span class="z">صفر</span></div>
+    <div class="r"><span class="t">ندرة بلا سيولة</span><span class="ldr"></span><span class="z">صفر</span></div>
+    <div class="r"><span class="t">أصالة بلا تدقيق</span><span class="ldr"></span><span class="z">صفر</span></div>
+    <div class="r"><span class="t">نظام أساسي بلا أشخاص</span><span class="ldr"></span><span class="z">صفر</span></div>
+    <div class="r"><span class="t">أشخاص بلا أدوات</span><span class="ldr"></span><span class="z">صفر</span></div>
+  </div>
+  <p class="body">الأطروحة المحورية، إذن:</p>
+  <aside class="spec"><div class="stag"><b>الأطروحة</b> · محورية</div><div class="in"><p><strong>الثروة مادة. يجب تصليبها في صيغة، وتمريرها عبر البوابة، ثم إذابتها على الجانب الآخر. البوابة لا تمرّر إلا الصيغة المكتملة. السؤال القديم: ماذا نضع في الحقيبة؟ السؤال الجديد: هل الصيغة مكتملة؟</strong></p></div></aside>
+
+  <h2 class="lh" id="mathmodel"><span class="code">M·X النموذج</span>النموذج الرياضي</h2>
+  <p class="body" style="margin-bottom:0">الصوغ أدناه ليس توقعًا. إنه لغة يمكن بها العمل على الفرضية: قياسها، تحدّيها، تجريبها.</p>
+  <p class="label-c">| مقاربتان تحليليتان مستقلتان |</p>
+  <div class="links-team">
+    <p><a onclick="navTo('team-a')" style="cursor:pointer"><b>الفريق أ</b> &nbsp;·&nbsp; هندسة البوابة</a></p>
+    <p><a onclick="navTo('team-b')" style="cursor:pointer"><b>الفريق ب</b> &nbsp;·&nbsp; اقتصاد سعر الظلّ</a></p>
+  </div>
+
+  <div class="hr-double" id="team-a" style="scroll-margin-top:24px; margin-top:36px;"></div>
+  <p class="team-tag">الفريق أ</p>
+  <h2 class="team">هندسة البوابة</h2>
+  <p class="team-char">نظرة بنيوية-جبرية: ما الذي يقع في نواة ما لا يقبل الاستنساخ، ولماذا الصيغة ضربية.</p>
+
+  <h3 class="mh">أ1 · الصبغة (ما لا يحترق)</h3>
+  <p class="body">ادّعاء واحد ينمو منه كل شيء:</p>
+  <aside class="spec"><div class="stag"><b>الصبغة</b> · أ1</div><div class="in"><p><strong>توجد فئة من الأصول قيمتها ثابتة تحت تحوّل AGI؛ نجاة الثروة عبر تغيّر النظام يحدّدها اكتمال الصيغة، لا اختيار الحمولة وحده.</strong></p></div></aside>
+
+  <h3 class="mh">أ2 · النموذج الرسمي</h3>
+  <p class="kicker">التعريفات</p>
+  <p class="body">يُوصف النظام الاقتصادي <code class="inl">R</code> بدالّة إنتاج <code class="inl">P_R</code> تحدّد مجموعة القابل للاستنساخ:</p>
+  <pre class="code">Im(P_R) = { x : P_R can produce x }</pre>
+  <p class="body">تحوّل <bdi>AGI</bdi> هو الانتقال <code class="inl">R&#8321; &rarr; R&#8322;</code>، حيث تتوسّع <code class="inl">Im(P_{R&#8322;})</code> بحدّة: كل شيء تقريبًا يصبح قابلًا للاستنساخ.</p>
+  <p class="body">نواة ما لا يقبل الاستنساخ هي ما لا تبلغه دالّة الإنتاج تحت أيّ مُدخل:</p>
+  <pre class="code">K(R) = { a : a &notin; Im(P_R) }</pre>
+  <p class="body">مع كل نظام تالٍ تنمو مجموعة القابل للاستنساخ وتتقلّص النواة: <code class="inl">K(R&#8322;) &sub; K(R&#8321;)</code>. سؤال الاستشراف: ما الذي سيبقى في النواة تحت أقوى نظام — <code class="inl">K(R_AGI)</code>؟</p>
+
+  <p class="kicker">فرضية الثوابت الأربعة</p>
+  <p class="body"><code class="inl">K(R_AGI)</code> تتولّد من أربعة ثوابت غير قابلة للاختزال:</p>
+  <div class="glyphs">
+    <div><div class="gy">τ</div><div class="lb">قديمًا</div><div class="gl">الزمن لا رجعة فيه</div></div>
+    <div><div class="gy">ξ</div><div class="lb">هنا</div><div class="gl">الإحداثية فريدة</div></div>
+    <div><div class="gy">θ</div><div class="lb">العبور</div><div class="gl">العبور محدود</div></div>
+    <div><div class="gy">π</div><div class="lb">الأصيل</div><div class="gl">الأصالة غير متاحة</div></div>
+  </div>
+  <p class="body">عدم القابلية للاختزال: لا أيٌّ من الأربعة مجموعة جزئية أو تركيب للأخرى. ولا أيٌّ منها يقع في صورة أيّ دالّة إنتاج — لا لأن التقنية ضعيفة، بل لأن:</p>
+  <pre class="code rtl">— الزمن ليس مُدخل إنتاج؛
+— الإحداثيات لا تُنتج؛
+— محدودية نقاط العبور محكومة بالفيزياء/القانون؛
+— التاريخ لا يُنتج (يُزوَّر فقط،
+  وبشكل يمكن كشفه في الحدّ).</pre>
+  <p class="body">كل أصل له إسقاطات على الثوابت الأربعة:</p>
+  <div class="chip"><code>a = (&tau;(a), &xi;(a), &theta;(a), &pi;(a))</code></div>
+  <p class="body">كلما ارتفع الإسقاط، زادت مقاومته لتحوّل <bdi>AGI</bdi>.</p>
+
+  <h3 class="mh">دالّة النجاة</h3>
+  <p class="body">قيمة الأصل بعد العبور عبر البوابة:</p>
+  <pre class="code rtl">V(a) = V&#8320;(a) · F(a) · G(S)
+
+V&#8320;(a)   — القيمة قبل AGI
+F(a)    — مرشّح الاكتمال (ضربي)
+G(S)    — جودة الغلاف (التغليف المؤسسي)</pre>
+  <p class="body">المضاعفات الفردية:</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">F(a)</code> — مرشّح الاكتمال (ضربي):</p>
+  <pre class="code rtl">F(a) = r(a) · l(a) · q(a) · t(a)
+
+r(a) = الندرة (قابلة للتدقيق)
+l(a) = الحماية القانونية (الحقوق)
+q(a) = السيولة
+t(a) = مقاومة الذوق (تنجو من التبدّل الجيلي)</pre>
+  <p class="body">الخاصية المفتاحية لـ<code class="inl">F</code>: الضربية. هذا جداء، لا مجموع. صفر في أيّ مضاعف يُصفّر الكل. لا يُعوَّض. لا يُتحايل عليه. جبريًّا: فضاء النجاة ليس فضاءً جزئيًّا خطيًّا، بل مخروط موجب في الجداء التنسوري لأربعة فضاءات عاملية.</p>
+  <p class="body" style="font-weight:600; color:var(--ink); margin-top:1.4em;"><code class="inl">G(S)</code> — جودة الغلاف (التغليف المؤسسي):</p>
+  <pre class="code rtl">G(S) &isin; [0, 1]
+
+G = 0:  لا غلاف (رأس مال غير مُعبّأ)
+G &rarr; 1:  غلاف مبني بالكامل (نظام أساسي + صيغة + multisig
+        + dead-man + proof-of-custody + مسارات خروج)</pre>
+
+  <h3 class="mh">أ3 · تعليق حرّ</h3>
+  <p class="kicker">ليس الأمر عن الثروة</p>
+  <p class="body">الثروة مجال التطبيق. البنية تحتها أعمق: هذه نظرية ما ينجو حين يتغيّر العالم. الرياضيات تعرف سؤالًا مركزيًّا واحدًا بالضبط: ما الذي يبقى ثابتًا حين يتغيّر كل شيء؟ نظرية الزمر تسأل: أيّ خصائص تُحفظ تحت التناظرات؟ الطوبولوجيا: ما الذي لا ينقطع تحت التشوّه؟ نظرية الفئات: ما الذي يُحفظ تحت التعيينات بين البنى؟</p>
+  <p class="body">يسأل <bdi>WL2070</bdi> السؤال نفسه في مجال الحضارة: أيّ خصائص القيمة تُحفظ تحت تغيّر النظام الاقتصادي؟ الجواب — أربعة ثوابت — هي مولّدات الفضاء الجزئي الثابت. إنها متعامدة على صورة دالّة الإنتاج. في الجبر الخطي ستكون هذه نواة المؤثّر المرافق. هنا هي أربعة اتجاهات يكون فيها الإنتاج عاجزًا — لا بسبب الضعف، بل بسبب هندسة الفضاء.</p>
+  <p class="kicker">الضربية — الملاحظة المركزية</p>
+  <p class="body">عالم إدارة الثروات كله يفكّر جمعيًّا. التنويع مجموع: <bdi>60/40</bdi>، <bdi>70/30</bdi>، المحفظة كمتوسط مرجّح. إدارة المخاطر: <bdi>VaR</bdi> كمِّيّ لمجموع. كل شيء تركيبات خطية. كل شيء مجموع مباشر.</p>
+  <p class="body">يقول <bdi>WL2070</bdi>: لا. العبور ضربي.</p>
+  <p class="body">ليست أسلوبيات بل ادّعاء عن الهندسة. فضاء النجاة ليس مجموعًا مباشرًا للعوامل (حيث الضعف في أحدها يُعوَّض بقوة في آخر) بل جداء تنسوري (حيث الصفر في أحدها يُصفّر الكل). حجر بـ<bdi>$5M</bdi> ذو مصدر لا تشوبه شائبة وندرة فائقة ومقاومة ذوق مثبتة على مدى قرن، لكن بلا حماية قانونية (الولاية القضائية انهارت، السند طُعن فيه) — يُحسب صفرًا. ليس «أقل قيمة». صفر. لأنه لا يمكن تمريره عبر البوابة: الصيغة غير مكتملة. هذا مخالف للحدس لمن تربّى على نظرية المحفظة (<bdi>Markowitz</bdi>). هناك يمكنك التعويض. هنا لا يمكنك.</p>
+  <p class="kicker">التحوّل الطوري — حرفيًّا</p>
+  <p class="body">في «خام» الاستشراف ادّعاء: الثروة مادة؛ يجب تصليبها في صيغة وتمريرها عبر البوابة وإذابتها على الجانب الآخر. لكن هذا ليس مجازًا، إنه فيزياء.</p>
+  <p class="body">في الفيزياء يتميّز التحوّل الطوري بـ:</p>
+  <pre class="code rtl">— معامل ترتيب يتغيّر فجائيًّا؛
+— نقطة حرجة يُعاد فيها تنظيم المنظومة؛
+— كونية: منظومات بتفاصيل مجهرية مختلفة
+  لكن بتناظر واحد — تسلك سلوكًا واحدًا
+  قرب نقطة التحوّل.</pre>
+  <p class="body">بوابة <bdi>AGI</bdi> تحوّل طوري للاقتصاد. معامل الترتيب هو دالّة قابلية الاستنساخ ρ(t): تنمو ببطء ثم تنفجر حين يتجاوز <bdi>AGI</bdi> العتبة. الثوابت الأربعة هي كمّيات محمية تُحفظ عبر التحوّل. كالطاقة في الديناميكا الحرارية. كالشحنة الطوبولوجية في فيزياء المادة المكثّفة.</p>
+  <p class="body">و«التصليب» حرفي إذن: للنجاة من تحوّل طوري، يجب أن تكون في الطور المستقرّ على الجانب الآخر. الثروة السائلة (نقد، تدفّقات، أصول قابلة للاستنساخ) غير مستقرة في النظام بعد <bdi>AGI</bdi>. الثروة الصلبة (المصلَّبة في صيغة غير قابلة للاستنساخ والمحفوظة داخل غلاف مؤسسي) مقاوِمة. البوابة حدّ طوري. السائل يتبخّر عند العبور.</p>
+  <p class="kicker">توصية فوق «خام» الاستشراف: Minimax</p>
+  <p class="body">النموذج الضربي يتنبّأ بوجود نقاط ضعف حرجة — حيث يقترب أحد المضاعفات من الصفر ويهدّد بتصفير الكل. في النموذج الجمعي تُمهَّد هذه النقاط. في الضربي تَقتل.</p>
+  <p class="body">هذا يعني أن الاستراتيجية الصحيحة ليست تعظيم القوة الإجمالية (كما في نظرية المحفظة) بل تعظيم الحدّ الأدنى (minimax): تعظيم أدنى مضاعف. ليس «أين أنا أقوى» بل «أين أنا أضعف — وكيف أرفع ذلك الحدّ بالذات».</p>
+  <div class="chip"><code>WL2070 strategy:&nbsp;&nbsp;max min{ r(a), l(a), q(a), t(a) }</code></div>
+  <p class="body">هذا يغيّر منطق إدارة الثروات بالكامل. السؤال المعتاد: «أيّ أصل سيحقّق أعلى عائد؟» (تعظيم). سؤال <bdi>WL2070</bdi>: «أيّ مضاعف أقرب إلى الصفر — وكيف أرفعه؟» (<bdi>minimax</bdi>).</p>
+  <p class="body"><bdi>Minimax</bdi> استراتيجية مثلى تحت عدم اليقين (مبرهنة فون نيومان). وهذا منطقي: لا نعرف أيّ مضاعف سيُصفّر — فنحمي الأضعف. هذا يتبع مباشرة من الصيغة.</p>
+
+  <hr class="divider-narrow">
+  <p class="kicker center" style="margin-bottom:.3em;">الخلاصة للمُبحر عبر البوابة</p>
+  <h3 class="mh center" style="font-size:25px;">النموذج كله — في ثلاث صيغ</h3>
+  <div class="summary">
+    <div class="row"><span class="ix">(1)</span><div><div class="frm">K(R_AGI) = span(&tau;, &xi;, &theta;, &pi;)</div><div class="gl">أربعة ثوابت = مولّدات نواة ما لا يقبل الاستنساخ</div></div></div>
+    <div class="row"><span class="ix">(2)</span><div><div class="frm">V(a) = V&#8320; · &prod; f&#7522; · G(S)</div><div class="gl">النجاة ضربية — الصفر يقتل</div></div></div>
+    <div class="row"><span class="ix">(3)</span><div><div class="frm">max min{ f&#7522;(a) }</div><div class="gl">الاستراتيجية المثلى: minimax، لا التعظيم المطلق</div></div></div>
+  </div>
+
+  <div class="hr-double" id="team-b" style="scroll-margin-top:24px;"></div>
+  <p class="team-tag">الفريق ب</p>
+  <h2 class="team">اقتصاد سعر الظلّ</h2>
+  <p class="team-char">خيط واحد ممتدّ: من مسألة التعظيم — إلى حقّ في الحدّ.</p>
+  <div id="mm-bravo">
+
+    <h3 class="mh">الصيغة الحدّية</h3>
+    <p class="statement line">الثروة بعد AGI = حقّ قابل للنقل في قيد غير قابل للإرخاء</p>
+    <p class="body">أو أشدّ اختصارًا:</p>
+    <div class="spec result"><div class="stag"><b>النتيجة</b> · الصيغة الحدّية</div><div class="core"><p class="f">\(W_{2070} = \mathrm{Title}(\lambda_{\mathrm{constraint}})\)</p></div></div>
+    <p class="body">حيث \(\lambda_{\mathrm{constraint}}\) — <strong>سعر الظلّ لقيد</strong> لا يستطيع <bdi>AGI</bdi> إرخاءه.</p>
+    <p class="body">كل شيء آخر حالة خاصة.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">النموذج</h3>
+    <p class="body">يمكن تمثيل العالم كمسألة تعظيم:</p>
+    <div class="eqn solo"><div class="b">\(\max\; U(x)\)</div></div>
+    <p class="body">بقيود:</p>
+    <div class="eqn solo"><div class="b">\(c_i(x) \le K_i\)</div></div>
+    <p class="body">لكل قيد \(K_i\) سعر ظلّ \(\lambda_i\).<br>هذا منبع القيمة.</p>
+    <p class="body">يفعل <bdi>AGI</bdi> شيئًا حاسمًا واحدًا: يرفع \(K_i\) بحدّة لكل ما هو قابل للاستنساخ.</p>
+    <div class="eqn solo"><div class="b"><span class="ltr">\(K_i\)(producible) \(\to \infty\)</span></div></div>
+    <p class="body">لذلك:</p>
+    <div class="eqn solo"><div class="b"><span class="ltr">\(\lambda_i\)(producible) \(\to 0\)</span></div></div>
+    <p class="body">أي: كل ما يمكن طباعته، حوسبته، نسخه، تخليقه، أتمتته، أو توسيعه — يفقد ريعه تدريجيًّا.</p>
+    <p class="body">لكن هناك قيود حيث:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{\partial K_i}{\partial\, \mathit{AGI}} = 0\)</div></div>
+    <p class="body"><bdi>AGI</bdi> لا يستطيع زيادة طاقتها.</p>
+    <p class="body">هذه تبقى حوامل الثروة.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">الثابت الحقيقي</h3>
+    <p class="body">ليس «الندرة» بذاتها.</p>
+    <p class="body">الندرة كلمة عامية أكثر مما ينبغي.</p>
+    <p class="body">في الحدّ:</p>
+    <p class="statement line">القيمة = سعر ظلّ موجب لقيد غير قابل للإرخاء</p>
+    <p class="statement line">الثروة = حصة محمية قانونيًّا في ذلك القيد</p>
+    <p class="statement line">ثروة البيت = حصة محمية وقابلة للنقل في ذلك القيد، تُمرَّر عبر الأجيال</p>
+    <p class="body">هذا كل شيء.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">متّجهات القيد الأربعة</h3>
+    <p class="body">صيغة <strong>«قديمًا · هنا · العبور · الأصيل»</strong> سليمة، لكنّني أفهمها الآن لا كشعر ولا كقائمة أصول، بل كـ<strong>أساس لفضاء متّجه من القيود غير القابلة للإرخاء</strong>.</p>
+
+    <h4 class="mh4">1. قديمًا</h4>
+    <p class="body">هذا قيد الزمن.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{time-past}} = \mathit{const}\)</div></div>
+    <p class="body"><bdi>AGI</bdi> يستطيع تسريع الإنتاج لكنه لا يستطيع إنتاج الماضي.</p>
+    <p class="body">يستطيع صنع ياقوتة جديدة.<br>لا يستطيع صنع ياقوتة <strong>رقدت</strong> في باطن الأرض عشرين مليون سنة.</p>
+    <p class="body">يستطيع توليد مذاق نبيذ معتّق.<br>لا يستطيع صنع واقعة التعتيق التي مرّت عبر زمن حقيقي.</p>
+    <p class="body"><strong>«قديمًا»</strong> ليس عمر الشيء.<br>إنه استحالة إعادة كتابة سهم الزمن.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">2. هنا</h4>
+    <p class="body">هذا قيد الإحداثية.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{place}} = \mathit{const}\)</div></div>
+    <p class="body"><bdi>AGI</bdi> يستطيع بناء فيلا مثالية.<br>لكنه لا يستطيع إنشاء نقطة ثانية بالإحداثيات نفسها والمنظر نفسه والماء نفسه والحيّ التاريخي نفسه وتدفّق الناس نفسه.</p>
+    <p class="body">لذلك الأرض كـ«أمتار مربعة» ضعيفة.</p>
+    <p class="body">الأرض كـ<strong>عقدة تدفّق</strong> قوية.</p>
+    <p class="body">هذا تحوّل مهمّ: ليست الأرض، بل <strong>عقدة-المكان</strong>.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">3. العبور</h4>
+    <p class="body">هذا قيد الطاقة الاستيعابية.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{throughput}} = \mathit{const}\)</div></div>
+    <div class="litany">رصيف.<br>فتحة.<br>تردّد.<br>ممرّ جبلي.<br>مرسى.<br>هويس.<br>حقّ عبور.<br>حقّ اتصال.<br>حقّ وصول إلى شبكة.</div>
+    <p class="body">عالم <bdi>AGI</bdi> لن يكون مجرد عالم وفرة.<br>سيكون عالم نمو هائل في التدفّقات.</p>
+    <p class="body">وحيث تنمو التدفّقات ينمو سعر الموضع الضيّق.</p>
+    <p class="body">إن كنت صريحًا تمامًا، أضع <strong>العبور</strong> فوق «الندرات الجميلة». الحجر يحفظ. نقطة الاختناق تُدرّ. الحجر — طوطم ومدّخرة. نقطة الاختناق — آلة ريع.</p>
+
+    <hr class="divider-narrow">
+    <h4 class="mh4">4. الأصيل</h4>
+    <p class="body">هذا قيد الأصالة.</p>
+    <div class="eqn solo"><div class="b">\(K_{\text{provenance}} = \mathit{const}\)</div></div>
+    <p class="body"><bdi>AGI</bdi> يستطيع تخليق نسخة مثالية.<br>لكنه لا يستطيع جعل تلك النسخة <strong>الشيء نفسه</strong>.</p>
+    <p class="body">التشابه ليس هوية.</p>
+    <p class="body">هذا جوهري.</p>
+    <p class="body">الأصالة ليست خاصية المادة.<br>إنها انتماء إلى خطّ تاريخ واحد.</p>
+    <p class="body">لذلك في النموذج، الأصالة ليست زينة بل نواة السعر. الاصطناعي لا يقتل الأصالة؛ بل يضخّم علاوة الطبيعية المُثبتة وسيرة المنشأ المُثبتة للشيء.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">التحوّل الجوهري: ليست أصولًا، بل قيود</h3>
+    <p class="body">أعيد كتابة القانون الداخلي هكذا:</p>
+    <p class="statement line">AGI يقتل ريع الإنتاج ويُضخّم ريع القيد</p>
+    <p class="body">هذا أقوى من:</p>
+    <p class="body">«القابل للاستنساخ يرخص؛ النادر يرتفع».</p>
+    <p class="body">لأن «النادر يرتفع» ليست صحيحة دائمًا.</p>
+    <p class="body">النادر يمكن أن يموت إذا:</p>
+    <div class="eqn solo"><div class="b">الحقوق = 0</div></div>
+    <p class="body center" style="color:var(--muted);">أو</p>
+    <div class="eqn solo"><div class="b">السيولة = 0</div></div>
+    <p class="body center" style="color:var(--muted);">أو</p>
+    <div class="eqn solo"><div class="b">الذوق = 0</div></div>
+    <p class="body center" style="color:var(--muted);">أو</p>
+    <div class="eqn solo"><div class="b">الأصالة = 0</div></div>
+    <p class="body">لذلك صيغة <strong>الندرة × الحقوق × السيولة × الذوق</strong> صحيحة كمرشّح ضربي: صفر في أيّ مضاعف يُصفّر المنظومة كلها.</p>
+    <p class="body">لكنني أضيف مضاعفًا آخر:</p>
+    <p class="statement line">القابلية للنقل</p>
+    <p class="body">والصيغة المكتملة إذن:</p>
+    <div class="eqn solo"><div class="b">\(V = O \times J \times L \times D \times T\)</div></div>
+    <p class="body">حيث:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(O\)</div><div class="d">ندرة وجودية (ontological scarcity): عدم القابلية للإنتاج؛</div></div>
+      <div class="lr"><div class="s">\(J\)</div><div class="d">ولاية قضائية (jurisdiction): الحماية بالقانون؛</div></div>
+      <div class="lr"><div class="s">\(L\)</div><div class="d">سيولة (liquidity): القدرة على الخروج؛</div></div>
+      <div class="lr"><div class="s">\(D\)</div><div class="d">استدامة الرغبة (desire durability)؛</div></div>
+      <div class="lr"><div class="s">\(T\)</div><div class="d">قابلية النقل (transferability): عبر الأجيال.</div></div>
+    </div>
+    <p class="body">إذا كان أيّ مضاعف صفرًا:</p>
+    <div class="eqn solo"><div class="b">\(V = 0\)</div></div>
+    <p class="body">هذا هو «البوابة لا تمرّر إلا الصيغة المكتملة». السؤال القديم «ماذا نضع في الحقيبة؟» يجب استبداله بالسؤال «هل الصيغة مكتملة وسُمّيت الجدران؟».</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">صيغة الحفاظ على الحصة</h3>
+    <p class="body">بما أن المهمّة ليست الحفاظ على نقد مطلق بل الحفاظ على <strong>حصة نسبية</strong>، يجب حساب لا \(W\) بل:</p>
+    <div class="eqn solo"><div class="b">\(s = \dfrac{W}{Y}\)</div></div>
+    <p class="body">حيث:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(W\)</div><div class="d">ثروة العائلة؛</div></div>
+      <div class="lr"><div class="s">\(Y\)</div><div class="d">إجمالي الكعكة العالمية.</div></div>
+    </div>
+    <p class="body">يعبر أصل إلى 2070 لا حين «ينمو».</p>
+    <p class="body">يعبر فقط إذا:</p>
+    <div class="eqn solo"><div class="b">\(\dfrac{d}{dt}\ln W_a \ge \dfrac{d}{dt}\ln Y\)</div></div>
+    <p class="body">أي:</p>
+    <div class="eqn solo"><div class="b">\(g_a \ge g_Y\)</div></div>
+    <p class="body">في الشكل الحدّي:</p>
+    <div class="eqn solo"><div class="b">\(g_a = \beta_a g_Y + \gamma_a g_F - \mu_a - \kappa_a\)</div></div>
+    <p class="body">حيث:</p>
+    <div class="legend">
+      <div class="lr"><div class="s">\(\beta_a\)</div><div class="d">مدى نمو الطلب على الأصل مع ثروة الطبقة العليا؛</div></div>
+      <div class="lr"><div class="s">\(\gamma_a\)</div><div class="d">مدى استفادة الأصل من نمو التدفّقات؛</div></div>
+      <div class="lr"><div class="s">\(g_F\)</div><div class="d">نمو التدفّقات: أشخاص، بيانات، طاقة، صفقات، لوجستيات، انتباه؛</div></div>
+      <div class="lr"><div class="s">\(\mu_a\)</div><div class="d">مخاطر قانونية / مصادرة / تنظيمية؛</div></div>
+      <div class="lr"><div class="s">\(\kappa_a\)</div><div class="d">كلف تخزين، أمن، إدارة، تدهور، تقادم ذوقي.</div></div>
+    </div>
+    <p class="body">شرط الحفاظ على الحصة:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a g_Y + \gamma_a g_F \ge g_Y + \mu_a + \kappa_a\)</div></div>
+    <p class="body">استنتاج مهمّ:</p>
+    <p class="body"><strong>الندرة الساكنة غير كافية.</strong></p>
+    <p class="body">يجب أن تكون الندرة إمّا:</p>
+    <p class="body">1. مربوطة بثروة الطبقة العليا:</p>
+    <div class="eqn solo"><div class="b">\(\beta_a \ge 1\)</div></div>
+    <p class="body">أو بتدفّقات متنامية:</p>
+    <div class="eqn solo"><div class="b">\(\gamma_a g_F \gg 0\)</div></div>
+    <p class="body">لذلك بالذات <strong>نقاط الاختناق</strong> أقوى رياضيًّا من كثير من «الندرات الجميلة».</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">جوابي الحقيقي</h3>
+    <p class="body">أختصر <bdi>WL2070</bdi> كلها في سطر:</p>
+    <div class="spec result"><div class="stag"><b>مختصر</b> · سطر واحد</div><div class="core"><p class="f" style="font-size:clamp(20px,4vw,25px);">لا تشترِ أشياءً.<br>اشترِ حقوقًا محميّة عند حدود العالم.</p></div></div>
+    <div class="litany">لا «في العالم».<br>لا «في الإنتاج».<br>لا «في التقنيات».<br>لا «في المحافظ».</div>
+    <p class="body">عند <strong>الحدود</strong>.</p>
+    <div class="litany">حدّ الزمن.<br>حدّ المكان.<br>حدّ العبور.<br>حدّ الأصالة.<br>حدّ القانون.<br>حدّ ذاكرة البيت.</div>
+    <p class="body"><bdi>AGI</bdi> يوسّع تقريبًا كل شيء داخل العالم.<br>لكنه لا يُلغي الحدّ.</p>
+    <p class="body">وإذا كان شيء لا يمكن توسيعه، لكن العالم كله يضغط أقوى على ذلك الحدّ، تظهر هناك كثافة ثروة جديدة.</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">الاسم الأدقّ للنموذج</h3>
+    <p class="body">لا أسمّيه «نموذج ندرات».</p>
+    <p class="body">بل:</p>
+    <p class="statement line">نموذج القيود المتبقية</p>
+    <p class="body">أو أقوى:</p>
+    <p class="statement line">اقتصاد الحدود غير القابلة للإرخاء</p>
+
+    <hr class="divider-narrow">
+    <h3 class="mh">الصيغة الحدّية الأقصر</h3>
+    <div class="spec result"><div class="stag"><b>النتيجة</b> · الصيغة الحدّية</div><div class="core"><div class="mono" style="font-family:'IBM Plex Mono','Amiri',monospace; color:var(--ink); line-height:1.9;"><div>\(\mathit{AGI}\uparrow \;\Rightarrow\; MC_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow \lambda_{\text{reproducible}} \downarrow 0\)</div><div>\(\Rightarrow W \to \mathrm{Title}(\lambda_{\text{non-relaxable constraints}})\)</div></div></div></div>
+    <p class="body">بالعربية:</p>
+    <p class="statement line">حين يسعى الإنتاج إلى ما لا نهاية، تصبح الثروة حقًّا فيما لا يوسّعه الإنتاج.</p>
+    <p class="body">أقصر:</p>
+    <p class="result-hero">الثروة = حقّ في حدّ.</p>
+    <p class="result-hero" style="font-size:clamp(22px,4.4vw,28px); color:var(--ink);">ثروة البيت = حقّ في حدّ، نجا من تبدّل العوالم.</p>
+
+  </div>
+
+  <hr class="hairline" style="margin-top:44px;">
+  <aside class="disclaimer"><strong>إخلاء مسؤولية:</strong> هذه المادة فرضية بحثية وخريطة للأسئلة. لا تشكّل مشورة استثمارية أو قانونية أو ضريبية، ولا مشورة تتعلق بتخطيط التركات أو بالواجبات الائتمانية، ولا تُعدّ عرضًا أو دعوةً أو التماسًا للتعاقد أو الاستثمار. تتطلّب مسائل المال والقانون والتركات والاختصاصات القضائية مراجعة مهنية مستقلة. هدف هذه الخريطة مشاركة نتائج البحث والدعوة إلى عمل مشترك: بناء نظرية العبور واختبار النموذج على المتانة. إن رأيتم طريقًا إلى ذلك — فاكتبوا إلينا: <a href="mailto:contact@wealthleap2070.io"><bdi>contact@wealthleap2070.io</bdi></a></aside>
+
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">←</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){ if(!bar)return; var h=document.documentElement; var m=(h.scrollHeight-h.clientHeight)||1; bar.style.width=(Math.min(1,h.scrollTop/m)*100)+'%'; }
+  if(bar){ window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll(); }
+  function render(){ var el=document.getElementById('mm-bravo');
+    if(el&&window.renderMathInElement){ try{ window.renderMathInElement(el,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false}); }catch(e){} }
+    else { setTimeout(render,90); } }
+  if(document.readyState!=='loading') render(); else document.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+<script>
+(function(){
+  window.navTo=function(id){ try{ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }catch(e){} };
+  document.querySelectorAll('.t[data-target]').forEach(function(t){
+    t.style.cursor='pointer';
+    t.addEventListener('click',function(){ navTo(t.getAttribute('data-target').replace('#','')); });
+  });
+})();
+</script>
+<style>
+/* fitty: фраза-доминанта влезает в одну строку на мобиле, центрирована */
+.fitline{ text-align:center; margin:1.1em 0 1.2em; }
+.fitline .pull{ margin:0; }
+.fit-phrase{ display:inline-block; }
+</style>
+<script>/**
+ * fitty v2.4.2 - Snugly resizes text to fit its parent container
+ * Copyright (c) 2023 Rik Schennink <rik@pqina.nl> (https://pqina.nl/)
+ */
+
+!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).fitty=t()}(this,(function(){"use strict";return function(e){if(e){var t=function(e){return[].slice.call(e)},n=0,i=1,r=2,o=3,l=[],u=null,a="requestAnimationFrame"in e?function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{sync:!1};e.cancelAnimationFrame(u);var n=function(){return s(l.filter((function(e){return e.dirty&&e.active})))};if(t.sync)return n();u=e.requestAnimationFrame(n)}:function(){},c=function(e){return function(t){l.forEach((function(t){return t.dirty=e})),a(t)}},s=function(e){e.filter((function(e){return!e.styleComputed})).forEach((function(e){e.styleComputed=y(e)})),e.filter(m).forEach(v);var t=e.filter(p);t.forEach(d),t.forEach((function(e){v(e),f(e)})),t.forEach(S)},f=function(e){return e.dirty=n},d=function(e){e.availableWidth=e.element.parentNode.clientWidth,e.currentWidth=e.element.scrollWidth,e.previousFontSize=e.currentFontSize,e.currentFontSize=Math.min(Math.max(e.minSize,e.availableWidth/e.currentWidth*e.previousFontSize),e.maxSize),e.whiteSpace=e.multiLine&&e.currentFontSize===e.minSize?"normal":"nowrap"},p=function(e){return e.dirty!==r||e.dirty===r&&e.element.parentNode.clientWidth!==e.availableWidth},y=function(t){var n=e.getComputedStyle(t.element,null);return t.currentFontSize=parseFloat(n.getPropertyValue("font-size")),t.display=n.getPropertyValue("display"),t.whiteSpace=n.getPropertyValue("white-space"),!0},m=function(e){var t=!1;return!e.preStyleTestCompleted&&(/inline-/.test(e.display)||(t=!0,e.display="inline-block"),"nowrap"!==e.whiteSpace&&(t=!0,e.whiteSpace="nowrap"),e.preStyleTestCompleted=!0,t)},v=function(e){e.element.style.whiteSpace=e.whiteSpace,e.element.style.display=e.display,e.element.style.fontSize=e.currentFontSize+"px"},S=function(e){e.element.dispatchEvent(new CustomEvent("fit",{detail:{oldValue:e.previousFontSize,newValue:e.currentFontSize,scaleFactor:e.currentFontSize/e.previousFontSize}}))},h=function(e,t){return function(n){e.dirty=t,e.active&&a(n)}},b=function(e){return function(){l=l.filter((function(t){return t.element!==e.element})),e.observeMutations&&e.observer.disconnect(),e.element.style.whiteSpace=e.originalStyle.whiteSpace,e.element.style.display=e.originalStyle.display,e.element.style.fontSize=e.originalStyle.fontSize}},w=function(e){return function(){e.active||(e.active=!0,a())}},z=function(e){return function(){return e.active=!1}},g=function(e){e.observeMutations&&(e.observer=new MutationObserver(h(e,i)),e.observer.observe(e.element,e.observeMutations))},F={minSize:16,maxSize:512,multiLine:!0,observeMutations:"MutationObserver"in e&&{subtree:!0,childList:!0,characterData:!0}},W=null,E=function(){e.clearTimeout(W),W=e.setTimeout(c(r),C.observeWindowDelay)},M=["resize","orientationchange"];return Object.defineProperty(C,"observeWindow",{set:function(t){var n="".concat(t?"add":"remove","EventListener");M.forEach((function(t){e[n](t,E)}))}}),C.observeWindow=!0,C.observeWindowDelay=100,C.fitAll=c(o),C}function x(e,t){var n=Object.assign({},F,t),i=e.map((function(e){var t=Object.assign({},n,{element:e,active:!0});return function(e){e.originalStyle={whiteSpace:e.element.style.whiteSpace,display:e.element.style.display,fontSize:e.element.style.fontSize},g(e),e.newbie=!0,e.dirty=!0,l.push(e)}(t),{element:e,fit:h(t,o),unfreeze:w(t),freeze:z(t),unsubscribe:b(t)}}));return a(),i}function C(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return"string"==typeof e?x(t(document.querySelectorAll(e)),n):x([e],n)[0]}}("undefined"==typeof window?null:window)}));
+</script>
+<script>
+(function(){
+  var sel='.fit-phrase', inst=null;
+  function isMobile(){ return window.matchMedia('(max-width:600px)').matches; }
+  function enable(){ if(inst)return; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace='nowrap'; }); inst=fitty(sel,{minSize:11,maxSize:200}); }
+  function disable(){ if(!inst)return; (Array.isArray(inst)?inst:[inst]).forEach(function(i){ i.unsubscribe(); }); inst=null; document.querySelectorAll(sel).forEach(function(e){ e.style.whiteSpace=''; e.style.fontSize=''; }); }
+  function sync(){ isMobile()?enable():disable(); }
+  function go(){ sync(); window.addEventListener('resize',sync); }
+  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(go); } else { go(); }
+})();
+</script>
+</body>
+</html>

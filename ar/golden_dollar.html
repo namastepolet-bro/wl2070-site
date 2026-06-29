@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>الدولار الذهبي 2045 · ستراتيغراف</title>
+<style>
+/* ── Light scheme "Stratigraph" — tokens from the approved pilot (verbatim) ── */
+:root{
+  --bg:#f1ece2; --paper:#faf8f3; --panel:#f4efe5; --panel-2:#ede6d8;
+  --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+  --accent:#8f3221; --accent-soft:#b65038;
+  --seam:#d2c6b0; --rule:#e4dccb; --hair:#ece4d5;
+  --code-ink:#3a352d; --code-bg:#f0e9da;
+
+  /* ── COMPRESSED TYPE SCALE (preview edit: fewer jumps, easier to read) ──
+     anchor — body 17px. Whole document in the 12→34px band, not 10→58px. */
+  --t-hero:clamp(28px,5vw,34px);   /* was ~58 */
+  --t-h2:clamp(21px,3.4vw,24px);   /* § */
+  --t-h3:19px;
+  --t-body:17px;                    /* ANCHOR */
+  --t-small:15px;                   /* secondary text, captions under heading */
+  --t-meta:12px;                    /* mono labels, codes, numbers (was 10) */
+  --t-table:14.5px;
+  --lh-body:1.78;                   /* AR: a touch more leading for Arabic script */
+
+  /* Arabic font stacks — display (Amiri, serif feel to echo Cormorant/Spectral)
+     and UI/body (IBM Plex Sans Arabic). Latin codes stay on IBM Plex Mono. */
+  --ar-serif:'Amiri','Spectral',Georgia,serif;
+  --ar-sans:'Amiri','Spectral',system-ui,sans-serif;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--paper); color:var(--ink-soft); font-family:var(--ar-sans);
+  font-size:var(--t-body); line-height:var(--lh-body); direction:rtl; text-align:right;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection{ background:var(--accent); color:#fff; }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--accent) 34%,transparent); }
+a:hover{ border-bottom-color:var(--accent); }
+
+/* note bar */
+.note-bar{ font-family:var(--ar-sans); font-size:var(--t-meta); letter-spacing:0;
+  color:var(--muted); border-bottom:1px solid var(--hair); padding:10px 22px; background:var(--paper); }
+.note-bar b{ color:var(--accent); }
+
+/* core */
+.page{ padding:40px 22px 110px; }
+.sheet{ max-width:760px; margin:0 auto; position:relative; padding-right:84px; padding-left:0; }
+.sheet::before{ content:""; position:absolute; right:22px; left:auto; top:6px; bottom:0; width:1px;
+  background:linear-gradient(var(--hair), var(--seam) 6%, var(--seam) 95%, var(--hair)); }
+
+/* hero */
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin:0 0 16px; direction:ltr; text-align:right; }
+.hero h1{ font-family:var(--ar-serif); font-weight:700; font-size:clamp(34px,6vw,42px); line-height:1.18; letter-spacing:0; margin:0 0 14px; color:var(--ink); }
+.hero .sub{ font-family:var(--ar-serif); font-style:normal; font-size:18px; line-height:1.7; color:var(--muted); margin:0 0 8px; }
+.hero .meta{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); margin:14px 0 0; line-height:1.7; direction:ltr; text-align:right; }
+
+/* seams */
+.seam{ height:0; border:none; border-top:1px solid var(--seam); position:relative; margin:40px 0 34px; }
+.seam::after{ content:""; position:absolute; left:0; right:0; top:3px; border-top:1px solid var(--hair); }
+.hairline{ border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+/* bed heads — type sizes brought close, contrast carried by color/weight, not size */
+h2.lh{ font-family:var(--ar-serif); font-weight:700; font-size:var(--t-h2); line-height:1.4;
+  margin:1.9em 0 .6em; color:var(--ink); position:relative; scroll-margin-top:60px; }
+h2.lh .code{ position:absolute; right:-78px; left:auto; top:.1em; writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap; direction:ltr; }
+h2.lh::before{ content:""; position:absolute; right:-64px; left:auto; top:.7em; width:14px; height:1px; background:var(--accent); }
+
+h3.sub{ font-family:var(--ar-serif); font-weight:700; font-size:var(--t-h3); line-height:1.4; margin:1.7em 0 .5em; color:var(--ink); position:relative; padding-right:20px; padding-left:0; }
+h3.sub::before{ content:""; position:absolute; right:0; left:auto; top:.66em; width:12px; height:1px; background:var(--accent); }
+
+/* text */
+p{ margin:0 0 1em; color:var(--ink-soft); }
+p strong{ color:var(--ink); font-weight:700; }
+p em{ font-style:normal; font-weight:500; }
+.lead{ font-size:var(--t-body); color:var(--ink-soft); }
+
+/* lead-in paragraph: bold label IN-LINE */
+p.runin > b:first-child, p.runin > strong:first-child{ color:var(--accent); font-weight:700; }
+
+/* metadata line — small label, not a heading */
+.geo{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0;
+  text-transform:none; color:var(--accent); font-weight:600; margin:1.6em 0 .5em; }
+.meta-line{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0;
+  color:var(--muted); margin:.2em 0 1.1em; }
+.meta-line b{ color:var(--ink); font-weight:700; }
+
+/* term emphasis */
+.term{ font-style:normal; font-weight:500; color:var(--ink); }
+
+/* lists */
+ul.beds{ list-style:none; margin:1.1em 0; padding:0; }
+ul.beds > li{ position:relative; padding-right:22px; padding-left:0; margin:0 0 .55em; line-height:1.75; color:var(--ink-soft); }
+ul.beds > li::before{ content:""; position:absolute; right:0; left:auto; top:.7em; width:11px; height:1px; background:var(--accent); }
+ul.beds > li strong{ color:var(--ink); font-weight:700; }
+ul.beds > li em{ font-style:normal; font-weight:500; }
+
+/* table */
+.tbl{ margin:1.4em 0; border:1px solid var(--rule); border-top:2px solid var(--seam); border-radius:2px; overflow:hidden; }
+.tbl table{ width:100%; border-collapse:collapse; font-size:var(--t-table); }
+.tbl caption{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0; text-transform:none;
+  color:var(--muted); text-align:right; padding:11px 16px 0; }
+.tbl th{ font-family:var(--ar-sans); font-weight:600; font-size:var(--t-small); letter-spacing:0; text-transform:none;
+  color:var(--accent); text-align:right; padding:11px 16px; border-bottom:1px solid var(--rule); background:var(--panel-2); }
+.tbl td{ padding:10px 16px; border-bottom:1px solid var(--hair); color:var(--ink-soft); line-height:1.6; vertical-align:top; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl td:first-child{ color:var(--ink); font-weight:700; white-space:nowrap; }
+.tbl.wide td:first-child{ white-space:normal; }
+
+/* spec insert */
+.spec{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.spec .stag{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0; text-transform:none;
+  color:var(--muted); padding:11px 18px; border-bottom:1px solid var(--rule); }
+.spec .stag b{ color:var(--accent); font-weight:600; }
+.spec .in{ padding:16px 20px; }
+.spec .in p{ margin:0; font-size:var(--t-small); line-height:1.75; color:var(--ink-soft); }
+.spec .in p em{ font-style:normal; font-weight:500; }
+
+/* quiet marginal note */
+.note-quiet{ border-right:2px solid var(--seam); border-left:none; padding:2px 18px 2px 0; font-style:normal; color:var(--ink-soft);
+  font-size:var(--t-small); line-height:1.7; margin:1.3em 0; }
+
+/* numbered algorithm-strata */
+ol.algo{ list-style:none; counter-reset:st; margin:1.1em 0; padding:0; }
+ol.algo > li{ position:relative; padding-right:30px; padding-left:0; margin:0 0 .5em; line-height:1.7; color:var(--ink-soft); counter-increment:st; }
+ol.algo > li::before{ content:counter(st,decimal-leading-zero); position:absolute; right:0; left:auto; top:.15em;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); font-weight:600; color:var(--accent); }
+ol.algo > li em{ font-style:normal; font-weight:500; }
+
+/* maxim — calm blockquote */
+.maxim{ font-family:var(--ar-serif); font-style:normal; font-size:var(--t-body); line-height:1.7;
+  color:var(--ink); border-right:1px solid var(--accent); border-left:none; padding-right:20px; padding-left:0; margin:1.2em 0; }
+.maxim.soft{ color:var(--ink-soft); }
+
+footer.foot{ margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.04em; color:var(--muted); line-height:1.8; direction:ltr; text-align:right; }
+
+@media(max-width:720px){
+  .page{ padding:26px 16px 80px; }
+  .sheet{ padding-right:0; }
+  .sheet::before{ display:none; }
+  h2.lh::before{ display:none; }
+  h2.lh .code{ display:none; }
+  .tbl{ overflow-x:auto; }
+}
+
+/* ── harness: progress + toolbar ── */
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:60; transition:width .08s linear; }
+
+/* hero tags (basket facets) */
+.tags{ display:flex; flex-wrap:wrap; gap:7px 9px; margin:14px 0 0; }
+.tags .t{ font-family:'IBM Plex Mono',monospace; font-size:var(--t-meta); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); border:1px solid var(--rule); border-radius:999px; padding:4px 11px; cursor:pointer; transition:border-color .12s, color .12s; direction:ltr; }
+.tags .t:hover{ border-color:var(--accent); color:var(--accent); }
+.tags .t b{ color:var(--accent); font-weight:600; }
+
+/* accent fragment in bed head */
+h2.lh .n{ color:var(--accent); font-weight:700; }
+h3.sub .n{ color:var(--accent); font-weight:700; }
+
+/* head of a stabilizer-facet (④⑤⑥) — level between h2 and h3 */
+h3.bed{ font-family:var(--ar-serif); font-weight:700; font-size:clamp(20px,3vw,23px); line-height:1.4;
+  margin:2em 0 .6em; color:var(--ink); display:flex; align-items:baseline; gap:.42em; scroll-margin-top:60px; }
+h3.bed .gn{ font-family:'Cormorant',serif; font-weight:700; font-size:1em; color:var(--accent); flex:none; }
+/* lens-addendum (2-4): same size as the archetype-facet, carnelian word prefix */
+h3.bed.lens{ display:block; }
+h3.bed .n{ color:var(--accent); font-weight:700; }
+/* circled facet number in the §-section (spines ①②③) */
+h2.lh .gn{ font-family:'Cormorant',serif; font-weight:700; font-size:1em; color:var(--accent); margin-left:.06em; margin-right:0; }
+
+/* facets of the monetary stratigraph — numbered sample cards */
+.facet{ display:grid; grid-template-columns:46px 1fr; gap:0; background:var(--panel); border:1px solid var(--rule);
+  border-right:2px solid var(--accent); border-left:1px solid var(--rule); border-radius:2px; margin:0 0 12px; overflow:hidden; direction:rtl; }
+.facet .num{ display:flex; align-items:flex-start; justify-content:center; padding:16px 0 0; background:var(--panel-2);
+  font-family:'Cormorant',serif; font-weight:700; font-size:26px; line-height:1; color:var(--accent); border-left:1px solid var(--rule); border-right:none; }
+.facet .bd{ padding:14px 18px; }
+.facet .bd .h{ font-family:var(--ar-serif); font-weight:700; font-size:var(--t-h3); line-height:1.4; color:var(--ink); margin:0 0 5px; }
+.facet .bd .g{ font-size:var(--t-small); line-height:1.75; color:var(--ink-soft); margin:0; }
+.facet .bd .g strong{ color:var(--ink); font-weight:700; }
+
+/* sample-slab: mono terminal inside .spec — code stays LTR */
+.spec .pre{ font-family:'IBM Plex Mono','Amiri',monospace; white-space:pre-wrap; font-size:var(--t-small); line-height:1.85;
+  color:var(--code-ink); padding:15px 18px; margin:0; overflow-x:auto; direction:rtl; text-align:right; }
+
+/* conclusion — key takeaway of the lens */
+.insight{ background:var(--panel); border:1px solid var(--rule); border-top:2px solid var(--accent); border-radius:2px; margin:24px 0; }
+.insight .itag{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0; text-transform:none;
+  color:var(--accent); font-weight:600; padding:11px 18px; border-bottom:1px solid var(--rule); }
+.insight .in{ padding:15px 20px; }
+.insight .in p{ margin:0 0 .7em; font-size:var(--t-small); line-height:1.78; color:var(--ink-soft); }
+.insight .in p:last-child{ margin:0; }
+.insight .in p strong{ color:var(--ink); font-weight:700; }
+
+/* footnote */
+.footnote{ font-size:var(--t-small); line-height:1.75; color:var(--muted); margin:1.3em 0; border-right:1px solid var(--seam); border-left:none; padding-right:18px; padding-left:0; }
+.footnote sup{ color:var(--accent); }
+sup{ font-size:.7em; color:var(--accent); }
+
+/* glossary */
+dl.kv{ display:grid; grid-template-columns:max-content 1fr; gap:11px 20px; margin:1.2em 0; font-size:var(--t-small); line-height:1.7; color:var(--ink-soft); }
+dl.kv dt{ font-family:var(--ar-sans); font-style:normal; font-weight:700; white-space:nowrap; color:var(--accent); }
+dl.kv dd{ margin:0; }
+@media(max-width:720px){ dl.kv{ grid-template-columns:1fr; gap:3px 0; } dl.kv dt{ margin-top:.6em; } }
+
+/* facet pulses registry — light ruled block */
+.pulse{ margin:24px 0 26px; border-top:2px solid var(--seam); }
+.pulse .plab{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0; text-transform:none;
+  color:var(--accent); font-weight:600; padding:11px 0 4px; display:flex; gap:10px; flex-wrap:wrap; }
+.pulse .plab .freq{ color:var(--muted); font-weight:400; letter-spacing:0; }
+.pulse .r{ display:grid; grid-template-columns:170px 1fr; gap:8px 18px; padding:11px 0; border-bottom:1px solid var(--hair); align-items:baseline; }
+.pulse .c{ font-family:var(--ar-sans); font-size:var(--t-small); font-weight:700; color:var(--accent); }
+.pulse .m{ font-size:var(--t-small); line-height:1.65; color:var(--ink-soft); }
+.pulse .foot{ font-family:var(--ar-sans); font-size:var(--t-small); letter-spacing:0; color:var(--muted); padding:11px 0 0; }
+@media(max-width:720px){ .pulse .r{ grid-template-columns:1fr; gap:2px; } }
+
+/* centered soft divider */
+.dotdiv{ display:flex; align-items:center; justify-content:center; gap:15px; margin:34px 0; }
+.dotdiv::before, .dotdiv::after{ content:""; width:56px; height:1px; background:var(--seam); }
+.dotdiv i{ width:5px; height:5px; background:var(--accent); transform:rotate(45deg); border-radius:1px; display:block; }
+
+/* final contact block */
+footer.foot a{ color:var(--accent); }
+footer.foot .arr{ color:var(--accent); }
+
+
+/* ════════ ЕДИНАЯ ШАПКА .top (унификация v0, из index_*) ════════ */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:852px; margin:0 auto; padding:16px 22px 14px; border-block-end:1px solid var(--hair);
+  position:sticky; top:0; z-index:60;
+  background:color-mix(in srgb,#faf8f3 92%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.top .brand{ border:none; }
+.top .brand .mark{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); white-space:nowrap; }
+.top .brand .mark .dot{ color:var(--accent); }
+.top .lang{ display:inline-flex; gap:14px; align-items:center; flex:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.top .lang a{ color:var(--muted); border:none; padding-block-end:2px; border-block-end:1.5px solid transparent; transition:color .15s,border-color .15s; }
+.top .lang a:hover{ color:var(--ink); }
+.top .lang a.on{ color:var(--accent); font-weight:600; border-block-end-color:var(--accent); }
+/* единый хвост */
+.site-tail{ max-width:852px; margin:40px auto 0; padding:0 22px; }
+.site-tail a{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; color:var(--accent);
+  border:none; display:inline-flex; gap:8px; align-items:center; }
+.site-tail a .ar{ transition:transform .16s; display:inline-block; }
+.site-tail a:hover .ar{ transform:translateX(-3px); }
+/* П.4 · моноширинные плашки .spec — гориз. скролл на узком экране */
+.spec .scrollx{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.spec .scrollx::-webkit-scrollbar{ height:6px; }
+.spec .scrollx::-webkit-scrollbar-track{ background:transparent; }
+.spec .scrollx::-webkit-scrollbar-thumb{ background:var(--hair); border-radius:3px; }
+.spec .scrollx pre.pre{ white-space:pre; display:inline-block; min-width:100%; }
+
+/* SUMMARY как невидимая таблица — ровные колонки на любом экране и в RTL */
+.spec .sumgrid{ display:grid; grid-template-columns:max-content max-content 1fr;
+  gap:10px 22px; padding:18px 22px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--t-small,15px); line-height:1.5; color:var(--code-ink,#3a352d); }
+/* SUMMARY внутри .scrollx — ведёт себя как THE SETUP: своя ширина + гориз. прокрутка */
+.spec .scrollx .sumgrid{ grid-template-columns:max-content max-content max-content; width:max-content; }
+.spec .sumgrid .cap{ grid-column:1 / -1; color:var(--muted); margin:0 0 6px;
+  font-size:.92em; letter-spacing:.04em; }
+.spec .sumgrid .c1{ color:var(--ink); white-space:nowrap; }
+.spec .sumgrid .c2{ white-space:nowrap; }
+.spec .sumgrid .c3{ color:var(--ink-soft); }
+.spec .sumgrid .c1 .ix{ color:inherit; font-weight:600; margin-inline-end:.5em; }
+@media(max-width:600px){
+  .spec .sumgrid{ gap:8px 14px; padding:16px 14px; font-size:13px; }
+}
+</style>
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><span class="mark">WealthLeap<span class="dot">2070</span>.io</span></a>
+    <nav class="lang" aria-label="اللغة">
+      <a href="../en/golden_dollar.html">EN</a><a href="../ru/golden_dollar.html">RU</a><a href="../ar/golden_dollar.html" class="on" aria-current="true">AR</a>
+    </nav>
+  </header>
+
+
+<div class="page">
+<article class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">خريطة كنتورية</p>
+    <h1>الدولار الذهبي 2045</h1>
+    <p class="sub">خريطة كنتورية لمستقبل النقود. عمودان فقريان متنافسان (الولايات المتحدة والصين) + ثالثٌ صاعد (المداري) + ثلاثة مثبِّتات (الاتحاد الأوروبي، تايلاند، الخليج). الأفق: 2026–2045.</p>
+    <p class="meta">field map · v1.2 · assembled: June 12, 2026</p>
+    <div class="tags"><span class="t" data-target="g-us"><b>①</b> US</span><span class="t" data-target="g-cn"><b>②</b> CN</span><span class="t" data-target="g-orbital"><b>③</b> ORBITAL</span><span class="t" data-target="g-eu"><b>④</b> EU</span><span class="t" data-target="g-th"><b>⑤</b> TH</span><span class="t" data-target="g-gulf"><b>⑥</b> GULF</span></div>
+  </header>
+
+  <hr class="seam">
+
+  <p class="note-quiet">ملاحظة الترجمة: هذه نسخة عمل مترجمة عن الأصل الروسي بالاعتماد على أدوات الذكاء الاصطناعي اللغوية. النص مرشَّح لمراجعة عربية لتحسين الصياغة وتثبيت المصطلحات. المؤلف يرحّب بالتصويبات.</p>
+
+  <p><strong style="font-weight:700; color:#17140f;">ما في الداخل.</strong> أربع عدسات يبدو من خلالها المشهد المألوف للنقود مختلفاً. ستة أوجه للستراتيغراف النقدي 2045 — من الدولار المُرمَّز إلى الأصل المداري. الخريطة مبنية لا على حفظ الوقائع بل على البصيرة: بعد القراءة تضعون عليها بأنفسكم أي دولة أو عملة أو خبر جديد — لأنكم حصلتم على محاور تفكير، لا على نقاط متناثرة.</p>
+  <p>في ثلاثية الخيال العلمي الروسية لنيكولاي غوركافي «أستروفيتيانكا» — المنشورة بالإنجليزية ضمن سلسلة AstroNikki — تُسمّى نقود القرن الثالث والعشرين «الدولارات الذهبية»<sup style="font-size:.7em; color:var(--accent);">1</sup>. لا الذهب ولا الدولار، بوصفهما مقياساً للقيمة، موجودان بشكلهما المألوف في ذلك الزمن — لكن الاسم عاش أطول من حامليه كليهما. كتب غوركافي خيالاً علمياً؛ والواقع يتحرك في الاتجاه المعاكس. مكوّنات تلك الفسيفساء — العملات المستقرة، الممرات الذهبية، الأصول المدارية — ظهرت بالفعل كلٌّ على حدة، لكنها لم تلتئم بعد في كلٍّ واحد.</p>
+  <p>هذا النص محاولةٌ لأخذ الضوء الأبيض لـ«الدولار الذهبي» وتمريره عبر موشور. الموشور يفكّك الضوء بحسب أطواله الموجية. وعدسات هذه الخريطة تفكّك النقود بحسب المدى — المسافة التي يقدر كل حاملٍ على نقل الطاقة عبرها في الزمن.</p>
+  <div class="spec"><div class="stag"><b>الطرح</b></div><div class="scrollx"><pre class="pre">المهمة:   نقل «الدولارات الذهبية» عند غوركافي
+          إلى البنية النقدية الواقعية 2026–2045
+السياق:   كتب غوركافي في عصرٍ أحادي القطب —
+          عملة واحدة، عالم واحد. الواقع يتشظّى.
+          الأفق — عقود.
+السؤال:   أي بلّورةٍ لسلّة عملاتٍ تنشأ
+          إذا كان لكل وجهٍ وظيفته الخاصة؟</pre></div></div>
+  <p class="footnote"><sup style="color:var(--accent);">1</sup> نيكولاي غوركافي — عالم فيزياء فلكية ومؤلف ثلاثية «أستروفيتيانكا»، المنشورة بالإنجليزية ضمن سلسلة AstroNikki. «الدولارات الذهبية» هي وحدة الحساب في نموذجه لاقتصاد القرن الثالث والعشرين، حيث تُشتق القيمة من الطاقة لا من طباعة النقود.</p>
+  <hr class="seam">
+  <p class="geo">العدسات الأربع · البداية</p>
+  <h2 class="lh"><span class="code">§01 · LENS I</span><span class="n">العدسة الأولى ·</span> النقود كمدى</h2>
+  <p>لكل حاملٍ طولُه الموجي. الكمبيالة تنقل الطاقة عبر أشهر. الوديعة المصرفية — عبر سنوات. العملة المستقرة المربوطة بسندات الخزانة ترث أفق تلك السندات — فصولاً حتى الاستحقاق. الذهب يحمل عبر الأجيال: سبيكةٌ صُبَّت في عهد آل ميديتشي صالحةٌ اليوم دون تحويل. الحجر الكريم — ياقوتةٌ لم تمسّها يد منذ ثلاثمئة مليون سنة — يعمل على المقاييس الجيولوجية. والأصل المداري — قدرةٌ حاسوبية منشورة خارج الغلاف الجوي — يُخرج المدى لأول مرة خارج حدود الكوكب.</p>
+  <p>لا يغطي أي حاملٍ وحده الطيفَ كاملاً. وهذا ليس عيباً — بل هو التصميم نفسه. لطالما استخدم العالم عدة حواملَ في آنٍ واحد، والعملة الاحتياطية الوحيدة في القرن العشرين شذوذٌ لا قاعدة. والمحيط الحيوي لا يعرف زراعاتٍ أحادية تعيش طويلاً.</p>
+  <p>من هذه العدسة تنمو بنية الخريطة كلها. حوامل الموجات القصيرة — تلك العاملة على مدى الفصول ودورات العقوبات — تشكِّل طابقاً. لنسمِّها الأعمدة الفقرية: اليوم هما الدولار واليوان (والمنظومتان حولهما)، مساران متنافسان للطاقة السريعة. وحوامل الموجات الطويلة — الأجيال والقرون والجيولوجيا — طابقٌ آخر. هذه هي النماذج الأصلية: الذهب، المكان، الحياد، القصور الذاتي، الرياضيات. الأعمدة الفقرية تتنافس فيما بينها على الهيمنة. أما النماذج الأصلية فلا تنافس أحداً — لا الأعمدةَ ولا بعضَها بعضاً. إنها تعيش في زمنٍ آخر.</p>
+  <p>الخلط بين الطابقين هو الخطأ الذي يقع فيه كل نصٍّ تحليلي تقريباً عن مستقبل النقود. سؤال «أيهما سينتصر: الدولار أم الذهب؟» مطروحٌ خطأً: فهما يعملان على طولين موجيين مختلفين ويحلّان مسألتين مختلفتين. السؤال الصحيح: كيف تتوزع احتياطياتكم على الطيف، وأي أطوالٍ موجية غائبة عنه؟</p>
+  <p class="geo">الطابق العلوي · الأعمدة الفقرية الجاذبة</p>
+  <div class="facet"><div class="num">①</div><div class="bd"><div class="h">الولايات المتحدة · الدولار المُرمَّز</div><div class="g">ترميز أكثر من 100 تريليون دولار من أصول الأرض في عملاتٍ مستقرة مربوطة بالدولار. <strong>الاستراتيجية:</strong> إذابة الدين السيادي في نقودٍ جديدة، والتحوّل إلى ملاذٍ لأصول الكريبتو على الكوكب. <strong>المرتكز:</strong> القدرة الصناعية + البنية التحتية المالية.</div></div></div>
+  <div class="facet"><div class="num">②</div><div class="bd"><div class="h">الصين · اليوان الذهبي</div><div class="g">بورصة شنغهاي للذهب (SGE). تكديسٌ واسع للذهب، وربط الاحتياطيات الذهبية السيادية للدول المشاركة في حوضٍ مالي واحد. <strong>الاستراتيجية:</strong> مرساة مادية، نظام احتياطي بديل. <strong>المرتكز:</strong> القدرة الصناعية + الاحتياطي الذهبي.</div></div></div>
+  <div class="facet"><div class="num">③</div><div class="bd"><div class="h">«القارة الخارجية» · النقود المدارية</div><div class="g">إيلون ماسك ومجموعات منافسيه من نخبة التكنولوجيا حوله. قدرات حاسوبية. ملايين الأطنان في المدار. <strong>الاستراتيجية:</strong> نقودٌ تكنولوجية مرتكزة إلى بنيةٍ تحتية خارج الأرض. <strong>المرتكز:</strong> الحوسبة + الكتلة المدارية.</div></div></div>
+  <p class="geo">الطابق السفلي · النماذج الأصلية المثبِّتة</p>
+  <div class="facet"><div class="num">④</div><div class="bd"><div class="h">اليورو · الإرث الثقافي</div><div class="g">مرتبطٌ ارتباطاً راسخاً بأصلٍ ثقافي. لكن أوروبا ليست لاعباً. لا تبني المستقبل. <strong>الوظيفة:</strong> مرساة القصور الذاتي.</div></div></div>
+  <div class="facet"><div class="num">⑤</div><div class="bd"><div class="h">تايلاند · النقود الطبيعية</div><div class="g">اقتصادٌ مدهش الصمود. <strong>المرتكز:</strong> الطبيعة + السياحة + الخدمة. لا توجد أماكن أخرى كهذه على الكوكب بهذه الجودة وهذه الخدمة. <strong>الوظيفة:</strong> موردٌ لا ينضب ولا تنخفض قيمته.</div></div></div>
+  <div class="facet"><div class="num">⑥</div><div class="bd"><div class="h">الخليج · النقود الحجرية</div><div class="g">الملكيات العربية. نقودٌ مثبَّتة بأصولٍ لم تتغير منذ ملايين السنين: الأحجار الكريمة. ترميز الأحجار الكريمة الملوَّنة = فئة ضماناتٍ جديدة. <strong>الوظيفة:</strong> المرساة الأبدية.</div></div></div>
+  <p>الأعمدة الفقرية تتنافس. النماذج الأصلية لا تتنافس. الوجه ⑥ فريد: إنه الموقع الوحيد على خطّ الصدع بين العمودين الفقريين الذي يظلّ متوافقًا مع كليهما — ويربح تحديدًا لأن النظامين موجودان معًا.</p>
+  <hr class="seam">
+  <h2 id="g-us" class="lh"><span class="code">§02 · MOVE · US</span><span class="gn">①</span> <span class="n">نقلة الولايات المتحدة ·</span> آلة الدولار</h2>
+  <p>تبني الولايات المتحدة أداةً لا نظير مباشراً لها في التاريخ: شبكة عالمية من مُصدِرين خاصّين يسكّون توكنات مربوطةً بالدولار ومغطاةً بسندات الخزانة. اسم «العملة المستقرة» أكثر تواضعاً من الجوهر: هذه آليةٌ تحوِّل الدين السيادي إلى احتياطيٍّ عالمي وتوزِّع العبء التضخمي على كل حاملٍ للتوكن — من لاغوس إلى مانيلا.</p>
+  <p>الآلية بسيطة. تشتري تيثر (Tether) أو سيركل (Circle) سندات خزانة قصيرة، وتُصدر مقابلها USDT أو USDC، فتنتشر التوكنات عبر هواتف الكوكب الذكية. كل عملةٍ مستقرة إيصالٌ رقمي مربوطٌ بسند. يرتفع الطلب على السندات، وتنخفض كلفة خدمة الدين، ويقع التآكل التضخمي للدولار على كل من يحمل التوكن — لا على المواطنين الأمريكيين وحدهم. ضريبةٌ عالمية صامتة لم يصوِّت عليها أحد.</p>
+  <p>لكن تصدير التضخم أثرٌ ثانوي. النقلة الأولى أكبر. كانت الولايات المتحدة أصعبَ سوقٍ على الكوكب للترميز — متاهة تنظيمية، سوابق عدائية من هيئة الأوراق المالية والبورصات (SEC)، وضعٌ قانوني غامض. قانون GENIUS يقلب الموقع: اتُّخذ القرار بأن تصبح أبسطَ الأسواق وأكثرَها انفتاحاً. والرهان ليس على سوق العملات المستقرة، بل على مئات التريليونات من الدولارات في أصول العالم الحقيقي غير المرسمَلة اليوم.</p>
+  <p>شقةٌ تطل على سنترال بارك تساوي اثني عشر مليون دولار — لكن جرِّبوا الحصول على قرضٍ بضمانها في أقل من شهرين. مع الترميز تقسمون حق الملكية إلى حصص، وترهنون ثلثها فوراً، وتبيعون عُشرها لمستثمرٍ في سنغافورة — وكل ذلك بعملاتٍ مستقرة مقوَّمة بالدولار. ولا يقتصر الترميز على العقار: الملكية الفكرية، حقوق البنى التحتية، العقود التجارية. وإذا قُوِّمت ولو حصةٌ معتبرة من هذه الأصول بعملاتٍ مستقرة دولارية — يكسب الدولار شيئاً أقوى من تصدير التضخم: مكانةَ الملاذ العالمي للأصول. الخطة الأمريكية الكلاسيكية: لا حظرُ الجديد، بل أن تصبح المنصةَ التي يصل عبرها الجديد.</p>
+  <div class="spec"><div class="stag"><b>لقطة</b> · بيانات · أبريل 2026</div><div class="in"><p>حتى أبريل 2026 بلغت الرسملة الإجمالية للعملات المستقرة 318.6 مليار دولار؛ منها نحو 184 مليار دولار لـ USDT، ونحو 79 مليار دولار لـ USDC. تحتفظ تيثر بنحو 63% من احتياطياتها في سندات الخزانة، وسيركل بنحو 32%. توقّع وزارة الخزانة الأمريكية: 3.7 تريليون دولار بنهاية العقد. قانون GENIUS، الموقَّع في يوليو 2025، يقنّن هذه البنية: يجوز إصدار العملات المستقرة المنظَّمة المربوطة بالدولار للبنوك وشركات الائتمان وعددٍ من الشركات غير المصرفية المرخَّصة. هذه «مظلةٌ ذهبية» حتى منتصف القرن الحادي والعشرين لهيمنةٍ دولارية تشيخ.</p></div></div>
+  <p>هنا لا بدّ من وقفة، لأن الآلة ليست بلا نقاط ضعف، ومعرفة القارئ بها خيرٌ له من أن يتجاوزها. حاملو العملات المستقرة لا يتقاضون عائداً — والجذب نحو الودائع المصرفية المُرمَّزة وصناديق سوق النقد قائمٌ ويتعاظم. وتركّز الاحتياطيات لدى مُصدِرَين اثنين يولِّد خطراً: إذا فقد أحدهما ربطه بالدولار — صدمةٌ تضرب الطرف القصير من منحنى العائد. وأخيراً، ترث البنية كلها المفارقةَ المركزية: إنها تعمل ما دام الدولار الاحتياطيَّ العالمي بالضبط. فإن ضعفت الهيمنة، انهار هذا الوجه أولاً.</p>
+  <p>كل هذا معروفٌ لديكم. لكن الإطار الذي تكون فيه العملات المستقرة لا «كريبتو جديداً» بل آليةً لتصدير التضخم وترميزِ أصول العالم — يغيّر السؤال. السؤال ليس في سعر العملة المستقرة. السؤال: أي حصةٍ من ضريبة التضخم تدفعونها بحملكم للتوكن — وهل تدركون ذلك؟</p>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>التآزر:</strong> مع المداري (ORBITAL) — مدفوعات الذكاء الاصطناعي عبر العملات المستقرة؛ آنت غروب أطلقت بالفعل «أنفيتا» لوكلاء الذكاء الاصطناعي.</li><li><strong>التنافس:</strong> مباشرٌ مع الصين (على المواقع الاحتياطية) ومع الاتحاد الأوروبي (اليورو الرقمي يستهدف الموضع نفسه).</li><li><strong>التراتبية:</strong> يكبح العملات الورقية الصغيرة في الأسواق الناشئة — نزوح الودائع نحو العملات المستقرة.</li></ul>
+  <hr class="seam">
+  <h2 id="g-cn" class="lh"><span class="code">§03 · MOVE · CN</span><span class="gn">②</span> <span class="n">نقلة الصين ·</span> الممر الذهبي</h2>
+  <p>الطلب على بديلٍ للعمود الفقري الأمريكي لم تصنعه بكين بل واشنطن. ثلاث مرات خلال السنوات التسعين الأخيرة نقضت الولايات المتحدة عهوداً قطعتها لحاملي الأصول الدولارية — وفي كل مرة اتسعت دائرة المتضررين.</p>
+  <ul class="beds"><li><strong>1933:</strong> مصادرة الذهب من المواطنين أنفسهم، وحظر بنود الذهب في العقود، وتخفيضٌ للعملة بنسبة 40% دفعةً واحدة. المخاطَب — الداخل.</li><li><strong>1971:</strong> نيكسون يغلق نافذة الذهب. لم يعد الدولار قابلاً للاستبدال بالذهب بسعرٍ ثابت. المخاطَب — الحاملون الخارجيون، الحلفاء.</li><li><strong>2022:</strong> تجميد نحو 300 مليار دولار من الاحتياطيات السيادية الروسية. المخاطَب — البنوك المركزية في العالم كله.</li></ul>
+  <p>الإيقاع — نحو أربعين سنة. لكن الأهم من الإيقاع هو العتبة: الحالة الثالثة في النمط تغيّر طبيعةَ الاستجابة. بعد النقض الأول يكون رد الفعل خطياً — يتكيّف المتضررون. بعد الثاني يظهر حذرٌ منظومي. وبعد الثالث يصبح رد الفعل طورياً: ردٌّ منسَّق، بنيةٌ تحتية موازية، تحوّلٌ معلَن. وعلامات التحوّل الطوري بادية للعيان: بريكس+، الممر الذهبي، بنوكٌ مركزية في عشرين دولة تكدّس احتياطيات الذهب في آنٍ واحد بوتيرةٍ قياسية.</p>
+  <div class="maxim">الصين في هذه البنية ليست مَن أنشأ الطلبَ على البديل — بل مورِّد الحل. والفرق جوهري: الطلب دفاعيٌّ وعالمي؛ والحل هندسيٌّ وصيني.</div>
+  <p>لم تنشأ هذه البنية دفعةً واحدة. كانت عروض بكين الأولى مباشِرة: انضمّوا إلى منظومة اليوان، وسيُحفظ ذهبكم عندنا. وكان التشكيك متوقَّعاً — فالدول التي رأت للتو 300 مليار دولار تُجمَّد بقرارٍ واحد من واشنطن لم تكن متعجلةً لتسليم ذهبها إلى قوةٍ عظمى أخرى. منطق «رأينا كيف ينتهي هذا» لم يكن بحاجةٍ إلى شرح. هذا التشكيك دفع الصين إلى نشرٍ موازٍ لبنيةٍ موزَّعة: الدول تستخرج الذهب أو تشتريه وتحفظه على أراضيها، لكن كل سبيكةٍ تُسجَّل في شبكةٍ واحدة عبر بورصة شنغهاي للذهب — بالعيار والرقم التسلسلي والمالك. الحفظ موزَّع، والسجل موحَّد. بلوكتشين تناظري: بدل كتلٍ يتحقق منها المُعدِّنون — خزائن تتحقق منها الدول. مشكلة الثقة حُلَّت بالطريقة نفسها التي تُحَلّ بها في علم التشفير: لا «ثقوا بنا» بل «تحقَّقوا بأنفسكم».</p>
+  <div class="insight"><div class="itag">الخلاصة</div><div class="in"><p>إذا بلغ الذهب وضع HQLA — <strong>لن تحتاج الدول إلى الدولارات للتمويل</strong>. الوجه ② يكفّ عن كونه «عموداً فقرياً بديلاً» ويصبح <strong>بنيةً تحتية مالية موازية</strong>.</p></div></div>
+  <div class="spec"><div class="stag"><b>لقطة</b> · بيانات · أبريل 2026</div><div class="in"><p>بورصة شنغهاي للذهب (SGE) أكبر سوقٍ للذهب المادي في العالم. أول خزينةٍ خارجية افتُتحت في هونغ كونغ في 26 يونيو 2025 (بنك الصين هونغ كونغ؛ عقدان بتسليمٍ مادي سُوِّيا في يوم التداول الأول). عُقَدٌ في سنغافورة وماليزيا ودبي. والخزينة السعودية قيد الإنشاء. أحد النماذج المطروحة للنقاش لتثبيت سعر التسوية: الربط لا بالتثبيت الصباحي الفوري بل بمتوسطٍ متحرك لمئتي يوم تداول — وهو ما من شأنه أن يقطع طريق التلاعب ويجعل الذهب قابلاً للتنبؤ بمستوى يقارب سندات الخزانة.</p></div></div>
+  <p>الخطوة التالية — منح الذهب وضع HQLA (الأصول السائلة عالية الجودة). والوضع حتى أبريل 2026 دالٌّ: منذ يوليو 2025 يُحتسب الذهب في الميزانيات المصرفية بكامل قيمته السوقية (كان 50% قبل ذلك)، وبحكم الواقع تتعامل السوق مع الذهب بالفعل بوصفه أصلَ ضماناتٍ عالي السيولة. أما بحكم القانون فقرار منح HQLA لم يُتَّخذ — رابطة سوق السبائك في لندن (LBMA) ومجلس الذهب العالمي يمارسان الضغط، والمنظِّم لم يؤكد. والفجوة بين الممارسة والتنظيم إشارةٌ بحد ذاتها: حين تسبق السوق المنظِّم، يلحق المنظِّم عادةً. فإذا اجتيز هذا الحاجز تغيّرت الصورة جذرياً: يصبح الذهب صالحاً لعمليات الريبو — الإقراض قصير الأجل الذي تقوم عليه البنية التحتية المالية للعالم بأسره. لن تحتاج الدول إلى الدولارات للتمويل — يكفي الذهب.</p>
+  <div class="dotdiv"><i></i></div>
+  <p>هنا تظهر ملامح منظومة تنميةٍ كاملة. أفريقيا أكبر منتجٍ للذهب الطبيعي في العالم — من ربع الإنتاج العالمي إلى ثلثه. وفي البنية الصينية يستقر هذا المورد ضماناً: تودِع الدولة ذهبها لدى بورصة شنغهاي، وتتلقى عبر بنك بريكس قروضاً باليوان بضمان الذهب، وتبني بنيتها التحتية — دون وساطة صندوق النقد الدولي، ودون المرور بدائرة الدولار. نظيرٌ وظيفي لبريتون وودز التي أُقيمت لأوروبا ما بعد الحرب — لكنه موجَّهٌ إلى الجنوب العالمي.</p>
+  <div class="spec"><div class="stag"><b>لقطة</b> · بيانات · أبريل 2026</div><div class="in"><p>اشترت البنوك المركزية في العالم 1,237 طناً من الذهب خلال 2025. يعلن البنك المركزي الصيني رسمياً عن نحو 2,850 طناً (مارس 2026)، لكن تقديرات بلومبرغ إيكونوميكس وجي بي مورغان تتراوح بين 3,500 و5,000 طن مع احتساب البنوك الحكومية والصناديق السيادية. الذهب فوق 5,100 دولار للأونصة (يناير 2026). حصة بريكس+ من احتياطيات الذهب العالمية: 17.4%.</p></div></div>
+  <p>للتوضيح: هذه الخريطة لا تدّعي أن الممر الذهبي سينتصر حتماً. قانون الإضعاف الذاتي، الذي نعود إليه أدناه، يعمل في الاتجاهين — فالصين، بتشديدها السيطرة على بورصة شنغهاي، تخاطر بإطلاق الآلية نفسها التي تفكّك الاحتكار الدولاري. لكن هندسة الممر واقعةٌ لا توقُّع. إنها قائمةٌ وتعمل.</p>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>التآزر:</strong> مع الخليج (السعودية في بريكس+ منذ 2024؛ خزينة هونغ كونغ). ومع تايلاند جزئياً (البات يُستخدم تعرّضاً غير مباشر للذهب).</li><li><strong>التنافس:</strong> مع الولايات المتحدة (مباشرٌ، على المواقع الاحتياطية).</li><li><strong>الترابط:</strong> يعمل ما دامت منصة بريكس متماسكة. فإن انشقّت — عودةٌ إلى عملةٍ إقليمية.</li></ul>
+  <hr class="seam">
+  <h2 id="g-orbital" class="lh"><span class="code">§04 · MOVE · ORBITAL</span><span class="gn">③</span> <span class="n">نقلة ماسك ·</span> القارة الخارجية</h2>
+  <p>خارج العمودين الفقريين كليهما يتشكّل مسارٌ ثالث لا اسم له بعد. أسهل وصفٍ له بالمعادلة: طاقة ← حوسبة ← قيمة، منشورةً خارج الغلاف الجوي (وهذا أقرب ما يكون إلى مفهوم الدولارات الذهبية من عالم «أستروفيتيانكا» لغوركافي).</p>
+  <p>الإنترنت الفضائي، ومراكز البيانات المدارية، وبنية الإطلاق التحتية، وممرات لوجستية واتصالات على مقياس الفضاء القريب والمنظومة الشمسية — كل هذا يخلق فئةَ أصولٍ غير مقيَّدة بأي ولايةٍ قضائية وغير مغطاة بأي وعدٍ سيادي. الغطاء ماديٌّ: طاقة الشمس، والقدرات الحاسوبية، وسعة القنوات، والمدى الرحب وخزائن الموارد في الفضاء. لا عقوبةٌ تجمّد أصلاً مدارياً، ولا قوة إنزالٍ تستولي عليه.</p>
+  <div class="spec"><div class="stag"><b>لقطة</b> · بيانات · أبريل 2026</div><div class="in"><p>قدّمت سبيس إكس نموذج S-1 في أبريل 2026 بتقييمٍ مستهدف بين 1.75 و2 تريليون دولار. وحين تقرؤون هذا يكون جواب السوق معروفاً على الأرجح. لكن المهم ليس تقييم شركةٍ واحدة بل الفئة: ستارلينك تولّد إيراداتٍ مربوطةً بالمدار لا بالإقليم؛ وقسم الذكاء الاصطناعي في سبيس إكس (xAI سابقاً) يبني بنيةً حاسوبية بمقياس التيراواط، ضمانُها الطاقة والدفع الصاروخي والحوسبة — لا الائتمان السيادي. ومصانع تسلا العملاقة تخطط لإنتاج روبوتات أندرويد بأعدادٍ تضاهي سكان دولٍ كبرى. كل هذا واقعٌ يقترب بسرعة.</p></div></div>
+  <p>«القارة الخارجية» تختلف عن بيتكوين بنيوياً. BTC بروتوكولٌ رياضي، متعامدٌ مع العمودين الفقريين كليهما، عالميٌّ ومحايد بطبيعته. أما الأصل المداري فبنيةٌ تحتية مادية يمكن أن تُستوعب في المنظومة الأمريكية عبر الطرح العام والتنظيم. المفترق نحو 2035: إما الاندماج في العمود الأمريكي أو تشكيلُ معيارٍ مستقل. رهاننا على الثاني. وفرضية المسار الثالث رهانٌ لا إقرارُ واقع. لكن مجرد إمكان ضمانةٍ لا تنتمي إلى أي دولة، ولا تتسع لها خزينةٌ ولا مكتبٌ على الأرض — هو أكثر أسئلة هذه الخريطة المفتوحة إثارة.</p>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>التآزر:</strong> مع الولايات المتحدة (سيولة الدولار + الحوسبة = عملاتٌ مستقرة لوكلاء الذكاء الاصطناعي).</li><li><strong>التنافس:</strong> بالقوة — مع الولايات المتحدة على نوع العمود الفقري. إذا صارت الحوسبة أهم من النقود السيادية، احتلّ مدارُ ماسك مركزَ الخريطة.</li><li><strong>التحوّل:</strong> قد يصبح مؤقتاً جزءاً من العمود المالي الأمريكي إذا حوّل طرحُ سبيس إكس الاقتصادَ المداري إلى مكوِّنٍ في منظومة الدولار. أو ينطلق نحو الاستقلالية.</li></ul>
+  <div class="insight"><div class="itag">الخلاصة</div><div class="in"><p>قيمة منظومة الثقة تتناسب عكسياً مع محاولات السيطرة عليها. الأعمدة الفقرية (الدولار، اليوان، «العملة المدارية» المقبلة) عرضةٌ للهيمنة الضارّة بذاتها وتسقط مرةً كل 200–500 سنة. أما النماذج الأصلية خارج العمود الفقري (سويسرا، الوقف، GEMS، BTC) فصامدةٌ آلافَ السنين لأنها بالتحديد لا تحاول أن تكون عموداً فقرياً.</p><p>«الدولارات الذهبية» عند غوركافي في واقع 2045 ليست عملةً واحدة، بل سلّةٌ من ستة أوجه ببنيةٍ من مستويين: عمودان أو ثلاثة أعمدة فقرية زائد ثلاثة أو أربعة نماذج أصلية على محاور أنطولوجية مختلفة.</p><p>النماذج الأصلية خارج العمود الفقري — تصنيفٌ من خمسة محاور: <strong>المكان، الزمن، الحياد، القصور الذاتي، الرياضيات</strong>. وهذا ليس تنبؤاً مالياً — بل قانون هندسة المنظومة متعددة الأقطاب.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§05 · BED · LOWER</span><span class="n">الطابق السفلي ·</span> النماذج الأصلية المثبِّتة</h2>
+  <p>الطابق السفلي يعمل بزمنٍ آخر. لا تنافسَ هنا على الهيمنة — فقط شغلُ موقعٍ تجعله التضاريس متاحاً. كل مثبِّتٍ يقف على محاوره، ووصفُها بإيقاع الطابق العلوي خطأ. فلنتمهَّل.</p>
+  <h3 id="g-eu" class="bed"><span class="gn">④</span>أوروبا: متحف النقود</h3>
+  <p class="note-quiet">إرثٌ ثقافي + ذاكرةٌ مؤسسية + بنيةٌ مصرفية تحتية. البنك المركزي الأوروبي يُعدّ سلسلة أوراقٍ نقدية جديدة تحتفي بالثقافة المشتركة والإرث الطبيعي لأوروبا — المرساة الرمزية مُبرَزة عن وعي.</p>
+  <p>اليورو ذاكرةٌ مؤسسية متبلورة — عملةٌ قوّتها لا في النمو الاقتصادي بل في عمق الجذور. أكسفورد تأسست عام 1096، وسوذبيز عام 1744، ولا سكالا عام 1778. واللاتينية احتياطيٌّ عالمي سابق انتقل إلى القصور الذاتي: لا أحد يتداول بها، لكن كل مصطلحٍ علمي ثانٍ منها. اليورو يرث هذه الوظيفة: ليس أسرع العملات، لكنه الأرجح بقاءً بعد مئة سنة. ولمحفظةٍ أفقُها جيلٌ كامل ليس هذا ضعفاً — بل خاصية بنيوية. اليورو الرقمي مقررٌ لعام 2029. وتجربة Pontes — للربع الثالث من 2026. وبلغاريا صارت العضو الحادي والعشرين في منطقة اليورو. و134 دولة تمثل 98% من الناتج العالمي تدرس إطلاق عملاتها الرقمية المركزية. لكن الأهم بالنسبة للطابق السفلي شيءٌ آخر: اليورو ليس سباقاً خلف الدولار، بل نموذجٌ أصلي موازٍ قوّته في القصور الذاتي لا في السرعة.</p>
+  <p class="geo">الوظيفة</p>
+  <p><strong>القصور الذاتي.</strong> لا يبني المستقبل — يحفظ الماضي. ثلاثة عناصر:</p>
+  <ul class="beds"><li><strong>حصنٌ حضاري.</strong> اليورو يقوم على الثقة بالمؤسسات الأوروبية (البنك المركزي، المحاكم، المتاحف، الجامعات).</li><li><strong>اليورو الرقمي كإجراءٍ دفاعي.</strong> لا للنمو، بل ضد هيمنة أنظمة الدفع غير الأوروبية. 134 دولة تمثل 98% من الناتج العالمي تدرس العملات الرقمية المركزية.</li><li><strong>رزمة دفاعية للسجل الموزَّع.</strong> Pontes (الربع الثالث 2026) + Appia — الجواب على التشظّي المالي.</li></ul>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>التآزر:</strong> أدنى ما يكون مع الأعمدة الفقرية النشطة. يعمل مرساةً للقصور الذاتي المالي العالمي — ما لا يُرغب في تغييره بحدّة.</li><li><strong>التنافس:</strong> مع العملات المستقرة الأمريكية في السوق الأوروبية. تيثر تواجه مشكلات امتثالٍ لـ MiCA، ما يؤدي إلى شطب USDT من بعض البورصات الأوروبية.</li><li><strong>الدور:</strong> «متحف النقود». الإرث الثقافي الأوروبي = آخر قيمةٍ لا تتغير في القارة.</li></ul>
+  <h3 id="g-th" class="bed"><span class="gn">⑤</span>تايلاند: النقود الطبيعية</h3>
+  <p class="note-quiet">موردٌ غير قابلٍ للاستنساخ خاصٌّ بالمكان: الطبيعة + جودة الخدمة + التفرّد الثقافي. ارتفع البات نحو 9% مقابل الدولار في 2025، مواصلاً صعوداً امتدّ سنوات، بينما خسرت الروبية والدونغ والبيزو.</p>
+  <p>البات مثالٌ غير متوقَّع لعملةٍ تعمل كمؤشّرٍ بديل للذهب. خلال 2025 ارتفع البات 9% مقابل الدولار بينما هبط التضخم إلى المنطقة السالبة (−0.5% عند نقطة القياس). الاحتياطيات — 281.9 مليار دولار؛ والسياحة — توقّع 35–39 مليون زائر في 2026. قوّة الموقع جغرافية: تشغل تايلاند محور المكان، وهذا غير قابلٍ للاستنساخ. لا يمكن بناء تايلاند ثانية.</p>
+  <p>لكن للنقود الطبيعية جانبٌ مظلم، وهو لكم أهمّ من الواجهة. الاعتماد على الطاقة: 86% مستورَد. أكبر عاملٍ خارجي: تدفّق السيّاح الصينيين وتقلّبه السياسي. والشيخوخة الديموغرافية: بنيوية. البات كمؤشّرٍ بديل للذهب يعمل ما دامت الجغرافيا تعمل؛ وعلى الموجات الطويلة السؤال — إلى متى بالضبط.</p>
+  <p>الأفق: 20–50 سنة عند الاستقرار السياسي الراهن. المرساة الطبيعية قرون؛ أما تعبيرها النقدي فيتوقف على سلامة المؤسسات.</p>
+  <p class="geo">الوظيفة</p>
+  <p><strong>مثبِّتٌ محلي.</strong> مثالٌ على كيف يمكن لاقتصادٍ صغير أن يملك عملةً أكثر صموداً من جيرانه الكبار. أربعة عناصر:</p>
+  <ul class="beds"><li><strong>السياحة كتصديرٍ للخدمات.</strong> هيئة السياحة التايلاندية تستهدف 3 تريليونات بات من إيرادات السياحة في 2026، ناقلةً التركيز من الحجم إلى القيمة.</li><li><strong>اقتصاد الخدمة.</strong> المهارات الناعمة كأصل — إقامةٌ وسطية 14–21 يوماً، وإنفاقٌ وسطي 65–80 ألف بات.</li><li><strong>السياحة العلاجية + العافية</strong> كمجالٍ متنامٍ.</li><li><strong>البات كمؤشّرٍ بديل للذهب.</strong> بعض المستثمرين يستخدمون البات تعرّضاً غير مباشر للذهب — وظيفةٌ نقدية غير متوقَّعة.</li></ul>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>التآزر:</strong> مع الخليج (زوّارٌ مرتفعو الإنفاق من الخليج). ومع الصين بشكلٍ غير مباشر (صلة بات–يوان عبر السياحة والتجارة).</li><li><strong>التنافس:</strong> مع فيتنام وإندونيسيا على السياحة الكمّية. ومع اليابان وسنغافورة على السياحة الفاخرة.</li><li><strong>الدور:</strong> نموذجٌ على كيف يمكن لعملةٍ محلية أن تكون مرساةً عبر تفرّد المكان. ليست عالمية، لكنها صامدة.</li></ul>
+  <h3 id="g-gulf" class="bed"><span class="gn">⑥</span>الخليج: النقود الحجرية والمرساة الأبدية</h3>
+  <p class="note-quiet">هذا أكثر المواقع تركيباً على الخريطة، وهو يستحق أكثر من فقرة.</p>
+  <p>الوقف مؤسسةٌ يُحبَس فيها الأصل وتُسبَّل منفعتُه، وعمرها أكثر من 1,100 سنة. في الدولة العثمانية في القرن التاسع عشر كانت الأوقاف تسيطر على ما يصل إلى ثلث الأراضي الزراعية. وللقارئ في منطقة الشرق الأوسط وشمال أفريقيا وما حولها هذا ليس غرابةً — بل لغةٌ مؤسسية أصيلة، نموذجٌ أصلي للنقود الباقية، يعمل أطول من أي بنكٍ مركزي.</p>
+  <p class="note-quiet">ملاحظة في موضعها: وصف الوقف هنا وظيفيٌّ، لأغراض خريطة النقود لا غير؛ والمعنى الديني–الفقهي الكامل للوقف أوسع بكثير، ويُحال فيه إلى المصادر الأصلية وإلى أهل العلم.</p>
+  <p>يشغل الخليج اليوم موقعاً يُوصَف بدقّةٍ أكبر بأنه وصلةُ مراجَحة لا جسر. هو لا يصل بين العمودين الفقريين — بل يتوافق مع كليهما ويربح من وجودهما معاً. صلة البترودولار — مع العمود الأمريكي. والمشاركة في الممر الذهبي — مع العمود الصيني. الخزينة السعودية مدمجةٌ بالفعل في بنية بورصة شنغهاي بينما سلسلة البترودولار حيّة. هذا ليس تناقضاً — بل مراجَحة.</p>
+  <div class="spec"><div class="stag"><b>لقطة</b> · بيانات · أبريل 2026</div><div class="in"><p>مبادلة (أبوظبي): 29 مليار دولار استثمارات، 52 صفقة في 2024. و«اليونِت» (Unit) — وحدة تسويةٍ تجريبية لبريكس (أُطلقت في 31.10.2025، بغطاءٍ 40% من الأصول المادية). والأحجار الكريمة — سوقٌ بـ 38.4 مليار دولار (2026)، وهنا يملك الخليج أقوى موقعٍ ممكنٍ بين النماذج الأصلية: حجرٌ كريم ملوَّن، عبر الترميز والولاية القضائية وتوثيق المنشأ، يمكن أن يشغل حتى أربعة محاور في آنٍ واحد. وهذا الموضوع مبحوثٌ بعمقٍ في مقالٍ مستقل (انظر: GEMEX Thesis).</p></div></div>
+  <p class="geo">الوظيفة</p>
+  <p><strong>المرساة الأبدية.</strong> حفظ القيمة خارج الدورات المالية. أربعة عناصر:</p>
+  <ul class="beds"><li><strong>الصناديق السيادية كحاجز.</strong> صندوق الاستثمارات العامة السعودي (هدف 2 تريليون دولار بحلول 2030)، وأدِيا، ومبادلة، وأي دي كيو، وجهاز قطر للاستثمار — تنويعٌ بعيداً عن النفط.</li><li><strong>خزائن الذهب.</strong> السعودية والإمارات وقطر — جزءٌ من ممر بريكس+ الذهبي.</li><li><strong>الأحجار الملوَّنة كفئةٍ جديدة.</strong> المشترون الأثرياء يتجهون إلى المجوهرات كاستثمار، خصوصاً الأحجار الكريمة الملوَّنة. بارايبا، الياقوت، الزمرّد — نموٌّ يصل إلى عشرة أضعاف في التقييمات لدى كريستيز.</li><li><strong>استمراريةٌ ثقافية.</strong> الوقف، والإرث في العائلات — نقودٌ تنتقل عبر الأجيال.</li></ul>
+  <p class="geo">التآزر / التنافس</p>
+  <ul class="beds"><li><strong>تآزرٌ قوي:</strong> مع <strong>الصين</strong> (ممر بريكس+ الذهبي، الخزينة في السعودية)؛ ومع <strong>الولايات المتحدة</strong> (صلة البترودولار التاريخية)؛ ومع <strong>تايلاند</strong> (تدفّق السيّاح من الخليج).</li><li><strong>موقعٌ فريد:</strong> الوجه الوحيد القادر على العمل مع العمود الأمريكي والعمود الصيني في آنٍ واحد — «الجسر» بين منظومتين متنافستين.</li></ul>
+  <h3 class="bed">حزام التوابع</h3>
+  <p>حول المثبِّتات الثلاثة يدور عددٌ من المواقع التي ليست أوجهاً مستقلة، لكنها توضّح صنف الظاهرة.</p>
+  <ul class="beds"><li><strong>سويسرا</strong> — المثبِّت المرجعي: ثلاثة محاور في آنٍ واحد (المكان + الحياد + القصور الذاتي)، ملاذٌ آمن منذ 1815، المرتبة الأولى في تصنيف الولايات القضائية 2026 (93.73 نقطة).</li><li><strong>سنغافورة</strong> — التوأم الأصغر: محوران، المرتبة الثالثة (92.60)، لقب «سويسرا آسيا».</li><li><strong>الفاتيكان والكنيسة الكاثوليكية</strong> — أكثر من 2000 سنة من الاستمرارية المؤسسية: قصورٌ ذاتي يعيش أطول من أي عملة.</li></ul>
+  <p>المثبِّتات لا تنافس الأعمدةَ الفقرية ولا بعضها بعضاً. محاورُ مختلفة، أزمنةٌ مختلفة، وظائفُ مختلفة. هذا ليس معسكراً — بل صنف.</p>
+  <hr class="seam">
+  <p class="geo">العدسات الأربع · تتمة</p>
+  <h3 class="bed lens"><span class="n">العدسة الثانية ·</span> زمنان</h3>
+  <p>الأعمدة الفقرية تعيش في الزمن السريع: فصول، إدراجات، جولات عقوبات. والنماذج الأصلية في الزمن البطيء: أجيال، قرون، جيولوجيا. وهذا ليس مجازاً — بل منظومتا إحداثيات مختلفتان، لا تُختزَل إحداهما في الأخرى. المهيمن لا يستطيع الفوز على الأزمنة الطويلة: أدواته (الإصدار، العقوبات، التنظيم) تعمل في السريع. والنموذج الأصلي لا يستطيع الفوز على القصيرة: الذهب لا تقريرَ فصلياً له. لذا فهما لا يتنافسان — بل يتعايشان، كترددات مختلفة في طيفٍ واحد.</p>
+  <p>والنتيجة العملية: حين يقول محلِّل «الذهب سيهزم الدولار» أو «الدولار سيبقى بعد الذهب» — فهو يخلط زمنين. الصياغة الصحيحة: على الموجات القصيرة يفوز عمودٌ فقري واحد؛ وعلى الطويلة، نموذجٌ أصلي واحد. والمحفظة المبنية في زمنٍ واحد فقط عمياءُ عن جانبٍ من الطيف.</p>
+  <h3 class="bed lens"><span class="n">العدسة الثالثة ·</span> المحاور الخمسة، والتضاريس تختار اللاعب</h3>
+  <p>في منظومةٍ متعددة الأقطاب، ينشأ الصمود خارج العمود الفقري عبر شغل موقعٍ على واحدٍ من خمسة محاور:</p>
+  <ul class="beds"><li><strong>المكان</strong> — جغرافيا غير قابلةٍ للاستنساخ (البندقية في القرون 13–15، سنغافورة، هونغ كونغ).</li><li><strong>الزمن</strong> — أفقٌ يُقاس بالجيولوجيا (الوقف، 1100+ سنة؛ الكنيسة الكاثوليكية، 2000+).</li><li><strong>الحياد</strong> — نفعٌ لطرفَي النزاع كليهما (سويسرا منذ 1815، السويد، سنغافورة).</li><li><strong>القصور الذاتي</strong> — ما لا يتغير (اللاتينية، أكسفورد، سوذبيز، أنظمة القياس).</li><li><strong>الرياضيات</strong> — ثقةٌ عبر الشِّفرة لا عبر الوعد (لينكس، GPG، تور، BTC).</li></ul>
+  <p>قوّة الموقع = عدد المحاور المشغولة في آنٍ واحد. سويسرا — ثلاثة. الخليج — اثنان. بيتكوين — واحد (نموذجٌ أصلي أحادي؛ أكثر هشاشةً من المواقع متعددة المحاور). وأهم خاصية في الخريطة: اللاعب لا يختار المحور — التضاريس تجعله متاحاً. لا يمكنك أن تصير سويسرا دون تضاريسها. يمكنك فقط أن تتعرّف على محاورك أنت وتشغلها كاملةً.</p>
+  <p>هذا يزيل الإرادوية ويضع في يدكم مسطرة. عُدّوا المحاور — تحصلوا على الصمود.</p>
+  <p>المسطرة تبيّن أين يقف الموقع. والعدسة الرابعة تبيّن ما يحلّ به حين يحاول أحدٌ إمساكه بالقوة.</p>
+  <h3 class="bed lens"><span class="n">العدسة الرابعة ·</span> V ∝ 1/C — الهيمنة الضارّة بذاتها</h3>
+  <p>تُقرأ V ∝ 1/C ببساطة: V قيمة منظومة الثقة، وC درجة السيطرة عليها. وكلما شدّ الاحتكار قبضته، أسرع تسرَّب ما يحاول إمساكه. القيمة تتناسب عكسياً مع السيطرة. وهذا ليس قانوناً نقدياً — بل قانون القيمة-عبر-الثقة بذاته. والتجربة: ثلاث نقضات (1933 · 1971 · 2022)، كلٌّ منها ضخّم الطلب على البديل عبر ذات فعل الدفاع عن الاحتكار. الدفاع عن السقوط هو طريقة السقوط نفسها.</p>
+  <p>لكن — وهنا تقدّم الخريطة أمثلةً معاكسة لولاها لكانت الأطروحة قَدَرية. الجنيه البريطاني حافظ على الهيمنة 95 سنة (1819–1914) دون تسليح. وبريتون وودز (1944–1971) عملت ما دام الانضباط يعمل. وسويسرا — مئتا سنة. والانقلاب: الإضعاف الذاتي ليس قَدَراً بل خيار. الدفاع العدواني يهدم ما تحفظه الهيمنة المسالمة. الاحتكار الذي لا يحاول السيطرة قد يعيش طويلاً. والذي يحاول، يشغّل المؤقّت.</p>
+  <p>وللقانون نسبٌ خارج النظرية النقدية. معضلة الأمن (هيرتس، جيرفيس، بوث وويلر)، وأثر سترايساند (ماسنيك، صاغه شكلياً يانسن ومارتن)، والإفراط الإمبراطوري (كينيدي)، والكِبر (hubris). وأقرب صنف — الأزمة الداخلية-الخارجية التي تستثيرها المنظومة بنشاطها نفسه (نازاريتيان، سيدوف؛ المدرسة التطورية الروسية). ومصطلحٌ دقيق للإضعاف الذاتي النقدي غير موجودٍ في الأدبيات — المقعد شاغر.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§06 · SUMMARY</span>الخريطة بنظرةٍ واحدة</h2>
+  <div class="spec"><div class="stag"><b>موجز · 6 أوجه</b></div><div class="scrollx"><div class="sumgrid"><div class="cap">بطاقةٌ موجزة للأوجه الستة</div><div class="c1"><span class="ix">①</span>الولايات المتحدة</div><div class="c2">دين + حوسبة</div><div class="c3">عمود السيولة</div><div class="c1"><span class="ix">②</span>الصين</div><div class="c2">ذهب + بريكس</div><div class="c3">عمودٌ بديل</div><div class="c1"><span class="ix">③</span>المداري</div><div class="c2">شبكة + حوسبة</div><div class="c3">عمود المستقبل</div><div class="c1"><span class="ix">④</span>الاتحاد الأوروبي</div><div class="c2">ثقافة + مؤسسة</div><div class="c3">القصور الذاتي</div><div class="c1"><span class="ix">⑤</span>تايلاند</div><div class="c2">مكان + خدمة</div><div class="c3">مثبِّتٌ محلي</div><div class="c1"><span class="ix">⑥</span>الخليج</div><div class="c2">عقار + أحجار</div><div class="c3">المرساة الأبدية</div></div></div></div>
+  <p><strong>ملاحظةٌ مفتاحية:</strong> الخليج هو الوجه الوحيد المتوافق في آنٍ واحد مع كل البقية. ليس مجرد مثبِّت، بل <strong>نقطة مواءمةٍ</strong> محتملة.</p>
+  <p><strong>اكتشافٌ ثانٍ:</strong> المداري والولايات المتحدة لا يتنافسان بعد، لكن بحلول 2035 قد يندمجان (سبيس إكس تدمج الحوسبة في منظومة الدولار) أو يفترقان (المداري يخرج إلى معياره الخاص).</p>
+  <p><strong>اكتشافٌ ثالث:</strong> الاتحاد الأوروبي يؤدي دور «مرساة القصور الذاتي» — <strong>ما لا يتغير</strong> يصير قيمةً بالتحديد لأن كل ما عداه يتغير.</p>
+  <div class="pulse">
+    <div class="plab">نبضات الأوجه<span class="freq">التواتر: فصلي</span></div>
+    <div class="r"><div class="c">① العملات المستقرة الأمريكية</div><div class="m">رسملة العملات المستقرة، الحصة في سندات الخزانة، الفوائد</div></div>
+    <div class="r"><div class="c">② الذهب الصيني</div><div class="m">احتياطيات البنك المركزي الصيني، سحوبات بورصة شنغهاي، وضع HQLA للذهب</div></div>
+    <div class="r"><div class="c">③ المداري</div><div class="m">طرح سبيس إكس، الحوسبة المدارية، تدفّق الذكاء الاصطناعي النقدي، أفق الذكاء العام</div></div>
+    <div class="r"><div class="c">④ اليورو الرقمي</div><div class="m">وضع اليورو الرقمي، نشر Pontes/Appia</div></div>
+    <div class="r"><div class="c">⑤ البات التايلاندي</div><div class="m">سعر الصرف، إيرادات السياحة، الاحتياطيات، الاستقرار السلالي</div></div>
+    <div class="r"><div class="c">⑥ أحجار الخليج</div><div class="m">أصول الصناديق السيادية، أسعار الأحجار، تدفّق الخزائن</div></div>
+    <div class="foot">وعند حدثٍ كبير — فوراً</div>
+  </div>
+  <div class="insight"><div class="itag">الخلاصة</div><div class="in"><p>إذا بلغ الذهب وضع HQLA — <strong>لن تحتاج الدول إلى الدولارات للتمويل</strong>. الوجه ② يكفّ عن كونه «عموداً فقرياً بديلاً» ويصبح <strong>بنيةً تحتية مالية موازية</strong>.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§07 · OPTICS</span>ما هو متوقَّع · قابلٌ للتتبّع · قابلٌ للإدارة</h2>
+  <p>الخريطة ليست توقُّعاً. إنها تفصل بين ثلاث فئات، والخلط بينها مكلِف.</p>
+  <p><strong>متوقَّع</strong> — أنماطٌ بنيوية تكررت بما يكفي للوثوق بها. إيقاع 40 سنة في نقض عهود المهيمن. قانون الإضعاف الذاتي: سيطرةٌ أشدّ ← بدائل أكثر. والعتبة الطورية بعد الحالة الثالثة. والعملة الأحادية بوصفها شذوذاً لا قاعدة — والتشبيهات البيولوجية في محلها هنا: الزراعات الأحادية تسقط أولاً.</p>
+  <p><strong>قابلٌ للتتبّع</strong> — نبضات كل وجهٍ المحددة. وضع HQLA للذهب — قرارٌ تنظيمي واحد يغيّر البنية. وطرح سبيس إكس — حكم السوق على تقييم الأصل المداري. واليورو الرقمي وإطلاقه الفعلي. وحصة BTC التي تسيطر عليها أكبر خمسة تجمّعات تعدين. كل نبضةٍ مُطلِقٌ يعيد، عند تفعّله، ترتيب الأوجه على الخريطة.</p>
+  <p><strong>قابلٌ للإدارة</strong> — موقعكم أنتم وحده. لا قارئٌ لهذه الخريطة يؤثر في قرار بازل بشأن HQLA، ولا يتحكم بسعر صرف اليوان. والمتغيّر الوحيد القابل للإدارة هو توزيع احتياطياتكم على الطيف. خمسة أسئلةٍ لمحو الأمية المحورية:</p>
+  <ol class="algo"><li>على أي محاورَ تقف احتياطياتكم؟</li><li>أي أطوالٍ موجية غائبة عن طيفكم؟</li><li>أيّ العمودين الفقريين يحمل طاقتكم القصيرة؟</li><li>هل تعتمد حواملكم الطويلة على العمود نفسه؟</li><li>أين وصلتكم بين الطابقين؟</li></ol>
+  <p>هذه ليست توصية. إنها أداة، ولا تعمل إلا في أيديكم.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§08 · CRYPTO</span>الكريبتو بصدق</h2>
+  <p>ثلاث طبقات، ولا تختلط.</p>
+  <p><strong>الطبقة الأولى: العملات المستقرة — العمود الدولاري في جلدٍ جديد.</strong> وُصِفت أعلاه، في نقلة الولايات المتحدة. العملة المستقرة ليست «كريبتو»؛ إنها سند خزانةٍ مُرمَّز بعائدٍ صفري للحامل وعائدٍ كامل للمُصدِر. أداةٌ من أدوات الوجه ① لا ظاهرةٌ مستقلة.</p>
+  <p><strong>الطبقة الثانية: بيتكوين — محورٌ مستقل للثقة عبر الرياضيات.</strong> نموذجٌ أصلي أحادي: محورٌ واحد (الرياضيات)، ما يجعله أكثر هشاشةً من المواقع متعددة المحاور. وسوابق المحور نفسه — لينكس، GPG، تور: ثقةٌ عبر الشِّفرة لا الوعد. وأنماط التفكك: تركّز تجمّعات التعدين، والتهديد الكمومي (نظري)، والاستيلاء التنظيمي عبر «اعرف عميلك» (KYC). والسؤال المفتوح في الجوهر — وجهٌ مستقل أم طبقةٌ خفية من العمود الأمريكي — يُطرح هنا كما هو: مفتوحاً.</p>
+  <p><strong>الطبقة الثالثة: العملات البديلة والتمويل اللامركزي — بنيةٌ تحتية لا نقود.</strong> إيثريوم بيئةٌ حاسوبية لا مخزنُ قيمة. والتمويل اللامركزي طبقةُ تسوية لا عملة. وفي ثغرات هذه الخريطة — طبيعة العملات المستقرة غير الدولارية (يورو، جنيه، ين، ليرة): قد تكون أكثر إثارةً مما تبدو، لكنها تبقى الآن جبهةً مفتوحة.</p>
+  <div class="insight"><div class="itag">الخلاصة</div><div class="in"><p>موقف المؤلف، صريحاً في جملةٍ واحدة: في الكريبتو بذاته (دون أصول العالم الحقيقي) لا أشعر بالقوة الحقيقية التي أشعر بها في الذهب أو المكان أو القصور الذاتي. وقد يكون هذا نقطةً عمياء. أُشير إليها كي تُجروا تصويبكم بأنفسكم.</p></div></div>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§09 · FRONTS</span>الجبهات المفتوحة</h2>
+  <p>الخريطة ناقصةٌ — عن قصد. وما يلي هو ما هو غائبٌ وما قد يغيّر الصورة.</p>
+  <ul class="beds"><li><strong>الهند</strong> — أكبر من دور تابع، وأعقد من وجهٍ واحد. موقعها على الخريطة دراسةٌ مستقلة لا سطر.</li><li><strong>أفريقيا</strong> — تظهر في هذا النص حقلاً للمنظومة الصينية. لكن أفريقيا وجهاً قائماً بذاته (ذهبٌ طبيعي + ديموغرافيا + سيادةٌ على الموارد) سؤالٌ غير مغلق.</li><li><strong>اليابان</strong> — تستحق تعميقاً يتجاوز حدود هذه الخريطة.</li><li><strong>العملات المستقرة غير الدولارية</strong> — المقوَّمة باليورو والجنيه والين والليرة — قد تكون أهم مما توحي به رسملتها الراهنة.</li><li><strong>بيتكوين</strong> — وجهٌ مستقل أم طبقةٌ خفية من العمود الأمريكي — سؤالٌ تتركه هذه الخريطة مفتوحاً عن قصد.</li></ul>
+  <p>الخريطة أداةٌ حيّة. قيمتها لا في كونها مغلقة، بل في أنها تتيح لكم وضع نقاطٍ جديدة عليها. الخريطة التالية لكم.</p>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§10 · SUMMING UP</span>في الخلاصة</h2>
+  <ol class="algo"><li>غوركافي لم يكن مخطئاً — كتب في واقعٍ ما قبل التشظّي (2008). «الدولارات الذهبية» كعملةٍ واحدة مجرد عنصرٍ نائبٍ شكلي. وفي واقع 2045 هي <strong>سلّةٌ</strong> ببنيةٍ مرنة.</li><li>الأعمدة الفقرية بطبيعتها عرضةٌ للهيمنة الضارّة بذاتها. سقوطها حتميٌّ بنيوياً. والسؤال — متى، وكيف بالضبط.</li><li>النماذج الأصلية خارج العمود الفقري أكثر صموداً من الأعمدة على الآفاق الطويلة. سويسرا عاشت أطول من كل عملات القرنين التاسع عشر والعشرين.</li><li>الخليج فريد — الوجه المعتبر الوحيد المتوافق بنيوياً مع العمود الأمريكي (البترودولار) والعمود الصيني (الممر الذهبي) في آنٍ واحد.</li><li>المداري عند مفترق 2035: إما الاندماج مع الولايات المتحدة (عبر طرح سبيس إكس) أو معيارٌ خاص (مدعومٌ بالحوسبة).</li></ol>
+  <hr class="seam">
+  <h2 class="lh"><span class="code">§11 · GLOSSARY</span>مسرد المصطلحات</h2>
+  <dl class="kv"><dt>العملة المستقرة</dt>
+<dd style="margin:0; color:#3a352d;">توكِنٌ رقمي مربوطٌ بسعر عملةٍ ورقية (الدولار غالباً) ومغطّى باحتياطيات، عادةً سندات خزانة. USDT (تيثر) وUSDC (سيركل) أكبرها.</dd>
+<dt>SGE</dt>
+<dd style="margin:0; color:#3a352d;">بورصة شنغهاي للذهب، أكبر منصةٍ للتداول المادي للذهب في العالم.</dd>
+<dt>سندات الخزانة (T-bills)</dt>
+<dd style="margin:0; color:#3a352d;">سندات خزانة أمريكية قصيرة الأجل، الأصل الضماني الأساسي للمنظومة المالية العالمية.</dd>
+<dt>HQLA</dt>
+<dd style="margin:0; color:#3a352d;">الأصول السائلة عالية الجودة — صنف الأصول التي يعترف بها المنظِّم ضماناتٍ مقبولةً في عمليات الريبو والتمويل. حتى أبريل 2026 الذهب ليس في هذا الصنف.</dd>
+<dt>بازل III</dt>
+<dd style="margin:0; color:#3a352d;">المعيار الدولي للتنظيم المصرفي. منذ يوليو 2025 صار الذهب أصلاً من المستوى الأول (اعترافٌ بنسبة 100% في الميزانية).</dd>
+<dt>الوقف</dt>
+<dd style="margin:0; color:#3a352d;">مؤسسةٌ في الفقه الإسلامي يُحبَس فيها الأصل على الدوام، ويُوجَّه ريعه إلى غايةٍ محددة. أقدم الأوقاف تعمل منذ أكثر من 1,100 سنة.</dd>
+<dt>قانون GENIUS</dt>
+<dd style="margin:0; color:#3a352d;">قانونٌ أمريكي (وُقِّع يوليو 2025، يسري يناير 2027) ينظّم إصدار العملات المستقرة المغطاة بأصولٍ دولارية.</dd>
+<dt>الريبو</dt>
+<dd style="margin:0; color:#3a352d;">إقراضٌ قصير الأجل بضمان أوراقٍ مالية؛ الأساس البنيوي للسوق المالية العالمية.</dd></dl>
+  <p><strong>مع مَن تتحاور هذه الخريطة.</strong> تريفين (التناقض البنيوي للعملة الاحتياطية)، آيكنغرين (الامتياز الباهظ)، كيندلبرغر (الاستقرار بالهيمنة)، بوزار (بريتون وودز الثالثة)، كينيدي (الإفراط الإمبراطوري)، طالب (ضدّ الهشاشة ومخاطر الأطراف)، نازاريتيان وسيدوف (الأزمة الداخلية-الخارجية وقانون التعويضات الهرمية؛ المدرسة التطورية الروسية)، هيرتس وجيرفيس (معضلة الأمن)، ماسنيك (أثر سترايساند)، غوركافي (الدولارات الذهبية للقرن الثالث والعشرين)، بان غونغ شنغ (البنك المركزي الصيني)، لاغارد (البنك المركزي الأوروبي)، شِيزَقْجا (الوقف العثماني). ولا أحدٌ منهم يتحمل مسؤولية استنتاجات هذه الخريطة.</p>
+  <p><strong>تاريخ لقطة الأرقام:</strong> أبريل 2026. أما التأكيدات البنيوية (قانون الإضعاف الذاتي، المحاور الخمسة، الزمنان) فغير مرتبطةٍ بتاريخ، وقابلةٌ للتحقق على أي أفق.</p>
+  <hr class="seam">
+  <p>هذه الخريطة هي النسخة الأولى من مقطعٍ ملاحي.</p>
+  <footer class="foot">للتعاون: <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a><br/>المؤلف-المُجمِّع: ديما بوليه (Dima Polet)</footer>
+  <div class="site-tail">
+    <a href="index.html"><span class="ar">←</span> wealthleap2070.io</a>
+  </div>
+</article>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  function onScroll(){ var h=document.documentElement; var m=(h.scrollHeight-h.clientHeight)||1; bar.style.width=(Math.min(1,h.scrollTop/m)*100)+'%'; }
+  window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll); onScroll();
+})();
+</script>
+<script>
+(function(){
+  window.navTo=function(id){ try{ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); } }catch(e){} };
+  document.querySelectorAll('.tags .t[data-target]').forEach(function(t){
+    t.addEventListener('click',function(){ navTo(t.getAttribute('data-target')); });
+  });
+})();
+</script>
+</body>
+</html>
