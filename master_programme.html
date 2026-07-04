@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>WealthLeap 2070 · Annual Foresight Programme — Master Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#faf8f3; --desk:#f1ece2; --panel:#f4efe5;
+    --ink:#19130d; --ink-soft:#332e26; --muted:#73695a;
+    --gem:#8f3221;
+    --seam:#d2c6b0; --rule:#e4dccb; --code-bg:#f0e9da;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--desk) !important; scroll-behavior:smooth}
+  body{
+    background:var(--paper) !important; color:var(--ink);
+    font-family:'Spectral',Georgia,serif; font-weight:300;
+    font-size:17.5px; line-height:1.82;
+    max-width:920px; margin:0 auto; padding:0 56px 96px;
+    box-shadow:0 0 0 1px var(--rule), 0 24px 64px rgba(25,19,13,.07);
+    position:relative;
+  }
+  body::after{content:""; position:absolute; left:-64px; top:0; bottom:0; width:1px; background:var(--seam)}
+  .layercode{position:absolute; left:-96px; top:10px; writing-mode:vertical-rl; transform:rotate(180deg);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.22em;
+    color:var(--muted); white-space:nowrap; pointer-events:none}
+  .layercode::after{content:""; position:absolute; left:-6px; bottom:-14px; width:1px; height:9px; background:var(--gem)}
+  @media(max-width:1200px){ .layercode, body::after{display:none} }
+  @media(max-width:720px){ body{padding:0 22px 72px; font-size:16.5px} }
+
+  header{padding:64px 0 0}
+  .stamp{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.24em;
+    color:var(--muted); text-transform:uppercase; display:flex; gap:1.4em; flex-wrap:wrap}
+  .stamp b{color:var(--gem); font-weight:500}
+  h1{font-family:'Cormorant',serif; font-weight:500; font-size:46px; line-height:1.12;
+    margin:26px 0 10px; letter-spacing:.005em}
+  .subtitle{font-family:'Cormorant',serif; font-style:italic; font-size:22px;
+    color:var(--ink-soft); margin-bottom:26px; max-width:44ch}
+  .masthead-rule{height:1px; background:linear-gradient(90deg,var(--gem) 0 64px, var(--rule) 64px); margin:8px 0 0}
+  @media(max-width:720px){ h1{font-size:34px} .subtitle{font-size:19px} }
+
+  .glance{background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--gem);
+    margin:44px 0 0; padding:26px 30px 22px}
+  .glance .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.26em;
+    text-transform:uppercase; color:var(--gem); margin-bottom:14px}
+  .glance dl{display:grid; grid-template-columns:132px 1fr; row-gap:9px; column-gap:22px}
+  .glance dt{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); padding-top:5px}
+  .glance dd{font-size:16.5px; line-height:1.66}
+  @media(max-width:720px){ .glance dl{grid-template-columns:1fr} .glance dt{padding-top:10px} }
+
+  section{margin-top:76px; position:relative}
+  .sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--rule);
+    padding-bottom:12px; margin-bottom:26px}
+  .sec-head .no{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; color:var(--gem); white-space:nowrap}
+  h2{font-family:'Cormorant',serif; font-weight:500; font-size:31px; line-height:1.2}
+  h3.sub{font-family:'Cormorant',serif; font-weight:500; font-size:23px; margin:36px 0 14px}
+  p{margin:0 0 1.1em; color:var(--ink-soft)}
+  p strong, li strong, dd strong{color:var(--ink); font-weight:500}
+  a{color:var(--gem); text-decoration:none; border-bottom:1px solid var(--seam)}
+  a:hover{border-bottom-color:var(--gem)}
+  em{font-style:italic}
+  .note{font-size:15px; color:var(--muted); line-height:1.7}
+
+  ul.dash{list-style:none; margin:0 0 1.1em}
+  ul.dash li{padding-left:26px; position:relative; margin-bottom:10px; color:var(--ink-soft)}
+  ul.dash li::before{content:"–"; position:absolute; left:2px; color:var(--gem)}
+
+  dl.spec{margin:6px 0 1.1em}
+  dl.spec dt{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--gem); margin:18px 0 4px}
+  dl.spec dd{color:var(--ink-soft); line-height:1.74}
+
+  .quartet{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px}
+  .quartet .q{background:var(--panel); border:1px solid var(--rule); padding:20px 22px 16px; position:relative}
+  .quartet .q::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gem)}
+  .quartet .no{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.22em; color:var(--gem)}
+  .quartet h4{font-family:'Cormorant',serif; font-weight:500; font-size:21px; margin:6px 0 6px}
+  .quartet p{font-size:15.5px; line-height:1.68; margin:0}
+  @media(max-width:720px){ .quartet{grid-template-columns:1fr} }
+
+  dl.days{display:grid; grid-template-columns:118px 1fr; row-gap:12px; column-gap:22px; margin:10px 0 1.2em}
+  dl.days dt{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--gem); padding-top:4px; border-top:1px solid var(--rule)}
+  dl.days dd{color:var(--ink-soft); padding-top:4px; border-top:1px solid var(--rule); line-height:1.7}
+  @media(max-width:720px){ dl.days{grid-template-columns:92px 1fr} }
+
+  .table-scroll{overflow-x:auto; margin:6px 0 8px}
+  table.strata{width:100%; border-collapse:collapse; font-size:14.5px; line-height:1.55}
+  table.strata th{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; text-align:left;
+    padding:0 14px 10px 0; border-bottom:1px solid var(--seam); white-space:nowrap}
+  table.strata td{padding:13px 14px 13px 0; border-bottom:1px solid var(--rule); vertical-align:top; color:var(--ink-soft)}
+  table.strata td:first-child{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--gem); white-space:nowrap}
+  table.strata td b{color:var(--ink); font-weight:500}
+  table.strata tr.hl td{background:var(--code-bg)}
+
+  .slab{background:var(--panel); border:1px solid var(--rule); margin-top:30px; position:relative}
+  .slab::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gem)}
+  .slab .birka{display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    padding:15px 28px 13px 30px; border-bottom:1px solid var(--rule);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--muted); flex-wrap:wrap}
+  .slab .birka .id{color:var(--gem); font-weight:500}
+  .slab h3{font-family:'Cormorant',serif; font-weight:500; font-size:25px; padding:18px 30px 0}
+  .slab .body{padding:8px 30px 24px}
+  .slab dl dt{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--gem); margin:16px 0 4px}
+  .slab dl dd{font-size:15.5px; line-height:1.72; color:var(--ink-soft)}
+  .slab dl dd b{color:var(--ink); font-weight:500}
+  .slab dl dd.warn{border-left:2px solid var(--seam); padding-left:14px}
+  .slab dl dt.warn-t{color:var(--muted)}
+  @media(max-width:720px){ .slab h3{padding:16px 22px 0} .slab .body{padding:6px 22px 20px} .slab .birka{padding:14px 22px 12px 24px} }
+
+  .register{font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:2.05; color:var(--ink-soft); background:var(--code-bg); border:1px solid var(--rule); padding:20px 26px; overflow-x:auto}
+  .register b{color:var(--gem); font-weight:500}
+
+  .cta{background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--gem); padding:26px 30px; margin-top:10px}
+
+  footer{margin-top:88px; padding-top:20px; border-top:1px solid var(--seam);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em;
+    color:var(--muted); text-transform:uppercase; line-height:2}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="stamp"><span><b>WL2070</b></span><span>Master Concept</span><span>EN</span><span>2026–2027</span></div>
+  <h1>WealthLeap 2070<br>Annual Foresight Programme</h1>
+  <div class="subtitle">Six to twelve invitation-only residential summits — the distributed production of a map of global wealth transfer.</div>
+  <div class="masthead-rule"></div>
+</header>
+
+<div class="glance">
+  <div class="tag">At a Glance</div>
+  <dl>
+    <dt>What</dt><dd>An annual programme of 6–12 invitation-only residential foresight summits — the distributed production of a map of global wealth transfer across two generations of singularity-driven transformation.</dd>
+    <dt>When</dt><dd>October–November 2026 → October–November 2027; two "autumn waves" plus a mid-year "bridge"; base scenario — 10 iterations.</dd>
+    <dt>Where</dt><dd>Muscat (launch and finale) · Jaipur · Kyoto · Bangkok · Lisbon · Switzerland · Abu Dhabi · Buenos Aires · California.</dd>
+    <dt>Products</dt><dd>The foresight map · the Global Scarcity Index · the wealth-transition startup funnel · the expert dataset for an AI steward.</dd>
+    <dt>Format</dt><dd>70–150 guests · 5–6 nights · plenary + 3 breakouts + gala · full board.</dd>
+    <dt>Who we seek</dt><dd>The organising team and partners (§7, §9) · <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a></dd>
+  </dl>
+</div>
+
+<section id="s1">
+  <span class="layercode">§01 VISION</span>
+  <div class="sec-head"><span class="no">§ 01</span><h2>Vision — What We Are Building</h2></div>
+  <p><strong>WealthLeap 2070</strong> (<a href="https://wealthleap2070.io">wealthleap2070.io</a>) is a wealth-foresight platform for the age of AGI. The site today is a seed-stage teaser: three published studies set the frame — <a href="https://wealthleap2070.io/en/foresight.html">Wealth Foresight 2070</a> (the project's foundational map: the leap through the AGI portal, what ceases to be money yet endures as an object, and what survives two generations — with a mathematical model), <a href="https://wealthleap2070.io/en/golden_dollar.html">The Golden Dollar 2045</a> (a scenario of monetary transition), and <a href="https://wealthleap2070.io/en/arab_wealth.html">The Mindset of Affluent Arab Families</a> (capital-retention archetypes and a formal model of multi-generational decision-making). Languages: EN / RU / AR.</p>
+  <p>The next step is to turn that frame into a <strong>large-scale collective, iterative foresight exercise</strong>: an annual programme of <strong>6–12 invitation-only residential summits</strong>, running from October–November 2026 to October–November 2027, whose outcome is a <strong>map of the transfer of global wealth across two generations of singularity-driven transformation</strong>. Each city in the series contributes its regional layer; between sessions the result compounds and sharpens. This is not a conference series — it is the distributed production of a single intellectual product, built by the owners and stewards of capital themselves.</p>
+</section>
+
+<section id="s2">
+  <span class="layercode">§02 PRODUCTS</span>
+  <div class="sec-head"><span class="no">§ 02</span><h2>The Programme's Four Products</h2></div>
+  <div class="quartet">
+    <div class="q"><div class="no">01</div><h4>The iterative foresight map</h4><p>A map of global wealth transfer across two generations of singularity-driven transformation. Every session adds a regional layer: assets, jurisdictions, family architectures, points of rupture.</p></div>
+    <div class="q"><div class="no">02</div><h4>The Global Scarcity Index</h4><p>Built on the model in <a href="https://wealthleap2070.io/en/foresight.html">Wealth Foresight 2070</a>: what remains scarce and valuable on the far side of the AGI portal. Sessions provide expert regional calibration of the index.</p></div>
+    <div class="q"><div class="no">03</div><h4>The wealth-transition startup funnel</h4><p>Ideas born in the sessions pass through standard filters: session ideas → selection → incubation. The programme becomes a source of deal flow that clears conventional venture screens.</p></div>
+    <div class="q"><div class="no">04</div><h4>The expert dataset for an AI steward</h4><p>A structured corpus of judgements from principals, family offices and their advisers: the foundation of the memorandum for the primary core of an <strong>AI steward (ultimately, an AGI custodian) of family capital for the top 0.2% of households</strong> at the apex of the wealth pyramid, and for the service layer around them.</p></div>
+  </div>
+</section>
+
+<section id="s3">
+  <span class="layercode">§03 MECHANICS</span>
+  <div class="sec-head"><span class="no">§ 03</span><h2>Series Mechanics: Iterations, Not Events</h2></div>
+  <p><strong>Single-event invariant</strong> (identical across all cities): 70–150 guests · residential format, 5–6 nights (arrival Sunday → sessions Monday–Thursday → departure Friday/Saturday) · plenary theatre 120–150 · 3 parallel breakouts × 25–50 · gala dinner 100–120 · full board · airport transfers. Venue narrative anchors: "provenance", "futurism", "closed residence". The Muscat home base opens with a calibration event for a 50–70-guest delegation, scaling to 150.</p>
+  <h3 class="sub">Architecture of a single iteration <span class="note">(proposal)</span></h3>
+  <dl class="days">
+    <dt>Sun</dt><dd>Arrival and welcome reception; an evening "state of the map" briefing: what previous cities have accumulated.</dd>
+    <dt>Mon</dt><dd>Plenary day: the foresight frame, the regional context, and the setting of the iteration's brief.</dd>
+    <dt>Tue–Wed</dt><dd>Breakout cycles along three tracks mirroring the products: the map (regional layer) · the index (scarcity calibration) · startup ideas (generation and review); evenings follow the city's cultural protocol (the gala satellites from the §4 passports).</dd>
+    <dt>Thu</dt><dd>Synthesis plenary: consolidating the tracks into a delta; the closing gala.</dd>
+    <dt>Fri/Sat</dt><dd>Departures; a closing debrief and inter-session sprint tasks for the returning core.</dd>
+    <dt>Dataset</dt><dd>Collected across all formats: recording and labelling of judgements — with participants' consent, under the NDA confidentiality protocol.</dd>
+  </dl>
+  <p><strong>Rhythm (proposal for discussion):</strong> the programme runs as two dense "autumn waves" (Oct–Nov 2026 and Oct–Nov 2027, within the verified windows from the dossiers, at ~1–3-week intervals within each wave) and a mid-year "bridge" (Dec 2026 – Sep 2027, at ~6–8-week intervals). The base scenario totals <strong>10 iterations</strong>, within a 6–12 range depending on team and partner readiness.</p>
+  <p><strong>Inter-session work (proposal):</strong> after each iteration — a 2–3-week synthesis sprint (consolidating session material into a delta of the map and index); a closed delta release to the returning core of participants; movement of startup ideas through the funnel (screening → mentor review → incubation track); dataset curation (structuring, labelling, expert verification of judgements). Each new session opens with the "current state of the map" — guests work not from a blank sheet but from the accumulated result of previous cities.</p>
+</section>
+
+<section id="s4">
+  <span class="layercode">§04 ROUTE</span>
+  <div class="sec-head"><span class="no">§ 04</span><h2>Programme Geography: The Route</h2></div>
+  <p>Nine territorial dossiers have been prepared and verified (full register in §10). The calendar windows below come from the dossiers; the order and specific slots are a <strong>proposal for discussion</strong>. Wave-2027 windows repeat the 2026 pattern and require re-verification for 2027 ⚠; spring–summer "bridge" windows were not scouted in the dossiers — the relevant dossiers must be refreshed ⚠.</p>
+  <div class="table-scroll">
+  <table class="strata">
+    <thead><tr><th>#</th><th>City</th><th>Window (verified for 2026)</th><th>Role in the programme</th><th>Anchor venue (candidates)</th><th>Key lever</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td><b>Muscat</b> — launch</td><td>Oct 2026</td><td>Home-base start: 50–70-guest delegation, methodology calibration</td><td>St. Regis Al Mouj / Kempinski / Mandarin Oriental</td><td>Home turf: zero transaction costs; three Al Mouj neighbours competing</td></tr>
+      <tr><td>02</td><td><b>Jaipur</b></td><td>October only (25–31 Oct; Diwali 8 Nov + wedding season + Pushkar 17–24 Nov close out November)</td><td>The layer of Indian dynasties and NRI capital</td><td>Fairmont/Leela (Kukas), Taj pair Rambagh + Jai Mahal; gala — City Palace</td><td>Pre-wedding-season October; two-hotel packages within Taj / Accor</td></tr>
+      <tr><td>03</td><td><b>Kyoto</b></td><td>4–21 Oct and 25 Oct – 8 Nov (momiji peak ~15 Nov – 5 Dec closed)</td><td>The shinise layer: century-old family houses as the research subject itself</td><td>HOTEL THE MITSUI; Prince + ICC Kyoto pairing; gala — Nijo-jo Castle</td><td>Kyoto CVB subsidy up to ¥300,000; weak yen</td></tr>
+      <tr><td>04</td><td><b>Bangkok</b></td><td>9–24 Nov (Loy Krathong 25 Nov — a risk, or the closing ritual)</td><td>The Southeast Asia layer: Thai-Chinese dynasties, Singapore/Hong Kong family offices</td><td>Mandarin Oriental / Four Seasons Chao Phraya / Ritz-Carlton One Bangkok</td><td>TCEB subsidies (financial + airport fast-track)</td></tr>
+      <tr><td>05</td><td><b>Lisbon</b> — bridge ⚠</td><td>Verified: Oct + 16–27 Nov (Web Summit 9–12 Nov excluded); spring/summer window to be scouted</td><td>The Europe layer: wealth-migration hub, relocated capital</td><td>Penha Longa (Sintra) / Four Seasons Ritz / Corinthia; evening — MAAT</td><td>Shoulder season — buyer's market; Lisboa CB facilitation</td></tr>
+      <tr><td>06</td><td><b>Switzerland</b> (Zurich + Lucerne) — bridge ⚠</td><td>Verified: Oct–Nov = low season; alternative window to be scouted</td><td>The private-banking layer: the institutional core</td><td>Bürgenstock ("the whole programme in one fortress"); city — Dolder Grand / Baur au Lac + KKL</td><td>Off-season — a rare buyer's-market window on Swiss luxury</td></tr>
+      <tr><td>07</td><td><b>Abu Dhabi</b></td><td>6–29 Oct and 8–19 Nov (ADIPEC 2–5 Nov; F1 build-up from ~20 Nov)</td><td>The Gulf layer: Arab families, ADGM/family offices — echoing Study III (see §1)</td><td>Emirates Palace MO / St. Regis Saadiyat / Rosewood ADGM; evenings — Louvre AD, teamLab</td><td>Room block of 350–900 nights: free function space, ~1:25–40 comp rooms</td></tr>
+      <tr><td>08</td><td><b>Buenos Aires</b></td><td>18 Oct – 13 Nov (jacarandas; Polo Abierto from ~10 Nov — a magnet, not a risk)</td><td>The Latin America layer: agro-industrial dynasties of the Southern Cone</td><td>Palacio Duhau – Park Hyatt / Four Seasons + gala palaces (Paz, Sans Souci, Colón)</td><td>21% IVA = 0% on non-resident lodging; USD prepayment; best palace-per-dollar ratio</td></tr>
+      <tr><td>09</td><td><b>California</b> (Valley + Napa)</td><td>★ 1–20 Nov (post-harvest, pre-Thanksgiving); October = peak wildfire risk ⚠</td><td>The AGI-epicentre layer: tech principals, VCs and their LPs</td><td>Rosewood Sand Hill (buyout) / FS Calistoga / Meritage; evening — Computer History Museum</td><td>Dead midweek at wedding venues; buyout arithmetic; wildfire force majeure mandatory</td></tr>
+      <tr class="hl"><td>10</td><td><b>Muscat</b> — finale</td><td>8–15 Nov 2027 ⚠ (before National Day, 18 Nov)</td><td>Year's synthesis: presenting the map, index, funnel and AI-steward memorandum</td><td>St. Regis Al Mouj / Mandarin Oriental (full format up to 150)</td><td>Local repeat-client status</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Base route (proposal):</strong> wave 2026 — Muscat (Oct) → Jaipur (25–31 Oct) → Kyoto (1–7 Nov) → Bangkok (9–24 Nov, with the option of closing the wave with the Loy Krathong ritual); bridge 2027 — Lisbon and Switzerland (windows to be re-verified ⚠), with virtual synthesis iterations in between; wave 2027 — Abu Dhabi (Oct) → Buenos Aires (late Oct – early Nov) → California (early Nov) → Muscat finale (8–15 Nov 2027). The density of the waves (1–3-week intervals) requires a full-cycle production team — see §7.</p>
+
+  <h3 class="sub">City Passports</h3>
+  <p class="note">A concentrate of the nine dossiers — one passport per city; the operational depth (addresses, phone numbers, itineraries, scripts, RFPs) stays in the dossiers (§10). The connecting thread of the series' evening venues is an architectural rhyme: Jean Nouvel's KKL (Lucerne) → Louvre Abu Dhabi (Nouvel) → ICC Kyoto (the hall of the Kyoto Protocol) → MAAT (Lisbon) → Palacio Libertad / Ballena Azul (Buenos Aires) → teamLab Phenomena (Abu Dhabi) → the Computer History Museum (California): guests move along a single line of meaning from city to city.</p>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · MCT · 01/10</span><span>WL2070_Muscat_venue-scouting.md</span></div>
+    <h3>Muscat — home base: launch and finale</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The platform's home geography: zero transaction costs, cost-free hands-on oversight of preparations at any stage, local repeat-client status; the MCT hub (15 minutes to Al Mouj), DXB an hour's flight away.</dd>
+      <dt>Windows and calendar</dt><dd>October 2026 (launch, 50–70-guest delegation) and 8–15 November 2027 ⚠ (finale, full format up to 150); avoid National Day on 18 November; October preferred — ahead of the regional ADIPEC/F1 crush in the UAE.</dd>
+      <dt>Summit house</dt><dd><b>St. Regis Al Mouj</b> (10 function rooms, the largest seating 2,000, ~250 keys — covers both 50–70 and 150) / <b>Kempinski Muscat</b> (310 keys, 3,000+ m² of event space) / <b>Mandarin Oriental</b> (Shatti, ~25 minutes from MCT); Mysk Al Mouj — the price anchor and second line (organising HQ).</dd>
+      <dt>Evenings and gala</dt><dd>A waterside gala, a beach dinner with weather back-up; Al Bustan Palace ⚠ — historically the country's premier protocol address, but possibly closing for renovation: verify immediately.</dd>
+      <dt>Protocol</dt><dd>Friday jumu'ah ~12:00–13:30 kept free of sessions; halal by default, alcohol only in licensed venues; qahwa and dates at the reception; seniority-based seating; prayer rooms and qibla markings by the function spaces.</dd>
+      <dt>Levers</dt><dd>Three Al Mouj neighbours in competition — approach simultaneously and compare in writing; a dual quote "50–70 delegation vs 150 summit"; block → free function space + ~1:25–40 comp rooms; net + 5% VAT + fees separately.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · JAI · 02</span><span>WL2070_Jaipur_venue-scouting.md</span></div>
+    <h3>Jaipur — the Indian-dynasties and NRI-capital layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The only market in the world where the palaces of ruling dynasties operate as hotels for 150 guests; the historic homeland of the Marwari — the merchant-banking houses behind half of India's corporate capital: the audience literally returns to its ancestral house; JAI has direct Gulf flights, and Delhi is a 50-minute flight away.</dd>
+      <dt>Windows and calendar</dt><dd>Practically all of October (Sunday arrivals 4, 11 or 25 October; note the Dussehra processions on 20 October); November is fully closed: Diwali on 8 November (week of 2–11 excluded), wedding season from ~20 November, Pushkar 17–24 November, the post-Diwali air-quality slump.</dd>
+      <dt>Summit house</dt><dd>The full-cycle Kukas campuses <b>Fairmont Jaipur / The Leela Palace</b> — the primary scenario for 150; the Taj pair: <b>Rambagh Palace</b> (a 70–78-room block for principals) + <b>Jai Mahal Palace</b>; JW Marriott by the airport as the capacity reserve.</dd>
+      <dt>Evenings and gala</dt><dd><b>City Palace</b> — "dinner at the Maharaja's" in the courtyards of the royal family's working residence (house protocol; a welcome by a family member possible); <b>Alila Fort Bishangarh</b> — a two-night "fort finale" or a buyout for 70; <b>The Oberoi Rajvilas</b> — a buyout residence.</dd>
+      <dt>Protocol</dt><dd>Vegetarian and Jain menus are mandatory as core lines; dry days (2 October); hierarchy and seniority in seating; late evenings are the norm; a Hindi greeting is a valued gesture.</dd>
+      <dt>Levers</dt><dd>October ahead of the wedding peak; package negotiations with Taj (Rambagh + Jai Mahal) and Accor (Raffles + Fairmont); no cash subsidies (RTDC / ICPB provide facilitation and letters of support) — India's lever is the price level itself; net + 18% GST separately.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">Intimate palace inventories — capacity is question number one; ~30–33°C daytime heat — climate-controlled tenting in the budget.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · KYO · 03</span><span>WL2070_Kyoto_venue-scouting.md</span></div>
+    <h3>Kyoto — the shinise layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The world capital of shinise: Japan leads in companies older than 100 and 500 years, and a large share are Kyoto family houses — for a platform about century-long wealth trajectories this is not a backdrop but the research subject itself; KIX → Kyoto in 75–80 minutes on the Haruka express, Tokyo 2h10m by shinkansen; Kansai next-gen (Osaka 30 minutes away).</dd>
+      <dt>Windows and calendar</dt><dd>4–21 October and 25 October – 8 November (Sunday 1 November is the last sensible arrival date before the peak); momiji ~15 November – 5 December is "Kyoto's ADIPEC": group rates are non-negotiable; the Jidai Matsuri on 22 October partially closes the centre; check the ICC congress calendar with the CVB; the early-October typhoon tail — keep ±2 days of flexibility.</dd>
+      <dt>Summit house</dt><dd><b>HOTEL THE MITSUI</b> (~161 keys on land held by the Mitsui house since the 18th century, opposite Nijo-jo — the series' most precise narrative) / <b>Hotel Okura</b> (a 150-seat plenary, hospitality lineage since 1888; ⚠ parts of the product are dated) / <b>The Westin Miyako</b> (receiving the city's guests since 1890) / the <b>Prince Takaragaike</b> (~300 keys) + <b>ICC Kyoto</b> pairing — a "state-scale plenary day" where the Kyoto Protocol was signed / <b>ROKU KYOTO</b> — the "closed residence" of the Takagamine valley.</dd>
+      <dt>Evenings and gala</dt><dd><b>Nijo-jo</b> — a "reception at the shogun's" via the Kyoto CVB's official MICE Plan (check castle closure days); UNESCO temples with private illumination — catalogue via the bureau; principals' annexes — Aman Kyoto / Banyan Tree (a private Noh performance) / Park Hyatt; a ryokan evening (Hiiragiya / Tawaraya — 200-year institutions) — dinner "inside a shinise".</dd>
+      <dt>Protocol</dt><dd>Meishi exchanged with both hands (double-sided EN/JP cards are the admission ticket); absolute punctuality; banquets run earlier than in Europe; EN⇄JP simultaneous interpretation is mandatory (book interpreters early); shoe protocol at temple venues.</dd>
+      <dt>Levers</dt><dd>The weak yen — Kyoto luxury in USD undercuts its Swiss and Californian peers; the <b>Kyoto CVB subsidy up to ¥300,000 / up to 50% of costs</b> (second-half filing opens 1 September — file first); the Prince + ICC pairing is markedly cheaper than the luxury centre; comp rooms in Japan run ~1:40–50 — budget realistically; net + 10% consumption tax + the Kyoto accommodation tax (raised from 2026) separately.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">The only geography in the series with no off-season lever; in the second half of November nothing is negotiable; a Tokyo alternative (Okura Tokyo / Palace Hotel) if momiji blocks the dates.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · BKK · 04</span><span>WL2070_Bangkok_venue-scouting.md</span></div>
+    <h3>Bangkok — the Southeast Asia layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>"Provenance" from the riverside grand hotels with 150 years of history, "futurism" from Mahanakhon and One Bangkok; venue clusters even tighter than Abu Dhabi's — half the transfers happen on foot or by boat; Singapore and Hong Kong family offices are a 2–3-hour flight away.</dd>
+      <dt>Windows and calendar</dt><dd>~9–24 November (the start of the cool dry season); October is the wettest month of the year (fully indoor programme only); Loy Krathong on 25 November (celebrations 24–26) — either keep the dates clear or deliberately close the summit with the krathong-floating ritual; November–February is peak season: top venues book out 6–12 months ahead — take optional holds immediately.</dd>
+      <dt>Summit house</dt><dd><b>Mandarin Oriental</b> (the Royal Ballroom, river terrace, the Sala Rim Naam pavilion with its own boats) / <b>Four Seasons at Chao Phraya</b> / <b>The Ritz-Carlton One Bangkok</b> (an exclusive event floor, opening rates); Shangri-La as the inventory reserve for 150 × 6 nights; <b>Capella</b> — a full "closed residence" buyout for ~70 (scenario: plenary at FS, principals at Capella).</dd>
+      <dt>Evenings and gala</dt><dd>A Chao Phraya charter — the three-masted <b>Sirimahannop</b> or a private dinner cruise (the strongest Loy Krathong scenario); <b>The House on Sathorn</b> (an 1889 mansion, a former diplomatic residence) — a "provenance" gala satellite for 70–100; <b>The Standard Mahanakhon</b> — the "futurism" evening satellite.</dd>
+      <dt>Protocol</dt><dd>Halal certification for Malaysian and Indonesian guests; Chinese banquet expertise (round tables, seating protocol) for Thai-Chinese families; a subdued tone on 13 and 23 October; check alcohol-ban dates against the windows.</dd>
+      <dt>Levers</dt><dd><b>TCEB</b> — with Kyoto, the series' only "money on the table": financial support plus the MICE Premium Lane airport fast-track (apply 30+ days ahead; a TMVS-standard venue required); Bangkok is markedly cheaper than Abu Dhabi for comparable luxury; opening rates at new hotels; block → free function space.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">October downpours and flood-prone approaches — a rain plan for every outdoor element.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · LIS · 05</span><span>WL2070_Lisbon_venue-scouting.md</span></div>
+    <h3>Lisbon — the Europe layer (bridge ⚠)</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>A growing wealth-migration hub: family offices, relocated capital, crypto fortunes; the more affordable of the two European luxury markets; three clusters — centre/Liberdade, Belém/Tagus, the Sintra–Cascais coast.</dd>
+      <dt>Windows and calendar</dt><dd>Verified for 2026: practically all of October + ~16–27 November; Web Summit 9–12 November — the week of ~6–14 November is excluded; October runs 19–24°C — terraces genuinely work, November is noticeably wetter — an indoor plan B for every outdoor element; the spring/summer "bridge" window to be scouted separately ⚠.</dd>
+      <dt>Summit house</dt><dd><b>Penha Longa Resort</b> (Sintra — the resort scenario) / <b>Four Seasons Ritz</b> / <b>Corinthia</b>; reserves — InterContinental / Sheraton Lisboa; <b>Pestana Palace</b> as the "provenance" palace.</dd>
+      <dt>Evenings and gala</dt><dd><b>MAAT</b> on the river — "futurism" (closed on Tuesdays); the <b>National Coach Museum</b> (Museu Nacional dos Coches) — a "provenance" gala satellite among royal carriages (closed on Mondays).</dd>
+      <dt>Protocol</dt><dd>European norms of discretion; for Gulf and Asian guests, build in halal options and the dietary matrix in advance.</dd>
+      <dt>Levers</dt><dd>The shoulder season outside Web Summit is a buyer's market (rates well below summer); the <b>Lisboa Convention Bureau</b> (Turismo de Lisboa) — free venue sourcing, site inspections, negotiation support (no cash subsidies); the Sintra/Cascais coast is especially negotiable off-season; net + IVA + city tax separately.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">November rains; the bridge window is unverified — refresh the dossier before contracting.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · CH · 06</span><span>WL2070_Switzerland_venue-scouting.md</span></div>
+    <h3>Switzerland (Zurich + Lucerne) — the private-banking layer (bridge ⚠)</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>Zurich is the world capital of private banking: the audience lives and works on Paradeplatz; Lucerne is 45–60 minutes by train — both points covered in one trip; Belle Époque "provenance": Baur au Lac in one family since 1844, the Grand Hotel National — the school of Ritz and Escoffier; "futurism" — Jean Nouvel's KKL on the water.</dd>
+      <dt>Windows and calendar</dt><dd>October–November is the low season for the cities and lakes: a rare buyer's-market window on Swiss luxury; 1 November is a holiday in Catholic cantons (Lucerne); no ADIPEC-scale citywide congresses in the window; the alternative "bridge" window to be scouted ⚠.</dd>
+      <dt>Summit house</dt><dd><b>Bürgenstock Resort</b> — "the whole summit in one fortress": the country's largest integrated resort above the lake, host to the Bilderberg Group and the 2024 Peace Summit — protocol proven at the highest state level; the city scenario — <b>The Dolder Grand / Baur au Lac / Mandarin Oriental Savoy</b> (Paradeplatz) + <b>KKL</b> as the plenary-and-gala satellite; in Lucerne — <b>Grand Hotel National / Mandarin Oriental Palace</b>; <b>Park Hotel Vitznau</b> — a wine evening / principals' annexe.</dd>
+      <dt>Evenings and gala</dt><dd>KKL on the water; the Vitznau wine cellar; Bürgenstock above the Nebelmeer — "a summit above the sea of fog" as a series image.</dd>
+      <dt>Protocol</dt><dd>Discretion is the Swiss norm; NDA; a "no-view" city programme for foggy days.</dd>
+      <dt>Levers</dt><dd>Off-season rates plus date flexibility; Bürgenstock's "all in one" often beats the "city hotel + external venues" combination on total budget — request both configurations; Switzerland CIB + the Lucerne Convention Bureau — facilitation (no subsidies); block → ~1:25–40 comp rooms; net + VAT + kurtaxe separately. Transport: taxis are a trap — trains, trams and lake boats are the norm, bankers included.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">The series' most expensive market in absolute terms; the Nebelmeer in November; the bridge window is unverified.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · AUH · 07</span><span>WL2070_Abu-Dhabi_venue-scouting.md</span></div>
+    <h3>Abu Dhabi — the Gulf layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The heart of ADGM: the audience's family offices and private banks sit in the neighbouring Al Maryah towers; a direct rhyme with the platform's third study (Arab families); three clusters — Al Maryah + Corniche, Saadiyat, Yas + Grand Canal.</dd>
+      <dt>Windows and calendar</dt><dd>~6–29 October and ~8–19 November; ADIPEC 2–5 November (~240k delegates; the week of ~1–7 November excluded); the F1 Grand Prix runs 3–6 December — build-up covers Yas from ~20 November: for Yas venues, strictly before mid-November; Abu Dhabi Art (mid-to-late November; confirm dates).</dd>
+      <dt>Summit house</dt><dd>All-under-one-roof campus hotels: <b>Emirates Palace Mandarin Oriental</b> / <b>St. Regis Saadiyat</b> (⚠ works may have begun in summer 2026 — status is question number one) / <b>Rosewood ADGM</b> and <b>Four Seasons Al Maryah</b> (~150–200 keys: comfortable at 70–100; at 150 in peak season the room block may simply not come together — ask first); <b>Conrad Etihad Towers</b> (Observation Deck at 300 — a 74th-floor cocktail).</dd>
+      <dt>Evenings and gala</dt><dd><b>Louvre Abu Dhabi</b> — a private evening gallery tour and dinner; <b>teamLab Phenomena</b> (high heels prohibited — warn guests); <b>Qasr Al Watan</b> — maximum state gravitas via DCT Abu Dhabi, long approval cycles; ADNEC Capital Suite if the format grows beyond 150.</dd>
+      <dt>Protocol</dt><dd>Halal by default plus a fully alcohol-free parallel package; prayer rooms by the function spaces; seniority-based seating; VIP approaches and motorcades.</dd>
+      <dt>Levers</dt><dd>A room block of 350–900 nights → free or discounted function space, ~1:25–40 comp rooms; cluster logistics (a ~$70–95 three-day scouting taxi budget); net + municipal/tourism fees separately.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">Nurai Island is closed for renovation (Aldar) — check status for autumn; the St. Regis Saadiyat renovation.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · BUE · 08</span><span>WL2070_Buenos-Aires_venue-scouting.md</span></div>
+    <h3>Buenos Aires — the Latin America layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The country's only long-haul hub (EZE) plus the "golden kilometre" of Recoleta palaces; the Southern Cone audience lives here; spring and the jacarandas — the summit's photographic capital; the series' best palace-per-dollar ratio.</dd>
+      <dt>Windows and calendar</dt><dd>★ 18 October – 13 November (Sunday arrivals 18/25 October, 1/8 November); the 10–12 October long weekend empties the hotels (a lever) but local advisers are away; 20 November is a movable holiday; the Polo Abierto from ~10 November is a magnet, not a risk: an evening in the boxes or a private polo clinic is the number-one currency of trust with the Latin American audience.</dd>
+      <dt>Summit house</dt><dd><b>Palacio Duhau – Park Hyatt</b> (the 1934 palace plus tower, a cascading garden terrace) / <b>Four Seasons</b> (with the 1916 La Mansión) / <b>Alvear Palace</b> (1932, the Sutton Dabbah group); the Sheraton + Park Tower pairing for the convention scenario (⚠ an ageing product — inspect the worst floor).</dd>
+      <dt>Evenings and gala</dt><dd>Satellite palaces are often cheaper than a hotel ballroom and stronger in effect: <b>Palacio Paz</b> (Círculo Militar) / <b>Palacio Sans Souci</b> / <b>Palacio San Miguel</b> / <b>Teatro Colón</b>; cultural evenings — <b>Palacio Libertad</b> (Latin America's largest cultural centre inside the 1928 Central Post Office, the Ballena Azul hall) and the <b>Faena Art Center</b>; an estancia day (<b>La Bamba de Areco</b>) — asado, a polo clinic, gaucho protocol.</dd>
+      <dt>Protocol</dt><dd>Relationships before deals; a late rhythm — gala from 9 pm, kitchens until midnight; EN/ES — a Spanish greeting registers; security and a low profile: entrances for personal security details, no public guest lists.</dd>
+      <dt>Levers</dt><dd>21% IVA = 0% on non-resident lodging paid from abroad (class "T" invoicing) ≈ an automatic ~17% off the gross room bill; USD prepayment in an inflationary environment is worth a real 5–10%; the Sutton Dabbah package (Alvear + Icon + Llao Llao); INPROTUR / Visit Buenos Aires — letters and fam trips; contracts and deposits in USD only.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">Inflation and periodic paros (strikes, including aviation) — buffers and insurance; the sudestada — 1–2 storm days, keep a "no-terrace programme"; state venues (Palacio Libertad, Colón) move slowly — approach them first. Llao Llao (Bariloche) is the "closed mountain residence" alternative, at the cost of +2 hours' flying for every guest.</dd>
+    </dl></div>
+  </div>
+
+  <div class="slab">
+    <div class="birka"><span class="id">WL2070 · CA · 09</span><span>WL2070_California_venue-scouting.md</span></div>
+    <h3>California (Valley + Napa) — the AGI-epicentre layer</h3>
+    <div class="body"><dl>
+      <dt>Why this city</dt><dd>The series' audience on home ground: tech principals, VC partners and their LPs, Valley family offices; the dramaturgy of "Valley (content) → Napa (residence)"; "futurism" — a gala at the Computer History Museum alongside the Cray-1 and Babbage's engine.</dd>
+      <dt>Windows and calendar</dt><dd>★ 1–20 November (Sunday arrivals 1/8/15; post-harvest; finish no later than Friday the 20th — Thanksgiving week 23–27 November is dead); the fallback 4–23 October window ⚠ carries harvest rates and peak fire risk; Fleet Week (the first decade of October) barely touches the Valley/Napa; Dreamforce falls in September — already behind these dates.</dd>
+      <dt>Summit house</dt><dd><b>Rosewood Sand Hill</b> (121 keys — buyout) / <b>Four Seasons Calistoga</b> (85) / <b>Alila Napa Valley</b> (68 — "a full-house buyout that lands at exactly 70") / <b>The Meritage</b> (conference scale); <b>Cavallo Point</b> (a 1901 officers' fort at the Golden Gate) — the "provenance" gateway scenario; Meadowood ⚠ — a ~36-key boutique since the 2020 Glass Fire: a principals' enclave, not a summit house.</dd>
+      <dt>Evenings and gala</dt><dd>The <b>Computer History Museum</b>; <b>Filoli</b> (a 1917 estate) — the "provenance" gala; <b>CIA at Copia</b> — Napa's gastronomic satellite.</dd>
+      <dt>Protocol</dt><dd>First-name basis and no ties — behind hard gatekeeping via assistants; NDAs as a native language; a dietary matrix (vegan/GF etc.) and wellness layers are mandatory; the cult of the hard stop.</dd>
+      <dt>Levers</dt><dd>The dead midweek at wedding venues (the Sunday–Thursday pattern); buyout arithmetic — taking the whole house is often better value than a block plus venue hire (both configurations in the RFP); per-person full board instead of F&amp;B minimums shifts volume risk to the venue; Visit Napa Valley / SF Travel — RFP distribution and facilitation (no subsidies); the chains' global sales desks; net + ~12–15% occupancy tax + CA sales tax separately.</dd>
+      <dt class="warn-t">⚠</dt><dd class="warn">Wildfire/smoke/PSPS force majeure and cancellation insurance are mandatory; generators and air filtration on the checklist; public transport does not cover the valley — car hire is required; B1/B2 visas are the critical path of wave 2027 — start immediately (ESTA for VWP countries).</dd>
+    </dl></div>
+  </div>
+</section>
+
+<section id="s5">
+  <span class="layercode">§05 AUDIENCE</span>
+  <div class="sec-head"><span class="no">§ 05</span><h2>Audience and Community</h2></div>
+  <p><strong>A single profile across all cities:</strong> principals and owners of family capital, family-office CIOs, private bankers, structuring lawyers, foresight analysts. Cultural calibration by region (from the dossiers):</p>
+  <dl class="spec">
+    <dt>The Gulf · Muscat, Abu Dhabi</dt><dd>Emphasis on affluent Arab families (the frame of <a href="https://wealthleap2070.io/en/arab_wealth.html">The Mindset of Affluent Arab Families</a>); halal by default, Friday jumu'ah respected in the schedule, prayer rooms, the coffee ceremony, seniority-based seating.</dd>
+    <dt>India · Jaipur</dt><dd>Industrial dynasties and Marwari houses, Mumbai/Delhi family offices, GIFT City structures, NRI principals; vegetarian and Jain menus are mandatory; hierarchy in seating; the city is the historic homeland of the Marwari — the audience literally returns to its ancestral house.</dd>
+    <dt>Japan · Kyoto</dt><dd>Principals and heirs of shinise houses, Singapore/Hong Kong family offices with Japanese mandates, Kansai next-gen; meishi exchanged with both hands, double-sided EN/JP cards, absolute punctuality, EN⇄JP simultaneous interpretation.</dd>
+    <dt>Southeast Asia · Bangkok</dt><dd>Thai-Chinese business dynasties, Singapore and Hong Kong family offices, families from Indonesia/Malaysia/Vietnam; halal certification for part of the guest list, expertise in Chinese banquet protocol.</dd>
+    <dt>Europe · Lisbon, Switzerland</dt><dd>European and international principals; Lisbon as a growing hub of wealth migration and crypto fortunes; Zurich as the capital of private banking, where discretion is the norm.</dd>
+    <dt>Latin America · Buenos Aires</dt><dd>Agro- and industrial dynasties, multi-generational families, banking desks in Miami/Zurich/Geneva; relationships before deals, a late rhythm (gala from 9 pm), asado and polo as protocol, security and a low profile.</dd>
+    <dt>US · California</dt><dd>Tech founders, VC partners and LPs, Valley family offices; first-name basis and no ties, but hard gatekeeping via assistants; NDAs as a native language; dietary matrix and wellness layers; the cult of the hard stop.</dd>
+  </dl>
+  <p><strong>Working languages along the route:</strong> EN everywhere; +AR (Muscat, Abu Dhabi), +EN⇄JP simultaneous interpretation (Kyoto), +ES (Buenos Aires), TH locally (Bangkok) and a Hindi greeting as a gesture (Jaipur); platform materials in EN/RU/AR.</p>
+  <p><strong>Community model (proposal):</strong> a <strong>returning core</strong> of 20–40 participants who attend multiple iterations and carry the map's continuity, plus <strong>regional rings</strong> of 50–110 guests in each city. The core receives closed product deltas between sessions; the rings get access to their regional layer and an invitation into the startup funnel.</p>
+</section>
+
+<section id="s6">
+  <span class="layercode">§06 ECONOMICS</span>
+  <div class="sec-head"><span class="no">§ 06</span><h2>Economics and Levers</h2></div>
+  <p class="note">A summary of the budget levers from the dossiers (all figures indicative, "not an offer"; final numbers come only from RFPs):</p>
+  <dl class="spec">
+    <dt>The room block as the universal lever</dt><dd>350–900 room-nights per event; at that volume function space is typically free or heavily discounted, and complimentary rooms are market standard at ~1:25–40 (more modest in Japan, ~1:40–50).</dd>
+    <dt>Off-season timing</dt><dd>Switzerland (Oct–Nov is low season), Lisbon (shoulder season outside Web Summit), California (post-harvest November plus the dead midweek at wedding venues), Jaipur (October before the wedding peak). The exception is Kyoto: autumn is peak — offset by the weak yen and the CVB subsidy.</dd>
+    <dt>Actual money on the table</dt><dd><strong>TCEB</strong> (Thailand — financial support plus airport fast-track; apply 30+ days ahead) and the <strong>Kyoto CVB</strong> (up to ¥300,000, up to 50% of eligible costs; second-half filing opens 1 September — file first). Other bureaus (Lisboa CB, Switzerland CIB, Visit Napa Valley / SF Travel, INPROTUR / Visit Buenos Aires, RTDC/ICPB) provide facilitation without subsidies.</dd>
+    <dt>Tax mechanics</dt><dd>Argentina — 21% IVA becomes 0% on non-resident lodging paid from abroad (class "T" invoicing); everywhere — net rates with taxes shown separately (VAT / 18% GST in India / consumption + accommodation tax in Kyoto / ~12–15% occupancy tax in California / 5% VAT in Oman).</dd>
+    <dt>Structural plays</dt><dd>Full buyouts (Capella Bangkok, Oberoi Rajvilas, Alila Fort Bishangarh, Rosewood Sand Hill, FS Calistoga) are often better value than a block plus venue hire; package negotiations within groups (Taj: Rambagh + Jai Mahal; Accor: Raffles + Fairmont; Sutton Dabbah: Alvear + Icon + Llao Llao); USD prepayment in Argentina is worth a real 5–10% discount; opening rates at new hotels (Ritz-Carlton One Bangkok).</dd>
+    <dt>The series effect (proposal)</dt><dd>A 10-iteration programme means 3,500–9,000 hotel nights a year; serial-client status and the global-sales channels of the chains (Marriott, Accor, Hyatt, Four Seasons, MO) unlock a negotiating tier unavailable to a one-off event.</dd>
+  </dl>
+  <h3 class="sub">City budget profiles <span class="note">(indicative, from the dossiers)</span></h3>
+  <div class="table-scroll">
+  <table class="strata">
+    <thead><tr><th>City</th><th>Currency · taxes (always itemised)</th><th>"Money on the table"</th><th>Signature structural play</th><th>Price character</th></tr></thead>
+    <tbody>
+      <tr><td>Muscat</td><td>OMR/USD · 5% VAT + fees</td><td>— (home base)</td><td>Three Al Mouj neighbours in competition; dual 50–70/150 quote</td><td>Home turf: zero transaction costs</td></tr>
+      <tr><td>Jaipur</td><td>INR/USD · 18% GST</td><td>RTDC / ICPB — facilitation</td><td>Taj and Accor packages; Rajvilas/Alila buyouts</td><td>India's price level is the lever itself</td></tr>
+      <tr><td>Kyoto</td><td>JPY · 10% consumption + accommodation tax</td><td>Kyoto CVB up to ¥300k / 50%</td><td>Prince+ICC instead of the luxury centre; a pre-momiji block</td><td>Peak season, offset by the weak yen</td></tr>
+      <tr><td>Bangkok</td><td>THB/USD · taxes itemised</td><td>TCEB: funds + fast-track</td><td>Opening rates (RC One Bangkok); the Capella buyout</td><td>Markedly cheaper than Abu Dhabi</td></tr>
+      <tr><td>Lisbon</td><td>EUR · IVA + city tax</td><td>Lisboa CB — facilitation</td><td>Shoulder season; Sintra/Cascais negotiability</td><td>The more affordable European market</td></tr>
+      <tr><td>Switzerland</td><td>CHF · VAT + kurtaxe</td><td>CIB / Lucerne CB — facilitation</td><td>Bürgenstock "all-in-one" vs city + KKL</td><td>The most expensive market; off-season is the discount</td></tr>
+      <tr><td>Abu Dhabi</td><td>AED/USD · fees itemised</td><td>—</td><td>Room block 350–900: free function space</td><td>Gulf luxury premium</td></tr>
+      <tr><td>Buenos Aires</td><td>USD contracts · 21% IVA (0% for non-residents)</td><td>INPROTUR / Visit BA</td><td>Class "T" invoicing; 5–10% USD prepay; the Sutton Dabbah package</td><td>The series' best-value luxury market</td></tr>
+      <tr><td>California</td><td>USD · ~12–15% occupancy + sales tax</td><td>Visit Napa / SF Travel</td><td>Buyout arithmetic; the dead midweek</td><td>Expensive in absolute terms; November = the buyer's window</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Funding model (framework only, a proposal for discussion — no invented figures):</strong> participant fees (tiered: returning core vs regional rings); partnerships with regional institutions (private banks, family-office associations, law and consulting houses); sponsorship of individual modules (galas, cultural evenings, publications); over time — product revenue (subscriptions to the map and index, participation in the startup funnel, dataset access). Proportions are the subject of the next-stage financial model.</p>
+</section>
+
+<section id="s7">
+  <span class="layercode">§07 ORG MODEL</span>
+  <div class="sec-head"><span class="no">§ 07</span><h2>Organisational Model</h2></div>
+  <p><strong>What is needed from the team and partners (proposal):</strong></p>
+  <dl class="spec">
+    <dt>Programme director</dt><dd>Owner of the frame and the calendar; the interface with principals.</dd>
+    <dt>Research core · 2–3 people</dt><dd>Foresight methodology, synthesis sprints, the map and the index, dataset curation; anchored to the model in <a href="https://wealthleap2070.io/en/foresight.html">Wealth Foresight 2070</a>.</dd>
+    <dt>Production · MICE lead + producer per wave</dt><dd>RFP cycles, venue contracts, residential-format logistics; the waves require two productions running in parallel.</dd>
+    <dt>Community and invitations</dt><dd>The returning core, the regional rings, work with gatekeepers (principals' assistants, family offices).</dd>
+    <dt>Partnerships and funding</dt><dd>Banks, associations, sponsors, grants/subsidies (TCEB, Kyoto CVB).</dd>
+    <dt>Startup funnel</dt><dd>Screening, a mentor network, an incubation track (an external incubator partner is an option).</dd>
+    <dt>Communications</dt><dd>Closed deltas for the core, the public layer at <a href="https://wealthleap2070.io">wealthleap2070.io</a>, in EN/RU/AR.</dd>
+  </dl>
+  <p><strong>The single-city production line (the dossier standard):</strong> 3 inspection days × ~4 venues a day by cluster → same-evening follow-ups + RFPs → target: 4–6 proposals and 2 optional holds → budget comparison (both configurations for buyout candidates) → contracting with the region's force-majeure and tax clauses. First-contact scripts, ten on-site questions, inspection checklists and EN RFP templates are ready in every dossier.</p>
+  <p><strong>Launch phases (proposal):</strong> Phase 0 (now – Sep 2026) — team, funding, wave-2026 contracts; Phase 1 (Oct–Nov 2026) — wave 2026: four iterations and the first map delta; Phase 2 (Dec 2026 – Sep 2027) — the bridge: two iterations plus incubation plus re-scouting of updated windows; Phase 3 (Oct–Nov 2027) — wave 2027: four iterations, the final synthesis, presentation of the four products.</p>
+  <p><strong>The next 90 days (proposal):</strong> (1) lock in the team at least for wave 2026; (2) issue RFPs and secure optional holds for the wave-2026 cities — Muscat, Jaipur, Kyoto, Bangkok (the October windows are the first to go; the Kyoto CVB subsidy window for the second half of the year opens on 1 September 2026 — prepare the package now and file first); (3) file the TCEB application 30+ days before the Bangkok dates; (4) start guest visa tracks — the US (B1/B2 interview queues are the critical path of wave 2027; start now) and India (e-visa); (5) form the returning core: the first 20–40 invitations; (6) build the financial model and the partner pack on the basis of this concept.</p>
+</section>
+
+<section id="s8">
+  <span class="layercode">§08 RISKS</span>
+  <div class="sec-head"><span class="no">§ 08</span><h2>Risks ⚠ (Plainly Stated)</h2></div>
+  <dl class="spec">
+    <dt>Hard calendar blockers · 2026 dates; re-verify for 2027 ⚠</dt><dd>ADIPEC in Abu Dhabi 2–5 Nov (~240k delegates; the city sells out) and F1 build-up on Yas from ~20 Nov; Web Summit in Lisbon 9–12 Nov (week of ~6–14 Nov excluded); Diwali 8 Nov + wedding season from ~20 Nov + Pushkar 17–24 Nov — November in Jaipur is fully closed; Kyoto's momiji peak ~15 Nov – 5 Dec — group rates are non-negotiable; Loy Krathong in Bangkok 25 Nov — a risk or a deliberate closing ritual; Oman's National Day 18 Nov; the US Thanksgiving week 23–27 Nov is dead.</dd>
+    <dt>Natural</dt><dd>California's wildfire and smoke season (peaking Sep–Oct; wildfire/smoke/PSPS force-majeure clauses and cancellation insurance are mandatory); Bangkok's October downpours; Lisbon's November rains; Switzerland's Nebelmeer fogs; Japan's early-October typhoon tail; the sudestada in Buenos Aires; ~30–33°C daytime heat in Jaipur.</dd>
+    <dt>Visas</dt><dd>The US — B1/B2 interview queues for several passports run to months: the critical path of the entire 2027 wave, start immediately; India — the e-visa covers most markets, but timelines for certain CIS/Gulf passports need checking; Schengen for Gulf/Asian guests — build in lead time.</dd>
+    <dt>Renovations and venue statuses · verify against dates</dt><dd>St. Regis Saadiyat (works may have begun in summer 2026), Anantara Siam Bangkok, Meadowood Napa (operating as a ~36-key boutique since the Glass Fire of 2020), Sheraton Buenos Aires (an ageing product), Al Bustan Palace Muscat (possible closure for renovation — verify immediately), Nurai Island (closed for renovation), the Plaza Hotel BA (closed since 2017).</dd>
+    <dt>Macro and operational</dt><dd>Argentina — an inflationary environment and periodic paros (strikes): USD-only contracts, logistics buffers, insurance; Kyoto — the only geography in the series with no off-season lever; state-run venues (Palacio Libertad, Teatro Colón, Nijo-jo, City Palace, Qasr Al Watan) carry long approval cycles — open these tracks first.</dd>
+    <dt>Programme-level · new, proposed for consideration</dt><dd>Wave density (1–3-week intervals) requires two parallel production tracks — if the team falls short, shorten the wave rather than cut quality; the bridge windows and all 2027 windows are unverified — refresh the dossiers before contracting ⚠; retaining the returning core across 10 iterations is dedicated community work, not a by-product.</dd>
+  </dl>
+</section>
+
+<section id="s9">
+  <span class="layercode">§09 CALL TO ACTION</span>
+  <div class="sec-head"><span class="no">§ 09</span><h2>Call to Action</h2></div>
+  <div class="cta">
+    <p>We are looking for the <strong>organising team and partners</strong> for the annual programme: producers of UHNW-grade residential formats, research partners in foresight methodology, institutional partners across the nine regions of the route, module sponsors, and early members of the returning core.</p>
+    <p>This document conveys the concept and the scale; the full operational depth for every city — venue shortlists with contacts, 3-day inspection itineraries, scripts, RFP templates, checklists, budget levers — is already prepared in the nine territorial dossiers (§10) and is available to partners on request.</p>
+    <p style="margin-bottom:0"><strong>Get in touch:</strong> <a href="mailto:contact@wealthleap2070.io">contact@wealthleap2070.io</a> · <strong>Platform and research:</strong> <a href="https://wealthleap2070.io">wealthleap2070.io</a> — <a href="https://wealthleap2070.io/en/foresight.html">Wealth Foresight 2070</a> · <a href="https://wealthleap2070.io/en/golden_dollar.html">The Golden Dollar 2045</a> · <a href="https://wealthleap2070.io/en/arab_wealth.html">The Mindset of Affluent Arab Families</a></p>
+  </div>
+</section>
+
+<section id="s10">
+  <span class="layercode">§10 REGISTER</span>
+  <div class="sec-head"><span class="no">§ 10</span><h2>Register of Territorial Dossiers</h2></div>
+  <p class="note">Every dossier follows a single standard: a venue shortlist with place data and phone numbers, calendar risks and windows, a 3-day inspection itinerary (~4 venues a day), reserves, a transport budget, a first-contact script (EN), ten on-site questions, an RFP template (EN), an inspection checklist, budget levers and next steps.</p>
+  <div class="register">
+<b>01</b> WL2070_Muscat_venue-scouting.md — home base; 4 venues in a single loop; windows: October and 8–15 Nov.<br>
+<b>02</b> WL2070_Abu-Dhabi_venue-scouting.md — 12 venues in 3 clusters; windows 6–29 Oct, 8–19 Nov.<br>
+<b>03</b> WL2070_Jaipur_venue-scouting.md — 9 venues + City Palace; window — October only.<br>
+<b>04</b> WL2070_Kyoto_venue-scouting.md — 10 venues + Nijo-jo; windows 4–21 Oct, 25 Oct – 8 Nov.<br>
+<b>05</b> WL2070_Bangkok_venue-scouting.md — 12 venues + 1; window 9–24 Nov.<br>
+<b>06</b> WL2070_Lisbon_venue-scouting.md — 11 venues + 1; windows: October + 16–27 Nov.<br>
+<b>07</b> WL2070_Switzerland_venue-scouting.md — Zurich + Lucerne + Bürgenstock, 10 venues; Oct–Nov is low season.<br>
+<b>08</b> WL2070_Buenos-Aires_venue-scouting.md — 12 venues + palace satellites; windows 18 Oct – 13 Nov.<br>
+<b>09</b> WL2070_California_venue-scouting.md — 12 venues + 2 satellites; window ★ 1–20 Nov.
+  </div>
+</section>
+
+<footer>
+  WL2070 · Master Concept · EN · contact@wealthleap2070.io<br>
+  This material is of a research nature — not investment, legal, or tax advice, and not an offer.
+</footer>
+
+</body>
+</html>
